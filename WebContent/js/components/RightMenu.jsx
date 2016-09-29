@@ -121,20 +121,7 @@ this.props.createLink($("#source").val(),$("#destination").val());
       return connectDropTarget(
 
         <div className={(this.props.className || '') } >
-<div className="col-xs-12">
-	<div className="form-group col-xs-3">
-   	 <label for="source">Source :</label>
-    	<input type="soruce" className="form-control" id="source"></input>
-  	</div>
-  	<div className="form-group  col-xs-3">
-    		<label for="destination">Destination:</label>
-    		<input type="destination" className="form-control" id="destination"></input>
- 		 </div>
-  <div className="col-xs-3">
- 		 <button type="submit" className="btn btn-default  " onClick={this.createLink}>Submit</button>
-</div>
-</div>
- <div className="layout-flex col-xs-12" id="layout">
+ <div className="layout-flex " id="layout">
          
         </div>  
         </div>

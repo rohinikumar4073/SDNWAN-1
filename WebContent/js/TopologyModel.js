@@ -1,4 +1,4 @@
-define(['bootstrap'], function() {
+define(['linkMode','bootstrap'], function(linkMode) {
 nx.define('com.cisco.TopologyModel', nx.data.ObservableObject, {
     properties: {
         nodeId: 1,
@@ -35,7 +35,7 @@ nx.define('com.cisco.TopologyModel', nx.data.ObservableObject, {
             this.linkId(++id);
         },
         setLinkMod:function(){
-            this.setLinkMode();
+            linkMode.setFlag(true);
         }
     }
 });
