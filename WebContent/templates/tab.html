@@ -1,0 +1,640 @@
+<div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Configure Forwarding Box</h4>
+      </div>
+      <div class="modal-body">
+     
+     
+<div class="rowAll">
+  <div class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="tabs-left">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#a" data-toggle="tab">Configuration</a></li>
+          <li><a href="#b" data-toggle="tab">Bridge</a></li>
+          <li><a href="#port" data-toggle="tab">Port</span></a></li>
+          <li><a href="#c" data-toggle="tab">Controller</span></a></li>
+          <li><a href="#e" data-toggle="tab">LDAP</a></li>
+          <li><a href="#f" data-toggle="tab">ARP</a></li>
+          <li><a href="#g" data-toggle="tab">TCAM</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="a">
+            <div class="row">
+              <div >
+                <h2>FB Configuration</h2>
+                <form>
+                  <div class="form-group col-md-4">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="datapath_type">Datapath Type:</label>
+                    <input type="text" class="form-control" id="datapath_type">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="datapath_id">Datapath ID:</label>
+                    <input type="text" class="form-control" id="datapath_id">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="protocols">Protocols:</label>
+                    <input type="text" class="form-control" id="protocols">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="fb_ip">FB IP:</label>
+                    <input type="text" class="form-control" id="fb_ip">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="b">
+            <div class="row">
+              <div >
+                <h2>FB Configuration Controller</h2>
+                <form>
+                  <div class="form-group col-md-4">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" id="name">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="controller_ip">Controller IP:</label>
+                    <input type="text" class="form-control" id="controller_ip">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="of_port">OF Port:</label>
+                    <input type="text" class="form-control" id="of_port">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="protocols">Protocols:</label>
+                    <input type="text" class="form-control" id="protocols">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="fb_ip">FB IP:</label>
+                    <input type="text" class="form-control" id="fb_ip">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="c">
+            <div class="row">
+              <div >
+
+
+                <h2>FB Configuration LLDP</h2>
+
+
+                <form>
+                  <div class="form-group col-md-4">
+                    <label for="lldp_msg_tx_hold">LLDP Message Hold:</label>
+                    <input type="text" class="form-control" id="lldp_msg_tx_hold">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="lldp_msg_tx_interval">LLDP Message TX Inveval:</label>
+                    <input type="text" class="form-control" id="lldp_msg_tx_interval">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="lldp_reinit_delay">LLDP Reinit Delay:</label>
+                    <input type="text" class="form-control" id="lldp_reinit_delay">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="lldp_tx_delay">LLDP TX Delay:</label>
+                    <input type="text" class="form-control" id="lldp_tx_delay">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="global_lldp_enable">Global LLDP Enable:</label>
+                    <input type="text" class="form-control" id="global_lldp_enable">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="fb_br">FB BR:</label>
+                    <input type="text" class="form-control" id="fb_br">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="fb_ip">FB IP:</label>
+                    <input type="text" class="form-control" id="fb_ip">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="port">
+            <div class="row">
+              <div >
+                <h2>Add Port</h2>
+                <form>
+                  <div class="form-group col-md-4">
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control" data-id="name">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="vlan_mode">VLAN Mode:</label>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="vlan_mode">Trunk</label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="vlan_mode">Access</label>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="fb_ip">FB IP:</label>
+                    <input type="text" class="form-control" data-id="fb_ip">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="trunks">Trunks:</label>
+                    <input type="text" class="form-control" data-id="trunks">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="type">Type:</label>
+                    <input type="text" class="form-control" data-id="type">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="speed">Speed:</label>
+                    <input type="text" class="form-control" data-id="speed">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label for="is_dac">DAC:</label>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="is_dac">True</label>
+                    </div>
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="is_dac">False</label>
+                    </div>
+                </form>
+                </div>
+              </div>
+            </div>
+			</div>
+            <div class="tab-pane" id="e">
+              <div class="row">
+                <div >
+                  <h2>FB Configuration</h2>
+                  <form>
+                    <div class="form-group col-md-4">
+                      <label for="link_speed">Link Speed:</label>
+                      <input type="text" class="form-control" id="link_speed">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="f">
+              <div class="row">
+                <div >
+                  <h2>Add Port</h2>
+                  <form>
+                    <div class="form-group col-md-4">
+                      <label for="counter_query_interval">Counter Query Interval:</label>
+                      <input type="text" class="form-control" id="counter_query_interval">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="sfp_query_interval">SFP Query Interval:</label>
+                      <input type="text" class="form-control" id="sfp_query_interval">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="sfp_enable">SFP Enable:</label>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="sfp_enable">True</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="sfp_enable">False</label>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="alarm_enable">Alarm Enable:</label>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="alarm_enable">True</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="alarm_enable">False</label>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="counter_enable">Counter Enable:</label>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="counter_enable">True</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="counter_enable">False</label>
+                      </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="alarm_high_temp">Alarm High Temp:</label>
+                      <input type="text" class="form-control" id="alarm_high_temp">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="alarm_low_temp">Alarm Low Temp:</label>
+                      <input type="text" class="form-control" id="alarm_low_temp">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="hwflow_enable">HW Flow Enable:</label>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="hwflow_enable">True</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="hwflow_enable">False</label>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="hwflow_query_interval">HW Flow Query Interval:</label>
+                        <input type="text" class="form-control" id="hwflow_query_interval">
+                      </div>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="g">
+              <div class="row">
+                <div >
+                  <h2>Configure ARP and ND Subnet</h2>
+                  <form>
+                    <div class="form-group col-md-4">
+                      <label for="arp_subnet">ARP Subnet:</label>
+                      <input type="text" class="form-control" id="arp_subnet">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="nd_subnet">ND Subnet:</label>
+                      <input type="text" class="form-control" id="nd_subnet">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="h">
+              <div class="row">
+                <div >
+                  <h2>Configure TCAM</h2>
+                  <form>
+                    <div class="form-group col-md-4">
+                      <label for="match_mode_name">Match Mode Name:</label>
+                      <input type="text" class="form-control" id="match_mode_name">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="priority_low">Priority Low:</label>
+                      <input type="text" class="form-control" id="priority_low">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="priority_high">Priority High:</label>
+                      <input type="text" class="form-control" id="priority_high">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="i">
+              <div class="row">
+                <div >
+                  <h2>LLDP Configuration at Interface Level</h2>
+                  <form>
+                    <div class="form-group col-md-4">
+                      <label for="fb_br">FB BR:</label>
+                      <input type="text" class="form-control" id="fb_br">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="fb_ip">FB IP:</label>
+                      <input type="text" class="form-control" id="fb_ip">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="per_interface_settings">Per Interface Settings:</label>
+                      <input type="text" class="form-control" id="per_interface_settings">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="j">
+              <div class="row">
+                <div >
+                  <h2>SSL Configuration Service</h2>
+                  <form>
+                    <div class="form-group col-md-4">
+                      <label for="name">Name:</label>
+                      <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="private_key">Private Key:</label>
+                      <input type="text" class="form-control" id="private_key">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="certificate">Certificate:</label>
+                      <input type="text" class="form-control" id="certificate">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="ca_cert">CA Cert:</label>
+                      <input type="text" class="form-control" id="ca_cert">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="bootstrap_ca_cert">Bootstrap CA Cert:</label>
+                      <input type="text" class="form-control" id="bootstrap_ca_cert">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="fb_ip">FB IP:</label>
+                      <input type="text" class="form-control" id="fb_ip">
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="k">
+              <div class="row">
+                <div >
+                  <h2>SSL Configuration Service</h2>
+                  <form>
+                    <div class="form-group col-md-4">
+                      <label for="name">Name:</label>
+                      <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="datapath_type">Datapath Type:</label>
+                      <input type="text" class="form-control" id="datapath_type">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="datapath_id">Datapath ID:</label>
+                      <input type="text" class="form-control" id="datapath_id">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="fb_ip">FB IP:</label>
+                      <input type="text" class="form-control" id="fb_ip">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="protocols">Protocols:</label>
+                      <input type="text" class="form-control" id="protocols">
+                    </div>
+                  </form>
+                  <div class="panel-group">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse1">Ports</a>
+        </h4>
+                      </div>
+                      <div id="collapse1" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          <form>
+
+                            <div class="form-group col-md-4">
+                              <label for="name">Name:</label>
+                              <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="vlan_mode">VLAN Mode:</label>
+                              <input type="text" class="form-control" id="vlan_mode">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="type">Type:</label>
+                              <input type="text" class="form-control" id="type">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="trunks">Trunks:</label>
+                              <input type="text" class="form-control" id="trunks">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="speed">Speed:</label>
+                              <input type="text" class="form-control" id="speed">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="is_dac">DAC:</label>
+                              <div class="radio">
+                                <label>
+                                  <input type="radio" name="is_dac">True</label>
+                              </div>
+                              <div class="radio">
+                                <label>
+                                  <input type="radio" name="is_dac">False</label>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel-group">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse2">LLDP Interface Settngs</a>
+        </h4>
+                      </div>
+                      <div id="collapse2" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          <form>
+                            <div class="form-group col-md-4">
+                              <label for="name">Name:</label>
+                              <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="lldp_enable">LLDP Enable:</label>
+                              <input type="text" class="form-control" id="lldp_enable">
+                            </div>
+                          </form>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel-group">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+          <a data-toggle="collapse" href="#collapse3">Controllers</a>
+        </h4>
+                      </div>
+                      <div id="collapse3" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          <form>
+                            <div class="form-group col-md-4">
+                              <label for="name">Name:</label>
+                              <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="controller_ip">Controller IP</label>
+                              <input type="text" class="form-control" id="controller_ip">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="of_port">OF Port:</label>
+                              <input type="text" class="form-control" id="of_port">
+                            </div>
+                            <div class="form-group col-md-4">
+                              <label for="connect_protocol">Connect Protocol:</label>
+                              <input type="text" class="form-control" id="connect_protocol">
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <form>
+                    <div class="form-group col-md-4">
+                      <label for="lldp_msg_tx_hold">LLDP Message Hold:</label>
+                      <input type="text" class="form-control" id="lldp_msg_tx_hold">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="lldp_msg_tx_interval">LLDP Message TX Inveval:</label>
+                      <input type="text" class="form-control" id="lldp_msg_tx_interval">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="lldp_reinit_delay">LLDP Reinit Delay:</label>
+                      <input type="text" class="form-control" id="lldp_reinit_delay">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="lldp_tx_delay">LLDP TX Delay:</label>
+                      <input type="text" class="form-control" id="lldp_tx_delay">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="global_lldp_enable">Global LLDP Enable:</label>
+                      <input type="text" class="form-control" id="global_lldp_enable">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="ssl_name">SSL Name:</label>
+                      <input type="text" class="form-control" id="ssl_name">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="private_key">Private Key:</label>
+                      <input type="text" class="form-control" id="private_key">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="certificate">Certificate:</label>
+                      <input type="text" class="form-control" id="certificate">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="ca_cert">CA Cert:</label>
+                      <input type="text" class="form-control" id="ca_cert">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="bootstrap_ca_cert">Bootstrap CA Cert:</label>
+                      <input type="text" class="form-control" id="bootstrap_ca_cert">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="arp_subnet">ARP Subnet:</label>
+                      <input type="text" class="form-control" id="arp_subnet">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="nd_subnet">ND Subnet:</label>
+                      <input type="text" class="form-control" id="nd_subnet">
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="counter_query_interval">Counter Query Interval:</label>
+                      <input type="text" class="form-control" id="counter_query_interval">
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="sfp_query_interval">SFP Query Interval:</label>
+                      <input type="text" class="form-control" id="sfp_query_interval">
+
+
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="sfp_enable">SFP Enable:</label>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="sfp_enable">True</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="sfp_enable">False</label>
+                      </div>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="alarm_enable">Alarm Enable:</label>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="alarm_enable">True</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="alarm_enable">False</label>
+                      </div>
+
+                    </div>
+                    <div class="form-group col-md-4">
+                      <label for="counter_enable">Counter Enable:</label>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="counter_enable">True</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="counter_enable">False</label>
+                      </div>
+
+                    </div>
+
+                    <div class="form-group col-md-4">
+                      <label for="hwflow_enable">HW Flow Enable:</label>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="hwflow_enable">True</label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <input type="radio" name="hwflow_enable">False</label>
+                      </div>
+
+
+
+                      <div class="form-group col-md-4">
+                        <label for="hwflow_query_interval">HW Flow Query Interval:</label>
+                        <input type="text" class="form-control" id="hwflow_query_interval">
+                      </div>
+
+                      <div class="form-group col-md-4">
+                        <label for="alarm_high_temp">Alarm High Temp:</label>
+                        <input type="text" class="form-control" id="alarm_high_temp">
+                      </div>
+
+
+
+                      <div class="form-group col-md-4">
+                        <label for="alarm_low_temp">Alarm Low Temp:</label>
+                        <input type="text" class="form-control" id="alarm_low_temp">
+                      </div>
+
+
+
+                  </form>
+
+
+
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+            <!-- /tab-content -->
+          </div>
+          <!-- /tabbable -->
+        </div>
+        <!-- /col -->
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /row -->
+ </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>

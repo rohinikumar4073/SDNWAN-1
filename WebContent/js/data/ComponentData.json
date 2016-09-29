@@ -1,0 +1,35 @@
+[
+  {
+    "heading": "Forwarding Boxes",
+    "data": [
+      {
+        "name": "Forwarding Box",
+        "className": "fb-icon",
+        "manufacturer":"Manufacturer1",
+        "orderablePartNumber":"Orderable Part Number",
+        "description":"Description" ,
+        "CLB":"CLB",
+        "materialId":"Material Id" ,
+        "airFlow":"Airflow"
+      }, {
+        "name": "Optical Fibre",
+        "className": "optical-fiber",
+        "manufacturer":"Manufacturer1",
+        "orderablePartNumber":"Orderable Part Number",
+        "description":"Description" ,
+        "CLB":"CLB",
+        "materialId":"Material Id" ,
+        "airFlow":"Airflow"
+      }, {
+        "name": "link",
+        "className": "fa-link",
+        "manufacturer":"Manufacturer1",
+        "orderablePartNumber":"Orderable Part Number",
+        "description":"Description" ,
+        "CLB":"CLB",
+        "materialId":"Material Id" ,
+        "airFlow":"Airflow"
+      }
+    ]
+  }
+]
