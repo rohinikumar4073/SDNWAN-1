@@ -365,3 +365,10 @@ top: -2px;
 }
 .linkhide{display: 
 none;}
+#pageModal .radio{
+	display:inline-block;
+	padding-right:10px;
+}
+#pageModal label{
+	display:block;
+}
