@@ -14,19 +14,25 @@
           <div class="col-md-12 col-sm-12">
             <div class="tabs-left">
               <ul class="nav nav-tabs">
-                <li class="active"><a href="#fbConfig" data-toggle="tab">Configuration</a></li>
-                <li><a href="#fbConfigLink" data-toggle="tab">Bridge</a></li>
+                <li class="active"><a href="#fbConfig" data-toggle="tab">Bridge</a></li>
+                <li><a href="#fbConfigLink" data-toggle="tab">Link Speed</a></li>
                 <li><a href="#addPort" data-toggle="tab">Port</a></li>
                 <li><a href="#fbConfigController" data-toggle="tab">Controller</a></li>
                 <li><a href="#lldpConfigIL" data-toggle="tab">LDAP</a></li>
                 <li><a href="#configArp" data-toggle="tab">ARP</a></li>
                 <li><a href="#configTcam" data-toggle="tab">TCAM</a></li>
+                <li><a href="#addPortInterval" data-toggle="tab">Polling Frequencies</a></li>
+                 <li><a href="#sslConfigService" data-toggle="tab">SSL</a></li>
+                 <li><a href="#sslConfigServiceInterval" data-toggle="tab">Composite API</a></li>
+                 
+                
+                
               </ul>
               <div class="tab-content">
                 <div class="tab-pane active" id="fbConfig">
                   <div class="row">
                     <div>
-                      <h2>FB Configuration</h2>
+                      
                       <form>
                         <div class="form-group col-md-4">
                           <label for="name">Name:</label>
@@ -55,7 +61,7 @@
                 <div class="tab-pane" id="fbConfigController">
                   <div class="row">
                     <div>
-                      <h2>FB Configuration Controller</h2>
+                     
                       <form>
                         <div class="form-group col-md-4">
                           <label for="name">Name:</label>
@@ -86,7 +92,7 @@
                     <div>
 
 
-                      <h2>FB Configuration LLDP</h2>
+                      
 
 
                       <form>
@@ -125,8 +131,9 @@
                 <div class="tab-pane" id="addPort">
                   <div class="row">
                     <div>
-                      <h2>Add Port</h2>
+                     
                       <form>
+                       <div class="form-group col-md-12">
                         <div class="form-group col-md-4">
                           <label for="name">Name:</label>
                           <input type="text" class="form-control" data-id="name">
@@ -135,20 +142,27 @@
                           <label for="vlan_mode">VLAN Mode:</label>
                           <div class="radio">
                             <label>
-                              <input type="radio" name="vlan_mode" data-id="Trunk">Trunk</label>
+                              <input type="radio" name="vlan_mode" checked="checked" data-id="Trunk" value="Trunk">Trunk</label>
                           </div>
                           <div class="radio">
                             <label>
-                              <input type="radio" name="vlan_mode" data-id="Access">Access</label>
+                              <input type="radio" name="vlan_mode" data-id="Access" value="Access">Access</label>
                           </div>
                         </div>
-                        <div class="form-group col-md-4">
+                       
+                        <div class="form-group col-md-4 " >
+                          <label for="trunks">Trunks:</label>
+                          <input type="text" class="form-control" data-id="trunks" >
+                        </div>
+                          <div class="form-group col-md-4  " style="display:none">
+                          <label for="tag">Tag:</label>
+                          <input type="text" class="form-control " data-id="tag" >
+                        </div>
+                        </div>
+                       <div class="form-group col-md-12">
+                         <div class="form-group col-md-4">
                           <label for="fb_ip">FB IP:</label>
                           <input type="text" class="form-control" data-id="fb_ip">
-                        </div>
-                        <div class="form-group col-md-4">
-                          <label for="trunks">Trunks:</label>
-                          <input type="text" class="form-control" data-id="trunks">
                         </div>
                         <div class="form-group col-md-4">
                           <label for="type">Type:</label>
@@ -158,6 +172,9 @@
                           <label for="speed">Speed:</label>
                           <input type="text" class="form-control" data-id="speed">
                         </div>
+                        </div>
+                         <div class="form-group col-md-12">
+
                         <div class="form-group col-md-4">
                           <label for="is_dac">DAC:</label>
                           <div class="radio">
@@ -168,19 +185,25 @@
                             <label>
                               <input type="radio" name="is_dac" data-id="False">False</label>
                           </div>
+                          </div>
+                          </div>
                       </form>
                       </div>
                     </div>
                   </div>
-                </div>
+                
                 <div class="tab-pane" id="fbConfigLink">
                   <div class="row">
                     <div>
-                      <h2>FB Configuration</h2>
+                     
                       <form>
                         <div class="form-group col-md-4">
                           <label for="link_speed">Link Speed:</label>
                           <input type="text" class="form-control" id="link_speed">
+                        </div>
+                         <div class="form-group col-md-4">
+                          <label for="port_name">Port Name:</label>
+                          <input type="text" class="form-control" id="port_name">
                         </div>
                       </form>
                     </div>
@@ -189,7 +212,7 @@
                 <div class="tab-pane" id="addPortInterval">
                   <div class="row">
                     <div>
-                      <h2>Add Port</h2>
+                     
                       <form>
                         <div class="form-group col-md-4">
                           <label for="counter_query_interval">Counter Query Interval:</label>
@@ -250,6 +273,7 @@
                             <label>
                               <input type="radio" name="hwflow_enable">False</label>
                           </div>
+                          
                           <div class="form-group col-md-4">
                             <label for="hwflow_query_interval">HW Flow Query Interval:</label>
                             <input type="text" class="form-control" id="hwflow_query_interval">
@@ -262,7 +286,7 @@
                 <div class="tab-pane" id="configArp">
                   <div class="row">
                     <div>
-                      <h2>Configure ARP and ND Subnet</h2>
+                      
                       <form>
                         <div class="form-group col-md-4">
                           <label for="arp_subnet">ARP Subnet:</label>
@@ -279,7 +303,7 @@
                 <div class="tab-pane" id="configTcam">
                   <div class="row">
                     <div>
-                      <h2>Configure TCAM</h2>
+                      
                       <form>
                         <div class="form-group col-md-4">
                           <label for="match_mode_name">Match Mode Name:</label>
@@ -300,7 +324,7 @@
                 <div class="tab-pane" id="lldpConfigIL">
                   <div class="row">
                     <div>
-                      <h2>LLDP Configuration at Interface Level</h2>
+                      
                       <form>
                         <div class="form-group col-md-4">
                           <label for="fb_br">FB BR:</label>
@@ -354,7 +378,7 @@
                 <div class="tab-pane" id="sslConfigServiceInterval">
                   <div class="row">
                     <div>
-                      <h2>SSL Configuration Service</h2>
+                     
                       <form>
                         <div class="form-group col-md-4">
                           <label for="name">Name:</label>
@@ -377,17 +401,7 @@
                           <label for="protocols">Protocols:</label>
                           <input type="text" class="form-control" id="protocols">
                         </div>
-                      </form>
-                      <div class="panel-group">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <h4 class="panel-title">
-<a data-toggle="collapse" href="#collapse1">Ports</a>
-</h4>
-                          </div>
-                          <div id="collapse1" class="panel-collapse collapse">
-                            <div class="panel-body">
-                              <form>
+                     
 
                                 <div class="form-group col-md-4">
                                   <label for="name">Name:</label>
@@ -420,21 +434,7 @@
                                       <input type="radio" name="is_dac">False</label>
                                   </div>
                                 </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel-group">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <h4 class="panel-title">
-<a data-toggle="collapse" href="#collapse2">LLDP Interface Settngs</a>
-</h4>
-                          </div>
-                          <div id="collapse2" class="panel-collapse collapse">
-                            <div class="panel-body">
-                              <form>
+                              
                                 <div class="form-group col-md-4">
                                   <label for="name">Name:</label>
                                   <input type="text" class="form-control" id="name">
@@ -443,22 +443,7 @@
                                   <label for="lldp_enable">LLDP Enable:</label>
                                   <input type="text" class="form-control" id="lldp_enable">
                                 </div>
-                              </form>
-
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="panel-group">
-                        <div class="panel panel-default">
-                          <div class="panel-heading">
-                            <h4 class="panel-title">
-<a data-toggle="collapse" href="#collapse3">Controllers</a>
-</h4>
-                          </div>
-                          <div id="collapse3" class="panel-collapse collapse">
-                            <div class="panel-body">
-                              <form>
+                              
                                 <div class="form-group col-md-4">
                                   <label for="name">Name:</label>
                                   <input type="text" class="form-control" id="name">
@@ -475,12 +460,9 @@
                                   <label for="connect_protocol">Connect Protocol:</label>
                                   <input type="text" class="form-control" id="connect_protocol">
                                 </div>
-                              </form>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <form>
+                             
+                            
+                     
                         <div class="form-group col-md-4">
                           <label for="lldp_msg_tx_hold">LLDP Message Hold:</label>
                           <input type="text" class="form-control" id="lldp_msg_tx_hold">
@@ -588,7 +570,7 @@
                             <label>
                               <input type="radio" name="hwflow_enable">False</label>
                           </div>
-
+</div>
 
 
                           <div class="form-group col-md-4">
