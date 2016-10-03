@@ -4,22 +4,7 @@ var DragSource =reactDnd.DragSource;
 var PropTypes = React.PropTypes;
 var flag=true;
 var self=this;
-var divStyle = {
-    border: '1px solid grey',
-    position: 'absolute',
-    top: '45px',
-    left: '40px',
-    'background-color': '#fff'
-};
-var relDivStyle = {
-    position: 'relative'
-};
-var ulStyle = {
-  'list-style': 'none',
-  padding: '5px 10px',
-  margin: '0px',
-  cursor:'pointer'
-}
+
 var ComponentSource = { 
 
   beginDrag: function (props) {
@@ -45,9 +30,9 @@ var AddList = React.createClass({
     this.props.topologyModel( this.props.title,this.props.iconDetails);
 $(e.target).parent().parent('.context-menu').addClass('hidden')    },
   render: function() {
-    return (<div style={divStyle} className={this.props.className}>
-        <ul style={ulStyle}>
-        <li onClick={this.addEvent}>Add</li>
+    return (<div className={this.props.className}>
+        <ul className="contextUl">
+        <li onClick={this.addEvent} className="contextUlLi">Add</li>
         </ul>
         </div>);}
 });
@@ -82,8 +67,8 @@ $(e.target).parent().parent('.context-menu').addClass('hidden')    },
       e.preventDefault();
   //    this.setState({childVisible: false});
     },
-    addEvent : function(){
-      alert("Add Event");
+    addEvent : function(e){
+      this.props.topologyModel( this.props.collection.name,this.props.collection.className);
     },
     render: function() {
   
@@ -94,9 +79,9 @@ var connectDragSource = this.props.connectDragSource;
 
 
 
-        <div style={relDivStyle}>
+        <div className="relativePos">
         <div>
-        <button className="btn btn-default " type="button" onContextMenu={this.contexMenu} onBlur={ this.blurContexMenu }>
+        <button className="btn btn-default " type="button" onContextMenu={this.contexMenu} onBlur={ this.blurContexMenu } onClick={this.addEvent}>
         <i className={"fa "+this.props.collection.className} aria-hidden="true"></i>
         </button>
         <div>
