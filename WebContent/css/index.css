@@ -372,3 +372,6 @@ none;}
 #pageModal label{
 	display:block;
 }
+#pageModal .alert-message{padding: 1.6rem;
+overflow-y: auto;display:none;}
+.left-tabs.nav-tabs{height:44px;}
