@@ -28,14 +28,14 @@
                 confirmButton = (
                   <BootstrapButton
                   onClick={this.handleConfirm}
-                  className="btn  btn-primary" data="Create New">
+                  className="btn  btn-primary btn-sm" data="Create New">
                   {this.props.confirm}
                   </BootstrapButton>
                   );
               }
               if (this.props.cancel) {
                 cancelButton = (
-                  <BootstrapButton onClick={this.handleCancel} className="btn-default" data="Creat New">
+                  <BootstrapButton onClick={this.handleCancel} className="btn-default btn-sm" data="Cancel">
                   {this.props.cancel}
                   </BootstrapButton>
                   );

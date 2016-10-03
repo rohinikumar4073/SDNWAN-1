@@ -36,6 +36,9 @@ define(
 												return "popup-section linkhide "
 											}
 										},
+										portData:function(){
+											return [{port:1245},{port:2456},{port:1444},{port:1444}];
+										}
 									},
 
 									// 'view' defines the appearance of the
@@ -76,25 +79,30 @@ define(
 														},
 														content : [ {
 															tag : 'div',
-
-															content : [
-																	{
-																		tag : "input",
-																		props : {
-																			'type' : "radio",
-																			'name' : "portselcted"
-																		},
-																		events : {
-																			'click' : '{#onClickEvent2}'
-																		},
-																	},
-																	{
-																		tag : "div",
-																		content : "12345",
-																		props : {
-																			'class' : "label-data"
-																		}
-																	} ]
+															props:{
+																 items: "{#portData}",
+											                        template: {
+											                            tag: "div",
+											                            content: [
+																			{
+																				tag : "input",
+																				props : {
+																					'type' : "radio",
+																					'name' : "portselcted"
+																				},
+																				events : {
+																					'click' : '{#onClickEvent2}'
+																				},
+																			},
+																			{
+																				tag : "div",
+																				content : "{port}",
+																				props : {
+																					'class' : "label-data"
+																				}
+																			} ]
+											                        }
+															}
 
 														}
 
@@ -125,6 +133,7 @@ define(
 																.modal(
 																		'show')
 																configurationEvents.init();
+																configurationEvents.savingDetails();
 																
 															});
 											
