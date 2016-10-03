@@ -4,7 +4,7 @@
     render: function() {
       return (
         <div className={(this.props.className || '') } >
-        <ul className="nav nav-tabs">
+        <ul className="nav nav-tabs left-tabs">
         <li role="presentation" className="active"><a href="#component" data-toggle="tab">Components</a></li>
         <li role="presentation"><a href="#templates" data-toggle="tab">Templates</a></li>
         </ul>
