@@ -6,7 +6,7 @@ nx.define('com.cisco.TopologyModel', nx.data.ObservableObject, {
         newNode: null,
         newLink: null,
         setLinkMode:null
-    },
+        },
     methods: {
         createNode: function (label,iconType) {
             //$('body').append('<div class="idNameDiv form-group" style="padding:10px;position: fixed;width: 400px;border: 1px solid grey;top: 20%;left: 40%;z-index: 1;"><label for="idName">Enter Label</label><input type="text" id="idName" class="form-control" placeholder="Label for id"></input><button class="btn btn-primary" id="idNameSubmit" type="submit" style="min-height:20px;margin-top:10px;">Submit</button></div>');
@@ -36,6 +36,10 @@ nx.define('com.cisco.TopologyModel', nx.data.ObservableObject, {
         },
         setLinkMod:function(){
             linkMode.setFlag(true);
+        },
+        resetLinkMod
+        :function(){
+            linkMode.setFlag(false);
         }
     }
 });
