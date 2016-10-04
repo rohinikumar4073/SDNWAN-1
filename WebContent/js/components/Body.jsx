@@ -22,11 +22,13 @@ this.topologyModel.createLink({
 
 },
     topologyModelController:function(title,iconDetails){
-      if(title=="link"){
+      if(title=="linkSet"){
           this.topologyModel.setLinkMod();
           return;
+      }else if(title=="linkReset"){
+        this.topologyModel.resetLinkMod();
+          return;
       }
-      console.log("title"+title);
     	this.refs.modal.open();
             console.log("iconDetails"+iconDetails);
 
