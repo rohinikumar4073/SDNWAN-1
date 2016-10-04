@@ -78,6 +78,9 @@ define(
 															'class' : '{#classNamePort}'
 														},
 														content : [ {
+															tag:'h6',
+															content:"Select Port"
+														},{
 															tag : 'div',
 															props:{
 																 items: "{#portData}",
@@ -121,8 +124,7 @@ define(
 									methods : {
 
 										"onClickEvent" : function() {
-
-
+											var self=this.node();
 											var fbName = $('g.node-selected')
 													.attr('data-id');
 											$("#pageModal")
@@ -132,7 +134,7 @@ define(
 																$('#pageModal ')
 																.modal(
 																		'show')
-																configurationEvents.init();
+																configurationEvents.init(self);
 																configurationEvents.savingDetails();
 																
 															});
@@ -154,7 +156,7 @@ define(
 																			.id()
 																});
 												this.topology().srclink = "";
-												linkMode.setFlag(false);
+											//	linkMode.setFlag(false);
 
 											}
 
