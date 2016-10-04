@@ -40,9 +40,7 @@ color: #CD0408;border: none;
   border: 0;
 }
 
-.modal-content .tab-content {
-  margin-left: 45px;
-}
+
 .modal-content  .tab-content .tab-pane {
   display: none;
   background-color: #fff;
@@ -188,9 +186,6 @@ h5 {
   font-weight: bold;
 }
 
-.layout-flex > div button {
-  background-color: #fff;
-}
 
 .layout-flex > div button,
 .layout-flex > div button:hover {
@@ -199,9 +194,17 @@ h5 {
     padding: 0px 23px;
     min-height: 38px;
 }
-
+.layout-flex > div button.selected-link-class {
+    background-color: #004BAF;
+    border: none;
+   
+}
 .layout-flex > div button i {
   color: #000;
+}
+
+.layout-flex > div button.selected-link-class i {
+  color: #fff;
 }
 
 .fa.notifications {
@@ -409,6 +412,16 @@ none;}
   padding: 5px 10px;
   border-bottom: 1px solid grey;
 }
-#pageModal .alert-message{padding: 1.6rem;
+#pageModal .alert-message-success ,#pageModal .alert-message-error{padding: 1.6rem;
 overflow-y: auto;display:none;}
 .left-tabs.nav-tabs{height:44px;}
+.modal .btn-primary,.modal .btn-primary:hover {
+    background: #CD040B;    border: 0px;
+}
+.modal .btn-default ,.modal .btn-default:hover{
+    background: #4B4B4B;
+    color:#fff; border: 0px;
+}
+.btn.active:focus, .btn:active:focus, .btn:focus, a:focus {
+    box-shadow: none;    background-color: #fff;
+}
