@@ -53,7 +53,8 @@ $(e.target).parent().parent('.context-menu').addClass('hidden')    },
     return {
       username: '',
       lastGistUrl: '',
-      childVisible: false
+      childVisible: false,
+      selectedLinkClass:""
     };
 },
  
@@ -68,6 +69,19 @@ $(e.target).parent().parent('.context-menu').addClass('hidden')    },
   //    this.setState({childVisible: false});
     },
     addEvent : function(e){
+    if(this.props.collection.name=="link" ){
+    var link="";
+    if(this.state.selectedLinkClass){
+      this.setState({selectedLinkClass: ""});
+      link="linkReset";
+    }else{
+      this.setState({selectedLinkClass: "selected-link-class"});
+            link="linkSet";
+      }
+   this.props.topologyModel( link,this.props.collection.className);
+   return;
+      
+    }
       this.props.topologyModel( this.props.collection.name,this.props.collection.className);
     },
     render: function() {
@@ -81,7 +95,7 @@ var connectDragSource = this.props.connectDragSource;
 
         <div className="relativePos">
         <div>
-        <button className="btn btn-default " type="button" onContextMenu={this.contexMenu} onBlur={ this.blurContexMenu } onClick={this.addEvent}>
+        <button className={"btn btn-default " +this.state.selectedLinkClass} type="button" onContextMenu={this.contexMenu} onBlur={ this.blurContexMenu } onClick={this.addEvent}>
         <i className={"fa "+this.props.collection.className} aria-hidden="true"></i>
         </button>
         <div>
@@ -89,11 +103,6 @@ var connectDragSource = this.props.connectDragSource;
         </div>
         </div>
 
-        {
-         
-             <AddList topologyModel={this.props.topologyModel} iconDetails={this.props.collection.className} title={this.props.collection.name} className={ this.state.childVisible ? "context-menu ":"context-menu hidden"}/>
-          
-        }
         </div> 
         );
     }
