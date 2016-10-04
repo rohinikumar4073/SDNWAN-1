@@ -53,7 +53,7 @@ this.topologyModel.createLink({
           return (
             <div className={(this.props.className || '') } >
             <div className="row">
- <LeftMenu className="col-xs-3 left-menu toggle-show" topologyModel={this.topologyModelController}>         
+ <LeftMenu className="col-xs-2 left-menu toggle-show" topologyModel={this.topologyModelController}>         
 
             </LeftMenu>
             <div className="toggle-left-menu col-xs-3">
@@ -61,7 +61,7 @@ this.topologyModel.createLink({
             <i className="fa fa-caret-left" aria-hidden="true"></i>
             </button> 
             </div>
-            <RightMenu className="col-xs-9 right-menu " topologyModel={this.topologyModel} createLink={this.createLink}>          
+            <RightMenu className="col-xs-10 right-menu " topologyModel={this.topologyModel} createLink={this.createLink}>          
             </RightMenu>
             <BootstrapLinkCommon ref="modal" title={this.state.bootstrapTitle} iconType={this.state.iconType} topologyModel={this.topologyModel} />
            
