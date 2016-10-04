@@ -157,7 +157,7 @@ header .leftnav {
 }
 
 .toggle-left-menu .left-position {
-  left: 56px;
+  left: -104px;
 }
 
 .layout-flex {
@@ -366,6 +366,23 @@ top: -2px;
   height: 32px;
     background-image: url("images/ciscoicons/optical transport.jpg");
 }
+.patch-panel{
+    height: 32px;
+    
+    background-image: url("images/ciscoicons/pad.jpg");
+    background-repeat: no-repeat;
+    width: 75px;
+    background-size: 57%;
+    margin: 25px 0 0 0;
+}.host{
+  height: 32px;
+  background-image: url("images/ciscoicons/standard host.jpg");
+  background-size: 37%;
+  width: 63px;
+  margin: 25px 0 0 0;
+  background-repeat: no-repeat;
+}
+
 .linkhide{display: 
 none;}
 #pageModal .radio{
