@@ -29,16 +29,15 @@ define(function(){
 								'click',
 								'button.saveBtn',
 								function() {
-									var formID = $(
-											$('div.tabs-left div.tab-content .tab-pane.active'))
-											.attr(
-													'id');
+									var formID =$('#pageModal div.tab-content .tab-pane.active')
+									.attr(
+									'id');
 
 									switch (formID) {
 									case 'fbConfig':
 										console
 												.log('fbConfig');
-										var postURL = "http://114.8.11.251:50513/rms/"
+										var postURL = "http://localhost:50512/rms/"
 												+ fbName
 												+ "/add-bridge";
 										var name = $('#'
@@ -63,20 +62,25 @@ define(function(){
 											protocols : protocols,
 											fb_ip : fb_ip
 										};
+									
 
 										$
 												.ajax({
 													url : postURL,
 													method : 'POST',
-													data : jsonData,
-													contentType : 'application/json',
-													success : function() {
+													data : JSON.stringify(jsonData),
+										            contentType: "application/json; charset=utf-8",
+													success : function(data) {
 														console
 																.log("Success");
+														 $("div.alert-message-success").show();
+														 
 													},
-													error : function() {
+													error : function(data) {
 														console
 																.log("Error");
+														$("div.alert-message-error").show();
+														
 													}
 												});
 										break;
@@ -112,7 +116,7 @@ define(function(){
 									case 'addPort':
 										console
 												.log('addPort');
-										var postURL = "http://114.8.11.251:50513/rms/"
+										var postURL = "http://localhost:50512/rms/"
 												+ fbName
 												+ "/port/add";
 										var name = $(
@@ -171,24 +175,27 @@ define(function(){
 												.ajax({
 													url : postURL,
 													method : 'POST',
-													data : jsonData,
-													contentType : 'application/json',
-													success : function() {
+													data : JSON.stringify(jsonData),
+													contentType : "application/json; charset=utf-8",
+													success : function(data) {
 														console
 																.log("Success");
+														$("div.alert-message-success").show();
 													},
-													error : function() {
+													error : function(data) {
 														console
 																.log("Error");
+														$("div.alert-message-error").show();
 													}
 												});
 										break;
 									case 'fbConfigController':
 										console
 												.log('fbConfigController');
-										var postURL = "http://114.8.11.251:50513/rms/"
+										var postURL = "http://localhost:50512/rms/"
 												+ fbName
 												+ "/set-controller";
+										
 										var name = $('#'
 												+ formID
 												+ ' #name')[0].value;
@@ -209,7 +216,7 @@ define(function(){
 											name : name,
 											controller_ip : controller_ip,
 											of_port : of_port,
-											protocols : protocols,
+											connect_protocol : protocols,
 											fb_ip : fb_ip
 										};
 
@@ -217,22 +224,27 @@ define(function(){
 												.ajax({
 													url : postURL,
 													method : 'POST',
-													data : jsonData,
-													contentType : 'application/json',
-													success : function() {
+													data : JSON.stringify(jsonData),
+													contentType : "application/json; charset=utf-8",
+													success : function(data) {
 														console
 																.log("Success");
+														
+														$("div.alert-message-success").show();
 													},
-													error : function() {
+													error : function(data) {
 														console
 																.log("Error");
+														
+														$("div.alert-message-error").show();
 													}
 												});
 										break;
 									case 'lldpConfigIL':
 										console
 												.log('lldpConfigIL');
-										var postURL = "http://114.8.11.251:50513/rms/"
+										http://localhost:50512/rms/test/set-lldp
+										var postURL = "http://localhost:50512/rms/"
 												+ fbName
 												+ "/set-lldp";
 										var fb_br = $('#'
@@ -255,15 +267,17 @@ define(function(){
 												.ajax({
 													url : postURL,
 													method : 'POST',
-													data : jsonData,
-													contentType : 'application/json',
-													success : function() {
+													data : JSON.stringify(jsonData),
+													contentType : "application/json; charset=utf-8",
+													success : function(data) {
 														console
 																.log("Success");
+														$("div.alert-message-success").show();
 													},
-													error : function() {
+													error : function(data) {
 														console
 																.log("Error");
+														$("div.alert-message-error").show();
 													}
 												});
 										break;
@@ -344,8 +358,15 @@ define(function(){
 			
 			
 		 },
-		 init:function(){
+		 init:function(node){
 	        	portController();
+				var iconType=node.iconType();
+				if(iconType=="optical-fiber"){
+					$("#pageModal .modal-title").html("Configure Optical Switch")
+				}else if(iconType=="fb-icon"){
+					$("#pageModal .modal-title").html("Configure Forwarding Box")
+
+				}
 	        }
 	     
 	 }
