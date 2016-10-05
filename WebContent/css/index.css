@@ -442,3 +442,21 @@ overflow-y: auto;display:none;}
 .btn.active:focus, .btn:active:focus, .btn:focus, a:focus {
     box-shadow: none;    background-color: #fff;
 }
+.spin
+{
+  filter:alpha(opacity=10); 
+  opacity:0.1;
+  margin: 17% 0 0 46%;
+  text-align:center;
+  z-index:10;
+  position:absolute;
+  background: #FFF; /* outline */
+  > *
+  {
+    background: #EEE; /* hand */
+    
+  }
+}
+.popup{
+	position: relative;
+}
