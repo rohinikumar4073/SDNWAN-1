@@ -16,6 +16,25 @@ define(['jquery.spin'], function(){
 		
 		
 	}
+	var handleSuccess=function(data){
+		$('.spin').spin('hide');
+		if(!data.error){
+			$("div.alert-message-success").show().html("Succesfully Added");
+			$("div.alert-message-error").hide();
+			}else{
+				$("div.alert-message-success").hide();
+				$("div.alert-message-error").show().html(data.error.error);
+			}
+	}
+	var handleError=function(data){
+		$('.spin').spin('hide');
+
+		console
+				.log("Error");
+		$("div.alert-message-success").hide();
+		$("div.alert-message-error").show().html(data.responseText);
+	
+	}
 	 return {
 		 savingDetails:function(){
 
@@ -23,11 +42,7 @@ define(['jquery.spin'], function(){
 				var fbName = $('g.node-selected')
 						.attr('data-id');
 
-				$('#pageModal ')
-						
-						.on(
-								'click',
-								'button.saveBtn',
+				$('#pageModal button.saveBtn').click(
 								function() {
 									var formID =$('#pageModal div.tab-content .tab-pane.active')
 									.attr(
@@ -62,17 +77,10 @@ define(['jquery.spin'], function(){
 											protocols : protocols,
 											fb_ip : fb_ip
 										};
-
-										var tableRowData = '<tr><td>'+name+'</td>'+
-										'<td>'+datapath_type+'</td>'+
-										'<td>'+datapath_id+'</td>'+
-										'<td>'+protocols+'</td>'+
-										'<td>'+fb_ip+'</td><tr>';
-
-										$('#fbConfig #viewBridge table tbody').append(tableRowData);
 									
 										$('.spin').spin();
 										$('.spin').spin('show');
+										
 										$
 												.ajax({
 													url : postURL,
@@ -80,18 +88,10 @@ define(['jquery.spin'], function(){
 													data : JSON.stringify(jsonData),
 										            contentType: "application/json; charset=utf-8",
 													success : function(data) {
-														console
-																.log("Success");
-														 $("div.alert-message-success").show();
-															$('.spin').spin("hide");
+														handleSuccess(data);
 													},
 													error : function(data) {
-														$('.spin').spin('hide');
-
-														console
-																.log("Error");
-														$("div.alert-message-error").show();
-														
+														handleError(data)
 													}
 												});
 										break;
@@ -161,6 +161,16 @@ define(['jquery.spin'], function(){
 														+ formID)
 												.find(
 														'input[data-id="speed"]')[0].value;
+										var tag = $(
+												'#'
+														+ formID)
+												.find(
+														'input[data-id="tag"]')[0].value;
+										var trunks = $(
+												'#'
+														+ formID)
+												.find(
+														'input[data-id="trunks"]')[0].value;
 										// var
 										// isDac
 										// =
@@ -172,40 +182,43 @@ define(['jquery.spin'], function(){
 														'input[name="is_dac"]:checked')
 												.attr(
 														'data-id');
-
-										var jsonData = {
-											name : name,
-											vlanMode : vlanMode,
-											fb_ip : fb_ip,
-											type : type,
-											speed : speed,
-											isDac : isDac
-										};
-
-										var tableRowData = '<tr><td>'+name+'</td>'+
-										'<td>'+vlanMode+'</td>'+
-										'<td>'+fb_ip+'</td>'+
-										'<td>'+type+'</td>'+
-										'<td>'+speed+'</td>'+
-										'<td>'+isDac+'</td><tr>';
-
-										$('#addPort #viewPort table tbody').append(tableRowData);
-
+										var idDacreturn=false;
+									if(isDac=="true"){
+										idDacreturn=true;
+									}
+									var jsonData=null
+									if(vlanMode.toLowerCase=="access")
+										 jsonData =	{
+									  "fb_ip": fb_ip,
+									  "is_dac": idDacreturn,
+									  "name": name,
+									  "speed": speed,
+									  "tag": parseInt(tag),
+									  "type": type,
+									  "vlan_mode": vlanMode.toLowerCase()
+									  }
+									else
+										 jsonData =	{
+												  "fb_ip": fb_ip,
+												  "is_dac": idDacreturn,
+												  "name": name,
+												  "speed": speed,
+												  "trunks": [parseInt(trunks)],
+												  "type": type,
+												  "vlan_mode": vlanMode.toLowerCase()
+									}
+									
 										$
 												.ajax({
 													url : postURL,
 													method : 'POST',
 													data : JSON.stringify(jsonData),
 													contentType : "application/json; charset=utf-8",
-													success : function(data) {
-														console
-																.log("Success");
-														$("div.alert-message-success").show();
-													},
+													success : function(data) {					
+														handleSuccess(data);
+},
 													error : function(data) {
-														console
-																.log("Error");
-														$("div.alert-message-error").show();
+														handleError(data);
 													}
 												});
 										break;
