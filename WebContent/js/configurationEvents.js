@@ -62,6 +62,14 @@ define(function(){
 											protocols : protocols,
 											fb_ip : fb_ip
 										};
+
+										var tableRowData = '<tr><td>'+name+'</td>'+
+										'<td>'+datapath_type+'</td>'+
+										'<td>'+datapath_id+'</td>'+
+										'<td>'+protocols+'</td>'+
+										'<td>'+fb_ip+'</td><tr>';
+
+										$('#fbConfig #viewBridge table tbody').append(tableRowData);
 									
 
 										$
@@ -170,6 +178,15 @@ define(function(){
 											speed : speed,
 											isDac : isDac
 										};
+
+										var tableRowData = '<tr><td>'+name+'</td>'+
+										'<td>'+vlanMode+'</td>'+
+										'<td>'+fb_ip+'</td>'+
+										'<td>'+type+'</td>'+
+										'<td>'+speed+'</td>'+
+										'<td>'+isDac+'</td><tr>';
+
+										$('#addPort #viewPort table tbody').append(tableRowData);
 
 										$
 												.ajax({
