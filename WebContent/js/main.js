@@ -7,7 +7,8 @@ shim : {
         "TopologyView" : { "deps" :['nx','tooltip'] },
         "TopologyModel" : { "deps" :['nx'] },
         "MainView" : { "deps" :['nx'] },
-        "ActionPanel":{ "deps" :['nx'] }
+        "ActionPanel":{ "deps" :['nx'] },
+        "configurationEvents":{ "deps" :['jquery.spin'] }
     },
   paths: {
     "react": "react.min",
