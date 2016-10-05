@@ -1,7 +1,7 @@
 /**
  * 
  */
-define(function(){
+define(['jquery.spin'], function(){
 	var portController=function(){
 		$("input[name=vlan_mode]").click(function(){
 			if($("input[name=vlan_mode]:checked").val()=="Trunk"){
@@ -71,7 +71,8 @@ define(function(){
 
 										$('#fbConfig #viewBridge table tbody').append(tableRowData);
 									
-
+										$('.spin').spin();
+										$('.spin').spin('show');
 										$
 												.ajax({
 													url : postURL,
@@ -82,9 +83,11 @@ define(function(){
 														console
 																.log("Success");
 														 $("div.alert-message-success").show();
-														 
+															$('.spin').spin("hide");
 													},
 													error : function(data) {
+														$('.spin').spin('hide');
+
 														console
 																.log("Error");
 														$("div.alert-message-error").show();
