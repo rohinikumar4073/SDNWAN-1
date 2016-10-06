@@ -167,7 +167,7 @@ header .leftnav {
 }
 
 .layout-flex > div {
-  margin: 3px;
+  margin: 10px 5px;
   text-align: center;
   width: 75px;
 }
@@ -194,9 +194,10 @@ h5 {
     padding: 0px 23px;
     min-height: 38px;
 }
-.layout-flex > div button.selected-link-class {
-    background-color: #004BAF;
-    border: none;
+.layout-flex > div button.selected-link-class .link-icon{
+    /*background-color: #004BAF;
+    border: none;*/
+      background-image: url(images/ciscoicons/link_red.png);
    
 }
 .layout-flex > div button i {
@@ -210,6 +211,14 @@ h5 {
 .fa.notifications {
   font-size: 24px;
   color: #4b4b4b;
+}
+
+.relativePos .btn-default:hover, .relativePos .btn-default:focus, .relativePos .btn-default:active, .relativePos .btn-default.active{
+  background-color: #fff;
+  border-color: #fff;
+}
+relativePos .btn:active, .relativePos .btn.active{
+  box-shadow: none;
 }
 
 link {
@@ -249,7 +258,7 @@ link {
 
 .layout-flex > div {
   text-align: center;
-  width: 23%;
+  width: 100px;
 }
 
 .create-new {
@@ -358,28 +367,32 @@ top: -2px;
 }
 
 .fb-icon,.optical-fiber{width: 32px;
-    height: 25px;
+    height: 32px;
     display: inline-block;
-    background-image: url("images/ciscoicons/optical amplifier.jpg");
+    background-image: url("images/ciscoicons/forwarding box.png");
     background-repeat: no-repeat;
 }.optical-fiber{
   height: 32px;
-    background-image: url("images/ciscoicons/optical transport.jpg");
+    background-image: url("images/ciscoicons/optical switch.png");
+}
+.link-icon{
+  height: 32px;
+  width: 32px;
+  background-image: url("images/ciscoicons/link.png");
+  display: inline-block;
+  background-repeat: no-repeat;
 }
 .patch-panel{
     height: 32px;
-    
     background-image: url("images/ciscoicons/pad.jpg");
     background-repeat: no-repeat;
     width: 75px;
     background-size: 57%;
-    margin: 25px 0 0 0;
 }.host{
   height: 32px;
   background-image: url("images/ciscoicons/standard host.jpg");
-  background-size: 37%;
-  width: 63px;
-  margin: 25px 0 0 0;
+  background-size: 90% auto;
+  width: 24px;
   background-repeat: no-repeat;
 }
 

@@ -22,7 +22,7 @@
         "airFlow":"Airflow"
       }, {
         "name": "link",
-        "className": "fa-link",
+        "className": "link-icon",
         "manufacturer":"Manufacturer1",
         "orderablePartNumber":"Orderable Part Number",
         "description":"Description" ,
