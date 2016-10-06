@@ -217,7 +217,7 @@ h5 {
   background-color: #fff;
   border-color: #fff;
 }
-relativePos .btn:active, .relativePos .btn.active{
+.relativePos .btn:active, .relativePos .btn.active{
   box-shadow: none;
 }
 
@@ -258,7 +258,9 @@ link {
 
 .layout-flex > div {
   text-align: center;
-  width: 100px;
+  min-width: 100px;
+  max-width: 150px;
+  flex: auto;
 }
 
 .create-new {
