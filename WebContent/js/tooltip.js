@@ -154,8 +154,22 @@ define(
 																	target : this
 																			.node()
 																			.id()
+																
 																});
 												this.topology().srclink = "";
+												console.log(5 + 6);
+	$("#pageModal")
+													.load(
+															"templates/tab1.html",
+															function() {
+																$('#pageModal ')
+																.modal(
+																		'show')
+																
+																
+															});
+
+											
 											//	linkMode.setFlag(false);
 
 											}
@@ -176,8 +190,7 @@ define(
 										'onSaveName' : function() {
 											// get current node's instance and access its label value. when pass something inside, NeXt consider
 											// you set new value
-											this.node().label(
-													this.newNodeName());
+											this.node().label(this.newNodeName());
 										}
 									}
 								});
@@ -229,6 +242,9 @@ define(
 							props : {
 								'class' : 'custom-tooltip'
 							}
+
+
+							
 						}
 					}
 				});
