@@ -5,7 +5,7 @@ var PropTypes = React.PropTypes;
 var flag=true;
 var self=this;
 
-var ComponentSource = { 
+var ComponentSource = {
 
   beginDrag: function (props) {
     // Return the data describing the dragged item
@@ -39,7 +39,7 @@ $(e.target).parent().parent('.context-menu').addClass('hidden')    },
 
 
 
- 
+
   var ComponentElement = React.createClass({
 
 
@@ -57,7 +57,7 @@ $(e.target).parent().parent('.context-menu').addClass('hidden')    },
       selectedLinkClass:""
     };
 },
- 
+
     contexMenu : function(e){
       //alert("cont Menu");
       e.preventDefault();
@@ -80,16 +80,16 @@ $(e.target).parent().parent('.context-menu').addClass('hidden')    },
       }
    this.props.topologyModel( link,this.props.collection.className);
    return;
-      
+
     }
       this.props.topologyModel( this.props.collection.name,this.props.collection.className);
     },
     render: function() {
-  
+
 var connectDragSource = this.props.connectDragSource;
     var isDragging = this.props.isDragging;
 
-      return (
+      return connectDragSource(
 
 
 
@@ -103,14 +103,14 @@ var connectDragSource = this.props.connectDragSource;
         </div>
         </div>
 
-        </div> 
+        </div>
         );
     }
 
 
 
     });
-  return DragSource('ComponentElement', ComponentSource, collect)(ComponentElement);
+  return DragSource('RightMenu', ComponentSource, collect)(ComponentElement);
 
 
     });

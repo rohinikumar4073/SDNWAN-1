@@ -12,14 +12,11 @@ var dropTargetData = {
 
   drop: function (props, monitor, component) {
   console.log("Dropped")
-    if (monitor.didDrop()) {
-      // If you want, you can check whether some nested
-      // target already handled drop
-      return;
-    }
+  props.topologyModelController(  monitor.getClientOffset(), monitor.getItem());
+
 
     // Obtain the dragged item
-   
+
     // You can also do nothing and return a drop result,
     // which will be available as monitor.getDropResult()
     // in the drag source's endDrag() method
@@ -28,7 +25,7 @@ var dropTargetData = {
 };
 function collect(connect, monitor) {
 console.log(monitor.isOver())
-console.log("CanDorop"+monitor.canDrop())
+console.log("CanDorop"+monitor.getItemType())
 
   return {
      connectDropTarget: connect.dropTarget(),
@@ -58,7 +55,7 @@ console.log("CanDorop"+monitor.canDrop())
         methods: {
             start: function () {
                 var mainView = new com.cisco.MainView();
-                
+
                 mainView.attach(this);
                 mainView.model(model);
             }, getContainer: function () {
@@ -67,7 +64,7 @@ console.log("CanDorop"+monitor.canDrop())
                 } else {
                     return new nx.dom.Element(document.getElementById("layout"));
                 }
- 
+
             }
         }
     });
@@ -86,10 +83,10 @@ console.log("CanDorop"+monitor.canDrop())
 
   },
   componentWillReceiveProps: function (nextProps) {
-      this.setState({ showData: false }); 
+      this.setState({ showData: false });
       if(flag){
 /**
- * 
+ *
  */
 
 
@@ -114,7 +111,6 @@ console.log( nextProps.isOver)
 this.props.createLink($("#source").val(),$("#destination").val());
 },
     render: function() {
-    	    var connectDropTarget = this.props.connectDropTarget;
    var x = this.props.x;
     var y = this.props.y;
     var connectDropTarget = this.props.connectDropTarget;
@@ -122,8 +118,8 @@ this.props.createLink($("#source").val(),$("#destination").val());
 
         <div className={(this.props.className || '') } >
  <div className="layout-flex " id="layout">
-         
-        </div>  
+
+        </div>
         </div>
         );
     }

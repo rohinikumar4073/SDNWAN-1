@@ -1,15 +1,17 @@
 define(['react','jquery','jsx!components/LeftMenu','jsx!components/RightMenu','jsx!components/BootstrapLinkCommon','TopologyModel'], function(React,$,LeftMenu,RightMenu,BootstrapLinkCommon) {
-  
 
 
 
 
-  
+
+
   var Body = React.createClass({
     getInitialState:function(){
-      return{     
+      return{
        bootstrapTitle:"",
-       iconType:""
+       iconType:"",
+       coordinates:{}
+
       }
       },
     topologyModel:new com.cisco.TopologyModel(),
@@ -18,10 +20,19 @@ createLink:function(s,d){
 this.topologyModel.createLink({
                     source: s,
                     target: d
+
                 });
 
 },
-    topologyModelController:function(title,iconDetails){
+topologyModelController:function(coordinates,data){
+  if(data.collection.name=="link"){
+      return;
+  }
+  this.refs.modal.open();
+
+  this.setState({bootstrapTitle:"Add "+data.collection.name,iconType:data.collection.className,coordinates:coordinates})
+  },
+    topologyModelControllerLinkMode:function(title,iconDetails){
       if(title=="linkSet"){
           this.topologyModel.setLinkMod();
           return;
@@ -29,6 +40,7 @@ this.topologyModel.createLink({
         this.topologyModel.resetLinkMod();
           return;
       }
+      this.setState({coordinates:{}})
     	this.refs.modal.open();
             console.log("iconDetails"+iconDetails);
 
@@ -53,17 +65,17 @@ this.topologyModel.createLink({
           return (
             <div className={(this.props.className || '') } >
             <div className="row">
-            <LeftMenu className="col-xs-6 col-md-4 col-lg-3 left-menu toggle-show" topologyModel={this.topologyModelController}>         
+            <LeftMenu className="col-xs-6 col-md-4 col-lg-3 left-menu toggle-show" topologyModel={this.topologyModelControllerLinkMode}>
             </LeftMenu>
             <div className="toggle-left-menu col-xs-6 col-md-4 col-lg-3">
               <button className="btn btn-default  pull-right left-position" type="button"  onClick={this.toggleElement} aria-haspopup="true" aria-expanded="false">
               <i className="fa fa-caret-left" aria-hidden="true"></i>
-              </button> 
+              </button>
             </div>
-            <RightMenu className="col-xs-6 col-md-8 col-lg-9 right-menu " topologyModel={this.topologyModel} createLink={this.createLink}>          
+            <RightMenu className="col-xs-6 col-md-8 col-lg-9 right-menu " topologyModel={this.topologyModel} createLink={this.createLink} topologyModelController={this.topologyModelController}>
             </RightMenu>
-            <BootstrapLinkCommon ref="modal" title={this.state.bootstrapTitle} iconType={this.state.iconType} topologyModel={this.topologyModel} />
-           
+            <BootstrapLinkCommon ref="modal" title={this.state.bootstrapTitle} iconType={this.state.iconType} coordinates={this.state.coordinates} topologyModel={this.topologyModel} />
+
             </div>
             </div>
             );
@@ -75,17 +87,17 @@ this.topologyModel.createLink({
 
           }
           });
- 
 
- 
-   
-     
-    
 
-  
- 
 
- 
+
+
+
+
+
+
+
+
 
 
 return Body;

@@ -10,7 +10,7 @@ var BootstrapButton = React.createClass({
     }
     });
 
-  var BootstrapLinkCommon = React.createClass({ 
+  var BootstrapLinkCommon = React.createClass({
 
     componentDidMount: function() {
       },
@@ -46,37 +46,37 @@ var BootstrapButton = React.createClass({
               					<div  className={this.props.title.split(" ")[1]=="Host"?"":"hidden"}>
               					<div className="form-group">
               					  <label for="nodeId">Node Id:</label>
-              					
+
                 				<input  type="text"
                   					className="form-control" id="nodeId"></input>
               					</div>
               					<div className="form-group">
               					  <label for="nodeId">Subnets</label>
-              					
+
                 				<input  type="text"
                   					className="form-control" id="subnets"></input>
               					</div>
               					<div className="form-group">
               					  <label for="nodeId">Static Subnet :</label>
-              					
+
                 				<input  type="text"
                   					className="form-control" id="static-subnet"></input>
               					</div>
               					<div className="form-group">
               					  <label for="nodeId">TP ID:</label>
-              					
+
                 				<input  type="text"
                   					className="form-control" id="tp_id"></input>
               					</div>
               					<div className="form-group">
               					  <label for="nodeId">Host Port Name :</label>
-              					
+
                 				<input  type="text"
                   					className="form-control" id="host-port-name"></input>
               					</div>
               					<div className="form-group">
               					  <label for="nodeId">IP Address :</label>
-              					
+
                 				<input  type="text"
                   					className="form-control" id="ip-address"></input>
               					</div>
@@ -88,7 +88,7 @@ var BootstrapButton = React.createClass({
     								<BootstrapButton
 					                  onClick={this.handleConfirm}
 					                  className="btn btn-sm btn-primary" data="Save">
-	
+
 					                  </BootstrapButton>
 					                    <BootstrapButton onClick={this.handleCancel} className="btn btn-sm btn-default" data="Cancel">
 							                  </BootstrapButton>
@@ -111,7 +111,7 @@ var BootstrapButton = React.createClass({
         setData:function(e){
                  },
         handleConfirm: function() {
-        	this.props.topologyModel.createNode(this.state.fbName,this.props.iconType);
+        	this.props.topologyModel.createNode(this.state.fbName,this.props.iconType,this.props.coordinates);
           console.log("iconType"+this.props.iconType)
         	this.close();
 
