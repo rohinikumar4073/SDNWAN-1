@@ -38,9 +38,48 @@ var BootstrapButton = React.createClass({
                 				<h3>{this.props.title}</h3>
                 			</div>
                 			<div className="modal-body" >
-                			<div className="form-group">
+                			<div className="form-group" >
+                			<label for="fbname">Name:</label>
                 				<input onChange={this.onChangeFunction} type="text"
                   					className="form-control" id="fb_name"></input>
+              					</div>
+              					<div  className={this.props.title.split(" ")[1]=="Host"?"":"hidden"}>
+              					<div className="form-group">
+              					  <label for="nodeId">Node Id:</label>
+              					
+                				<input  type="text"
+                  					className="form-control" id="nodeId"></input>
+              					</div>
+              					<div className="form-group">
+              					  <label for="nodeId">Subnets</label>
+              					
+                				<input  type="text"
+                  					className="form-control" id="subnets"></input>
+              					</div>
+              					<div className="form-group">
+              					  <label for="nodeId">Static Subnet :</label>
+              					
+                				<input  type="text"
+                  					className="form-control" id="static-subnet"></input>
+              					</div>
+              					<div className="form-group">
+              					  <label for="nodeId">TP ID:</label>
+              					
+                				<input  type="text"
+                  					className="form-control" id="tp_id"></input>
+              					</div>
+              					<div className="form-group">
+              					  <label for="nodeId">Host Port Name :</label>
+              					
+                				<input  type="text"
+                  					className="form-control" id="host-port-name"></input>
+              					</div>
+              					<div className="form-group">
+              					  <label for="nodeId">IP Address :</label>
+              					
+                				<input  type="text"
+                  					className="form-control" id="ip-address"></input>
+              					</div>
               					</div>
                 			</div>
                 			<div className="modal-footer">

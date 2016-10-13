@@ -258,8 +258,8 @@ link {
 
 .layout-flex > div {
   text-align: center;
-  min-width: 100px;
-  max-width: 150px;
+  min-width: 90px;
+  max-width: 108px;
   flex: auto;
 }
 
@@ -384,14 +384,13 @@ top: -2px;
   display: inline-block;
   background-repeat: no-repeat;
 }
-.patch-panel{
-    height: 32px;
-    background-image: url("images/ciscoicons/pad.jpg");
-    background-repeat: no-repeat;
-    width: 75px;
-    background-size: 57%;
-    margin: 0 0 0 31%;
-}.host{
+.patch-panel{height: 32px;
+background-image: url("images/ciscoicons/pad.jpg");
+background-repeat: no-repeat;
+width: 65px;
+background-size: 67%;
+margin: 0 0 0 0%;}
+.host{
   height: 32px;
   background-image: url("images/ciscoicons/standard host.jpg");
   background-size: 90% auto;

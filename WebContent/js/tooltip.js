@@ -134,6 +134,9 @@ define(
 																$('#pageModal ')
 																.modal(
 																		'show')
+																			$('#pageModal ')
+																.modal(
+																		'show')
 																configurationEvents.init(self);
 																configurationEvents.savingDetails();
 																
@@ -157,7 +160,7 @@ define(
 																
 																});
 												this.topology().srclink = "";
-												console.log(5 + 6);
+											
 	$("#pageModal")
 													.load(
 															"templates/tab1.html",
@@ -165,7 +168,7 @@ define(
 																$('#pageModal ')
 																.modal(
 																		'show')
-																
+																		$("#pageModal .modal-dialog").width('600px')
 																
 															});
 
