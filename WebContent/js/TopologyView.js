@@ -1,8 +1,8 @@
 (function (nx) {
-        nx.graphic.Icons.registerIcon("fb-icon", "/sdnwan/css/images/ciscoicons/optical%20amplifier.jpg", 32, 26);
-         nx.graphic.Icons.registerIcon("optical-fiber", "/sdnwan/css/images/ciscoicons/optical%20transport.jpg", 32, 32);
-          nx.graphic.Icons.registerIcon("patch-panel", "/sdnwan/css/images/ciscoicons/pad.jpg", 32, 32);
-           nx.graphic.Icons.registerIcon("host", "/sdnwan/css/images/ciscoicons/standard%20host.jpg", 32, 32);
+        nx.graphic.Icons.registerIcon("fb-icon", window.location.pathname+"/../css/images/ciscoicons/forwarding%20box.png", 32, 26);
+         nx.graphic.Icons.registerIcon("optical-fiber", window.location.pathname+"/../css/images/ciscoicons/optical%20switch.png", 32, 32);
+          nx.graphic.Icons.registerIcon("patch-panel", window.location.pathname+"/../css/images/ciscoicons/pad.jpg", 32, 32);
+           nx.graphic.Icons.registerIcon("host",window.location.pathname+"/../css/images/ciscoicons/standard%20host.jpg", 32, 32);
          
 
 
