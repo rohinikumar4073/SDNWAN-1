@@ -1,8 +1,8 @@
 define(['react'], function(React) {
- 
+
   var FBOSData = React.createClass({
 
- 
+
     render: function() {
 
 
@@ -50,8 +50,8 @@ define(['react'], function(React) {
     <label for="templateCategory">Template Category:</label>
     <input type="text" class="form-control" id="templateCategory">
   </div>
-  
-  
+
+
 </form>
 </div>
 </div>
@@ -76,12 +76,12 @@ define(['react'], function(React) {
     <label for="imageFileName">Image File Name:</label>
     <input type="text" class="form-control" id="imageFileName">
   </div>
-  
+
     <div class="form-group">
     <label for="orderablePartNumber">Orderable Part Number:</label>
     <input type="text" class="form-control" id="orderablePartNumber">
   </div>
-  
+
     <div class="form-group">
     <label for="description">Description:</label>
     <input type="text" class="form-control" id="description">
@@ -100,19 +100,19 @@ define(['react'], function(React) {
   <label><input type="radio" name="openFlowVersion">1.5</label>
 </div>
   </div>
-  
+
       <div class="form-group">
     <label for="linuxVersion">Linux kernel version:</label>
     <input type="text" class="form-control" id="linuxVersion">
   </div>
-  
+
       <div class="form-group">
     <label for="linuxBase">Linux Distribution base:</label>
     <input type="text" class="form-control" id="linuxBase">
   </div>
-  
-  
-  
+
+
+
     <div class="panel-group">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -158,7 +158,7 @@ define(['react'], function(React) {
     <label for="queryInterval">FB & SFP Inventory Query Interval(sec):</label>
     <input type="text" class="form-control" id="queryInterval">
   </div>
-  
+
   <div class="form-group">
     <label for="interfaceInterval">Interface and Flow Counter Query Interval(sec):</label>
     <input type="text" class="form-control" id="interfaceInterval">
@@ -173,7 +173,7 @@ define(['react'], function(React) {
   <label><input type="radio" name="alarmHistory">Disabled</label>
 </div>
 </div>
- 
+
  <div class="form-group">
     <label for="alarmHigh">Alarm High Temperature(F Degrees):</label>
     <input type="text" class="form-control" id="alarmHigh">
@@ -191,23 +191,23 @@ define(['react'], function(React) {
   <label><input type="radio" name="puppet">False</label>
 </div>
   </div>
-  
-  
+
+
 </form>
 </div>
 </div>
 </div>
 </div>
-  
-   
-  
+
+
+
 
   </div>
-  
+
   </div>
 
-  
-  
+
+
   </div>
   )
 

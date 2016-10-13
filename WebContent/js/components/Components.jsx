@@ -1,49 +1,40 @@
-define(['react','jquery','jsx!components/Component'], function(React,$,Component) {
+define([
+    'react', 'jquery', 'jsx!components/Component'
+], function(React, $, Component) {
 
-var Components = React.createClass({
-    getInitialState: function() {
-      return {
-        forwardingBox: [],
-        hosts: [],
-        elements:[]
-      };
-      },
+    var Components = React.createClass({
+        getInitialState: function() {
+            return {forwardingBox: [], hosts: [], elements: []};
+        },
 
-      componentDidMount: function() {	
-      console.log("Indide codm");
-        var self = this;
-        $.get(this.props.source, function(result) {
-          var collection = result;
+        componentDidMount: function() {
+            var self = this;
+            $.get(this.props.source, function(result) {
+                var collection = result;
 
-          if (this.isMounted()) {
-            this.setState({
-              elements: collection
-              });
-          }
-          }.bind(this));
+                if (this.isMounted()) {
+                    this.setState({elements: collection});
+                }
+            }.bind(this));
         },
 
         componentWillUnmount: function() {
-          this.serverRequest.abort();
-          },
+            this.serverRequest.abort();
+        },
 
-          render: function() {
+        render: function() {
 
-
-            return (<div>
-            {    
-              this.state.elements.map(function(element,i){
-                return <Component heading={element.heading} collection={element.data} key={i} className="layout-flex" topologyModel={this.props.topologyModel}/>
-                }.bind(this))
-            } 
-            </div>
+            return (
+                <div>
+                    {this.state.elements.map(function(element, i) {
+                        return <Component heading={element.heading} collection={element.data} key={i} className="layout-flex" topologyModel={this.props.topologyModel}/>
+                    }.bind(this))
+}
+                </div>
             );
 
-          }
+        }
 
-
-
-          });
-          return Components;
-               });
- 
+    });
+    return Components;
+});

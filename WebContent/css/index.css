@@ -198,7 +198,7 @@ h5 {
     /*background-color: #004BAF;
     border: none;*/
       background-image: url(images/ciscoicons/link_red.png);
-   
+
 }
 .layout-flex > div button i {
   color: #000;
@@ -353,7 +353,7 @@ hr {
     text-align: center;
     padding: 5px 0px;
     margin: 5px auto;
-    
+
     cursor: pointer;
 }
 .popup-section:hover{opacity: 0.6}
@@ -398,7 +398,7 @@ margin: 0 0 0 0%;}
   background-repeat: no-repeat;
 }
 
-.linkhide{display: 
+.linkhide{display:
 none;}
 #pageModal .radio{
 	display:inline-block;
@@ -459,7 +459,7 @@ overflow-y: auto;display:none;}
 }*/
 .spin
 {
-  filter:alpha(opacity=10); 
+  filter:alpha(opacity=10);
   opacity:0.1;
   margin: 17% 0 0 46%;
   text-align:center;
@@ -469,9 +469,12 @@ overflow-y: auto;display:none;}
   > *
   {
     background: #EEE; /* hand */
-    
+
   }
 }
 .popup{
 	position: relative;
+}
+header .navbar .navbar-header .navbar-toggle{
+  display: none
 }
