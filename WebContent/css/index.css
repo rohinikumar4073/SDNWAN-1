@@ -390,6 +390,7 @@ top: -2px;
     background-repeat: no-repeat;
     width: 75px;
     background-size: 57%;
+    margin: 0 0 0 31%;
 }.host{
   height: 32px;
   background-image: url("images/ciscoicons/standard host.jpg");
