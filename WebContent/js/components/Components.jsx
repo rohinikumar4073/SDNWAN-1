@@ -13,7 +13,7 @@ var Components = React.createClass({
       console.log("Indide codm");
         var self = this;
         $.get(this.props.source, function(result) {
-          var collection = JSON.parse(result);
+          var collection = result;
 
           if (this.isMounted()) {
             this.setState({
