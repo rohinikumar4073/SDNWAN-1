@@ -1,6 +1,6 @@
 define(
-    ['linkMode', 'configurationEvents', 'bootstrap'],
-    function(linkMode, configurationEvents) {
+    ['linkMode', 'configurationEvents','jquery', 'bootstrap'],
+    function(linkMode, configurationEvents,$) {
         (function(nx) {
             // node tooltip class
             // see nx.graphic.Topology.Node reference to learn what node's
@@ -10,7 +10,22 @@ define(
                     'TooltipNode',
                     nx.ui.Component, {
                         properties: {
-                            'node': {}, // NeXt automatically
+                            'node': {
+                                  set: function (value) {
+                    var model = value.model();
+                    var view= this.view('portData')
+                    debugger;
+                            $.get("js/data/dropDown.json", function(result) {
+          var collection = JSON.parse(result);
+                              debugger;
+
+                 view.set('items', collection[model.getData().iconType]);
+
+         
+          })
+                
+                }
+                            }, // NeXt automatically
                             // provides you the
                             // access to the
                             // selected
@@ -34,19 +49,16 @@ define(
                                 else {
                                     return "popup-section linkhide "
                                 }
-                            },
-                            portData: function() {
-                                return [{
-                                    port: 1245
-                                }, {
-                                    port: 2456
-                                }, {
-                                    port: 1444
-                                }, {
-                                    port: 1444
-                                }];
+                            }  ,portData:{
+
+                                set: function (value) {
+                                    var model = value.model();
+                                    console.log(modal)
+                                    debugger;
+                                }
                             }
-                        },
+                          
+            },
 
                         // 'view' defines the appearance of the
                         // tooltip
@@ -85,8 +97,8 @@ define(
                                                 content: "Select Port"
                                             }, {
                                                 tag: 'div',
+                                                name:"portData",
                                                 props: {
-                                                    items: "{#portData}",
                                                     template: {
                                                         tag: "div",
                                                         content: [{
