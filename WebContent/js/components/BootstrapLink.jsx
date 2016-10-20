@@ -11,21 +11,21 @@ var BootstrapLink = React.createClass({
 
       },
       render: function() {
-        var modal = null;
-        modal = (
-          <BootstrapModal
+       
+        return (
+          <div className="link">
+        <BootstrapModal
           ref="modal"
           confirm="OK"
           cancel="Cancel"
           onCancel={this.handleCancel}
           onConfirm={this.closeModal}
           onHidden={this.handleModalDidClose}
-          title="Create New Forwarding Box Template">
+          title={"Create "+this.props.heading}
+          template={this.props.template}
+          >
+          
           </BootstrapModal>
-          );
-        return (
-          <div className="link">
-          {modal}
           <BootstrapButton  onClick={this.openModal} data={this.props.data}>
           Open modal
           </BootstrapButton>

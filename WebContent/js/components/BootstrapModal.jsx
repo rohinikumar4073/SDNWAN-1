@@ -1,4 +1,4 @@
- define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm'], function(React,$,BootstrapButton,FBForm) {
+ define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm','jsx!components/CreateFBFanTemplate','jsx!components/FBOSTemplate'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS) {
 
  var BootstrapModal = React.createClass({
     // The following two methods are the only places we need to
@@ -56,7 +56,11 @@
                 </div>
                 <div className="modal-body" >
                   
-                    <FBForm data={this.props.children} onChangeFunction={this.setData}/>
+                    <FBForm data={this.props.children} onChangeFunction={this.setData} className={this.props.template=='FBForm' ? "" :"hidden"}></FBForm>
+                    <FBFan data={this.props.children} onChangeFunction={this.setData} className={this.props.template=='FBFan' ? "" :"hidden"}></FBFan>
+                     <FBOS data={this.props.children} onChangeFunction={this.setData} className={this.props.template=='FBOS' ? "" :"hidden"}></FBOS>
+                    
+                    
 
 
                 </div>
@@ -100,7 +104,7 @@ this.setState({
                 handleConfirm: function() {
                   var self = this;
                   $.ajax({
-            url: "http://114.8.10.211:50512/FbTemplate/getFbCreateInstances",
+            url: "http://10.76.110.81:50102/FbTemplate/CreateTemplate",
             type: 'post',
               data: JSON.stringify(this.state.dataToBeSend),
             contentType: "application/json; charset=utf-8",

@@ -13,16 +13,19 @@ var Templates = React.createClass({
           var arrayData=[
                 {
                   "heading": "FB Instance Creation",
+                  "template":"FBForm",
                   "data": [
                     
                   ]
                 },{
                   "heading": "FB Fan Template",
+                  "template":"FBFan",
                   "data": [
                     
                   ]
                 },{
                   "heading": "FB OS Template",
+                  "template":"FBOS",
                   "data": [
                     
                   ]
@@ -59,7 +62,7 @@ var Templates = React.createClass({
             return (<div>
             {    
               this.state.elements.map(function(element,i){
-                return <Template heading={element.heading} collection={element.data} key={i} className="layout-flex"/>
+                return <Template heading={element.heading} collection={element.data}  template={element.template} key={i} className="layout-flex"/>
                 })
             }
             </div>
