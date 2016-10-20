@@ -1,8 +1,8 @@
 define(['react'], function(React) {
- 
+
   var FBPowerData = React.createClass({
 
- 
+
     render: function() {
 
 
@@ -51,8 +51,8 @@ define(['react'], function(React) {
     <label for="templateCategory">Template Category:</label>
     <input type="text" class="form-control" id="templateCategory"></input>
   </div>
-  
-  
+
+
 </form>
 </div>
 </div>
@@ -64,22 +64,22 @@ define(['react'], function(React) {
     <label for="manufacturer">Manufacturer:</label>
     <input type="text" class="form-control" id="manufacturer"></input>
   </div>
-  
+
     <div class="form-group">
     <label for="orderablePartNumber">Orderable Part Number:</label>
     <input type="text" class="form-control" id="orderablePartNumber"></input>
   </div>
-  
+
     <div class="form-group">
     <label for="description">Description:</label>
     <input type="text" class="form-control" id="description"></input>
   </div>
-  
+
     <div class="form-group">
     <label for="clei">CLEI:</label>
     <input type="text" class="form-control" id="clei"></input>
   </div>
-  
+
     <div class="form-group">
     <label for="materialId">Material ID (from Vz procurement system):</label>
     <input type="text" class="form-control" id="materialId"></input>
@@ -92,14 +92,14 @@ define(['react'], function(React) {
 <div class="radio">
   <label><input type="radio" name="powerType">DC</input></label>
 </div>
-    
+
   </div>
 
 <div class="form-group">
     <label for="maxPower">Max Power Rating(Watts):</label>
     <input type="text" class="form-control" id="maxPower"></input>
   </div>
-  
+
    <div class="form-group">
     <label for="airFlow">Air Flow </label>
 	 <div class="radio">
@@ -108,12 +108,12 @@ define(['react'], function(React) {
 <div class="radio">
   <label><input type="radio" name="airFlow">Back-to-Front</input></label>
 </div>
-    
-  </div>
-  
 
   </div>
-  
+
+
+  </div>
+
 )
 
    }

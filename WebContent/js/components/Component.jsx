@@ -1,21 +1,22 @@
- define(['react','jquery','jsx!components/ComponentElement'], function(React,$,ComponentElement) {
- var Component = React.createClass({
+define([
+    'react', 'jquery', 'jsx!components/ComponentElement'
+], function(React, $, ComponentElement) {
+    var Component = React.createClass({
 
-    render: function() {
+        render: function() {
 
+            return (
+                <div className="layout-component">
 
-      return (<div className="layout-component">
-        
-        <div className={this.props.className}>
-        {    
-          this.props.collection.map(function(data,i){
-            return <ComponentElement collection={data} key={i} topologyModel={this.props.topologyModel} />
-            }.bind(this))
+                    <div className={this.props.className}>
+                        {this.props.collection.map(function(data, i) {
+                            return <ComponentElement collection={data} key={i} topologyModel={this.props.topologyModel}/>
+                        }.bind(this))
+}
+                    </div>
+                </div>
+            );
         }
-        </div>
-        </div>
-        );
-    }
-      });
-      return Component;
-      });
+    });
+    return Component;
+});

@@ -1,8 +1,8 @@
 define(['react'], function(React) {
- 
+
   var FBTranseiverData = React.createClass({
 
- 
+
     render: function() {
 
 
@@ -10,7 +10,7 @@ define(['react'], function(React) {
 
   <div id="accordion">
 
-    
+
  <div class="panel-group">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -53,8 +53,8 @@ define(['react'], function(React) {
     <label for="templateCategory">Template Category:</label>
     <input type="text" class="form-control" id="templateCategory"></input>
   </div>
-  
-  
+
+
 </form>
 </div>
 </div>
@@ -66,12 +66,12 @@ define(['react'], function(React) {
     <label for="manufacturer">Manufacturer:</label>
     <input type="text" class="form-control" id="manufacturer"></input>
   </div>
-  
+
     <div class="form-group">
     <label for="orderablePartNumber">Orderable Part Number:</label>
     <input type="text" class="form-control" id="orderablePartNumber"></input>
   </div>
-  
+
     <div class="form-group">
     <label for="description">Description:</label>
     <input type="text" class="form-control" id="description"></input>
@@ -86,19 +86,19 @@ define(['react'], function(React) {
     <label for="supplierNo">Supplier Part Number:</label>
     <input type="text" class="form-control" id="supplierNo"></input>
   </div>
-  
+
     <div class="form-group">
     <label for="clei">CLEI:</label>
     <input type="text" class="form-control" id="clei"></input>
   </div>
-  
+
     <div class="form-group">
     <label for="materialId">Material ID (from Vz procurement system):</label>
     <input type="text" class="form-control" id="materialId"></input>
   </div>
 
   </div>
- 
+
 )
 }
     });

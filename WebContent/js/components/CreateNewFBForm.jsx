@@ -56,8 +56,8 @@ render: function() { return (
 					</form>
 				</div>
 			</div>
-	
-		
+
+
 
 			<div className="panel panel-default">
 				<div className="panel-heading">
@@ -100,7 +100,7 @@ render: function() { return (
 									data-parentData="dataPlaceConfiguration"></input>
 							</div>
 							<div className="form-group">
-								<label for="enableFrameSupport">Enable Frame Support:</label> 
+								<label for="enableFrameSupport">Enable Frame Support:</label>
 									<input onChange={this.props.onChangeFunction} type="text"
 									className="form-control" id="enableFrameSupport"
 									data-parentData="dataPlaceConfiguration"></input>
@@ -124,13 +124,13 @@ render: function() { return (
 
 				</div>
 			</div>
-		
 
 
 
 
 
-	
+
+
 			<div className="panel panel-default">
 				<div className="panel-heading">
 					<h4 className="panel-title">
@@ -185,7 +185,7 @@ render: function() { return (
 
 				</div>
 			</div>
-	
+
 
 		<div className="panel panel-default">
 			<div className="panel-heading">

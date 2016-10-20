@@ -36,10 +36,10 @@ color: #CD0408;border: none;
   color: #333;
 }
 
-.modal-content  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+/*.modal-content  .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   border: 0;
 }
-
+*/
 
 .modal-content  .tab-content .tab-pane {
   display: none;
@@ -136,16 +136,12 @@ header .leftnav {
   z-index: 1
 }
 
-.toggle-left-menu {
-  position: absolute;
-  left: -15px;
-  z-index: 1
-}
-
-.toggle-left-menu button,
 .left-menu {
   position: relative;
-  ;
+}
+
+.toggle-left-menu button {
+  position: relative;
 }
 
 .toggle-left-menu button {
@@ -153,12 +149,16 @@ header .leftnav {
   padding: 7px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  top: 2px;
+  left:-15px;
 }
 
-.toggle-left-menu .left-position {
-  left: -104px;
+.toggle-left-menu button.left-position {
+  left:41px;
 }
+
+/*.toggle-left-menu .left-position {
+  left: -104px;
+}*/
 
 .layout-flex {
   display: flex;
@@ -167,7 +167,7 @@ header .leftnav {
 }
 
 .layout-flex > div {
-  margin: 3px;
+  margin: 10px 5px;
   text-align: center;
   width: 75px;
 }
@@ -194,10 +194,11 @@ h5 {
     padding: 0px 23px;
     min-height: 38px;
 }
-.layout-flex > div button.selected-link-class {
-    background-color: #004BAF;
-    border: none;
-   
+.layout-flex > div button.selected-link-class .link-icon{
+    /*background-color: #004BAF;
+    border: none;*/
+      background-image: url(images/ciscoicons/link_red.png);
+
 }
 .layout-flex > div button i {
   color: #000;
@@ -210,6 +211,14 @@ h5 {
 .fa.notifications {
   font-size: 24px;
   color: #4b4b4b;
+}
+
+.relativePos .btn-default:hover, .relativePos .btn-default:focus, .relativePos .btn-default:active, .relativePos .btn-default.active{
+  background-color: #fff;
+  border-color: #fff;
+}
+.relativePos .btn:active, .relativePos .btn.active{
+  box-shadow: none;
 }
 
 link {
@@ -229,17 +238,17 @@ link {
 
 .toggle-left-menu {
   position: absolute;
-  left: -15px;
+  height:0px;
   z-index: 2;
 }
 
-.toggle-left-menu button,
+/*.toggle-left-menu button,
 .left-menu {
   z-index: 3;
   position: relative;
   ;
   overflow: auto;
-}
+}*/
 
 .layout-flex {
   display: flex;
@@ -249,7 +258,9 @@ link {
 
 .layout-flex > div {
   text-align: center;
-  width: 23%;
+  min-width: 90px;
+  max-width: 108px;
+  flex: auto;
 }
 
 .create-new {
@@ -342,7 +353,7 @@ hr {
     text-align: center;
     padding: 5px 0px;
     margin: 5px auto;
-    
+
     cursor: pointer;
 }
 .popup-section:hover{opacity: 0.6}
@@ -358,32 +369,36 @@ top: -2px;
 }
 
 .fb-icon,.optical-fiber{width: 32px;
-    height: 25px;
+    height: 32px;
     display: inline-block;
-    background-image: url("images/ciscoicons/optical amplifier.jpg");
+    background-image: url("images/ciscoicons/forwarding box.png");
     background-repeat: no-repeat;
 }.optical-fiber{
   height: 32px;
-    background-image: url("images/ciscoicons/optical transport.jpg");
+    background-image: url("images/ciscoicons/optical switch.png");
 }
-.patch-panel{
-    height: 32px;
-    
-    background-image: url("images/ciscoicons/pad.jpg");
-    background-repeat: no-repeat;
-    width: 75px;
-    background-size: 57%;
-    margin: 25px 0 0 0;
-}.host{
+.link-icon{
+  height: 32px;
+  width: 32px;
+  background-image: url("images/ciscoicons/link.png");
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+.patch-panel{height: 32px;
+background-image: url("images/ciscoicons/pad.jpg");
+background-repeat: no-repeat;
+width: 65px;
+background-size: 67%;
+margin: 0 0 0 0%;}
+.host{
   height: 32px;
   background-image: url("images/ciscoicons/standard host.jpg");
-  background-size: 37%;
-  width: 63px;
-  margin: 25px 0 0 0;
+  background-size: 90% auto;
+  width: 24px;
   background-repeat: no-repeat;
 }
 
-.linkhide{display: 
+.linkhide{display:
 none;}
 #pageModal .radio{
 	display:inline-block;
@@ -431,7 +446,7 @@ none;}
 }
 #pageModal .alert-message-success ,#pageModal .alert-message-error{padding: 1.6rem;
 overflow-y: auto;display:none;}
-.left-tabs.nav-tabs{height:44px;}
+/*.left-tabs.nav-tabs{height:44px;}*/
 .modal .btn-primary,.modal .btn-primary:hover {
     background: #CD040B;    border: 0px;
 }
@@ -439,12 +454,12 @@ overflow-y: auto;display:none;}
     background: #4B4B4B;
     color:#fff; border: 0px;
 }
-.btn.active:focus, .btn:active:focus, .btn:focus, a:focus {
+/*.btn.active:focus, .btn:active:focus, .btn:focus, a:focus {
     box-shadow: none;    background-color: #fff;
-}
+}*/
 .spin
 {
-  filter:alpha(opacity=10); 
+  filter:alpha(opacity=10);
   opacity:0.1;
   margin: 17% 0 0 46%;
   text-align:center;
@@ -454,9 +469,12 @@ overflow-y: auto;display:none;}
   > *
   {
     background: #EEE; /* hand */
-    
+
   }
 }
 .popup{
 	position: relative;
+}
+header .navbar .navbar-header .navbar-toggle{
+  display: none
 }
