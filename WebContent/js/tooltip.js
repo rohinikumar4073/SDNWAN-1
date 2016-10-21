@@ -11,19 +11,25 @@ define(
                     nx.ui.Component, {
                         properties: {
                             'node': {
+                              get:function(){
+
+                                return this._node;
+                              },
                                   set: function (value) {
+                                    debugger;
                     var model = value.model();
+                    this._node=value.node();
                     var view= this.view('portData')
                     debugger;
                             $.get("js/data/dropDown.json", function(result) {
-          var collection = JSON.parse(result);
+          var collection = result;
                               debugger;
 
                  view.set('items', collection[model.getData().iconType]);
 
-         
+
           })
-                
+
                 }
                             }, // NeXt automatically
                             // provides you the
@@ -57,7 +63,7 @@ define(
                                     debugger;
                                 }
                             }
-                          
+
             },
 
                         // 'view' defines the appearance of the
