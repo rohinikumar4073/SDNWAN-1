@@ -40,6 +40,11 @@ define(['linkMode', 'bootstrap'], function(linkMode) {
             },
             resetLinkMod: function() {
                 linkMode.setFlag(false);
+            },
+             createLinkPatchPanel: function(inLink) {
+               
+                this.newLink(inLink);
+               
             }
         }
     });
