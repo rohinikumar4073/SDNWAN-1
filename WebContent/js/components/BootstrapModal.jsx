@@ -1,6 +1,5 @@
-define([
-    'react', 'jquery', 'jsx!components/BootstrapButton', 'jsx!components/CreateNewFBForm'
-], function(React, $, BootstrapButton, FBForm) {
+
+ define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm','jsx!components/CreateFBFanTemplate','jsx!components/FBOSTemplate'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS) {
 
     var BootstrapModal = React.createClass({
         // The following two methods are the only places we need to
@@ -43,17 +42,23 @@ define([
 
             return (
                 <div className="modal fade" ref="root">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" onClick={this.handleCancel}>
-                                    &times;
-                                </button>
-                                <h3>{this.props.title}</h3>
-                            </div>
-                            <div className="modal-body">
 
-                                <FBForm data={this.props.children} onChangeFunction={this.setData}/>
+                <div className="modal-dialog">
+                <div className="modal-content">
+                <div className="modal-header">
+                <button
+                type="button"
+                className="close"
+                onClick={this.handleCancel}>
+                &times;
+                </button>
+                <h3>{this.props.title}</h3>
+                </div>
+                <div className="modal-body" >
+
+                    <FBForm data={this.props.children} onChangeFunction={this.setData} className={this.props.template=='FBForm' ? "" :"hidden"}></FBForm>
+                    <FBFan data={this.props.children} onChangeFunction={this.setData} className={this.props.template=='FBFan' ? "" :"hidden"}></FBFan>
+                     <FBOS data={this.props.children} onChangeFunction={this.setData} className={this.props.template=='FBOS' ? "" :"hidden"}></FBOS>
 
                             </div>
                             <div className="modal-footer">
@@ -82,8 +87,10 @@ define([
                 } else {
                     this.state.dataToBeSend[parnetId][e.target.id] = e.target.value;
                 }
+
             } else {
                 this.state.dataToBeSend[e.target.id] = e.target.value;
+
             }
 
             this.setState({dataToBeSend: this.state.dataToBeSend});

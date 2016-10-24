@@ -37,9 +37,11 @@ define([
                 this.state.collection.isOpened = false;
             }
 
+
             this.setState({collection: this.state.collection})
         },
         render: function() {
+
 
             return (
                 <div className="layout-template">
@@ -55,7 +57,7 @@ define([
                         ? "create-new"
                         : "create-new hidden"}>
                         <i className="fa fa-plus-circle" aria-hidden="true"></i>
-                        <BootstrapLink data={"Create " + this.props.heading} addRow={this.addRow}/>
+                        <BootstrapLink data={"Create " + this.props.heading} addRow={this.addRow} heading={this.props.heading} template={this.props.template}/>
                     </div>
 
                     <div className={this.state.showData

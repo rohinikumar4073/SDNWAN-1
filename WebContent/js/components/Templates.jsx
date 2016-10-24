@@ -10,23 +10,40 @@ define([
             var self = this;
             var arrayData = [
                 {
-                    "heading": "FB Instance Creation",
-                    "data": []
-                }, {
-                    "heading": "FB Fan Template",
-                    "data": []
-                }, {
-                    "heading": "FB OS Template",
-                    "data": []
-                }, {
-                    "heading": "FB Powersupply Template",
-                    "data": []
-                }, {
-                    "heading": "FB Template",
-                    "data": []
-                }, {
-                    "heading": "FB Transiever Template",
-                    "data": []
+
+                  "heading": "FB Instance Creation",
+                  "template":"FBForm",
+                  "data": [
+
+                  ]
+                },{
+                  "heading": "FB Fan Template",
+                  "template":"FBFan",
+                  "data": [
+
+                  ]
+                },{
+                  "heading": "FB OS Template",
+                  "template":"FBOS",
+                  "data": [
+
+                  ]
+                },{
+                  "heading": "FB Powersupply Template",
+                  "data": [
+
+                  ]
+                },{
+                  "heading": "FB Template",
+                  "data": [
+
+                  ]
+                },{
+                  "heading": "FB Transiever Template",
+                  "data": [
+
+                  ]
+
                 }
             ]
             this.setState({elements: arrayData});
@@ -39,14 +56,14 @@ define([
 
         render: function() {
 
-            return (
-                <div>
-                    {this.state.elements.map(function(element, i) {
-                        return <Template heading={element.heading} collection={element.data} key={i} className="layout-flex"/>
-                    })
-}
-                </div>
-            );
+            return (<div>
+            {
+              this.state.elements.map(function(element,i){
+                return <Template heading={element.heading} collection={element.data}  template={element.template} key={i} className="layout-flex"/>
+                })
+            }
+            </div>
+      );
 
         }
 

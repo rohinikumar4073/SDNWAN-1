@@ -5852,7 +5852,7 @@ a.label:hover, a.label:focus {
   }
 }
 /* line 19, sass/verizon/_accordion.scss */
-#accordion .panel-default, .accordion .panel-default {
+.accordion .panel-default, .accordion .panel-default {
   background: #fff none repeat scroll 0 0;
   border: medium none;
   -webkit-box-shadow: none;
@@ -5865,11 +5865,11 @@ a.label:hover, a.label:focus {
   background-clip: padding-box;
 }
 /* line 26, sass/verizon/_accordion.scss */
-#accordion a:hover, .accordion a:hover {
+.accordion a:hover, .accordion a:hover {
   text-decoration: none;
 }
 /* line 30, sass/verizon/_accordion.scss */
-#accordion .panel-heading, .accordion .panel-heading {
+.accordion .panel-heading, .accordion .panel-heading {
   padding: 15px 0 5px;
   background: #fff none repeat scroll 0 0;
   border: medium none;
@@ -5883,7 +5883,7 @@ a.label:hover, a.label:focus {
   background-clip: padding-box;
 }
 /* line 37, sass/verizon/_accordion.scss */
-#accordion .panel-heading a:after, .accordion .panel-heading a:after {
+.accordion .panel-heading a:after, .accordion .panel-heading a:after {
   font-family: "Glyphicons Halflings";
   content: "\2212";
   float: right;
@@ -5891,21 +5891,21 @@ a.label:hover, a.label:focus {
   padding: 0;
 }
 /* line 45, sass/verizon/_accordion.scss */
-#accordion .panel-heading a.collapsed:after, .accordion .panel-heading a.collapsed:after {
+.accordion .panel-heading a.collapsed:after, .accordion .panel-heading a.collapsed:after {
   content: "\2b";
   padding: 0;
 }
 /* line 51, sass/verizon/_accordion.scss */
-#accordion .panel-heading:last-child, .accordion .panel-heading:last-child {
+.accordion .panel-heading:last-child, .accordion .panel-heading:last-child {
   border-bottom: 1px solid #ccc;
 }
 /* line 54, sass/verizon/_accordion.scss */
-#accordion .panel-heading .panel-title, .accordion .panel-heading .panel-title {
+.accordion .panel-heading .panel-title, .accordion .panel-heading .panel-title {
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
 }
 /* line 57, sass/verizon/_accordion.scss */
-#accordion .panel-heading .panel-title a, .accordion .panel-heading .panel-title a {
+.accordion .panel-heading .panel-title a, .accordion .panel-heading .panel-title a {
   font-family: "nhg-text-bold", arial, sans-serif;
   font-size: 14px;
   color: #000;
@@ -5913,15 +5913,15 @@ a.label:hover, a.label:focus {
   display: block;
 }
 /* line 63, sass/verizon/_accordion.scss */
-#accordion .panel-heading .panel-title a.collapsed, .accordion .panel-heading .panel-title a.collapsed {
+.accordion .panel-heading .panel-title a.collapsed, .accordion .panel-heading .panel-title a.collapsed {
   color: #333;
 }
 /* line 66, sass/verizon/_accordion.scss */
-#accordion .panel-heading .panel-title a:active, #accordion .panel-heading .panel-title a:hover, .accordion .panel-heading .panel-title a:active, .accordion .panel-heading .panel-title a:hover {
+.accordion .panel-heading .panel-title a:active, .accordion .panel-heading .panel-title a:hover, .accordion .panel-heading .panel-title a:active, .accordion .panel-heading .panel-title a:hover {
   color: #333;
 }
 /* line 72, sass/verizon/_accordion.scss */
-#accordion .panel-body, .accordion .panel-body {
+.accordion .panel-body, .accordion .panel-body {
   padding: 0 15px 10px 0;
   background: #fff none repeat scroll 0 0;
   border: medium none;
