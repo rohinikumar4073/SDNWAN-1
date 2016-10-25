@@ -478,3 +478,4 @@ overflow-y: auto;display:none;}
 header .navbar .navbar-header .navbar-toggle{
   display: none
 }
+.tooltip-container{text-align: left;}

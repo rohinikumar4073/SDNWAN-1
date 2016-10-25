@@ -16,12 +16,18 @@ define(['jquery.spin'], function(){
 
 
 	}
+	var urlToSend= "http://10.76.110.81:50512/rms/";
 	var handleSuccess=function(data){
 		$('.spin').spin('hide');
-		if(!data.error){
+		var val = data.type;
+		if((!data.error) && (val!= "failure")){
 			$("div.alert-message-success").show().html("Succesfully Added");
 			$("div.alert-message-error").hide();
-			}else{
+		}
+		else if(val=="failure"){
+			$("div.alert-message-success").hide();
+			$("div.alert-message-error").show().html(data.message);
+		}else{
 				$("div.alert-message-success").hide();
 				$("div.alert-message-error").show().html(data.error.error);
 			}
@@ -52,7 +58,7 @@ define(['jquery.spin'], function(){
 									case 'fbConfig':
 										console
 												.log('fbConfig');
-										var postURL = "10.76.110.81:50512/rms/"
+										var postURL =urlToSend
 												+ fbName
 												+ "/add-bridge";
 										var name = $('#'
@@ -127,7 +133,7 @@ define(['jquery.spin'], function(){
 									case 'addPort':
 										console
 												.log('addPort');
-										var postURL = "http://10.76.110.81:50512/rms/"
+										var postURL =urlToSend
 												+ fbName
 												+ "/port/add";
 										var name = $(
@@ -394,7 +400,61 @@ define(['jquery.spin'], function(){
 					$("#pageModal .modal-title").html("Configure Forwarding Box")
 
 				}
-	        }
+			},
+			initLinkEvents:function(self){
+				self
+						.topology()
+						.addLink({
+								source: self
+										.topology().srclink.node,
+								target: self
+										.node()
+										.id()
+
+						});
+
+debugger;
+				var postURL1 =urlToSend
+						+ self
+									.topology().srclink.node+"/"+self
+												.topology().srclink.data
+						+ "/false";
+						var postURL2 =urlToSend
+								+  self
+											.node()
+											.id()+"/"+$("input[name='portselcted']:checked").next().text()
+								+ "/false";
+										self.topology().srclink = null;
+				$
+						.ajax({
+							url : postURL1,
+							method : 'POST',
+
+										contentType: "application/json; charset=utf-8",
+							success : function(data) {
+								handleSuccess(data);
+							},
+							error : function(data) {
+								handleError(data)
+							}
+						});
+						$
+								.ajax({
+									url : postURL2,
+									method : 'POST',
+
+												contentType: "application/json; charset=utf-8",
+									success : function(data) {
+										handleSuccess(data);
+									},
+									error : function(data) {
+										handleError(data)
+									}
+								});
+				$('#pageModal ')
+						.modal(
+								'hide')
+			 }
 
 	 }
 

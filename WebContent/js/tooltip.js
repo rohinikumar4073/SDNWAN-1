@@ -17,16 +17,23 @@ define(
                                 return this._node;
                               },
                                   set: function (value) {
-                                    debugger;
+                                  fbName=  value.node().get("label");
+
+                                    var postURL = "http://10.76.110.81:50512/rms/"
+                												+ fbName
+                												+ "/port/find";
                     var model = value.model();
                     this._node=value.node();
                     var view= this.view('portData')
                     debugger;
-                            $.get("js/data/dropDown.json", function(result) {
-          var collection = result;
-                              debugger;
 
-                 view.set('items', collection[model.getData().iconType]);
+                            $.post( postURL , function(result) {
+          var collection = result;
+
+          result.forEach(function(v,i){
+            if(v.isFree=="true"){v.isAllocated=false}else{v.isAllocated=true}
+          })
+                 view.set('items', result)
 
 
           })
@@ -55,13 +62,6 @@ define(
                                     return "popup-section  ";
                                 else {
                                     return "popup-section linkhide "
-                                }
-                            }  ,portData:{
-
-                                set: function (value) {
-                                    var model = value.model();
-                                    console.log(modal)
-                                    debugger;
                                 }
                             }
 
@@ -106,20 +106,22 @@ define(
                                                 tag: 'div',
                                                 name:"portData",
                                                 props: {
+                                                  'class' :"tooltip-container",
                                                     template: {
                                                         tag: "div",
                                                         content: [{
                                                             tag: "input",
                                                             props: {
                                                                 'type': "radio",
-                                                                'name': "portselcted"
-                                                            },
+                                                                'name': "portselcted",
+                                                                'disabled':"{isAllocated}"
+                                                              },
                                                             events: {
                                                                 'click': '{#onClickEvent2}'
                                                             },
                                                         }, {
                                                             tag: "div",
-                                                            content: "{port}",
+                                                            content: "{name}",
                                                             props: {
                                                                 'class': "label-data"
                                                             }
@@ -165,20 +167,12 @@ define(
                             },
                             "onClickEvent2": function() {
                                 if (!this.topology().srclink) {
-                                    this.topology().srclink = this
-                                        .node().id();
+                                    this.topology().srclink = {node:this
+                                        .node().id(),
+                                        "data":$("input[name='portselcted']:checked").next().text()
+                                      }
                                 } else {
-                                    this
-                                        .topology()
-                                        .addLink({
-                                            source: this
-                                                .topology().srclink,
-                                            target: this
-                                                .node()
-                                                .id()
-
-                                        });
-                                    this.topology().srclink = "";
+                                  var self =this;
 
                                     $("#pageModal")
                                         .load(
@@ -187,7 +181,10 @@ define(
                                                 $('#pageModal ')
                                                     .modal(
                                                         'show')
-                                                $("#pageModal .modal-dialog").width('600px')
+                                      $('#pageModal #saveLinkData').click(function(){
+                                        configurationEvents.initLinkEvents(self);
+
+                                      });
 
                                             });
 
