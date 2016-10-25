@@ -109,9 +109,33 @@ define(['react'], function(React) {
         },
         setData: function(e) {},
         handleConfirm: function() {
-            this.props.topologyModel.createNode(this.state.fbName, this.props.iconType, this.props.coordinates);
-            console.log("iconType" + this.props.iconType)
+        if( this.props.iconType!="patch-panel"){
+              this.props.topologyModel.createNode(this.state.fbName, this.props.iconType, this.props.coordinates);
+              console.log("iconType" + this.props.iconType)
             this.close();
+        }else{
+        var node={}
+         if (this.props.coordinates.x && this.props.coordinates.y) {
+                    node.x = this.props.coordinates.x - 400;
+                    node.y = this.props.coordinates.y - 90;
+                } else {
+                    node.x = Math.floor(Math.random() * 400);
+                    node.y = Math.floor(Math.random() * 400);
+                }
+
+             this.props.topologyModel.createNode(this.state.fbName+"1", this.props.iconType, {x:node.x, y:node.y});
+             this.props.topologyModel.createNode(this.state.fbName+"2", this.props.iconType, {x:node.x+100, y:node.y});
+             var patchlink={
+                                            source: this.state.fbName+"1",
+                                            target: this.state.fbName+"2"
+
+                                        }
+                                        this.props.topologyModel.createLinkPatchPanel(patchlink)
+              this.close();
+        }
+
+           
+            
 
         },
         handleHidden: function() {
