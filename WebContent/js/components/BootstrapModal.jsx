@@ -1,4 +1,4 @@
- define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm'], function(React,$,BootstrapButton,FBForm) {
+ define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm','jsx!components/CreateFBFanTemplate','jsx!components/FBOSTemplate','jsx!components/FBPowerTemplate','jsx!components/FBTranseiverTemplate'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS,FBPower,FBTranseiver) {
 
  var BootstrapModal = React.createClass({
     // The following two methods are the only places we need to
@@ -45,35 +45,27 @@
                 <div className="modal fade" ref="root">
                 <div className="modal-dialog">
                 <div className="modal-content">
-                <div className="modal-header">
-                <button
-                type="button"
-                className="close"
-                onClick={this.handleCancel}>
-                &times;
-                </button>
-                <h3>{this.props.title}</h3>
-                </div>
-                <div className="modal-body" >
+             
+
                   
-                    <FBForm data={this.props.children} onChangeFunction={this.setData}/>
+                    <FBForm data={this.props.children} header={this.props.title} onChangeFunction={this.setData}  handleCancel={this.handleCancel} className={this.props.template=='FBForm' ? "" :"hidden"}></FBForm>
+                    <FBFan data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBFan' ? "" :"hidden"}></FBFan>
+                    <FBOS data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBOS' ? "" :"hidden"}></FBOS>
+                    <FBPower data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBPower' ? "" :"hidden"}></FBPower>
+                    <FBTranseiver data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTranseiver' ? "" :"hidden"}></FBTranseiver>
+                         
+                    
+                    
 
 
-                </div>
-                <div className="modal-footer">
-        <div class="row">
-<div class="col-md-12 section-divider-bottom">
-    {confirmButton}
-</div>
-</div>
-           
-                </div>
+            
                 </div>
                 </div>
                 </div>
                 );
               },
               handleCancel: function() {
+              debugger;
                 if (this.props.onCancel) {
                   this.props.onCancel();
                 }
@@ -100,7 +92,7 @@ this.setState({
                 handleConfirm: function() {
                   var self = this;
                   $.ajax({
-            url: "http://114.8.10.211:50512/FbTemplate/getFbCreateInstances",
+            url: "http://10.76.110.81:50102/FbTemplate/CreateTemplate",
             type: 'post',
               data: JSON.stringify(this.state.dataToBeSend),
             contentType: "application/json; charset=utf-8",
@@ -118,57 +110,7 @@ this.setState({
                     if (this.props.onHidden) {
                       this.props.onHidden();
                     }
-                  }, getInitialState: function() {
-                        return {
-                          dataToBeSend:{
-                          "forwarding_box_template" : "",
-                          "fb_device_name" : "",
-                          "network_domain" : "",
-                          "site_id" : "",
-                          "location_desc" : "",
-                          "fb_groupid" : "",
-                          "management_configuration" : {
-                            "management_interface" : "",
-                            "ip_address" : "",
-                            "default_gatewayIp" : "",
-                            "dns_serverIp" : "",
-                            "dns_name" : "",
-                            "agent_cert_name" : ""
-                          },
-                          "openFlowInfo" : {
-                            "masterControllerIp" : "",
-                            "slaveControllerIp" : "",
-                            "protocolVersion" : "",
-                            "connectionProtocol" : "",
-                            "allowPassiveCon" : "",
-                            "failMode" : "",
-                            "dataPathId" : ""
-                          },
-                          "lldpEnablment" : "",
-                          "dataPlaceConfiguration" : {
-                            "dacUtilized" : "",
-                            "dacCableUtilized" : "",
-                            "transceiverType" : "",
-                            "speed" : "",
-                            "enableFrameSupport" : "",
-                            "adminState" : "",
-                            "description" : "",
-                            "adminCost" : ""
-                          },
-                          "operatingSystemConfiguration" : {
-                            "localArpResponse" : "",
-                            "localArpResponseCoverage" : "",
-                            "localIpv6ArpResponse" : "",
-                            "localIpv6ArpResponseCoverage" : "",
-                            "fb_sfp_interval" : "",
-                            "interfceFlowCounterInt" : "",
-                            "alarmHistory" : "",
-                            "alarmHighTemp" : "",
-                            "alarmLowTemp" : ""
-                          }
-                        }
-                        }
-      }
+                  }
                   });
 
   return BootstrapModal;

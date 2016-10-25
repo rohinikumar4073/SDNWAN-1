@@ -47,7 +47,7 @@ this.setState({collection:this.state.collection})
               <hr/>
               <div   className={this.state.showData ? "create-new" : "create-new hidden" }>
               <i className="fa fa-plus-circle" aria-hidden="true"></i>
-              <BootstrapLink data= {"Create "+this.props.heading} addRow={this.addRow}/>
+              <BootstrapLink data= {"Create "+this.props.heading} heading={this.props.heading} template={this.props.template} addRow={this.addRow}/>
               </div>
 
               <div className={this.state.showData ? this.props.className : this.props.className +" hidden" }>

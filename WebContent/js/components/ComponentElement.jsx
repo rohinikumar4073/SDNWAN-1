@@ -10,7 +10,7 @@ var ComponentSource = {
   beginDrag: function (props) {
     // Return the data describing the dragged item
     console.log("Begin Drag");
-    var item = { collection: props.collection };
+    var item = { collection: "data" };
     return item;
   }
 
@@ -19,7 +19,19 @@ var ComponentSource = {
 ;
 
 function collect(connect, monitor) {
+
+if(monitor.isDragging()){
+if(monitor.getClientOffset())
+{
+console.log(monitor.getClientOffset().x);
+}
+
+
+}
+
   return {
+  x:monitor.getClientOffset(),
+  y:monitor.getSourceClientOffset(),
     connectDragSource: connect.dragSource(),
     isDragging: monitor.isDragging()
   }
@@ -47,7 +59,9 @@ $(e.target).parent().parent('.context-menu').addClass('hidden')    },
  componentDidMount:function(){},
  propTypes: {
     connectDragSource: PropTypes.func.isRequired,
-    isDragging: PropTypes.bool.isRequired
+    isDragging: PropTypes.bool.isRequired,
+      x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
   },getInitialState: function() {
 
     return {
@@ -89,7 +103,7 @@ $(e.target).parent().parent('.context-menu').addClass('hidden')    },
 var connectDragSource = this.props.connectDragSource;
     var isDragging = this.props.isDragging;
 
-      return (
+      return connectDragSource(
 
 
 
