@@ -76,7 +76,7 @@ return (
                 <button
                 type="button"
                 className="close"
-                onClick={this.handleCancel}>
+                onClick={this.props.handleCancel}>
                 &times;
                 </button>
                 <h3>{this.props.header}</h3>

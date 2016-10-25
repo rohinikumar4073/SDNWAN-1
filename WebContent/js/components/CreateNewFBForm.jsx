@@ -105,11 +105,7 @@ render: function() {
                   {this.props.confirm}
                   </BootstrapButton>
                   );
- cancelButton = (
-                  <BootstrapButton onClick={this.handleCancel} className="btn-default btn-sm" data="Cancel">
-                  {this.props.cancel}
-                  </BootstrapButton>
-                  );
+
 
  return (
 <div  className={this.props.className}>
@@ -117,7 +113,7 @@ render: function() {
                 <button
                 type="button"
                 className="close"
-                onClick={this.handleCancel}>
+                onClick={this.props.handleCancel}>
                 &times;
                 </button>
                 <h3>{this.props.header}</h3>
