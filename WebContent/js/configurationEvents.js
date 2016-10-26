@@ -16,6 +16,8 @@ define(['jquery.spin'], function(){
 
 
 	}
+
+
 	var urlToSend= "http://10.76.110.81:50512/rms/";
 	var handleSuccess=function(data){
 		$('.spin').spin('hide');
@@ -42,6 +44,54 @@ define(['jquery.spin'], function(){
 
 	}
 	 return {
+		 bridgeTable :function(){
+			 var fbName=  $('g.node-selected')
+					 .attr('data-id');
+			 var getURL = "http://10.76.110.81:50512/rms/"
+										 +fbName
+										 +"/listBridge";
+			 $.get(	getURL , function(result){
+				 var collection = result;
+				 var bridgeTable = $("#viewBridge");
+				 var rows = [];
+				 result.forEach(function(v,i){
+					 var tr=$('<tr>')
+					 tr.append($('<td>').append(v.name));
+						 tr.append($('<td>').append(v.datapath_type));
+							 tr.append($('<td>').append(v.datapath_id));
+								tr.append($('<td>').append(v.protocols));
+									tr.append($('<td>').append(v.fb_ip));
+								 		$("#viewBridge").find('tbody')
+										.append(tr)
+				 })
+
+			 })
+		 },
+
+		 portTable :function(){
+			 var fbName=  $('g.node-selected')
+					 .attr('data-id');
+			 var getURL = "http://10.76.110.81:50512/rms/"
+										 +fbName
+										 +"/list-ports";
+		  $.get(	getURL , function(result){
+				var collection = result;
+				var portTable = $("#viewPort");
+				var rows = [];
+						result.forEach(function(v,i){
+							var tr=$('<tr>')
+								tr.append($('<td>').append(v.name));
+								 tr.append($('<td>').append(v.vlan_mode));
+									tr.append($('<td>').append(v.fb_ip));
+									 tr.append($('<td>').append(v.type));
+										tr.append($('<td>').append(v.speed));
+											tr.append($('<td>').append(v.is_dac));
+											$("#viewPort").find('tbody')
+													.append(tr)
+											 })
+
+										 })
+		 },
 		 savingDetails:function(){
 
 
@@ -94,7 +144,16 @@ define(['jquery.spin'], function(){
 													data : JSON.stringify(jsonData),
 										            contentType: "application/json; charset=utf-8",
 													success : function(data) {
+														var tr=$('<tr>')
+								 					 tr.append($('<td>').append(v.name));
+								 						 tr.append($('<td>').append(v.datapath_type));
+								 							 tr.append($('<td>').append(v.datapath_id));
+								 								tr.append($('<td>').append(v.protocols));
+								 									tr.append($('<td>').append(v.fb_ip));
+								 								 		$("#viewBridge").find('tbody')
+								 										.append(tr)
 														handleSuccess(data);
+
 													},
 													error : function(data) {
 														handleError(data)
@@ -215,8 +274,17 @@ define(['jquery.spin'], function(){
 													data : JSON.stringify(jsonData),
 													contentType : "application/json; charset=utf-8",
 													success : function(data) {
-														handleSuccess(data);
-},
+														var tr=$('<tr>')
+															tr.append($('<td>').append(v.name));
+															 tr.append($('<td>').append(v.vlan_mode));
+																tr.append($('<td>').append(v.fb_ip));
+																 tr.append($('<td>').append(v.type));
+																	tr.append($('<td>').append(v.speed));
+																		tr.append($('<td>').append(v.is_dac));
+																		$("#viewPort").find('tbody')
+																				.append(tr)
+																	handleSuccess(data);
+													},
 													error : function(data) {
 														handleError(data);
 													}

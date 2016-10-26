@@ -194,7 +194,7 @@ h5 {
     padding: 0px 23px;
     min-height: 38px;
 }
-.layout-flex > div button.selected-link-class .link-icon{
+.layout-flex  div.selected-link-class .link-icon{
     /*background-color: #004BAF;
     border: none;*/
       background-image: url(images/ciscoicons/link_red.png);
@@ -204,7 +204,7 @@ h5 {
   color: #000;
 }
 
-.layout-flex > div button.selected-link-class i {
+.layout-flex  div.selected-link-class i {
   color: #fff;
 }
 
@@ -368,12 +368,12 @@ top: -2px;
      width: 80%;
 }
 
-.fb-icon,.optical-fiber{width: 32px;
+.fb-icon,.optical-switch{width: 32px;
     height: 32px;
     display: inline-block;
     background-image: url("images/ciscoicons/forwarding box.png");
     background-repeat: no-repeat;
-}.optical-fiber{
+}.optical-switch{
   height: 32px;
     background-image: url("images/ciscoicons/optical switch.png");
 }
@@ -447,10 +447,10 @@ none;}
 #pageModal .alert-message-success ,#pageModal .alert-message-error{padding: 1.6rem;
 overflow-y: auto;display:none;}
 /*.left-tabs.nav-tabs{height:44px;}*/
-.modal .btn-primary,.modal .btn-primary:hover {
+ .btn-primary, .btn-primary:hover {
     background: #CD040B;    border: 0px;
 }
-.modal .btn-default ,.modal .btn-default:hover{
+ .btn-default , .btn-default:hover{
     background: #4B4B4B;
     color:#fff; border: 0px;
 }
@@ -479,3 +479,9 @@ header .navbar .navbar-header .navbar-toggle{
   display: none
 }
 .tooltip-container{text-align: left;}
+.float-actions{
+  z-index: 10;
+  position: absolute;
+  right: 2px;
+  padding: 10px;
+}

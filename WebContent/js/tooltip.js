@@ -25,15 +25,15 @@ define(
                     var model = value.model();
                     this._node=value.node();
                     var view= this.view('portData')
-                    debugger;
+                  //  debugger;
 
                             $.post( postURL , function(result) {
-          var collection = result;
+                              var collection = result;
 
-          result.forEach(function(v,i){
-            if(v.isFree=="true"){v.isAllocated=false}else{v.isAllocated=true}
-          })
-                 view.set('items', result)
+                          result.forEach(function(v,i){
+                            if(v.isFree=="true"){v.isAllocated=false}else{v.isAllocated=true}
+                          })
+                                 view.set('items', result)
 
 
           })
@@ -161,7 +161,8 @@ define(
                                                     'show')
                                             configurationEvents.init(self);
                                             configurationEvents.savingDetails();
-
+                                            configurationEvents.bridgeTable();
+                                            configurationEvents.portTable();
                                         });
 
                             },

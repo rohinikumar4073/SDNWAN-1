@@ -6,13 +6,14 @@
         },
         view: {
             content: [
-              
+
                 {
                     type: 'com.cisco.TopologyView',
                     props: {
                         newNode: '{newNode}',
                         newLink: '{newLink}',
-                        setLinkMode:'{setLinkMode}'
+                        setLinkMode:'{setLinkMode}',
+                          topology:'{topology}'
                     }
                 }
             ]

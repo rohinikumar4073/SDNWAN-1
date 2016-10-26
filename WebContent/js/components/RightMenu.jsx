@@ -50,19 +50,20 @@ define([
         },
         getInitialState: function() {
 
-            return {showData: true, sourceData: "", destination: ""};
+            return {showData: true, sourceData: "", destination: "",mainView:null};
 
         },
         componentDidMount: function() {
-
+            var self=this;
             var model = this.props.topologyModel;
             var Shell = nx.define(nx.ui.Application, {
                 methods: {
                     start: function() {
-                        var mainView = new com.cisco.MainView();
+                    mainView  = new com.cisco.MainView();
 
                         mainView.attach(this);
                         mainView.model(model);
+                        self.setState({mainView:mainView})
                     },
                     getContainer: function() {
                         if (this.container()) {
@@ -85,6 +86,10 @@ define([
      */
             shell.start();
 
+        },
+        pushTopology:function(){
+       var mainView = this.state.mainView;
+       debugger;
         },
         componentWillReceiveProps: function(nextProps) {
             this.setState({showData: false});
@@ -121,7 +126,14 @@ define([
             return connectDropTarget(
 
                 <div className={(this.props.className || '')}>
-                    <div className="layout-flex " id="layout"></div>
+                  <div className="float-actions">
+                  <button type="button" className="btn btn-primary btn-sm "  onClick={this.pushTopology} >Push</button>
+              		<button type="button" className="btn btn-default btn-sm"
+              			data-dismiss="modal">Save</button>
+                  </div>
+                    <div className="layout-flex " id="layout">
+
+                    </div>
                 </div>
             );
         }
