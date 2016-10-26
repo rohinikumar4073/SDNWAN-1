@@ -17,6 +17,7 @@ define(
                                 return this._node;
                               },
                                   set: function (value) {
+                                  debugger;
                                   fbName=  value.node().get("label");
 
                                     var postURL = "http://10.76.110.81:50512/rms/"
