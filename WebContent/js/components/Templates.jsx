@@ -30,16 +30,19 @@ define([
                   ]
                 },{
                   "heading": "FB Powersupply Template",
+                  "template":"FBPower",
                   "data": [
 
                   ]
                 },{
                   "heading": "FB Template",
+                  "template":"FBTemplate",
                   "data": [
 
                   ]
                 },{
                   "heading": "FB Transiever Template",
+                  "template":"FBTranseiver",
                   "data": [
 
                   ]

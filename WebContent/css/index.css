@@ -383,13 +383,14 @@ top: -2px;
   background-image: url("images/ciscoicons/link.png");
   display: inline-block;
   background-repeat: no-repeat;
+
 }
-.patch-panel{height: 32px;
-background-image: url("images/ciscoicons/pad.jpg");
-background-repeat: no-repeat;
-width: 65px;
-background-size: 67%;
-margin: 0 0 0 0%;}
+.patch-panel{    height: 37px;
+    background-image: url(images/ciscoicons/patchpanel.jpg);
+    background-repeat: no-repeat;
+    width: 23px;
+    margin: 0 0 0 0%;
+    background-size: 80%;}
 .host{
   height: 32px;
   background-image: url("images/ciscoicons/standard host.jpg");

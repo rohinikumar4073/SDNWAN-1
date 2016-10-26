@@ -1,4 +1,4 @@
-define(['react'], function(React) {
+define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!components/ComponentForms/CreateHost','jsx!components/ComponentForms/CreatePatchPanel','jsx!components/ComponentForms/CreateOpticalSwitch'], function(React,CreateFBComponent,CreateHost,CreatePatchPanel,CreateOpticalSwitch) {
     var BootstrapButton = React.createClass({
         render: function() {
             return (
@@ -22,82 +22,18 @@ define(['react'], function(React) {
             $('#add-node-form')[0].reset();
             $(this.refs.root).modal('show');
         },
-        onChangeFunction: function(e) {
-            this.setState({fbName: e.target.value});
-        },
-        keyPressFunction: function(event) {
 
-            var keycode = (event.keyCode
-                ? event.keyCode
-                : event.which);
-            if (keycode == '13') {
-                this.handleConfirm();
-            }
-
-        },
         render: function() {
             return (
                 <div className="modal fade" ref="root">
                     <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <button type="button" className="close" onClick={this.handleCancel}>
-                                    &times;</button>
-                                <h3>{this.props.title}</h3>
-                            </div>
-                            <div className="modal-body">
-                                <form id="add-node-form">
-                                    <div className="form-group">
-                                        <label for="fbname">Name:</label>
-                                        <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
-                                    </div>
-                                    <div className={this.props.title.split(" ")[1] == "Host"
-                                        ? ""
-                                        : "hidden"}>
-                                        <div className="form-group">
-                                            <label for="nodeId">Node Id:</label>
+                      <CreateFBComponent close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='fb-icon' ? "" :"hidden"} ></CreateFBComponent>
+                        <CreatePatchPanel close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='patch-panel' ? "" :"hidden"}></CreatePatchPanel>
+                          <CreateHost close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='host' ? "" :"hidden"}></CreateHost>
+                            <CreateOpticalSwitch close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='optical-fiber' ? "" :"hidden"} ></CreateOpticalSwitch>
 
-                                            <input type="text" className="form-control" id="nodeId"></input>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="nodeId">Subnets</label>
 
-                                            <input type="text" className="form-control" id="subnets"></input>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="nodeId">Static Subnet :</label>
-
-                                            <input type="text" className="form-control" id="static-subnet"></input>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="nodeId">TP ID:</label>
-
-                                            <input type="text" className="form-control" id="tp_id"></input>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="nodeId">Host Port Name :</label>
-
-                                            <input type="text" className="form-control" id="host-port-name"></input>
-                                        </div>
-                                        <div className="form-group">
-                                            <label for="nodeId">IP Address :</label>
-
-                                            <input type="text" className="form-control" id="ip-address"></input>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div className="modal-footer">
-                                <div class="row">
-                                    <div class="col-md-12 section-divider-bottom">
-                                        <BootstrapButton onClick={this.handleConfirm} className="btn btn-sm btn-primary" data="Save"></BootstrapButton>
-                                        <BootstrapButton onClick={this.handleCancel} className="btn btn-sm btn-default" data="Cancel"></BootstrapButton>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                  </div>
                 </div>
             );
         },
@@ -107,47 +43,12 @@ define(['react'], function(React) {
                 this.props.onCancel();
             }
         },
-        setData: function(e) {},
-        handleConfirm: function() {
-        if( this.props.iconType!="patch-panel"){
-              this.props.topologyModel.createNode(this.state.fbName, this.props.iconType, this.props.coordinates);
-              console.log("iconType" + this.props.iconType)
-            this.close();
-        }else{
-        var node={}
-         if (this.props.coordinates.x && this.props.coordinates.y) {
-                    node.x = this.props.coordinates.x - 400;
-                    node.y = this.props.coordinates.y - 90;
-                } else {
-                    node.x = Math.floor(Math.random() * 400);
-                    node.y = Math.floor(Math.random() * 400);
-                }
-
-             this.props.topologyModel.createNode(this.state.fbName+"1", this.props.iconType, {x:node.x, y:node.y});
-             this.props.topologyModel.createNode(this.state.fbName+"2", this.props.iconType, {x:node.x+100, y:node.y});
-             var patchlink={
-                                            source: this.state.fbName+"1",
-                                            target: this.state.fbName+"2"
-
-                                        }
-                                        this.props.topologyModel.createLinkPatchPanel(patchlink)
-              this.close();
-        }
-
-           
-            
-
-        },
         handleHidden: function() {
             if (this.props.onHidden) {
                 this.props.onHidden();
             }
-        },
-        getInitialState: function() {
-
-            return {fbName: ""}
-
         }
+
     });
 
     return BootstrapLinkCommon;
