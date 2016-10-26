@@ -15,15 +15,24 @@ define([
   });
 
     var CreateHost = React.createClass({
-      onChangeFunction: function(e) {
-          this.setState({fbName: e.target.value});
-      },
-      getInitialState: function() {
 
-          return {fbName: ""}
+      onChangeFunction:function(e){
+                   var parnetId=e.target.getAttribute("data-parentdata")
+                    if(parnetId )
+                    {
+                      if(this.state.dataToBeSend[parnetId]){
+                        this.state.dataToBeSend[parnetId][e.target.id]=e.target.value;
+                        }else{
+                         this.state.dataToBeSend[parnetId][e.target.id]=e.target.value;
+                        }
+                    }else{
+                      this.state.dataToBeSend[e.target.id]=e.target.value;
+                    }
 
-      },
-
+    this.setState({
+                dataToBeSend: this.state.dataToBeSend
+                });
+                 },
       keyPressFunction: function(event) {
 
           var keycode = (event.keyCode
@@ -34,42 +43,61 @@ define([
           }
 
       },
-      handleCancel: function() {
-          this.props.close();
-          if (this.props.onCancel) {
-              this.props.onCancel();
+
+        handleConfirm: function() {
+          var self = this;
+          $.ajax({
+       url: "http://localhost:50514/orchestrator/createHost",
+       type: 'post',
+       data: JSON.stringify(this.state.dataToBeSend),
+       contentType: "application/json; charset=utf-8",
+       success: function (data) {
+       if (self.props.onConfirm) {
+            self.props.onConfirm(self.state.dataToBeSend);
           }
-      },
-      handleConfirm: function() {
-      if( this.props.iconType!="patch-panel"){
-            this.props.topologyModel.createNode(this.state.fbName, this.props.iconType, this.props.coordinates);
-            console.log("iconType" + this.props.iconType)
-            this.props.close();
-      }else{
-      var node={}
-       if (this.props.coordinates.x && this.props.coordinates.y) {
-                  node.x = this.props.coordinates.x - 400;
-                  node.y = this.props.coordinates.y - 90;
-              } else {
-                  node.x = Math.floor(Math.random() * 400);
-                  node.y = Math.floor(Math.random() * 400);
-              }
+       }
 
-           this.props.topologyModel.createNode(this.state.fbName+"1", this.props.iconType, {x:node.x, y:node.y});
-           this.props.topologyModel.createNode(this.state.fbName+"2", this.props.iconType, {x:node.x+100, y:node.y});
-           var patchlink={
-                                          source: this.state.fbName+"1",
-                                          target: this.state.fbName+"2"
 
-                                      }
-                                      this.props.topologyModel.createLinkPatchPanel(patchlink)
+       });
+
+          },
+
+          getInitialState: function() {
+
+                                  return {
+                                    dataToBeSend:
+                                      {
+                              "node-id": "",
+                              "subnets": {
+                                "staticSubnet": [
+                                  {
+                                    "subnetId": ""
+                                  }
+                                ]
+                              },
+                              "termination-point": [
+                                {
+                                  "host-port-name": "",
+                                  "ip-address": [
+                                    ""
+                                  ],
+                                  "tp-id": ""
+                                }
+                              ],
+                              "type": ""
+                            }
+                                  }
+                },
+
+          handleCancel: function() {
               this.props.close();
-      }
+              if (this.props.onCancel) {
+                  this.props.onCancel();
+              }
+          },
 
 
 
-
-      },
         render: function() {
             return (
 
@@ -84,7 +112,7 @@ define([
                       <form id="add-node-form">
                           <div className="form-group">
                               <label for="fbname">Name:</label>
-                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
+                              <input onCange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
                           </div>
                           <div className={this.props.title.split(" ")[1] == "Host"
                               ? ""
