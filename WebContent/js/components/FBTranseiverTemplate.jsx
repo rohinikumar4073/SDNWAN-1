@@ -80,7 +80,7 @@ this.setState({
                 type="button"
                 className="close"
                 onClick={this.props.handleCancel}>
-            
+                &times;
                 </button>
                 <h3>{this.props.header}</h3>
                 </div>
