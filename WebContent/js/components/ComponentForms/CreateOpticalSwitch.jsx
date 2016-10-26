@@ -74,7 +74,7 @@ define([
             return (
 
 
-              <div  className={"modal-content"+this.props.className}>
+              <div  className={"modal-content "+this.props.className}>
                   <div className="modal-header">
                       <button type="button" className="close" onClick={this.handleCancel}>
                           &times;</button>
