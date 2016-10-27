@@ -31,7 +31,6 @@ define([
 
     this.setState({
                 dataToBeSend: this.state.dataToBeSend
-
                 });
                  },
       keyPressFunction: function(event) {
@@ -44,6 +43,14 @@ define([
           }
 
       },
+
+          handleCancel: function() {
+
+              if (this.props.onCancel) {
+                  this.props.onCancel();
+              }
+                  this.props.close();
+          },
 
         handleConfirm: function() {
           var self = this;
@@ -99,8 +106,6 @@ define([
                   this.props.close();
           },
 
-
-
         render: function() {
             return (
 
@@ -112,6 +117,7 @@ define([
                       <h3>{this.props.title}</h3>
                   </div>
                   <div className="modal-body">
+
                       <form id="add-host-form">
 
                           <div >

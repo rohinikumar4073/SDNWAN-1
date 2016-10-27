@@ -13,7 +13,7 @@
         "airFlow":"Airflow"
       }, {
         "name": "Optical Switch",
-        "className": "optical-fiber",
+        "className": "optical-switch",
         "manufacturer":"Manufacturer1",
         "orderablePartNumber":"Orderable Part Number",
         "description":"Description" ,

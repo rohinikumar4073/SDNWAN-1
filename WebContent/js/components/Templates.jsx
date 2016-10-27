@@ -36,6 +36,7 @@ define([
                   ]
                 },{
                   "heading": "FB Template",
+                  "template":"FBTemplate",
                   "data": [
 
                   ]

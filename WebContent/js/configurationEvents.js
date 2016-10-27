@@ -17,6 +17,7 @@ define(["properties",'jquery.spin'], function(properties){
 
 	}
 	var urlToSend= properties.rmsIp;
+
 	var handleSuccess=function(data){
 		$('.spin').spin('hide');
 		var val = data.type;
@@ -42,6 +43,54 @@ define(["properties",'jquery.spin'], function(properties){
 
 	}
 	 return {
+		 bridgeTable :function(){
+			 var fbName=  $('g.node-selected')
+					 .attr('data-id');
+			 var getURL =properties.rmsIp
+										 +fbName
+										 +"/listBridge";
+			 $.get(	getURL , function(result){
+				 var collection = result;
+				 var bridgeTable = $("#viewBridge");
+				 var rows = [];
+				 result.forEach(function(v,i){
+					 var tr=$('<tr>')
+					 tr.append($('<td>').append(v.name));
+						 tr.append($('<td>').append(v.datapath_type));
+							 tr.append($('<td>').append(v.datapath_id));
+								tr.append($('<td>').append(v.protocols));
+									tr.append($('<td>').append(v.fb_ip));
+								 		$("#viewBridge").find('tbody')
+										.append(tr)
+				 })
+
+			 })
+		 },
+
+		 portTable :function(){
+			 var fbName=  $('g.node-selected')
+					 .attr('data-id');
+			 var getURL =properties.rmsIp
+										 +fbName
+										 +"/list-ports";
+		  $.get(	getURL , function(result){
+				var collection = result;
+				var portTable = $("#viewPort");
+				var rows = [];
+						result.forEach(function(v,i){
+							var tr=$('<tr>')
+								tr.append($('<td>').append(v.name));
+								 tr.append($('<td>').append(v.vlan_mode));
+									tr.append($('<td>').append(v.fb_ip));
+									 tr.append($('<td>').append(v.type));
+										tr.append($('<td>').append(v.speed));
+											tr.append($('<td>').append(v.is_dac));
+											$("#viewPort").find('tbody')
+													.append(tr)
+											 })
+
+										 })
+		 },
 		 savingDetails:function(){
 
 
@@ -94,7 +143,16 @@ define(["properties",'jquery.spin'], function(properties){
 													data : JSON.stringify(jsonData),
 										            contentType: "application/json; charset=utf-8",
 													success : function(data) {
+														var tr=$('<tr>')
+								 					 tr.append($('<td>').append(v.name));
+								 						 tr.append($('<td>').append(v.datapath_type));
+								 							 tr.append($('<td>').append(v.datapath_id));
+								 								tr.append($('<td>').append(v.protocols));
+								 									tr.append($('<td>').append(v.fb_ip));
+								 								 		$("#viewBridge").find('tbody')
+								 										.append(tr)
 														handleSuccess(data);
+
 													},
 													error : function(data) {
 														handleError(data)
@@ -104,7 +162,7 @@ define(["properties",'jquery.spin'], function(properties){
 									case 'fbConfigLink':
 										console
 												.log('fbConfigLink');
-										var postURL = "http://114.8.11.251:50513/rms/"
+										var postURL =urlToSend
 												+ fbName
 												+ "/add-bridge";
 										var link_speed = $('#'
@@ -215,8 +273,17 @@ define(["properties",'jquery.spin'], function(properties){
 													data : JSON.stringify(jsonData),
 													contentType : "application/json; charset=utf-8",
 													success : function(data) {
-														handleSuccess(data);
-},
+														var tr=$('<tr>')
+															tr.append($('<td>').append(v.name));
+															 tr.append($('<td>').append(v.vlan_mode));
+																tr.append($('<td>').append(v.fb_ip));
+																 tr.append($('<td>').append(v.type));
+																	tr.append($('<td>').append(v.speed));
+																		tr.append($('<td>').append(v.is_dac));
+																		$("#viewPort").find('tbody')
+																				.append(tr)
+																	handleSuccess(data);
+													},
 													error : function(data) {
 														handleError(data);
 													}
@@ -225,7 +292,7 @@ define(["properties",'jquery.spin'], function(properties){
 									case 'fbConfigController':
 										console
 												.log('fbConfigController');
-										var postURL = "http://localhost:50512/rms/"
+										var postURL = urlToSend
 												+ fbName
 												+ "/set-controller";
 
@@ -277,7 +344,7 @@ define(["properties",'jquery.spin'], function(properties){
 										console
 												.log('lldpConfigIL');
 										http://localhost:50512/rms/test/set-lldp
-										var postURL = "http://localhost:50512/rms/"
+										var postURL =urlToSend
 												+ fbName
 												+ "/set-lldp";
 										var fb_br = $('#'
@@ -317,7 +384,7 @@ define(["properties",'jquery.spin'], function(properties){
 									case 'configArp':
 										console
 												.log('configArp');
-										var postURL = "http://114.8.11.251:50513/rms/"
+										var postURL = urlToSend
 												+ fbName
 												+ "/configure/neighbor-discovery";
 										var arp_subnet = $('#'
@@ -351,7 +418,7 @@ define(["properties",'jquery.spin'], function(properties){
 									case 'configTcam':
 										console
 												.log('configTcam');
-										var postURL = "http://114.8.11.251:50513/rms/"
+										var postURL = urlToSend
 												+ fbName
 												+ "/configure/tcam";
 										var match_mode_name = $('#'

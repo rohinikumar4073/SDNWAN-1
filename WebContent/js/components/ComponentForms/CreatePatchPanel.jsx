@@ -96,7 +96,6 @@ patchinfo2.name=self.state.dataToBeSend.name+"2";
                               ? ""
                               : "hidden"}>
                               <div className="form-group">
-                                  <label for="PortsNum">Number of ports:</label>
 
                                   <input type="text" className="form-control" id="portsno"></input>
                               </div>
@@ -105,8 +104,7 @@ patchinfo2.name=self.state.dataToBeSend.name+"2";
 
                                   <input type="text" className="form-control" id="location"></input>
                               </div>
-
-                          </div>
+            </div>
                       </form>
                   </div>
                   <div className="modal-footer">

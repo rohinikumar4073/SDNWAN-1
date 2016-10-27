@@ -1,4 +1,4 @@
- define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm','jsx!components/CreateFBFanTemplate','jsx!components/FBOSTemplate','jsx!components/FBPowerTemplate','jsx!components/FBTranseiverTemplate'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS,FBPower,FBTranseiver) {
+ define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm','jsx!components/CreateFBFanTemplate','jsx!components/FBOSTemplate','jsx!components/FBPowerTemplate','jsx!components/FBTranseiverTemplate','jsx!components/FBTemplate'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS,FBPower,FBTranseiver,FBTemplate) {
 
  var BootstrapModal = React.createClass({
     // The following two methods are the only places we need to
@@ -53,6 +53,8 @@
                     <FBOS data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBOS' ? "" :"hidden"}></FBOS>
                     <FBPower data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBPower' ? "" :"hidden"}></FBPower>
                     <FBTranseiver data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTranseiver' ? "" :"hidden"}></FBTranseiver>
+                    <FBTemplate data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTemplate' ? "" :"hidden"}></FBTemplate>
+                   
                          
                     
                     

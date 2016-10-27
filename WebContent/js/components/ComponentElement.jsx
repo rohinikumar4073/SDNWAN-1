@@ -1,3 +1,4 @@
+
 define([
     'react',
     'reactDnd',
@@ -94,11 +95,11 @@ define([
 
             return connectDragSource(
 
-                <div className="relativePos">
+                <div className="relativePos" onClick={this.addEvent}>
                     <div>
-                        <button className={"btn btn-default " + this.state.selectedLinkClass} type="button" onContextMenu={this.contexMenu} onBlur={this.blurContexMenu} onClick={this.addEvent}>
+                        <div className={  this.state.selectedLinkClass} type="button" onContextMenu={this.contexMenu} onBlur={this.blurContexMenu} >
                             <i className={"fa " + this.props.collection.className} aria-hidden="true"></i>
-                        </button>
+                        </div>
                         <div>
                             {this.props.collection.name}
                         </div>

@@ -5,7 +5,8 @@ define(['linkMode', 'bootstrap'], function(linkMode) {
             linkId: 1,
             newNode: null,
             newLink: null,
-            setLinkMode: null
+            setLinkMode: null,
+            topology:null
         },
         methods: {
             createNode: function(label, iconType, coordinates) {
@@ -42,9 +43,13 @@ define(['linkMode', 'bootstrap'], function(linkMode) {
                 linkMode.setFlag(false);
             },
              createLinkPatchPanel: function(inLink) {
-               
+
                 this.newLink(inLink);
-               
+
+            },
+            getTopology:function(){
+              return this.topology();
+
             }
         }
     });
