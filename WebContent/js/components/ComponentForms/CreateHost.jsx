@@ -17,7 +17,7 @@ define([
     var CreateHost = React.createClass({
 
       onChangeFunction:function(e){
-                   var parnetId=e.target.getAttribute("data-parentdata")
+                   var parnetId=e.target.getAttrbute("data-parentdata")
                     if(parnetId )
                     {
                       if(this.state.dataToBeSend[parnetId]){
@@ -31,6 +31,7 @@ define([
 
     this.setState({
                 dataToBeSend: this.state.dataToBeSend
+
                 });
                  },
       keyPressFunction: function(event) {
@@ -44,14 +45,6 @@ define([
 
       },
 
-          handleCancel: function() {
-
-              if (this.props.onCancel) {
-                  this.props.onCancel();
-              }
-                  this.props.close();
-          },
-
         handleConfirm: function() {
           var self = this;
           $.ajax({
@@ -60,8 +53,7 @@ define([
        data: JSON.stringify(this.state.dataToBeSend),
        contentType: "application/json; charset=utf-8",
        success: function (data) {
-         debugger;
-         self.props.topologyModel.createNode(self.state.dataToBeSend['node-id'], self.props.iconType, self.props.coordinates);
+         self.props.topologyModel.createNode(self.state.dataToBeSend["node-id"], self.props.iconType, self.props.coordinates);
          console.log("iconType" + self.props.iconType)
          self.props.close();
        }
@@ -74,6 +66,7 @@ define([
           getInitialState: function() {
 
                                   return {
+                                    hostName:"",
                                     dataToBeSend:
                                       {
                               "node-id": "",
@@ -106,6 +99,8 @@ define([
                   this.props.close();
           },
 
+
+
         render: function() {
             return (
 
@@ -117,14 +112,13 @@ define([
                       <h3>{this.props.title}</h3>
                   </div>
                   <div className="modal-body">
-
                       <form id="add-node-host">
 
                           <div >
                               <div className="form-group">
                                   <label for="nodeId">Node Id:</label>
 
-                                  <input type="text"   className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
+                                  <input type="text"  onKeyDown={this.keyPressFunction}  className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
                               </div>
                               <div className="form-group">
                                   <label for="subnets">Subnets</label>
