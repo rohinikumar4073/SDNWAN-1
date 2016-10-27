@@ -1,7 +1,7 @@
 /**
  *
  */
-define(['jquery.spin'], function(){
+define(["properties",'jquery.spin'], function(properties){
 	var portController=function(){
 		$("input[name=vlan_mode]").click(function(){
 			if($("input[name=vlan_mode]:checked").val()=="Trunk"){
@@ -16,7 +16,7 @@ define(['jquery.spin'], function(){
 
 
 	}
-	var urlToSend= "http://10.76.110.81:50512/rms/";
+	var urlToSend= properties.rmsIp;
 	var handleSuccess=function(data){
 		$('.spin').spin('hide');
 		var val = data.type;

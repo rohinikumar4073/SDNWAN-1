@@ -1,6 +1,6 @@
 define([
-    'react', 'jquery'
-], function(React, $) {
+    'react', 'jquery','properties'
+], function(React, $,properties) {
 
 
 
@@ -15,15 +15,25 @@ define([
   });
 
     var CreateHost = React.createClass({
-      onChangeFunction: function(e) {
-          this.setState({fbName: e.target.value});
-      },
-      getInitialState: function() {
 
-          return {fbName: ""}
+      onChangeFunction:function(e){
+                   var parnetId=e.target.getAttribute("data-parentdata")
+                    if(parnetId )
+                    {
+                      if(this.state.dataToBeSend[parnetId]){
+                        this.state.dataToBeSend[parnetId][e.target.id]=e.target.value;
+                        }else{
+                         this.state.dataToBeSend[parnetId][e.target.id]=e.target.value;
+                        }
+                    }else{
+                      this.state.dataToBeSend[e.target.id]=e.target.value;
+                    }
 
-      },
+    this.setState({
+                dataToBeSend: this.state.dataToBeSend
 
+                });
+                 },
       keyPressFunction: function(event) {
 
           var keycode = (event.keyCode
@@ -34,42 +44,63 @@ define([
           }
 
       },
-      handleCancel: function() {
-          this.props.close();
-          if (this.props.onCancel) {
-              this.props.onCancel();
-          }
-      },
-      handleConfirm: function() {
-      if( this.props.iconType!="patch-panel"){
-            this.props.topologyModel.createNode(this.state.fbName, this.props.iconType, this.props.coordinates);
-            console.log("iconType" + this.props.iconType)
-            this.props.close();
-      }else{
-      var node={}
-       if (this.props.coordinates.x && this.props.coordinates.y) {
-                  node.x = this.props.coordinates.x - 400;
-                  node.y = this.props.coordinates.y - 90;
-              } else {
-                  node.x = Math.floor(Math.random() * 400);
-                  node.y = Math.floor(Math.random() * 400);
+
+        handleConfirm: function() {
+          var self = this;
+          $.ajax({
+       url: properties.createHost,
+       type: 'post',
+       data: JSON.stringify(this.state.dataToBeSend),
+       contentType: "application/json; charset=utf-8",
+       success: function (data) {
+         debugger;
+         self.props.topologyModel.createNode(self.state.dataToBeSend['node-id'], self.props.iconType, self.props.coordinates);
+         console.log("iconType" + self.props.iconType)
+         self.props.close();
+       }
+
+
+       });
+  this.props.close();
+          },
+
+          getInitialState: function() {
+
+                                  return {
+                                    dataToBeSend:
+                                      {
+                              "node-id": "",
+                              "subnets": {
+                                "staticSubnet": [
+                                  {
+                                    "subnetId": ""
+                                  }
+                                ]
+                              },
+                              "termination-point": [
+                                {
+                                  "host-port-name": "",
+                                  "ip-address": [
+                                    ""
+                                  ],
+                                  "tp-id": ""
+                                }
+                              ],
+                              "type": ""
+                            }
+                                  }
+                },
+
+          handleCancel: function() {
+
+              if (this.props.onCancel) {
+                  this.props.onCancel();
               }
-
-           this.props.topologyModel.createNode(this.state.fbName+"1", this.props.iconType, {x:node.x, y:node.y});
-           this.props.topologyModel.createNode(this.state.fbName+"2", this.props.iconType, {x:node.x+100, y:node.y});
-           var patchlink={
-                                          source: this.state.fbName+"1",
-                                          target: this.state.fbName+"2"
-
-                                      }
-                                      this.props.topologyModel.createLinkPatchPanel(patchlink)
-              this.props.close();
-      }
+                  this.props.close();
+          },
 
 
 
-
-      },
         render: function() {
             return (
 
@@ -81,41 +112,36 @@ define([
                       <h3>{this.props.title}</h3>
                   </div>
                   <div className="modal-body">
-                      <form id="add-node-form">
-                          <div className="form-group">
-                              <label for="fbname">Name:</label>
-                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
-                          </div>
-                          <div className={this.props.title.split(" ")[1] == "Host"
-                              ? ""
-                              : "hidden"}>
+                      <form id="add-host-form">
+
+                          <div >
                               <div className="form-group">
                                   <label for="nodeId">Node Id:</label>
 
-                                  <input type="text" className="form-control" id="nodeId"></input>
+                                  <input type="text"  onKeyDown={this.keyPressFunction}  className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">Subnets</label>
+                                  <label for="subnets">Subnets</label>
 
                                   <input type="text" className="form-control" id="subnets"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">Static Subnet :</label>
+                                  <label for="static-subnet">Static Subnet :</label>
 
                                   <input type="text" className="form-control" id="static-subnet"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">TP ID:</label>
+                                  <label for="tp_id">TP ID:</label>
 
                                   <input type="text" className="form-control" id="tp_id"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">Host Port Name :</label>
+                                  <label for="host-port-name">Host Port Name :</label>
 
                                   <input type="text" className="form-control" id="host-port-name"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">IP Address :</label>
+                                  <label for="ip-address">IP Address :</label>
 
                                   <input type="text" className="form-control" id="ip-address"></input>
                               </div>

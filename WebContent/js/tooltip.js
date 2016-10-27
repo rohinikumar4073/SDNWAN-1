@@ -1,6 +1,6 @@
 define(
-    ['linkMode', 'configurationEvents','jquery', 'bootstrap'],
-    function(linkMode, configurationEvents,$) {
+    ['linkMode', 'configurationEvents','jquery', 'bootstrap','properties','socket'],
+    function(linkMode, configurationEvents,$,properties,socket) {
         (function(nx) {
             // node tooltip class
             // see nx.graphic.Topology.Node reference to learn what node's
@@ -17,10 +17,9 @@ define(
                                 return this._node;
                               },
                                   set: function (value) {
-                                  debugger;
                                   fbName=  value.node().get("label");
 
-                                    var postURL = "http://10.76.110.81:50512/rms/"
+                                    var postURL = properties.rmsIp
                 												+ fbName
                 												+ "/port/find";
                     var model = value.model();

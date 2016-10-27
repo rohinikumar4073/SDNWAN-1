@@ -1,6 +1,6 @@
 define([
-    'react', 'jquery'
-], function(React, $) {
+    'react', 'jquery','properties','socket'
+], function(React, $,properties,io) {
 
 
 
@@ -16,24 +16,17 @@ define([
 
     var CreatePatchPanel = React.createClass({
       onChangeFunction: function(e) {
-          this.setState({fbName: e.target.value});
+
+        this.state.dataToBeSend[e.target.id]=e.target.value;
+
       },
       getInitialState: function() {
 
-          return {fbName: ""}
+          return {dataToBeSend:{name: "", type: "patch-panel", portsno: "", location: ""}}
 
       },
 
-      keyPressFunction: function(event) {
 
-          var keycode = (event.keyCode
-              ? event.keyCode
-              : event.which);
-          if (keycode == '13') {
-              this.handleConfirm();
-          }
-
-      },
       handleCancel: function() {
           this.props.close();
           if (this.props.onCancel) {
@@ -41,11 +34,29 @@ define([
           }
       },
       handleConfirm: function() {
-      if( this.props.iconType!="patch-panel"){
-            this.props.topologyModel.createNode(this.state.fbName, this.props.iconType, this.props.coordinates);
-            console.log("iconType" + this.props.iconType)
-            this.props.close();
-      }else{
+        debugger;
+var socket = io.connect(properties.nodeIp);
+var self=this;
+socket.on('connect', function(data) {
+
+
+
+var patchinfo2 = JSON.parse(JSON.stringify(self.state.dataToBeSend))
+var patchinfo1 =JSON.parse(JSON.stringify(self.state.dataToBeSend))
+patchinfo1.name=self.state.dataToBeSend.name+"1";
+patchinfo2.name=self.state.dataToBeSend.name+"2";
+
+ socket.emit('component-save',patchinfo1);
+ socket.emit('component-save',patchinfo2);
+
+ socket.on('component-save', function(data) {
+           console.log(data);
+   });
+
+
+});
+
+
       var node={}
        if (this.props.coordinates.x && this.props.coordinates.y) {
                   node.x = this.props.coordinates.x - 400;
@@ -55,20 +66,15 @@ define([
                   node.y = Math.floor(Math.random() * 400);
               }
 
-           this.props.topologyModel.createNode(this.state.fbName+"1", this.props.iconType, {x:node.x, y:node.y});
-           this.props.topologyModel.createNode(this.state.fbName+"2", this.props.iconType, {x:node.x+100, y:node.y});
+           this.props.topologyModel.createNode(this.state.dataToBeSend.name+"1", this.props.iconType, {x:node.x, y:node.y});
+           this.props.topologyModel.createNode(this.state.dataToBeSend.name+"2", this.props.iconType, {x:node.x+100, y:node.y});
            var patchlink={
-                                          source: this.state.fbName+"1",
-                                          target: this.state.fbName+"2"
+                                          source: this.state.dataToBeSend.name+"1",
+                                          target: this.state.dataToBeSend.name+"2"
 
                                       }
                                       this.props.topologyModel.createLinkPatchPanel(patchlink)
               this.props.close();
-      }
-
-
-
-
       },
         render: function() {
             return (
@@ -84,41 +90,22 @@ define([
                       <form id="add-node-form">
                           <div className="form-group">
                               <label for="fbname">Name:</label>
-                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
+                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="name"></input>
                           </div>
-                          <div className={this.props.title.split(" ")[1] == "Host"
+                          <div className={this.props.title.split(" ")[1] == "Patch"
                               ? ""
                               : "hidden"}>
                               <div className="form-group">
-                                  <label for="nodeId">Node Id:</label>
+                                  <label for="PortsNum">Number of ports:</label>
 
-                                  <input type="text" className="form-control" id="nodeId"></input>
+                                  <input type="text" className="form-control" id="portsno"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">Subnets</label>
+                                  <label for="Location">Location</label>
 
-                                  <input type="text" className="form-control" id="subnets"></input>
+                                  <input type="text" className="form-control" id="location"></input>
                               </div>
-                              <div className="form-group">
-                                  <label for="nodeId">Static Subnet :</label>
 
-                                  <input type="text" className="form-control" id="static-subnet"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="nodeId">TP ID:</label>
-
-                                  <input type="text" className="form-control" id="tp_id"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="nodeId">Host Port Name :</label>
-
-                                  <input type="text" className="form-control" id="host-port-name"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="nodeId">IP Address :</label>
-
-                                  <input type="text" className="form-control" id="ip-address"></input>
-                              </div>
                           </div>
                       </form>
                   </div>

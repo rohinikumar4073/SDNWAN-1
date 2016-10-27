@@ -1,4 +1,4 @@
-define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) { 
+define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) {
 
 var FormData = React.createClass({
     onChangeFunction:function(e){
@@ -13,25 +13,27 @@ var FormData = React.createClass({
                   }else{
                     this.state.dataToBeSend[e.target.id]=e.target.value;
                   }
-                  
+
 this.setState({
               dataToBeSend: this.state.dataToBeSend
               });
-               },    handleConfirm: function() {
-                  var self = this;
-                  $.ajax({
-            url: "http://10.76.110.81:50102/FbTemplate/CreateTemplate",
-            type: 'post',
-              data: JSON.stringify(this.state.dataToBeSend),
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-     if (self.props.onConfirm) {
-                    self.props.onConfirm(self.state.dataToBeSend);
-                  }
-            }
+               },
 
-                 
-        });
+               handleConfirm: function() {
+                 var self = this;
+                   $.ajax({
+             url: "http://localhost:50514/orchestrator/createHost",
+             type: 'post',
+               data: JSON.stringify(this.state.dataToBeSend),
+             contentType: "application/json; charset=utf-8",
+             success: function (data) {
+      if (self.props.onConfirm) {
+                     self.props.onConfirm(self.state.dataToBeSend);
+                   }
+             }
+
+
+         });
 
                   },
                     handleCancel: function() {
@@ -39,58 +41,6 @@ this.setState({
                   this.props.onCancel();
                 }
                 },
- getInitialState: function() {
-    
-                        return {
-                          dataToBeSend:{
-                          "forwarding_box_template" : "",
-                          "fb_device_name" : "",
-                          "network_domain" : "",
-                          "site_id" : "",
-                          "location_desc" : "",
-                          "fb_groupid" : "",
-                          "management_configuration" : {
-                            "management_interface" : "",
-                            "ip_address" : "",
-                            "default_gatewayIp" : "",
-                            "dns_serverIp" : "",
-                            "dns_name" : "",
-                            "agent_cert_name" : ""
-                          },
-                          "openFlowInfo" : {
-                            "masterControllerIp" : "",
-                            "slaveControllerIp" : "",
-                            "protocolVersion" : "",
-                            "connectionProtocol" : "",
-                            "allowPassiveCon" : "",
-                            "failMode" : "",
-                            "dataPathId" : ""
-                          },
-                          "lldpEnablment" : "",
-                          "dataPlaceConfiguration" : {
-                            "dacUtilized" : "",
-                            "dacCableUtilized" : "",
-                            "transceiverType" : "",
-                            "speed" : "",
-                            "enableFrameSupport" : "",
-                            "adminState" : "",
-                            "description" : "",
-                            "adminCost" : ""
-                          },
-                          "operatingSystemConfiguration" : {
-                            "localArpResponse" : "",
-                            "localArpResponseCoverage" : "",
-                            "localIpv6ArpResponse" : "",
-                            "localIpv6ArpResponseCoverage" : "",
-                            "fb_sfp_interval" : "",
-                            "interfceFlowCounterInt" : "",
-                            "alarmHistory" : "",
-                            "alarmHighTemp" : "",
-                            "alarmLowTemp" : ""
-                          }
-                        }
-                        }
-      },
        handleCancel: function() {
                 if (this.props.onCancel) {
                   this.props.onCancel();
@@ -172,8 +122,8 @@ render: function() {
 					</form>
 				</div>
 			</div>
-	
-		
+
+
 
 			<div className="panel panel-default">
 				<div className="panel-heading">
@@ -216,7 +166,7 @@ render: function() {
 									data-parentData="dataPlaceConfiguration"></input>
 							</div>
 							<div className="form-group">
-								<label for="enableFrameSupport">Enable Frame Support:</label> 
+								<label for="enableFrameSupport">Enable Frame Support:</label>
 									<input onChange={this.onChangeFunction} type="text"
 									className="form-control" id="enableFrameSupport"
 									data-parentData="dataPlaceConfiguration"></input>
@@ -240,13 +190,13 @@ render: function() {
 
 				</div>
 			</div>
-		
 
 
 
 
 
-	
+
+
 			<div className="panel panel-default">
 				<div className="panel-heading">
 					<h4 className="panel-title">
@@ -301,7 +251,7 @@ render: function() {
 
 				</div>
 			</div>
-	
+
 
 		<div className="panel panel-default">
 			<div className="panel-heading">
@@ -449,7 +399,7 @@ render: function() {
    {confirmButton}
 </div>
 </div>
-           
+
                 </div>
 </div>
 
