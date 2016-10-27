@@ -1,6 +1,7 @@
+
 define([
-    'react', 'jquery','properties'
-], function(React, $,properties) {
+    'react', 'jquery'
+], function(React, $) {
 
 
 
@@ -15,9 +16,9 @@ define([
   });
 
     var CreateHost = React.createClass({
-
-      onChangeFunction:function(e){
-                   var parnetId=e.target.getAttribute("data-parentdata")
+      onChangeFunction: function(e) {
+          this.setState({fbName: e.target.value});
+          var parnetId=e.target.getAttribute("data-parentdata")
                     if(parnetId )
                     {
                       if(this.state.dataToBeSend[parnetId]){
@@ -32,46 +33,8 @@ define([
     this.setState({
                 dataToBeSend: this.state.dataToBeSend
                 });
-                 },
-      keyPressFunction: function(event) {
-
-          var keycode = (event.keyCode
-              ? event.keyCode
-              : event.which);
-          if (keycode == '13') {
-              this.handleConfirm();
-          }
-
       },
-
-          handleCancel: function() {
-
-              if (this.props.onCancel) {
-                  this.props.onCancel();
-              }
-                  this.props.close();
-          },
-
-        handleConfirm: function() {
-          var self = this;
-          $.ajax({
-       url: properties.createHost,
-       type: 'post',
-       data: JSON.stringify(this.state.dataToBeSend),
-       contentType: "application/json; charset=utf-8",
-       success: function (data) {
-         debugger;
-         self.props.topologyModel.createNode(self.state.dataToBeSend['node-id'], self.props.iconType, self.props.coordinates);
-         console.log("iconType" + self.props.iconType)
-         self.props.close();
-       }
-
-
-       });
-  this.props.close();
-          },
-
-          getInitialState: function() {
+      getInitialState: function() {
 
                                   return {
                                     dataToBeSend:
@@ -98,14 +61,47 @@ define([
                                   }
                 },
 
-          handleCancel: function() {
+      keyPressFunction: function(event) {
 
-              if (this.props.onCancel) {
-                  this.props.onCancel();
-              }
-                  this.props.close();
-          },
+          var keycode = (event.keyCode
+              ? event.keyCode
+              : event.which);
+          if (keycode == '13') {
+              this.handleConfirm();
+          }
 
+      },
+      handleCancel: function() {
+          this.props.close();
+          if (this.props.onCancel) {
+              this.props.onCancel();
+          }
+      },
+      handleConfirm: function() {
+
+     
+            this.props.topologyModel.createNode(this.state.fbName, this.props.iconType, this.props.coordinates);
+            console.log("iconType" + this.props.iconType)
+   
+   var self = this;
+          $.ajax({
+       url: "http://localhost:50514/orchestrator/createHost",
+       type: 'post',
+       data: JSON.stringify(this.state.dataToBeSend),
+       contentType: "application/json; charset=utf-8",
+       success: function (data) {
+       if (self.props.onConfirm) {
+            self.props.onConfirm(self.state.dataToBeSend);
+          }
+       }
+
+
+       });
+  this.props.close();
+
+
+
+      },
         render: function() {
             return (
 
@@ -117,14 +113,18 @@ define([
                       <h3>{this.props.title}</h3>
                   </div>
                   <div className="modal-body">
-
-                      <form id="add-host-form">
-
-                          <div >
+                      <form id="add-node-form">
+                          <div className="form-group">
+                              <label for="fbname">Name:</label>
+                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
+                          </div>
+                          <div className={this.props.title.split(" ")[1] == "Host"
+                              ? ""
+                              : "hidden"}>
                               <div className="form-group">
                                   <label for="nodeId">Node Id:</label>
 
-                                  <input type="text"  onKeyDown={this.keyPressFunction}  className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
+                                  <input type="text" className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
                               </div>
                               <div className="form-group">
                                   <label for="subnets">Subnets</label>
