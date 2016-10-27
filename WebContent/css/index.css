@@ -486,3 +486,8 @@ header .navbar .navbar-header .navbar-toggle{
   right: 2px;
   padding: 10px;
 }
+.settings{
+      vertical-align: middle;
+      horizontal-align:center;
+      margin:auto;
+}
