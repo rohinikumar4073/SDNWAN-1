@@ -59,7 +59,7 @@ define([
 
 
        });
-
+  this.props.close();
           },
 
           getInitialState: function() {
@@ -90,10 +90,11 @@ define([
                 },
 
           handleCancel: function() {
-              this.props.close();
+
               if (this.props.onCancel) {
                   this.props.onCancel();
               }
+                  this.props.close();
           },
 
 
@@ -120,30 +121,30 @@ define([
                               <div className="form-group">
                                   <label for="nodeId">Node Id:</label>
 
-                                  <input type="text" className="form-control" id="nodeId"></input>
+                                  <input type="text" className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">Subnets</label>
+                                  <label for="subnets">Subnets</label>
 
                                   <input type="text" className="form-control" id="subnets"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">Static Subnet :</label>
+                                  <label for="static-subnet">Static Subnet :</label>
 
                                   <input type="text" className="form-control" id="static-subnet"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">TP ID:</label>
+                                  <label for="tp_id">TP ID:</label>
 
                                   <input type="text" className="form-control" id="tp_id"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">Host Port Name :</label>
+                                  <label for="host-port-name">Host Port Name :</label>
 
                                   <input type="text" className="form-control" id="host-port-name"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">IP Address :</label>
+                                  <label for="ip-address">IP Address :</label>
 
                                   <input type="text" className="form-control" id="ip-address"></input>
                               </div>

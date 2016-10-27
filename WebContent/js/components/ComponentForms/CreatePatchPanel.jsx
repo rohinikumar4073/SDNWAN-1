@@ -24,16 +24,7 @@ define([
 
       },
 
-      keyPressFunction: function(event) {
 
-          var keycode = (event.keyCode
-              ? event.keyCode
-              : event.which);
-          if (keycode == '13') {
-              this.handleConfirm();
-          }
-
-      },
       handleCancel: function() {
           this.props.close();
           if (this.props.onCancel) {
@@ -86,39 +77,20 @@ define([
                               <label for="fbname">Name:</label>
                               <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
                           </div>
-                          <div className={this.props.title.split(" ")[1] == "Host"
+                          <div className={this.props.title.split(" ")[1] == "Patch"
                               ? ""
                               : "hidden"}>
                               <div className="form-group">
-                                  <label for="nodeId">Node Id:</label>
+                                  <label for="PortsNum">Number of ports:</label>
 
-                                  <input type="text" className="form-control" id="nodeId"></input>
+                                  <input type="text" className="form-control" id="PortsNum"></input>
                               </div>
                               <div className="form-group">
-                                  <label for="nodeId">Subnets</label>
+                                  <label for="Location">Location</label>
 
-                                  <input type="text" className="form-control" id="subnets"></input>
+                                  <input type="text" className="form-control" id="Location"></input>
                               </div>
-                              <div className="form-group">
-                                  <label for="nodeId">Static Subnet :</label>
 
-                                  <input type="text" className="form-control" id="static-subnet"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="nodeId">TP ID:</label>
-
-                                  <input type="text" className="form-control" id="tp_id"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="nodeId">Host Port Name :</label>
-
-                                  <input type="text" className="form-control" id="host-port-name"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="nodeId">IP Address :</label>
-
-                                  <input type="text" className="form-control" id="ip-address"></input>
-                              </div>
                           </div>
                       </form>
                   </div>
