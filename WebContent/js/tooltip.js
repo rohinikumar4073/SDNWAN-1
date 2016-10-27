@@ -1,6 +1,6 @@
 define(
-    ['linkMode', 'configurationEvents','jquery', 'bootstrap','properties','socket'],
-    function(linkMode, configurationEvents,$,properties,socket) {
+    ['linkMode', 'configurationEvents','jquery','properties','socket','bootstrap'],
+    function(linkMode, configurationEvents,$,properties,io) {
         (function(nx) {
             // node tooltip class
             // see nx.graphic.Topology.Node reference to learn what node's
@@ -18,7 +18,19 @@ define(
                               },
                                   set: function (value) {
                                   fbName=  value.node().get("label");
+                                  var socket = io.connect(properties.nodeIp);
+debugger;
+                                  var patchfetch = {"name":fbName,"type":"patch-panel"};
+                                  socket.on('connect', function(data) {
 
+
+                                   socket.emit('port-status-fetch',JSON.parse(patchfetch));
+
+                                  });
+
+                                  socket.on('port-status', function(data) {
+                                            console.log(data);
+                                    });
                                     var postURL = properties.rmsIp
                 												+ fbName
                 												+ "/port/find";

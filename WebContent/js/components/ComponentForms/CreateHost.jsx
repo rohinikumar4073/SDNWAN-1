@@ -118,13 +118,13 @@ define([
                   </div>
                   <div className="modal-body">
 
-                      <form id="add-host-form">
+                      <form id="add-node-host">
 
                           <div >
                               <div className="form-group">
                                   <label for="nodeId">Node Id:</label>
 
-                                  <input type="text"  onKeyDown={this.keyPressFunction}  className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
+                                  <input type="text"   className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
                               </div>
                               <div className="form-group">
                                   <label for="subnets">Subnets</label>

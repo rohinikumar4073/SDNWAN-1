@@ -34,7 +34,7 @@ define([
           }
       },
       handleConfirm: function() {
-        debugger;
+
 var socket = io.connect(properties.nodeIp);
 var self=this;
 socket.on('connect', function(data) {
@@ -45,9 +45,9 @@ var patchinfo2 = JSON.parse(JSON.stringify(self.state.dataToBeSend))
 var patchinfo1 =JSON.parse(JSON.stringify(self.state.dataToBeSend))
 patchinfo1.name=self.state.dataToBeSend.name+"1";
 patchinfo2.name=self.state.dataToBeSend.name+"2";
-
- socket.emit('component-save',patchinfo1);
- socket.emit('component-save',patchinfo2);
+debugger;
+ socket.emit('component-save',JSON.stringify(patchinfo1));
+ socket.emit('component-save',JSON.stringify(patchinfo2));
 
  socket.on('component-save', function(data) {
            console.log(data);
@@ -87,15 +87,15 @@ patchinfo2.name=self.state.dataToBeSend.name+"2";
                       <h3>{this.props.title}</h3>
                   </div>
                   <div className="modal-body">
-                      <form id="add-node-form">
+                      <form id="add-node-pp">
                           <div className="form-group">
                               <label for="fbname">Name:</label>
-                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="name"></input>
+                              <input onChange={this.onChangeFunction}
+                                type="text" className="form-control" id="name"></input>
                           </div>
-                          <div className={this.props.title.split(" ")[1] == "Patch"
-                              ? ""
-                              : "hidden"}>
+
                               <div className="form-group">
+                                <label for="portsno">Number of Ports</label>
 
                                   <input type="text" className="form-control" id="portsno"></input>
                               </div>
@@ -104,7 +104,6 @@ patchinfo2.name=self.state.dataToBeSend.name+"2";
 
                                   <input type="text" className="form-control" id="location"></input>
                               </div>
-            </div>
                       </form>
                   </div>
                   <div className="modal-footer">

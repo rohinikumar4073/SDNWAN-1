@@ -144,11 +144,11 @@ define(["properties",'jquery.spin'], function(properties){
 										            contentType: "application/json; charset=utf-8",
 													success : function(data) {
 														var tr=$('<tr>')
-								 					 tr.append($('<td>').append(v.name));
-								 						 tr.append($('<td>').append(v.datapath_type));
-								 							 tr.append($('<td>').append(v.datapath_id));
-								 								tr.append($('<td>').append(v.protocols));
-								 									tr.append($('<td>').append(v.fb_ip));
+								 					 tr.append($('<td>').append(jsonData.name));
+								 						 tr.append($('<td>').append(jsonData.datapath_type));
+								 							 tr.append($('<td>').append(jsonData.datapath_id));
+								 								tr.append($('<td>').append(jsonData.protocols));
+								 									tr.append($('<td>').append(jsonData.fb_ip));
 								 								 		$("#viewBridge").find('tbody')
 								 										.append(tr)
 														handleSuccess(data);
@@ -274,12 +274,12 @@ define(["properties",'jquery.spin'], function(properties){
 													contentType : "application/json; charset=utf-8",
 													success : function(data) {
 														var tr=$('<tr>')
-															tr.append($('<td>').append(v.name));
-															 tr.append($('<td>').append(v.vlan_mode));
-																tr.append($('<td>').append(v.fb_ip));
-																 tr.append($('<td>').append(v.type));
-																	tr.append($('<td>').append(v.speed));
-																		tr.append($('<td>').append(v.is_dac));
+															tr.append($('<td>').append(jsonData.name));
+															 tr.append($('<td>').append(jsonData.vlan_mode));
+																tr.append($('<td>').append(jsonData.fb_ip));
+																 tr.append($('<td>').append(jsonData.type));
+																	tr.append($('<td>').append(jsonData.speed));
+																		tr.append($('<td>').append(jsonData.is_dac));
 																		$("#viewPort").find('tbody')
 																				.append(tr)
 																	handleSuccess(data);

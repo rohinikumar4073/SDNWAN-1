@@ -20,6 +20,12 @@ define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!compone
         },
         open: function() {
             $('#add-node-form')[0].reset();
+            $('#add-node-os')[0].reset();
+            $('#add-node-pp')[0].reset();
+            $('#add-node-host')[0].reset();
+
+
+
             $(this.refs.root).modal('show');
         },
 
@@ -30,7 +36,7 @@ define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!compone
                       <CreateFBComponent close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='fb-icon' ? "" :"hidden"} ></CreateFBComponent>
                         <CreatePatchPanel close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='patch-panel' ? "" :"hidden"}></CreatePatchPanel>
                           <CreateHost close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='host' ? "" :"hidden"}></CreateHost>
-                            <CreateOpticalSwitch close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='optical-fiber' ? "" :"hidden"} ></CreateOpticalSwitch>
+                            <CreateOpticalSwitch close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='optical-switch' ? "" :"hidden"} ></CreateOpticalSwitch>
 
 
                   </div>

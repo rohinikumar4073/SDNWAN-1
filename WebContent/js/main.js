@@ -2,7 +2,7 @@ require.config({
   baseUrl: "js/",
 shim : {
         "bootstrap" : { "deps" :['jquery'] },
-        "tooltip":{ "deps" :['nx','bootstrap',"properties"]} ,
+        "tooltip":{ "deps" :['nx','bootstrap','properties']} ,
         "MainView" : { "deps" :['nx'] },
         "TopologyView" : { "deps" :['nx','tooltip'] },
         "TopologyModel" : { "deps" :['nx'] },
