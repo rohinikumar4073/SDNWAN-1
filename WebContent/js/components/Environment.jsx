@@ -1,4 +1,4 @@
-define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) { var Environment = React.createClass({
+define(['react','jsx!components/BootstrapButton','properties'], function(React,BootstrapButton,properties) { var Environment = React.createClass({
   onChangeFunction:function(e){
                    var parnetId=e.target.getAttribute("data-parentdata")
                     if(parnetId )
@@ -20,7 +20,7 @@ define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButto
                     },    handleConfirm: function() {
                     var self = this;
                     $.ajax({
-              url: "http://10.76.110.81:50514/orchestrator/ipDetails",
+              url: properties.envSettings,
 
 
               type: 'post',
@@ -104,7 +104,7 @@ define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButto
 
         </div>
         <div className="modal-footer">
-        
+
         </div>
       </div>
       <div className="modal-footer">

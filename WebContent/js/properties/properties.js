@@ -9,7 +9,8 @@ define(['socket'],function(io){
         createHost:swaggerIp+"orchestrator/createHost",
         nodeIp:nodeIp,
         rmsIp:rmsIp,
-        socket:socket
+        socket:socket,
+        envSettings:swaggerIp+"orchestrator/ipDetails"
 
     };
 
