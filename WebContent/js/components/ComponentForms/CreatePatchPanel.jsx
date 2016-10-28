@@ -1,6 +1,6 @@
 define([
-    'react', 'jquery','properties','socket'
-], function(React, $,properties,io) {
+    'react', 'jquery','properties'
+], function(React, $,properties) {
 
 
 
@@ -27,6 +27,17 @@ define([
       },
 
 
+            keyPressFunction: function(event) {
+
+                var keycode = (event.keyCode
+                    ? event.keyCode
+                    : event.which);
+                if (keycode == '13') {
+                    this.handleConfirm();
+                        event.stopPropagation()
+                }
+
+            },
       handleCancel: function() {
           this.props.close();
           if (this.props.onCancel) {
@@ -34,10 +45,10 @@ define([
           }
       },
       handleConfirm: function() {
-
-var socket = io.connect(properties.nodeIp);
+        debugger;
+var socket = properties.socket;
 var self=this;
-socket.on('connect', function(data) {
+
 
 
 
@@ -54,12 +65,12 @@ debugger;
    });
 
 
-});
+
 
 
       var node={}
        if (this.props.coordinates.x && this.props.coordinates.y) {
-                  node.x = this.props.coordinates.x - 400;
+                  node.x = this.props.coordinates.x - 100;
                   node.y = this.props.coordinates.y - 90;
               } else {
                   node.x = Math.floor(Math.random() * 400);
@@ -90,19 +101,19 @@ debugger;
                       <form id="add-node-pp">
                           <div className="form-group">
                               <label for="fbname">Name:</label>
-                              <input onChange={this.onChangeFunction}
+                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction}
                                 type="text" className="form-control" id="name"></input>
                           </div>
 
                               <div className="form-group">
                                 <label for="portsno">Number of Ports</label>
 
-                                  <input type="text" className="form-control" id="portsno"></input>
+                                  <input type="text" onChange={this.onChangeFunction}className="form-control" id="portsno"></input>
                               </div>
                               <div className="form-group">
                                   <label for="Location">Location</label>
 
-                                  <input type="text" className="form-control" id="location"></input>
+                                  <input type="text"onChange={this.onChangeFunction}className="form-control" id="location"></input>
                               </div>
                       </form>
                   </div>

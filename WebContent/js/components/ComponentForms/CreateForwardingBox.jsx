@@ -32,7 +32,7 @@ define([
           if (keycode == '13') {
               this.handleConfirm();
           }
-
+            event.stopPropagation()
       },
       handleCancel: function() {
           this.props.close();
@@ -84,7 +84,7 @@ define([
                       <form id="add-node-form">
                           <div className="form-group">
                               <label for="fbname">Name:</label>
-                              <input onChange={this.onChangeFunction} type="text" className="form-control" id="fb_name"></input>
+                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
                           </div>
                       </form>
                   </div>

@@ -1,6 +1,6 @@
 define([
-    'react', 'jquery'
-], function(React, $) {
+    'react', 'jquery','properties'
+], function(React, $,properties) {
 
 
 
@@ -16,11 +16,12 @@ define([
 
     var CreateOpticalSwitch = React.createClass({
       onChangeFunction: function(e) {
-          this.setState({fbName: e.target.value});
+          this.setState({dataToBeSend.name: e.target.value});
       },
       getInitialState: function() {
 
-          return {fbName: ""}
+
+                  return {dataToBeSend:{name: "", type: "optical-switch"}}
 
       },
 
@@ -41,30 +42,22 @@ define([
           }
       },
       handleConfirm: function() {
-      if( this.props.iconType!="patch-panel"){
-            this.props.topologyModel.createNode(this.state.fbName, this.props.iconType, this.props.coordinates);
+        var socket = properties.socket;
+        var self=this;
+        debugger;
+
+
+
+
+
+         socket.emit('component-save',JSON.stringify(self.state.dataToBeSend));
+
+
+
+            this.props.topologyModel.createNode(this.state.dataToBeSend.name, this.props.iconType, this.props.coordinates);
             console.log("iconType" + this.props.iconType)
             this.props.close();
-      }else{
-      var node={}
-       if (this.props.coordinates.x && this.props.coordinates.y) {
-                  node.x = this.props.coordinates.x - 400;
-                  node.y = this.props.coordinates.y - 90;
-              } else {
-                  node.x = Math.floor(Math.random() * 400);
-                  node.y = Math.floor(Math.random() * 400);
-              }
 
-           this.props.topologyModel.createNode(this.state.fbName+"1", this.props.iconType, {x:node.x, y:node.y});
-           this.props.topologyModel.createNode(this.state.fbName+"2", this.props.iconType, {x:node.x+100, y:node.y});
-           var patchlink={
-                                          source: this.state.fbName+"1",
-                                          target: this.state.fbName+"2"
-
-                                      }
-                                      this.props.topologyModel.createLinkPatchPanel(patchlink)
-              this.props.close();
-      }
 
 
 
@@ -84,7 +77,7 @@ define([
                       <form id="add-node-os">
                           <div className="form-group">
                               <label for="fbname">Name:</label>
-                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="fb_name"></input>
+                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="name"></input>
                           </div>
                       </form>
                   </div>

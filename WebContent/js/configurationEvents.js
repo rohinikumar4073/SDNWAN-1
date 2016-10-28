@@ -491,7 +491,16 @@ debugger;
 											.node()
 											.id()+"/"+$("input[name='portselcted']:checked").next().text()
 								+ "/false";
-										self.topology().srclink = null;
+				if( self
+							.topology().srclink.iconType=="patch-panel" ||  self
+										.topology().srclink=="optical-switch"){
+											var socket=properties.socket;
+
+											var patchupdate2 = {"name":  self
+														.topology().srclink.node,"type":self
+																	.topology().srclink.iconType,"portname":self
+																	.topology().srclink.data,"status":"true"};
+											socket.emit('port-status-set',JSON.stringify(patchupdate2));										}else{
 				$
 						.ajax({
 							url : postURL1,
@@ -505,6 +514,20 @@ debugger;
 								handleError(data)
 							}
 						});
+					}
+					if(  self
+								.node().get("iconType")=="patch-panel" || self
+											.node().get("iconType") =="optical-switch"){
+var socket=properties.socket;
+
+var patchupdate2 = {"name": self
+						.node()
+						.id(),"type": self
+												.node()
+												.get("iconType"),"portname":$("input[name='portselcted']:checked").next().text(),"status":"true"};
+socket.emit('port-status-set',JSON.stringify(patchupdate2));
+
+											}else{
 						$
 								.ajax({
 									url : postURL2,
@@ -518,6 +541,9 @@ debugger;
 										handleError(data)
 									}
 								});
+							}
+							self.topology().srclink = null;
+
 				$('#pageModal ')
 						.modal(
 								'hide')

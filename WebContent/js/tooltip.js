@@ -5,6 +5,7 @@ define(
             // node tooltip class
             // see nx.graphic.Topology.Node reference to learn what node's
             // properties you're able to use
+            var flag=true;
             nx
                 .define(
                     'TooltipNode',
@@ -17,27 +18,50 @@ define(
                                 return this._node;
                               },
                                   set: function (value) {
-                                  fbName=  value.node().get("label");
-                                  var socket = io.connect(properties.nodeIp);
-debugger;
-                                  var patchfetch = {"name":fbName,"type":"patch-panel"};
-                                  socket.on('connect', function(data) {
+                                    var model = value.model();
+                                    this._node=value.node();
+                                    var view= this.view('portData')
+                                  var fbName=  value.node().get("label");
+                               var iconType=value.node().get("iconType")
 
+                               if(iconType =="optical-switch" || iconType =="patch-panel"){
+                                linkMode.setFlagNoHide(true);
+                              var finalResults=[]
+                              var resources=view._resources;
+                                  var socket = properties.socket;
+                                  var fetchComplete= function(data,view) {
+                                    console.log("inside fetch")
+                                     var result=JSON.parse(data)
+                                     result.forEach(function(v,i){
+                                         var res=JSON.parse(v)
+                                       if(res.status=="false"){res.isAllocated=false}else{res.isAllocated=true}
+                                       finalResults.push(res);
+                                     })
+                                    // debugger;
 
-                                   socket.emit('port-status-fetch',JSON.parse(patchfetch));
+                                            console.log(finalResults);
+                                              //  socket.removeListener('port-status-fetch', fetchComplete);
+                                   }
+                                  var patchfetch = {"name":fbName,"type":iconType};
 
-                                  });
+                                   socket.emit('port-status-fetch',JSON.stringify(patchfetch));
+                                   debugger;
+                                   socket.on('port-status',function(data){
+                                     debugger;
+                                     fetchComplete(data,view)
+                                   }.bind(view))
+                                   setTimeout(function(){
+                                     view.set('items', finalResults)
 
-                                  socket.on('port-status', function(data) {
-                                            console.log(data);
-                                    });
+                                   },500)
+
+                                  }else{
                                     var postURL = properties.rmsIp
                 												+ fbName
                 												+ "/port/find";
-                    var model = value.model();
-                    this._node=value.node();
-                    var view= this.view('portData')
+
                   //  debugger;
+
 
                             $.post( postURL , function(result) {
                               var collection = result;
@@ -49,7 +73,7 @@ debugger;
 
 
           })
-
+}
                 }
                             }, // NeXt automatically
                             // provides you the
@@ -180,9 +204,11 @@ debugger;
                             },
                             "onClickEvent2": function() {
                                 if (!this.topology().srclink) {
+                                  debugger;
                                     this.topology().srclink = {node:this
-                                        .node().id(),
-                                        "data":$("input[name='portselcted']:checked").next().text()
+                                        .node().id(),iconType:this
+                                            .node().get('iconType')
+  ,                                      "data":$("input[name='portselcted']:checked").next().text()
                                       }
                                 } else {
                                   var self =this;

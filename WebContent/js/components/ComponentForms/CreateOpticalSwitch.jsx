@@ -1,6 +1,6 @@
 define([
-    'react', 'jquery','properties','socket'
-], function(React, $,properties,io) {
+    'react', 'jquery','properties'
+], function(React, $,properties) {
 
 
 
@@ -16,15 +16,12 @@ define([
 
     var CreateOpticalSwitch = React.createClass({
       onChangeFunction: function(e) {
-        debugger;
         this.state.dataToBeSend[e.target.id]=e.target.value;
       },
       getInitialState: function() {
 
-                     return {
-                       dataToBeSend:{name: "", type: "optical-switch"}
-                   }
 
+                  return {dataToBeSend:{name: "", type: "optical-switch"}}
 
       },
 
@@ -45,25 +42,22 @@ define([
           }
       },
       handleConfirm: function() {
-
-var socket = io.connect(properties.nodeIp);
-var self=this;
-socket.on('connect', function(data) {
-
-
- socket.emit('component-save',JSON.stringify(self.state.dataToBeSend));
-
- socket.on('component-save', function(data) {
-           console.log(data);
-   });
+        var socket = properties.socket;
+        var self=this;
+        debugger;
 
 
-});
 
+
+
+         socket.emit('component-save',JSON.stringify(this.state.dataToBeSend));
 
             this.props.topologyModel.createNode(this.state.dataToBeSend.name, this.props.iconType, this.props.coordinates);
             console.log("iconType" + this.props.iconType)
             this.props.close();
+
+
+
 
 
       },
@@ -81,7 +75,7 @@ socket.on('connect', function(data) {
                       <form id="add-node-os">
                           <div className="form-group">
                               <label for="fbname">Name:</label>
-                              <input onChange={this.onChangeFunction}  type="text" className="form-control" id="name"></input>
+                              <input onChange={this.onChangeFunction} onKeyDown={this.keyPressFunction} type="text" className="form-control" id="name"></input>
                           </div>
                       </form>
                   </div>

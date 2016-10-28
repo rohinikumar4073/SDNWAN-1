@@ -4,12 +4,16 @@ define(function(){
         setFlag: function(booleanValue){
         	$(".n-topology-tooltip").hide()
         	flag=booleanValue;
-        	
+
         },
+				setFlagNoHide: function(booleanValue){
+					flag=booleanValue;
+
+				},
         getFlag:function(){
         	return flag;
         }
-       
+
     };
-    
+
 });

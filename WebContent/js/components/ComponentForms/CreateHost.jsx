@@ -17,7 +17,8 @@ define([
     var CreateHost = React.createClass({
 
       onChangeFunction:function(e){
-                   var parnetId=e.target.getAttrbute("data-parentdata")
+        debugger;
+                   var parnetId=e.target.getAttribute("data-parentdata")
                     if(parnetId )
                     {
                       if(this.state.dataToBeSend[parnetId]){
@@ -42,7 +43,7 @@ define([
           if (keycode == '13') {
               this.handleConfirm();
           }
-
+event.stopPropagation()
       },
 
         handleConfirm: function() {
