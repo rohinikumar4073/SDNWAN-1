@@ -1,11 +1,11 @@
 define(
-    ['linkMode', 'configurationEvents','jquery','properties','socket','bootstrap'],
-    function(linkMode, configurationEvents,$,properties,io) {
+    ['linkMode', 'configurationEvents', 'jquery', 'properties', 'socket', 'bootstrap'],
+    function(linkMode, configurationEvents, $, properties, io) {
         (function(nx) {
             // node tooltip class
             // see nx.graphic.Topology.Node reference to learn what node's
             // properties you're able to use
-            var flag=true;
+            var flag = true;
             nx
                 .define(
                     'TooltipNode',
@@ -13,68 +13,111 @@ define(
                         properties: {
                             'node': {
 
-                              get:function(){
+                                get: function() {
 
-                                return this._node;
-                              },
-                                  set: function (value) {
+                                    return this._node;
+                                },
+                                set: function(value) {
+                                    debugger;
                                     var model = value.model();
-                                    this._node=value.node();
-                                    var view= this.view('portData')
-                                  var fbName=  value.node().get("label");
-                               var iconType=value.node().get("iconType")
+                                    this._node = value.node();
+                                    var view = this.view('portData')
+                                    var fbName = value.node().get("label");
+                                    var iconType = value.node().get("iconType")
 
-                               if(iconType =="optical-switch" || iconType =="patch-panel"){
-                                linkMode.setFlagNoHide(true);
-                              var finalResults=[]
-                              var resources=view._resources;
-                                  var socket = properties.socket;
-                                  var fetchComplete= function(data,view) {
-                                    console.log("inside fetch")
-                                     var result=JSON.parse(data)
-                                     result.forEach(function(v,i){
-                                         var res=JSON.parse(v)
-                                       if(res.status=="false"){res.isAllocated=false}else{res.isAllocated=true}
-                                       finalResults.push(res);
-                                     })
-                                    // debugger;
+                                    if (iconType == "optical-switch" || iconType == "patch-panel") {
+                                        this.view("configData").set("class", "linkhide")
+                                        if (!linkMode.getFlag()){
+                                            this.view("classNamePort").set("class", "linkhide")
+                                        }else{
+                                          this.view("classNamePort").set("class", "popup-section")
+                                        }
+                                        var finalResults = []
+                                        var resources = view._resources;
+                                        var socket = properties.socket();
+                                        var fetchComplete = function(data, view) {
+                                            console.log("inside fetch")
+                                              var result = JSON.parse(data)
+                                          if(iconType == "optical-switch" ){
+                                            result=JSON.parse(result)
+                                          }
+
+                                            result.forEach(function(v, i) {
+                                              var res=null;
+                                              if(iconType == "optical-switch" ){
+                                               res = v
+                                              }else{
+                                                 res = JSON.parse(v)
+                                              }
+
+
+                                                    if (res.status == "false") {
+                                                        res.isAllocated = false
+                                                    } else {
+                                                        res.isAllocated = true
+                                                    }
+                                                    finalResults.push(res);
+                                                })
+                                                // //debugger;
 
                                             console.log(finalResults);
-                                              //  socket.removeListener('port-status-fetch', fetchComplete);
-                                   }
-                                  var patchfetch = {"name":fbName,"type":iconType};
+                                            //  socket.removeListener('port-status-fetch', fetchComplete);
+                                        }
+                                        var patchfetch = {
+                                            "name": fbName,
+                                            "type": iconType
+                                        };
 
-                                   socket.emit('port-status-fetch',JSON.stringify(patchfetch));
-                                   debugger;
-                                   socket.on('port-status',function(data){
-                                     debugger;
-                                     fetchComplete(data,view)
-                                   }.bind(view))
-                                   setTimeout(function(){
-                                     view.set('items', finalResults)
+                                        socket.emit('port-status-fetch', JSON.stringify(patchfetch));
+                                        //debugger;
+                                        socket.on('port-status', function(data) {
+                                            //debugger;
+                                            fetchComplete(data, view)
+                                        }.bind(view))
+                                        setTimeout(function() {
+                                            view.set('items', finalResults)
 
-                                   },500)
+                                        }, 500)
 
-                                  }else{
-                                    var postURL = properties.rmsIp
-                												+ fbName
-                												+ "/port/find";
+                                    } else if (iconType == "host") {
+                                        this.view("configData").set("class", "linkhide")
+                                        if (!linkMode.getFlag()){
+                                            this.view("classNamePort").set("class", "linkhide")
+                                        }else{
+                                          this.view("classNamePort").set("class", "popup-section")
+                                        }
+                                    } else {
 
-                  //  debugger;
+                                        if (!linkMode.getFlag()){
+                                            this.view("classNamePort").set("class", "linkhide")
+                                              this.view("configData").set("class", "popup-section")
+                                        }else{
+                                          this.view("classNamePort").set("class", "popup-section")
+                                            this.view("configData").set("class", "linkhide")
+                                        }
+                                        var postURL = properties.rmsIp +
+                                            fbName +
+                                            "/port/find";
+
+                                        //  //debugger;
 
 
-                            $.post( postURL , function(result) {
-                              var collection = result;
+                                        $.post(postURL, function(result) {
+                                            var collection = result;
 
-                          result.forEach(function(v,i){
-                            if(v.isFree=="true"){v.isAllocated=false}else{v.isAllocated=true}
-                          })
-                                 view.set('items', result)
+                                            result.forEach(function(v, i) {
+                                                if (v.isFree == "true") {
+                                                    v.isAllocated = false
+                                                } else {
+                                                    v.isAllocated = true
+                                                }
+                                            })
+                                            view.set('items', result)
 
 
-          })
-}
-                }
+                                        })
+                                    }
+                                }
                             }, // NeXt automatically
                             // provides you the
                             // access to the
@@ -101,7 +144,7 @@ define(
                                 }
                             }
 
-            },
+                        },
 
                         // 'view' defines the appearance of the
                         // tooltip
@@ -109,9 +152,8 @@ define(
                             content: {
                                 content: [{
                                         tag: 'div',
-                                        props: {
-                                            'class': '{#classNameConfig}'
-                                        },
+                                        name: "configData",
+
                                         events: {
                                             'click': '{#onClickEvent}'
                                         },
@@ -132,17 +174,17 @@ define(
                                         ]
                                     }, {
                                         tag: 'div',
-                                        props: {
-                                            'class': '{#classNamePort}'
-                                        },
+                                        name: 'classNamePort',
+
+
                                         content: [{
                                                 tag: 'h6',
                                                 content: "Select Port"
                                             }, {
                                                 tag: 'div',
-                                                name:"portData",
+                                                name: "portData",
                                                 props: {
-                                                  'class' :"tooltip-container",
+                                                    'class': "tooltip-container",
                                                     template: {
                                                         tag: "div",
                                                         content: [{
@@ -150,8 +192,8 @@ define(
                                                             props: {
                                                                 'type': "radio",
                                                                 'name': "portselcted",
-                                                                'disabled':"{isAllocated}"
-                                                              },
+                                                                'disabled': "{isAllocated}"
+                                                            },
                                                             events: {
                                                                 'click': '{#onClickEvent2}'
                                                             },
@@ -204,14 +246,16 @@ define(
                             },
                             "onClickEvent2": function() {
                                 if (!this.topology().srclink) {
-                                  debugger;
-                                    this.topology().srclink = {node:this
-                                        .node().id(),iconType:this
-                                            .node().get('iconType')
-  ,                                      "data":$("input[name='portselcted']:checked").next().text()
-                                      }
+                                    //debugger;
+                                    this.topology().srclink = {
+                                        node: this
+                                            .node().id(),
+                                        iconType: this
+                                            .node().get('iconType'),
+                                        "data": $("input[name='portselcted']:checked").next().text()
+                                    }
                                 } else {
-                                  var self =this;
+                                    var self = this;
 
                                     $("#pageModal")
                                         .load(
@@ -220,10 +264,10 @@ define(
                                                 $('#pageModal ')
                                                     .modal(
                                                         'show')
-                                      $('#pageModal #saveLinkData').click(function(){
-                                        configurationEvents.initLinkEvents(self);
+                                                $('#pageModal #saveLinkData').click(function() {
+                                                    configurationEvents.initLinkEvents(self);
 
-                                      });
+                                                });
 
                                             });
 

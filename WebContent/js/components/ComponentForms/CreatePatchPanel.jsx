@@ -46,7 +46,7 @@ define([
       },
       handleConfirm: function() {
         debugger;
-var socket = properties.socket;
+var socket = properties.socket();
 var self=this;
 
 

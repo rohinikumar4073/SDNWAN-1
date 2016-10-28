@@ -42,7 +42,6 @@
         properties: {
           topology:{
             get:function(){
-debugger;
     var topology = this.view('_topology');
             return topology
               }

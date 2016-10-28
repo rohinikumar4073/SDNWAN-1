@@ -20,7 +20,8 @@ shim : {
     "bootstrap":"bootstrap.min",
     "nx":"next",
     "properties":"properties/properties",
-    "socket":"socket.io-1.4.5"
+    "socket":"socket.io-1.4.5",
+    "toastr":"toastr.min"
   },
 
   jsx: {

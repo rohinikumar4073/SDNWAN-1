@@ -332,7 +332,7 @@ hr {
 }
 .margin-data{padding-top:10%;padding-left: 50%}
 .custom-tooltip {
-    width: 70px;
+
         display: flex;
     flex-wrap: wrap;
     font-family: "Arial";
