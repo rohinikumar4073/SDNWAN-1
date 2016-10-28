@@ -1,4 +1,4 @@
- define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm','jsx!components/CreateFBFanTemplate','jsx!components/FBOSTemplate','jsx!components/FBPowerTemplate','jsx!components/FBTranseiverTemplate','jsx!components/FBTemplate'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS,FBPower,FBTranseiver,FBTemplate) {
+ define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm','jsx!components/CreateFBFanTemplate','jsx!components/FBOSTemplate','jsx!components/FBPowerTemplate','jsx!components/FBTranseiverTemplate','jsx!components/FBTemplate','jsx!components/Environment'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS,FBPower,FBTranseiver,FBTemplate,Environment) {
 
  var BootstrapModal = React.createClass({
     // The following two methods are the only places we need to
@@ -45,22 +45,23 @@
                 <div className="modal fade" ref="root">
                 <div className="modal-dialog">
                 <div className="modal-content">
-             
 
-                  
+
+
                     <FBForm data={this.props.children} header={this.props.title} onChangeFunction={this.setData}  handleCancel={this.handleCancel} className={this.props.template=='FBForm' ? "" :"hidden"}></FBForm>
                     <FBFan data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBFan' ? "" :"hidden"}></FBFan>
                     <FBOS data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBOS' ? "" :"hidden"}></FBOS>
                     <FBPower data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBPower' ? "" :"hidden"}></FBPower>
                     <FBTranseiver data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTranseiver' ? "" :"hidden"}></FBTranseiver>
                     <FBTemplate data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTemplate' ? "" :"hidden"}></FBTemplate>
-                   
-                         
-                    
-                    
+                    <Environment  header={this.props.title}  handleCancel={this.handleCancel}  className={this.props.template=='Environment' ? "" :"hidden"}></Environment>
 
 
-            
+
+
+
+
+
                 </div>
                 </div>
                 </div>
@@ -84,12 +85,12 @@
                   }else{
                     this.state.dataToBeSend[e.target.id]=e.target.value;
                   }
-                  
+
 this.setState({
               dataToBeSend: this.state.dataToBeSend
               });
-               
-                  
+
+
                   },
                 handleConfirm: function() {
                   var self = this;
@@ -104,7 +105,7 @@ this.setState({
                   }
             }
 
-                 
+
         });
 
                   },
@@ -116,5 +117,5 @@ this.setState({
                   });
 
   return BootstrapModal;
-  
+
   });
