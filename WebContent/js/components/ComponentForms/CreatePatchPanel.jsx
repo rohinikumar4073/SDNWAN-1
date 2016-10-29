@@ -45,7 +45,6 @@ define([
           }
       },
       handleConfirm: function() {
-        debugger;
 var socket = properties.socket();
 var self=this;
 
@@ -56,7 +55,6 @@ var patchinfo2 = JSON.parse(JSON.stringify(self.state.dataToBeSend))
 var patchinfo1 =JSON.parse(JSON.stringify(self.state.dataToBeSend))
 patchinfo1.name=self.state.dataToBeSend.name+"1";
 patchinfo2.name=self.state.dataToBeSend.name+"2";
-debugger;
  socket.emit('component-save',JSON.stringify(patchinfo1));
  socket.emit('component-save',JSON.stringify(patchinfo2));
 

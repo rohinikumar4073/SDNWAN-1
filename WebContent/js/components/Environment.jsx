@@ -60,7 +60,7 @@ define(['react','jsx!components/BootstrapButton','properties'], function(React,B
     confirmButton = (
                       <BootstrapButton
                       onClick={this.handleConfirm}
-                      className="btn  btn-primary btn-sm" data="Create New">
+                      className="btn  btn-primary btn-sm" data="Save">
                       {this.props.confirm}
                       </BootstrapButton>
                       );

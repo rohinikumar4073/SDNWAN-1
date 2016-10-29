@@ -1,6 +1,6 @@
 define([
-    'react', 'jquery','properties'
-], function(React, $,properties) {
+    'react', 'jquery','properties','toastr'
+], function(React, $,properties,toastr) {
 
 
 
@@ -17,11 +17,14 @@ define([
     var CreateHost = React.createClass({
 
       onChangeFunction:function(e){
-        debugger;
                    var parnetId=e.target.getAttribute("data-parentdata")
+                   var isList=e.target.getAttribute("list")
                     if(parnetId )
-                    {
-                      if(this.state.dataToBeSend[parnetId]){
+                    {if(this.state.dataToBeSend[parnetId] && isList && isList=="true"){
+                      var dataJson={};
+                      dataJson[e.target.id]=e.target.value;
+                      this.state.dataToBeSend[parnetId][0][e.target.id]=e.target.value;
+                    }else if(this.state.dataToBeSend[parnetId] ){
                         this.state.dataToBeSend[parnetId][e.target.id]=e.target.value;
                         }else{
                          this.state.dataToBeSend[parnetId][e.target.id]=e.target.value;
@@ -47,7 +50,43 @@ event.stopPropagation()
       },
 
         handleConfirm: function() {
+          if(!this.state.dataToBeSend['node-id']){
+            toastr.error("Please enter host name")
+            return
+          }
+          if(!this.state.dataToBeSend['termination-point'][0]['host-port-name']){
+            toastr.error("Please enter host port name")
+            return
+          }
           var self = this;
+          var postURL = properties.rmsIp +
+              this.state.dataToBeSend['node-id'] +
+              "/port/add";
+
+              jsonData = {
+                  "fb_ip": "",
+                  "is_dac": "",
+                  "name": this.state.dataToBeSend['termination-point'][0]['host-port-name'],
+                  "speed": "",
+                  "trunks": [""],
+                  "type": "",
+                  "vlan_mode": ""
+              }
+
+          $
+              .ajax({
+                  url: postURL,
+                  method: 'POST',
+                  data: JSON.stringify(jsonData),
+                  contentType: "application/json; charset=utf-8",
+                  success: function(data) {
+                    toastr.success("Port added successfully")
+                  },
+                  error: function(data) {
+                    toastr.error("Not able to add port")
+                  }
+              });
+
           $.ajax({
        url: properties.createHost,
        type: 'post',
@@ -57,6 +96,11 @@ event.stopPropagation()
          self.props.topologyModel.createNode(self.state.dataToBeSend["node-id"], self.props.iconType, self.props.coordinates);
          console.log("iconType" + self.props.iconType)
          self.props.close();
+         toastr.success("Host added successfully")
+
+       },
+       error: function(data) {
+         toastr.error("Not able to add host")
        }
 
 
@@ -139,7 +183,7 @@ event.stopPropagation()
                               <div className="form-group">
                                   <label for="host-port-name">Host Port Name :</label>
 
-                                  <input type="text" className="form-control" id="host-port-name"></input>
+                                  <input type="text" className="form-control" onChange={this.onChangeFunction} data-parentdata="termination-point" list="true"id="host-port-name"></input>
                               </div>
                               <div className="form-group">
                                   <label for="ip-address">IP Address :</label>

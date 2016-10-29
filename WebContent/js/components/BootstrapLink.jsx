@@ -11,7 +11,7 @@ var BootstrapLink = React.createClass({
 
       },
       render: function() {
-       
+
         return (
           <div className="link">
         <BootstrapModal
@@ -24,10 +24,9 @@ var BootstrapLink = React.createClass({
           title={"Create "+this.props.heading}
           template={this.props.template}
           >
-          
+
           </BootstrapModal>
-          <BootstrapButton  onClick={this.openModal} data={this.props.data}>
-          Open modal
+          <BootstrapButton  className={this.props.className} onClick={this.openModal} data={this.props.data}>
           </BootstrapButton>
           </div>
           );
@@ -44,7 +43,7 @@ var BootstrapLink = React.createClass({
             handleModalDidClose: function() {
             }
             });
-            
+
             return BootstrapLink;
-            
+
             });
