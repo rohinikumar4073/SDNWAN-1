@@ -90,6 +90,19 @@ define([
         pushTopology:function(){
        var mainView = this.state.mainView;
        debugger;
+       {
+  "linkDetails": [
+    {
+      "linkId": "string"
+    }
+  ],
+  "nodeDetails": [
+    {
+      "id": "string",
+      "type": "string"
+    }
+  ]
+}
         },
         componentWillReceiveProps: function(nextProps) {
             this.setState({showData: false});
