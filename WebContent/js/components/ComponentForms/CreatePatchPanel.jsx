@@ -64,6 +64,8 @@ patchinfo2.name=self.state.dataToBeSend.name+"2";
 
 
 
+   properties.addNode(this.state.dataToBeSend.name+"1",this.props.iconType)
+   properties.addNode(this.state.dataToBeSend.name+"2ß",this.props.iconType)
 
 
       var node={}

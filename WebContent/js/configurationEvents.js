@@ -515,10 +515,10 @@ if(!$("#linkId").val()){
 							contentType: "application/json; charset=utf-8",
 							success: function (data) {
 										toastr.success("Link is added successfully")
+                    properties.addLink($("#linkId").val())
 							}
 
 })
-            debugger;
             var postURL1 = urlToSend +
                 self
                 .topology().srclink.node + "/" + self

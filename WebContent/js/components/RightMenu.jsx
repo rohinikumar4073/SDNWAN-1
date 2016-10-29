@@ -1,12 +1,14 @@
 define([
     'react',
     'reactDnd',
+    'toastr',
+    'properties',
     'nx',
     'ActionPanel',
     'TopologyModel',
     'MainView',
     'TopologyView'
-], function(React, reactDnd) {
+], function(React, reactDnd,toastr,properties) {
     var global = nx.global;
 
     var DropTarget = reactDnd.DropTarget;
@@ -88,22 +90,31 @@ define([
 
         },
         pushTopology:function(){
-       var mainView = this.state.mainView;
-       debugger;
-       {
-  "linkDetails": [
-    {
-      "linkId": "string"
-    }
-  ],
-  "nodeDetails": [
-    {
-      "id": "string",
-      "type": "string"
-    }
-  ]
-}
-        },
+       var top=properties.getTopologyPush();
+       $.ajax({
+       url: properties.pushTopology,
+       type: 'post',
+       data: JSON.stringify(top),
+       contentType: "application/json; charset=utf-8",
+       success: function (data) {
+           toastr.success("Topology is added successfully")
+       }
+     })
+
+      },
+      saveTopology:function(){
+     var top=properties.getTopologyPush();
+     $.ajax({
+     url: properties.pushTopology,
+     type: 'post',
+     data: JSON.stringify(top),
+     contentType: "application/json; charset=utf-8",
+     success: function (data) {
+         toastr.success("Topology is saved successfully")
+     }
+   })
+
+    },
         componentWillReceiveProps: function(nextProps) {
             this.setState({showData: false});
             if (flag) {
@@ -142,7 +153,7 @@ define([
                   <div className="float-actions">
                   <button type="button" className="btn btn-primary btn-sm "  onClick={this.pushTopology} >Push</button>
               		<button type="button" className="btn btn-default btn-sm"
-              			data-dismiss="modal">Save</button>
+              			 onClick={this.saveTopology}>Save</button>
                   </div>
                     <div className="layout-flex " id="layout">
 

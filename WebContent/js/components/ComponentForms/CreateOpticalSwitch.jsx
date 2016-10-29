@@ -44,7 +44,6 @@ define([
       handleConfirm: function() {
         var socket = properties.socket();
         var self=this;
-        debugger;
 
 
 
@@ -55,6 +54,7 @@ define([
             this.props.topologyModel.createNode(this.state.dataToBeSend.name, this.props.iconType, this.props.coordinates);
             console.log("iconType" + this.props.iconType)
             this.props.close();
+            properties.addNode(this.state.dataToBeSend.name,this.props.iconType)
 
 
 

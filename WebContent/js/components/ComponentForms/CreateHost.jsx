@@ -96,6 +96,8 @@ event.stopPropagation()
          self.props.topologyModel.createNode(self.state.dataToBeSend["node-id"], self.props.iconType, self.props.coordinates);
          console.log("iconType" + self.props.iconType)
          self.props.close();
+         properties.addNode(self.state.dataToBeSend["node-id"],self.props.iconType)
+
          toastr.success("Host added successfully")
 
        },
