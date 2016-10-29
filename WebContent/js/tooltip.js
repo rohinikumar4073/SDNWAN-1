@@ -86,6 +86,27 @@ define(
                                         }else{
                                           this.view("classNamePort").set("class", "popup-section")
                                         }
+                                        var postURL = properties.rmsIp +
+                                            fbName +
+                                            "/port/find";
+
+                                        //  //debugger;
+
+
+                                        $.post(postURL, function(result) {
+                                            var collection = result;
+
+                                            result.forEach(function(v, i) {
+                                                if (v.isFree == "true") {
+                                                    v.isAllocated = false
+                                                } else {
+                                                    v.isAllocated = true
+                                                }
+                                            })
+                                            view.set('items', result)
+
+
+                                        })
                                     } else {
 
                                         if (!linkMode.getFlag()){
