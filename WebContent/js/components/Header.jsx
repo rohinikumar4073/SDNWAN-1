@@ -11,7 +11,6 @@ define([
                                 <span id="vz-search-mobile-close" className="vz-search-mobile-close visible-xs"></span>
                                 <div className="form-item">
                                     <div id="edit-search-content" className="form-text">
-                                        <span id="span_arrow_top" className="span_arrow"></span>
 
                                         <label className="sr-only">Search Content</label>
                                         <input type="text" className="formInput"/>
