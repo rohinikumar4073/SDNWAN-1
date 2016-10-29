@@ -277,7 +277,11 @@ define(
                                     }
                                 } else {
                                     var self = this;
-
+                                    if(this
+                                        .node().get('iconType')=="fb-icon" ||  this.topology().srclink,iconType=="fb-icon" ){
+                                          configurationEvents.initLinkEvents(self);
+                                          return;
+                                        }
                                     $("#pageModal")
                                         .load(
                                             "templates/tab1.html",
