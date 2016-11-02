@@ -1,0 +1,357 @@
+<div id="accordion">
+<div class="panel-group">
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" href="#WhiteListingPolicy"
+					aria-expanded="true">White Listing Policy</a>
+			</h4>
+		</div>
+		<div id="WhiteListingPolicy" class="panel-collapse collapse in"
+			role="tabpanel">
+			<div class="panel-body">
+				<div class="row">
+					<div>
+
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Bundle ID</th>
+									<th>Role</th>
+									<th>Default use</th>
+
+									<th>ID</th>
+									<th>Type</th>
+									<th>Use Override</th>
+
+								</tr>
+</thead>
+							<tbody>
+								<tr>
+									<td>124</td>
+									<td>vvv</td>
+									<td>fff</td>
+									<td>ff</td>
+									<td>rr</td>
+									<td>rrrr</td>
+
+								</tr>
+							
+							</tbody>
+						</table>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" href="#BandwidthPolicy"
+					aria-expanded="true">Bandwidth Policy</a>
+			</h4>
+		</div>
+		<div id="BandwidthPolicy" class="panel-collapse collapse in"
+			role="tabpanel">
+			<div class="panel-body">
+				<div class="row">
+					<div>
+
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Bundle ID</th>
+									<th>Role</th>
+									<th>Default use</th>
+
+									<th>ID</th>
+									<th>Type</th>
+									<th>Use Override</th>
+
+								</tr>
+</thead>
+							<tbody>
+								<tr>
+									<td>124</td>
+									<td>vvv</td>
+									<td>fff</td>
+									<td>ff</td>
+									<td>rr</td>
+									<td>rrrr</td>
+
+								</tr>
+							
+							</tbody>
+						</table>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h4 class="panel-title">
+				<a data-toggle="collapse" href="#vpnPolicy" aria-expanded="true">VPN
+					POlicy </a>
+			</h4>
+		</div>
+		<div id="vpnPolicy" class="panel-collapse collapse in" role="tabpanel">
+			<div class="panel-body">
+				<div class="row">
+					<div>
+
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Bundle ID</th>
+									<th>Role</th>
+									<th>Default use</th>
+
+									<th>ID</th>
+									<th>Type</th>
+									<th>Use Override</th>
+
+								</tr>
+</thead>
+							<tbody>
+								<tr>
+									<td>124</td>
+									<td>vvv</td>
+									<td>fff</td>
+									<td>ff</td>
+									<td>rr</td>
+									<td>rrrr</td>
+
+								</tr>
+							
+							</tbody>
+						</table>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+
+	
+	<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+		data-target="#myModal">Create Policy</button>
+
+
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog">
+
+
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Create Policy</h4>
+				</div>
+				<div class="modal-body">
+
+
+					<div>
+
+						<div class="well well-sm ">Configure Packet Policy</div>
+
+						<div class="form-group ">
+							<label for="policyId">Policy ID:</label> <input type="text"
+								class="form-control" id="policyId">
+						</div>
+
+
+						<div class="form-group ">
+							<label for="policyPripority">Policy Pripority:</label> <input
+								type="text" class="form-control" id="policyPripority">
+						</div>
+
+
+
+
+						<div class="well well-sm">Flow Spec</div>
+
+
+						<div class="form-group ">
+
+							<label for="source">Source:</label>
+							<div class="radio">
+								<label><input type="radio" name="source"></input>Prefix</label>
+							</div>
+							<div class="radio">
+								<label><input type="radio" name="source"></input>Node</label>
+							</div>
+						</div>
+
+
+
+						<div class="form-group">
+
+							<label for="destination">Destination:</label>
+							<div class="radio">
+								<label><input type="radio" name="destination"></input>Prefix</label>
+							</div>
+							<div class="radio">
+								<label><input type="radio" name="destination"></input>Node</label>
+							</div>
+						</div>
+
+
+
+
+						<div class="form-group ">
+							<label for="ipProtocol">IP Protocol:</label> <input type="text"
+								class="form-control" id="ipProtocol">
+						</div>
+
+						<div class="form-group">
+							<label for="sourcePort">Source Port Range:</label> <input
+								type="text" class="form-control" id="sourcePort">
+						</div>
+
+
+						<div class="form-group">
+							<label for="destPort">Destination Port Range:</label> <input
+								type="text" class="form-control" id="destPort">
+						</div>
+
+
+
+						<div class="well well-sm ">Flow Attributes</div>
+
+
+						<div class="form-group">
+
+							<label for="unidirec"></label>
+							<div class="radio">
+								<label><input type="radio" name="unidirec"></input>Unidirectional</label>
+							</div>
+							<div class="radio">
+								<label><input type="radio" name="unidirec"></input>Bidirectional</label>
+							</div>
+						</div>
+
+						<div class="form-group ">
+							<label for="trafficPolicy">Traffic Policy:</label> <input
+								type="text" class="form-control" id="trafficPolicy">
+						</div>
+
+						<div class="form-group ">
+							<label for="bandwidthLimit">Bandwidth Limit:</label> <input
+								type="text" class="form-control" id="bandwidthLimit">
+						</div>
+
+
+
+
+						
+							<div class="panel-group">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" href="#viewPathbundles"
+												aria-expanded="true">View Pathbundles</a>
+										</h4>
+									</div>
+									<div id="viewPathbundles" class="panel-collapse collapse in"
+										role="tabpanel">
+										<div class="panel-body">
+											<table class="table table-bordered">
+												<thead>
+													<tr>
+														<th>Bundle ID</th>
+														<th>Role</th>
+														<th>Default use</th>
+
+														<th>ID</th>
+														<th>Type</th>
+														<th>Use Override</th>
+
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+											</table>
+
+
+										</div>
+									</div>
+								</div>
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">
+											<a data-toggle="collapse" href="#createPathBundle"
+												aria-expanded="true">Create Pathbundle</a>
+										</h4>
+									</div>
+									<div id="createPathBundle" class="panel-collapse collapse in"
+										role="tabpanel">
+										<div class="panel-body">
+											<div class="row">
+												<div>
+													<form>
+														<div class="form-group ">
+															<label for="bundleId">Buldle ID:</label> <input
+																type="text" class="form-control" id="bundleId">
+														</div>
+														<div class="form-group ">
+															<label for="role">Role:</label> <input type="text"
+																class="form-control" id="role_type">
+														</div>
+														<div class="well well-sm ">Constraints</div>
+														<div class="form-group ">
+															<label for="defaultUse">Default Use:</label> <input
+																type="text" class="form-control" id="defaultUse">
+														</div>
+														<div class="well well-sm ">Element Policy</div>
+												</div>
+												<div class="form-group">
+													<label for="id">ID:</label> <input type="text"
+														class="form-control" id="id"> <label for="type">Type:</label>
+													<input type="text" class="form-control" id="type">
+													<label for="useOverride">Use Override:</label> <input
+														type="text" class="form-control" id="useOverride">
+
+												</div>
+
+												</form>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+			</div>
+
+		</div>
+
+	
+
+
+</div>
+</div>
+
+
+	<button class="btn btn-default btn-sm">Create Bandwidth Policy</button>
+	<button class="btn btn-default btn-sm">Create VPN Policy</button>
+
+

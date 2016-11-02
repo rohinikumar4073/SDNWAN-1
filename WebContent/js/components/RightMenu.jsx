@@ -97,7 +97,7 @@ define([
        data: JSON.stringify(top),
        contentType: "application/json; charset=utf-8",
        success: function (data) {
-           toastr.success("Topology is added successfully")
+           toastr.success("Topology is pushed successfully")
        }
      })
 

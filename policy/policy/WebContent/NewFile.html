@@ -1,0 +1,1538 @@
+<header class="vz-global-header">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span><span
+						class="icon-bar"></span><span class="icon-bar"></span><span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="index.html"></a><span class="sublogo">SDN
+					WAN</span>
+			</div>
+			<div class="leftnav">
+				<div class="dropdown pull-right pull-mobile-none" id="profile-menu">
+					<a data-toggle="dropdown" class="dropdown-toggle" href="#"
+						aria-haspopup="true" aria-expanded="false"><span class="name">Username</span><span
+						class="glyphicon glyphicon-menu-down"></span><img
+						alt="User's Profile Avatar"
+						src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAWlBMVEXHyMrJyszMzc/P0NLLzM6wsrSsrrC2uLqfoaOjpaebnaC6vL6ztbemqKrR0tSWmJqpq63W19jT1NXOz9GHiYzU1deQkpWMjpGYmpyTlZjZ2tuDhYepq67Cw8WqqozrAAABu0lEQVRIx8WUSYKDIBBFFYOgDEYckNjc/5otELvCkGnVb5XFf/4qNFT/Qf3Ih/FL4APFhy01+77PPUdBehOv6H6iGUKglOPI6v0BjEAp5RGq9RxBpkMpGv7xaOrnGH2ZplBSzrM5pWsaMLJ8I3TKisCIBJ9HOofIYIAA+YatOVdZMO55iQsCVeo0ogKXl8IUWJTvgAoosEMJskBFXKBWUxJmqxRUQIGUTA9bAS3cUKECjsgVYL31BTRd/FDnQcFE3PQlTDeGLUDwEynFhp4WGMQhKD/TXbgEYam3orCR0c0ES5wrLGNHuxxK5RhmyoXqEHLI7akwViKHjC+EG7umtLfbK6H5SbGZAKfkDNwmqCMPpxS/BydUSZ7dC4IQv2kvjDimcUL2ps8lfEWUDwXRtwRLuIrD4I/4Dcbka4WZvCE4+aNfQv5xIqgIQ8l1ICdCM5dP/3FQ4Qy+rhtnHnH8DHkoSCsUGowxg8CMt5s5IEceCkA4jYkOMX2l5IubrO62lN5CPr1ba077Argu38YWd/QJLcvyjPx0rxCYVYDlV/EecNj1U3h4fvs5voPgL/AC/wLrhG9wAvsGW/0CxKlP74i8jegAAAAASUVORK5CYII="></a>
+					<div class="link">
+						<div class="modal fade">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="hidden">
+										<div class="modal-header">
+											<button type="button" class="close">×</button>
+											<h3>Create RMS Details</h3>
+										</div>
+										<div class="modal-body">
+											<div class="hidden">
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a data-toggle="collapse" href="#collapseFB"
+																	aria-expanded="true">Device Information</a>
+															</h4>
+														</div>
+														<div id="collapseFB" class="panel-collapse collapse in"
+															role="tabpanel">
+															<div class="panel-body">
+																<form>
+																	<div class="form-group">
+																		<label>Site ID:</label>
+																		<!-- react-text: 39 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control" id="site_id">
+																	</div>
+																	<div class="form-group">
+																		<label>FB Device Name:</label>
+																		<!-- react-text: 43 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="fb_device_name">
+																	</div>
+																	<div class="form-group">
+																		<label>FB Group ID:</label>
+																		<!-- react-text: 47 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="fb_groupid">
+																	</div>
+																	<div class="form-group">
+																		<label>FB Template:</label>
+																		<!-- react-text: 51 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="forwarding_box_template">
+																	</div>
+																	<div class="form-group">
+																		<label>LLDP Enablement:</label>
+																		<!-- react-text: 55 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="lldpEnablment">
+																	</div>
+																	<div class="form-group">
+																		<label>Location Description:</label>
+																		<!-- react-text: 59 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="location_desc">
+																	</div>
+																	<div class="form-group">
+																		<label>Network Domain:</label>
+																		<!-- react-text: 63 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="network_domain">
+																	</div>
+																</form>
+															</div>
+														</div>
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<h4 class="panel-title">
+																	<a data-toggle="collapse" href="#collapse1"
+																		class="collapsed">Data Place Configuration</a>
+																</h4>
+															</div>
+															<div id="collapse1" class="panel-collapse collapse">
+																<div class="panel-body">
+																	<form>
+																		<div class="form-group">
+																			<label>Admin Cost:</label>
+																			<!-- react-text: 74 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="adminCost"
+																				data-parentdata="dataPlaceConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Admin State:</label>
+																			<!-- react-text: 78 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="adminState"
+																				data-parentdata="dataPlaceConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>DAC Cable Utilized:</label>
+																			<!-- react-text: 82 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="dacCableUtilized"
+																				data-parentdata="dataPlaceConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>DAC Utilized:</label>
+																			<!-- react-text: 86 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="dacUtilized"
+																				data-parentdata="dataPlaceConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Description:</label>
+																			<!-- react-text: 90 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="description"
+																				data-parentdata="dataPlaceConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Enable Frame Support:</label><input
+																				type="text" class="form-control"
+																				id="enableFrameSupport"
+																				data-parentdata="dataPlaceConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Speed:</label>
+																			<!-- react-text: 97 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control" id="speed"
+																				data-parentdata="dataPlaceConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Transceiver Type:</label>
+																			<!-- react-text: 101 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="transceiverType"
+																				data-parentdata="dataPlaceConfiguration">
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<h4 class="panel-title">
+																	<a data-toggle="collapse" href="#collapse3"
+																		class="collapsed">Management Configuration </a>
+																</h4>
+															</div>
+															<div id="collapse3" class="panel-collapse collapse">
+																<div class="panel-body">
+																	<form>
+																		<div class="form-group">
+																			<label>Agent Cert Name:</label>
+																			<!-- react-text: 112 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="agent_cert_name"
+																				data-parentdata="management_configuration">
+																		</div>
+																		<div class="form-group">
+																			<label>Default Gateway IP:</label>
+																			<!-- react-text: 116 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="default_gatewayIp"
+																				data-parentdata="management_configuration">
+																		</div>
+																		<div class="form-group">
+																			<label>DNS Name:</label>
+																			<!-- react-text: 120 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control" id="dns_name"
+																				data-parentdata="management_configuration">
+																		</div>
+																		<div class="form-group">
+																			<label>Dns Server IP:</label>
+																			<!-- react-text: 124 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="dns_serverIp"
+																				data-parentdata="management_configuration">
+																		</div>
+																		<div class="form-group">
+																			<label>IP Address:</label>
+																			<!-- react-text: 128 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="ip_address"
+																				data-parentdata="management_configuration">
+																		</div>
+																		<div class="form-group">
+																			<label>Management Interface:</label><input
+																				type="text" class="form-control"
+																				id="management_interface"
+																				data-parentdata="management_configuration">
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<h4 class="panel-title">
+																	<a data-toggle="collapse" href="#collapse4"
+																		class="collapsed">Open Flow Information</a>
+																</h4>
+															</div>
+															<div id="collapse4" class="panel-collapse collapse">
+																<div class="panel-body">
+																	<form>
+																		<div class="form-group">
+																			<label>Allow Passive Con:</label>
+																			<!-- react-text: 142 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="allowPassiveCon" data-parentdata="openFlowInfo">
+																		</div>
+																		<div class="form-group">
+																			<label>Connection Protocol:</label>
+																			<!-- react-text: 146 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="connectionProtocol"
+																				data-parentdata="openFlowInfo">
+																		</div>
+																		<div class="form-group">
+																			<label>Data Path ID:</label>
+																			<!-- react-text: 150 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="dataPathId" data-parentdata="openFlowInfo">
+																		</div>
+																		<div class="form-group">
+																			<label>Fail Mode:</label>
+																			<!-- react-text: 154 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control" id="failMode"
+																				data-parentdata="openFlowInfo">
+																		</div>
+																		<div class="form-group">
+																			<label>Master Controller IP:</label>
+																			<!-- react-text: 158 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="masterControllerIp"
+																				data-parentdata="openFlowInfo">
+																		</div>
+																		<div class="form-group">
+																			<label>Protocol Version:</label>
+																			<!-- react-text: 162 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="protocolVersion" data-parentdata="openFlowInfo">
+																		</div>
+																		<div class="form-group">
+																			<label>Slave Controller IP:</label>
+																			<!-- react-text: 166 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="slaveControllerIp"
+																				data-parentdata="openFlowInfo">
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+														<div class="panel panel-default">
+															<div class="panel-heading">
+																<h4 class="panel-title">
+																	<a data-toggle="collapse" href="#collapse5"
+																		class="collapsed">Operating System Configuration</a>
+																</h4>
+															</div>
+															<div id="collapse5" class="panel-collapse collapse">
+																<div class="panel-body">
+																	<form>
+																		<div class="form-group">
+																			<label>Alarm High Temp:</label>
+																			<!-- react-text: 177 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="alarmHighTemp"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Alarm History:</label>
+																			<!-- react-text: 181 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="alarmHistory"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Alarm Low Temp:</label>
+																			<!-- react-text: 185 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="alarmLowTemp"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>FB SFP Interval:</label>
+																			<!-- react-text: 189 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="fb_sfp_interval"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Interfce Flow Counter Int:</label>
+																			<!-- react-text: 193 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="interfceFlowCounterInt"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Local ARP Response:</label>
+																			<!-- react-text: 197 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="localArpResponse"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Local ARP Response Coverage:</label>
+																			<!-- react-text: 201 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="localArpResponseCoverage"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Local IPv6 ARP Response:</label>
+																			<!-- react-text: 205 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="localIpv6ArpResponse"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																		<div class="form-group">
+																			<label>Local IPv6 ARP Response Coverage:</label>
+																			<!-- react-text: 209 -->
+																			<!-- /react-text -->
+																			<input type="text" class="form-control"
+																				id="localIpv6ArpResponseCoverage"
+																				data-parentdata="operatingSystemConfiguration">
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div>
+												<div>
+													<a class="btn  btn-primary btn-sm" data="Create New"
+														href="javascript:;" role="button">Create New</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="hidden">
+										<div class="modal-header">
+											<button type="button" class="close">×</button>
+											<h3>Create RMS Details</h3>
+										</div>
+										<div class="modal-body">
+											<div class="accordion">
+												<div class="panel panel-default">
+													<div class="panel-heading">
+														<h4 class="panel-title">
+															<a data-toggle="collapse" href="#collapseFan"
+																aria-expanded="true">Fan Information</a>
+														</h4>
+													</div>
+													<div id="collapseFan" class="panel-collapse collapse in"
+														role="tabpanel">
+														<div class="panel-body">
+															<form>
+																<div class="form-group">
+																	<label>Name:</label><input type="text"
+																		class="form-control" id="name">
+																</div>
+																<div class="form-group">
+																	<label>Revision:</label><input type="text"
+																		class="form-control" id="revision">
+																</div>
+																<div class="form-group">
+																	<label>Last Updated By:</label><input type="text"
+																		class="form-control" id="lastUpdatedBy">
+																</div>
+																<div class="form-group">
+																	<label>Status:</label>
+																	<div class="radio">
+																		<label><input type="radio" name="status"
+																			value="on">
+																		<!-- react-text: 242 -->Draft<!-- /react-text --></label>
+																	</div>
+																	<div class="radio">
+																		<label><input type="radio" name="status"
+																			value="on">
+																		<!-- react-text: 246 -->Available<!-- /react-text --></label>
+																	</div>
+																	<div class="radio">
+																		<label><input type="radio" name="status"
+																			value="on">
+																		<!-- react-text: 250 -->Decommissioned<!-- /react-text --></label>
+																	</div>
+																</div>
+																<div class="form-group">
+																	<label>Template Category:</label><input type="text"
+																		class="form-control" id="templateCategory">
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Manufacturer:</label><input type="text"
+														class="form-control" id="manufacturer">
+												</div>
+												<div class="form-group">
+													<label>Orderable Part Number:</label><input type="text"
+														class="form-control" id="orderablePartNumber">
+												</div>
+												<div class="form-group">
+													<label>Description:</label><input type="text"
+														class="form-control" id="description">
+												</div>
+												<div class="form-group">
+													<label>CLEI:</label><input type="text" class="form-control"
+														id="clei">
+												</div>
+												<div class="form-group">
+													<label>Material ID (from Vz procurement system):</label>
+													<!-- react-text: 268 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="materialId">
+												</div>
+												<div class="form-group">
+													<label>Air Flow </label>
+													<div class="radio">
+														<label><input type="radio" name="airFlow"
+															value="on">
+														<!-- react-text: 275 -->Front-to-Back<!-- /react-text --></label>
+													</div>
+													<div class="radio">
+														<label><input type="radio" name="airFlow"
+															value="on">
+														<!-- react-text: 279 -->Back-to-Front<!-- /react-text --></label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div>
+												<div>
+													<a class="btn  btn-primary btn-sm" data="Create New"
+														href="javascript:;" role="button">Create New</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="hidden">
+										<div class="modal-header">
+											<button type="button" class="close">×</button>
+											<h3>Create RMS Details</h3>
+										</div>
+										<div class="modal-body">
+											<div class="accordion">
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a data-toggle="collapse" href="#collapseOS1">Template
+																	Information</a>
+															</h4>
+														</div>
+														<div id="collapseOS1" class="panel-collapse collapse">
+															<div class="panel-body">
+																<form>
+																	<div class="form-group">
+																		<label>Name:</label>
+																		<!-- react-text: 300 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control" id="name">
+																	</div>
+																	<div class="form-group">
+																		<label>Revision:</label>
+																		<!-- react-text: 304 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control" id="revision">
+																	</div>
+																	<div class="form-group">
+																		<label>Last Updated By:</label>
+																		<!-- react-text: 308 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="lastUpdatedBy">
+																	</div>
+																	<div class="form-group">
+																		<label>Time Stamp:</label>
+																		<!-- react-text: 312 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control" id="timestamp">
+																	</div>
+																	<div class="form-group">
+																		<label>Status:</label>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 319 -->Draft<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 323 -->Available<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 327 -->Decommissioned<!-- /react-text --></label>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label>Template Category:</label><input type="text"
+																			class="form-control" id="templateCategory">
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>OS Identifier/Label:</label><input type="text"
+														class="form-control" id="osIdentifierOS">
+												</div>
+												<div class="form-group">
+													<label>Manufacturer:</label>
+													<!-- react-text: 336 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="manufacturerOS">
+												</div>
+												<div class="form-group">
+													<label>Version:</label>
+													<!-- react-text: 340 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="versionOS">
+												</div>
+												<div class="form-group">
+													<label>Image File Name:</label>
+													<!-- react-text: 344 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="imageFileNameOS">
+												</div>
+												<div class="form-group">
+													<label>Orderable Part Number:</label>
+													<!-- react-text: 348 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="orderablePartNumberOS">
+												</div>
+												<div class="form-group">
+													<label>Description:</label>
+													<!-- react-text: 352 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="descriptionOS">
+												</div>
+												<div class="form-group">
+													<label>Material ID (from Vz procurementsystem):</label><input
+														type="text" class="form-control" id="materialIdOS">
+												</div>
+												<div class="form-group">
+													<label>OpenFlow Protocol Version(s) Supported:</label>
+													<div class="radio">
+														<label><input type="radio"
+															name="openFlowVersionOS" value="on">
+														<!-- react-text: 362 -->1.3<!-- /react-text --></label>
+													</div>
+													<div class="radio">
+														<label><input type="radio"
+															name="openFlowVersionOS" value="on">
+														<!-- react-text: 366 -->1.5<!-- /react-text --></label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Linux kernel version:</label><input type="text"
+														class="form-control" id="linuxVersionOS">
+												</div>
+												<div class="form-group">
+													<label>Linux Distribution base:</label><input type="text"
+														class="form-control" id="linuxBaseOS">
+												</div>
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a data-toggle="collapse" href="#collapseOS2"> OS
+																	Configuration</a>
+															</h4>
+														</div>
+														<div id="collapseOS2" class="panel-collapse collapse">
+															<div class="panel-body">
+																<form>
+																	<div class="form-group">
+																		<label>Enable Local ARP Response Processing:</label>
+																		<div class="radio">
+																			<label><input type="radio" name="enableArp"
+																				value="on">
+																			<!-- react-text: 386 -->True<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="enableArp"
+																				value="on">
+																			<!-- react-text: 390 -->False<!-- /react-text --></label>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label>Local ARP Response Subnet Coverage:</label><input
+																			type="text" class="form-control" id="localArp">
+																	</div>
+																	<div class="form-group">
+																		<label>Enable Local IPv6 ND Response
+																			Processing:</label>
+																		<div class="radio">
+																			<label><input type="radio" name="enableNd"
+																				value="on">
+																			<!-- react-text: 399 -->True<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="enableNd"
+																				value="on">
+																			<!-- react-text: 403 -->False<!-- /react-text --></label>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label>Local IPv6 ND Response Subnet Coverage:</label>
+																		<!-- react-text: 406 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control" id="localIpv6">
+																	</div>
+																	<div class="form-group">
+																		<label>FB &amp; SFP Inventory Query
+																			Interval(sec):</label>
+																		<!-- react-text: 410 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="queryInterval">
+																	</div>
+																	<div class="form-group">
+																		<label>Interface and Flow Counter Query
+																			Interval(sec):</label>
+																		<!-- react-text: 414 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="interfaceInterval">
+																	</div>
+																	<div class="form-group">
+																		<label>Alarm History:</label>
+																		<div class="radio">
+																			<label><input type="radio"
+																				name="alarmHistory" value="on">
+																			<!-- react-text: 421 -->Enabled<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio"
+																				name="alarmHistory" value="on">
+																			<!-- react-text: 425 -->Disabled<!-- /react-text --></label>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label>Alarm High Temperature(F Degrees):</label><input
+																			type="text" class="form-control" id="alarmHigh">
+																	</div>
+																	<div class="form-group">
+																		<label>Alarm Low Temperature(F Degrees):</label>
+																		<!-- react-text: 431 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control" id="alarmLow">
+																	</div>
+																	<div class="form-group">
+																		<label>Puppet Agent Utilized:</label>
+																		<div class="radio">
+																			<label><input type="radio" name="puppet"
+																				value="on">
+																			<!-- react-text: 438 -->True<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="puppet"
+																				value="on">
+																			<!-- react-text: 442 -->False<!-- /react-text --></label>
+																		</div>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div>
+												<div>
+													<a class="btn  btn-primary btn-sm" data="Create New"
+														href="javascript:;" role="button">Create New</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="hidden">
+										<div class="modal-header">
+											<button type="button" class="close">×</button>
+											<h3>Create RMS Details</h3>
+										</div>
+										<div class="modal-body">
+											<div class="hidden">
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a data-toggle="collapse" href="#collapse1">Template
+																	Information</a>
+															</h4>
+														</div>
+														<div id="collapse1" class="panel-collapse collapse">
+															<div class="panel-body">
+																<form>
+																	<div class="form-group">
+																		<label>Name:</label><input type="text"
+																			class="form-control" id="name">
+																	</div>
+																	<div class="form-group">
+																		<label>Revision:</label><input type="text"
+																			class="form-control" id="revision">
+																	</div>
+																	<div class="form-group">
+																		<label>Last Updated By:</label><input type="text"
+																			class="form-control" id="lastUpdatedBy">
+																	</div>
+																	<div class="form-group">
+																		<label>Time Stamp:</label><input type="text"
+																			class="form-control" id="timestamp">
+																	</div>
+																	<div class="form-group">
+																		<label>Status:</label>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 478 -->raft<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 482 -->Available<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 486 -->Decommissioned<!-- /react-text --></label>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label>Template Category:</label><input type="text"
+																			class="form-control" id="templateCategory">
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Manufacturer:</label><input type="text"
+														class="form-control" id="manufacturer">
+												</div>
+												<div class="form-group">
+													<label>Orderable Part Number:</label><input type="text"
+														class="form-control" id="orderablePartNumber">
+												</div>
+												<div class="form-group">
+													<label>Description:</label><input type="text"
+														class="form-control" id="description">
+												</div>
+												<div class="form-group">
+													<label>CLEI:</label><input type="text" class="form-control"
+														id="clei">
+												</div>
+												<div class="form-group">
+													<label>Material ID (from Vz procurement system):</label><input
+														type="text" class="form-control" id="materialId">
+												</div>
+												<div class="form-group">
+													<label>Power Supply Type:</label>
+													<div class="radio">
+														<label><input type="radio" name="powerType"
+															value="on">
+														<!-- react-text: 510 -->AC<!-- /react-text --></label>
+													</div>
+													<div class="radio">
+														<label><input type="radio" name="powerType"
+															value="on">
+														<!-- react-text: 514 -->DC<!-- /react-text --></label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Max Power Rating(Watts):</label><input type="text"
+														class="form-control" id="maxPower">
+												</div>
+												<div class="form-group">
+													<label>Air Flow </label>
+													<div class="radio">
+														<label><input type="radio" name="airFlow"
+															value="on">
+														<!-- react-text: 523 -->Front-to-Back<!-- /react-text --></label>
+													</div>
+													<div class="radio">
+														<label><input type="radio" name="airFlow"
+															value="on">
+														<!-- react-text: 527 -->Back-to-Front<!-- /react-text --></label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div>
+												<div>
+													<a class="btn  btn-primary btn-sm" data="Create New"
+														href="javascript:;" role="button">Create New</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="hidden">
+										<div class="modal-header">
+											<button type="button" class="close">×</button>
+											<h3>Create RMS Details</h3>
+										</div>
+										<div class="modal-body">
+											<div class="accordion">
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a data-toggle="collapse" href="#collapseT">Template
+																	Information</a>
+															</h4>
+														</div>
+														<div id="collapseT" class="panel-collapse collapse">
+															<div class="panel-body">
+																<form>
+																	<div class="form-group">
+																		<label>Name:</label><input type="text"
+																			class="form-control" id="name">
+																	</div>
+																	<div class="form-group">
+																		<label>Revision:</label><input type="text"
+																			class="form-control" id="revision">
+																	</div>
+																	<div class="form-group">
+																		<label>Last Updated By:</label><input type="text"
+																			class="form-control" id="lastUpdatedBy">
+																	</div>
+																	<div class="form-group">
+																		<label>Time Stamp:</label><input type="text"
+																			class="form-control" id="timestamp">
+																	</div>
+																	<div class="form-group">
+																		<label>Status:</label>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 563 -->Draft<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 567 -->Available<!-- /react-text --></label>
+																		</div>
+																		<div class="radio">
+																			<label><input type="radio" name="status"
+																				value="on">
+																			<!-- react-text: 571 -->Decommissioned<!-- /react-text --></label>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label>Template Category:</label><input type="text"
+																			class="form-control" id="templateCategory">
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Manufacturer:</label><input type="text"
+														class="form-control" id="manufacturer">
+												</div>
+												<div class="form-group">
+													<label>Orderable Part Number:</label><input type="text"
+														class="form-control" id="orderablePartNumber">
+												</div>
+												<div class="form-group">
+													<label>Description:</label><input type="text"
+														class="form-control" id="description">
+												</div>
+												<div class="form-group">
+													<label>Supplier:</label><input type="text"
+														class="form-control" id="supplier">
+												</div>
+												<div class="form-group">
+													<label>Supplier Part Number:</label><input type="text"
+														class="form-control" id="supplierNo">
+												</div>
+												<div class="form-group">
+													<label>CLEI:</label><input type="text" class="form-control"
+														id="clei">
+												</div>
+												<div class="form-group">
+													<label>Material ID (from Vz procurement system):</label><input
+														type="text" class="form-control" id="materialId">
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div>
+												<div>
+													<a class="btn  btn-primary btn-sm" data="Create New"
+														href="javascript:;" role="button">Create New</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="hidden">
+										<div class="modal-header">
+											<button type="button" class="close">×</button>
+											<h3>Create RMS Details</h3>
+										</div>
+										<div class="modal-body">
+											<div class="accordion">
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a href="#collapseFB1">Template Information</a>
+															</h4>
+														</div>
+														<div id="collapseFB1" class="panel-collapse collapse">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label>Name:</label>
+																	<!-- react-text: 615 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control" id="name">
+																</div>
+																<div class="form-group">
+																	<label>Revision:</label>
+																	<!-- react-text: 619 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control" id="revision">
+																</div>
+																<div class="form-group">
+																	<label>Last Updated By:</label>
+																	<!-- react-text: 623 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="lastUpdatedBy">
+																</div>
+																<div class="form-group">
+																	<label>Timestamp:</label>
+																	<!-- react-text: 627 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control" id="Timestamp">
+																</div>
+																<div class="form-group">
+																	<label>Status:</label>
+																	<div class="radio">
+																		<label><input type="radio" name="status"
+																			value="on">
+																		<!-- react-text: 634 -->Draft<!-- /react-text --></label>
+																	</div>
+																	<div class="radio">
+																		<label><input type="radio" name="status"
+																			value="on">
+																		<!-- react-text: 638 -->Available<!-- /react-text --></label>
+																	</div>
+																	<div class="radio">
+																		<label><input type="radio" name="status"
+																			value="on">
+																		<!-- react-text: 642 -->Decommissioned<!-- /react-text --></label>
+																	</div>
+																	<div class="form-group">
+																		<label>Template Category:</label>
+																		<!-- react-text: 645 -->
+																		<!-- /react-text -->
+																		<input type="text" class="form-control"
+																			id="templateCategory">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Manufacturer:</label>
+													<!-- react-text: 649 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="manufacturer">
+												</div>
+												<div class="form-group">
+													<label>Model:</label>
+													<!-- react-text: 653 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="model">
+												</div>
+												<div class="form-group">
+													<label>Orderable Part Number:</label>
+													<!-- react-text: 657 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="orderablePartNumber">
+												</div>
+												<div class="form-group">
+													<label>Description:</label>
+													<!-- react-text: 661 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="description">
+												</div>
+												<div class="form-group">
+													<label>CLEI:</label>
+													<!-- react-text: 665 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="clei">
+												</div>
+												<div class="form-group">
+													<label>Material ID (from Vz procurement system):</label>
+													<!-- react-text: 669 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="materialId">
+												</div>
+												<div class="form-group">
+													<label>Dimensions (WxDxH inches):</label>
+													<!-- react-text: 673 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="dimensions">
+												</div>
+												<div class="form-group">
+													<label>Weight (lb):</label>
+													<!-- react-text: 677 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="weight">
+												</div>
+												<div class="form-group">
+													<label>Air Flow</label>
+													<div class="radio">
+														<label><input type="radio" class="form-control"
+															id="airFlow" value="on">
+														<!-- react-text: 684 -->Front-to-Back<!-- /react-text --></label>
+													</div>
+													<div class="radio">
+														<label><input type="radio" class="form-control"
+															id="airFlow" value="on">
+														<!-- react-text: 688 -->Back-to-Front<!-- /react-text --></label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Power Supply</label>
+													<div class="radio">
+														<label><input type="radio" class="form-control"
+															id="powerSupply" value="on">
+														<!-- react-text: 694 -->A.C.<!-- /react-text --></label>
+													</div>
+													<div class="radio">
+														<label><input type="radio" class="form-control"
+															id="powerSupply" value="on">
+														<!-- react-text: 698 -->D.C.<!-- /react-text --></label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Power Supply Slots:</label>
+													<!-- react-text: 701 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="powerSupplySlots">
+												</div>
+												<div class="form-group">
+													<label>Power Supply Model Info:</label><input type="text"
+														class="form-control" id="powerSupplyModelInfo">
+												</div>
+												<div class="form-group">
+													<label>Minimum Required Active Power Supply:</label>
+													<!-- react-text: 708 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="minimumRequiredActivePowerSupply">
+												</div>
+												<div class="form-group">
+													<label>Fan Slots:</label>
+													<!-- react-text: 712 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="fanSlots">
+												</div>
+												<div class="form-group">
+													<label>Fan Module Model:</label>
+													<!-- react-text: 716 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="fanModuleModel">
+												</div>
+												<div class="form-group">
+													<label>Minimum Required Active Fans:</label>
+													<!-- react-text: 720 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="minimumRequiredActiveFans">
+												</div>
+												<div class="form-group">
+													<label>Maximum Heat Dissipation (BTU/hr):</label>
+													<!-- react-text: 724 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="maxHeat">
+												</div>
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a href="#collapse2">CPU Info</a>
+															</h4>
+														</div>
+														<div id="collapse2" class="panel-collapse collapse">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label>Type:</label>
+																	<div class="radio">
+																		<label><input type="radio"
+																			class="form-control" id="type" value="on">
+																		<!-- react-text: 738 -->x86<!-- /react-text --></label>
+																	</div>
+																	<div class="radio">
+																		<label><input type="radio"
+																			class="form-control" id="type" value="on">
+																		<!-- react-text: 742 -->PowerPC<!-- /react-text --></label>
+																	</div>
+																</div>
+																<div class="form-group">
+																	<label>Model/Description:</label>
+																	<!-- react-text: 745 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="modelDescription">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a href="#collapse3">Switching ASIC Info</a>
+															</h4>
+														</div>
+														<div id="collapse3" class="panel-collapse collapse">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label>Vendor:</label>
+																	<!-- react-text: 756 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control" id="vendor">
+																</div>
+																<div class="form-group">
+																	<label>Model/Description:</label>
+																	<!-- react-text: 760 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="modelDescription">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Memory (GB):</label>
+													<!-- react-text: 764 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="memory">
+												</div>
+												<div class="form-group">
+													<label>Flash Disk Size (GB) (if applicable):</label>
+													<!-- react-text: 768 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="flashDiskSize">
+												</div>
+												<div class="form-group">
+													<label>Hard Disk Size (GB) (if applicable):</label>
+													<!-- react-text: 772 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="hardDiskSize">
+												</div>
+												<div class="form-group">
+													<label>NEBS Complaint:</label>
+													<div class="radio">
+														<label><input type="radio" class="form-control"
+															id="nebsComplaint" value="on">
+														<!-- react-text: 779 -->Yes<!-- /react-text --></label>
+													</div>
+													<div class="radio">
+														<label><input type="radio" class="form-control"
+															id="nebsComplaint" value="on">
+														<!-- react-text: 783 -->No<!-- /react-text --></label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Number of Data Plane Interfaces:</label>
+													<!-- react-text: 786 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="numberOfDataPlaneInterfaces">
+												</div>
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a href="#collapse4">Data Plane Interface Info</a>
+															</h4>
+														</div>
+														<div id="collapse4" class="panel-collapse collapse">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label>Interface Type (i.e. SFP+ 1/10GbE, QSFP+
+																		40GbE):</label>
+																	<!-- react-text: 797 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="interfaceType">
+																</div>
+																<div class="form-group">
+																	<label>Data Plane Interface Identifier/Label:</label>
+																	<!-- react-text: 801 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="dataPlaneInterfaceIdentifier">
+																</div>
+																<div class="form-group">
+																	<label>Breakout Connector #1 Data Plane
+																		Interface Identifier/Label:</label>
+																	<!-- react-text: 805 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="breakoutConnectorDataPlaneInterfaceIdentifier1">
+																</div>
+																<div class="form-group">
+																	<label>Breakout Connector #2 Data Plane
+																		Interface Identifier/Label:</label>
+																	<!-- react-text: 809 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="breakoutConnectorDataPlaneInterfaceIdentifier2">
+																</div>
+																<div class="form-group">
+																	<label>Breakout Connector #3 Data Plane
+																		Interface Identifier/Label:</label>
+																	<!-- react-text: 813 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="breakoutConnectorDataPlaneInterfaceIdentifier3">
+																</div>
+																<div class="form-group">
+																	<label>Breakout Connector #4 Data Plane
+																		Interface Identifier/Label:</label>
+																	<!-- react-text: 817 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="breakoutConnectorDataPlaneInterfaceIdentifier4">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Ethernet Management Interfaces:</label>
+													<!-- react-text: 821 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="ethernetManagementInterfaces">
+												</div>
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a href="#collapse5">Ethernet Management Interface
+																	Info</a>
+															</h4>
+														</div>
+														<div id="collapse5" class="panel-collapse collapse">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label>Ethernet Management Interface
+																		Identifier/Label:</label>
+																	<!-- react-text: 832 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="ethernetManagementInterfaceIdentifier">
+																</div>
+																<div class="form-group">
+																	<label>Connection Type:</label>
+																	<!-- react-text: 836 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="connectionType">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Console/Craft Interfaces:</label>
+													<!-- react-text: 840 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="consoleInterfaces">
+												</div>
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a href="#collapse6">Console/Craft Interface Info</a>
+															</h4>
+														</div>
+														<div id="collapse6" class="panel-collapse collapse">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label>Console/Craft Interface
+																		Identifier/Label:</label>
+																	<!-- react-text: 851 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="consoleInterfaceIdentifier">
+																</div>
+																<div class="form-group">
+																	<label>Connection Type:</label>
+																	<div class="radio">
+																		<label><input type="radio"
+																			class="form-control" id="connectionType" value="on">
+																		<!-- react-text: 858 -->RJ45<!-- /react-text --></label>
+																	</div>
+																	<div class="radio">
+																		<label>
+																			<!-- react-text: 861 --> <!-- /react-text -->
+																			<input type="radio" class="form-control"
+																			id="connectionType" value="on">
+																		<!-- react-text: 863 -->USB Mini-Type B<!-- /react-text -->
+																		</label>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>USB Ports:</label>
+													<!-- react-text: 866 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="usbPorts">
+												</div>
+												<div class="panel-group">
+													<div class="panel panel-default">
+														<div class="panel-heading">
+															<h4 class="panel-title">
+																<a href="#collapse7">USB Port Info</a>
+															</h4>
+														</div>
+														<div id="collapse7" class="panel-collapse collapse">
+															<div class="panel-body">
+																<div class="form-group">
+																	<label>USB Interface Identifier/Label:</label>
+																	<!-- react-text: 877 -->
+																	<!-- /react-text -->
+																	<input type="text" class="form-control"
+																		id="usbInterfaceIdentifier">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label>Operating System:</label>
+													<!-- react-text: 881 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control"
+														id="operatingSystem">
+												</div>
+												<div class="form-group">
+													<label>Supported Transceivers:</label><input type="text"
+														class="form-control" id="supportedTransceivers">
+												</div>
+												<div class="form-group">
+													<label>Upload File: Upload</label>
+													<!-- react-text: 888 -->
+													<!-- /react-text -->
+													<input type="text" class="form-control" id="uploadFile">
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<div>
+												<div>
+													<a class="btn  btn-primary btn-sm" data="Create New"
+														href="javascript:;" role="button">Create New</a>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal">×</button>
+												<h4 class="modal-title">Environment Settings</h4>
+											</div>
+											<div class="modal-body">
+												<form>
+													<div>
+														<h3>RMS</h3>
+													</div>
+													<div class="form-group">
+														<label>IP Address:</label><input type="text"
+															class="form-control" id="rmsIpAddress">
+													</div>
+													<div class="form-group">
+														<label>Port:</label><input type="text"
+															class="form-control" id="rmsPort">
+													</div>
+													<div>
+														<h3>Orchestrator</h3>
+													</div>
+													<div class="form-group">
+														<label>IP Address:</label><input type="text"
+															class="form-control" id="orcIpAddress">
+													</div>
+													<div class="form-group">
+														<label>Port:</label><input type="text"
+															class="form-control" id="orcPort">
+													</div>
+												</form>
+											</div>
+											<div class="modal-footer"></div>
+										</div>
+										<div class="modal-footer">
+											<div>
+												<div>
+													<a class="btn  btn-primary btn-sm" data="Create New"
+														href="javascript:;" role="button">Create New</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<a data="RMS" href="javascript:;" role="button" class="">RMS</a>
+					</div>
+					<a href="#"><i class="fa fa-cog fa-2x settings"
+						aria-hidden="true"></i></a>
+					<div role="menu" class="dropdown-menu profile-dropdown"
+						id="profile-dropdown">
+						<div class="user-info">
+							<div class="user-avatar">
+								<img class="user pull-left" title="User Profile Picture"
+									alt="User Profile Picture"
+									src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAAAV1BMVEXHyMrJyszLzM7NztDR0tPT1NWxs7Wtr7HP0NLV1tiqrK+oqqy0triVl5q3ubuho6aZm526vL6Rk5aeoKPY2ducnqCNj5Klp6mkpqiJi46GiIuChIfAwsSDNt0cAAAD1ElEQVRo3uXZ21arMBCAYcIhnAmEc837P+cetO20TAgDFm/2j1dd2M8ZcKno/b+J7+Oq4L3f+rglsKsksdMnBV/4rwn/UwwKG/2eIUIVj0uV+RizEkw2fGF1TJ2TBhJN/bXqlntr5neE135hyGRBQJizRmCGL3u1F4BzUnkjAglf9MahRbBiThFg3ByBQpiDRgA1DgKVgChMI1gS882dSgJkUOEbUD3vVSUJUQ4ZSQXvcnMe8+AnwBCFbyR63i9OuAoiL0RSMAwYJUTmrrANqJ4HxiFDqrCN0AysyhBiKGhADyPMBl7ei+K7FWKEJRORoUVxDoKGGAbNOlS0VgTEMKBGc4sYCiJoQDEbMUQhCB0kXIoUG6miu+IehS4rirQumUcRQXRhm4OgEZXspvRFoaPQQZ6GB5+teR8qRYWMYh8EDW46BwSio7gHCeb5gHKbdkdBBJfVz0PNb56bd4UiAloNImZAypr5AUiNiP17xXJF5DAcmQTO9lPbVXFuqx0GfQwxaerYF9lWBClAen6ASEAgsq/NQQDRuuQbtda6SOmldyPpdAZJXQjdVjrCzd+y6+FsQMi+bEiCSHYIqeFs7xVJ1oiA1ttKK7hlDkwCZycp3ZeAcBCCeAuiuAGiOoJAW0j0jaRt3x9A+l4+kOgAItuWj8C54gySgDExAyTuOEiACBhQoQDhKsoHZIncwy4EytU08ppU051Cui7IRy5SdUvHEVDSJufl3Y0TCBSzDNMxEHp3PRDeKCEi/FsYET9jJLvfIJBkIOY4grfXwhgGEr4joR2BbMhSFO9W3AkbIqDNnyeoVLuIsG0LEfqTkSL+niFXg9A72HFRHkoB7+M6PByEbGsHwVGEdNeRbW0idF94VVwEGYT+3sXaV+Iyqo6xLYrQUYwDCWyDEITsi16VqNjM0FuLbst56Z/KpiEjMgjZFkXsiho3kNLYjS2EXhVUhjmubPVzjob7b0b3KKCYYdA2JYfXn4Z7EDrKWhkHeDdpMaCGGHQQOgpVAv1d3LzX6iWVUgORvWcrqIz6p6lqsKLWPxk0yLIE5ylRtORpqIRDl9mDqNTzxT78JhhPiRAhStKXL6k8k/n49pK0GIjwlLzcq2EaeO3XSlzv51FjQbhPU8Fg1BtqQMznwkHe82q4z4WpYtqeWy6owVFM1h5IVT7TAOShNEhwGekd+t+GV0zqTHkj0HAqXhOr003S7BsgTL8sL4wTkNn4meINyBT5R8sqasgcupYxcXZFxcUGVWR8Vc3LINf1RAp5Xc9R5IVVz++QK7sjTXFl5o5UV/anyKX9GfIPonZJmgkP8L4AAAAASUVORK5CYII=">
+							</div>
+							<div class="user-links">
+								<h4>
+									<span>Username</span>
+								</h4>
+								<ul class="list-unstyled">
+									<li><a title="My Profile" href="#">My Profile</a></li>
+									<li><a title="Not User" href="#">Not User Name?</a></li>
+									<li><a title="Signout" href="#">Signout</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="vz-search-form">
+					<div class="search_inner">
+						<div class="search_options">
+							<div role="application" class="form-item">
+								<span id="vz-search-mobile-close"
+									class="vz-search-mobile-close visible-xs"></span>
+								<div class="form-item">
+									<div id="edit-search-content" class="form-text">
+										<span id="span_arrow_top" class="span_arrow"></span><label
+											class="sr-only">Search Content</label><input type="text"
+											class="formInput"><a id="hrefHeaderSearch"
+											title="Search" href="javascript:;" class="form-submit"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<i class="fa fa-bell notifications" aria-hidden="true"></i>
+			</div>
+		</div>
+	</nav>
+</header>

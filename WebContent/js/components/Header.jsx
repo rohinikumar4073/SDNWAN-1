@@ -68,7 +68,7 @@ define([
         render: function() {
             return (
                 <header className="vz-global-header">
-                    <nav className="navbar navbar-default">
+                    <nav className="navbar navbar-default navbar-fixed-top">
                         <div className="container-fluid">
                             <div className="navbar-header">
                                 <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -79,6 +79,13 @@ define([
                                 </button>
                                 <a className="navbar-brand" href="index.html"></a>
                                 <span className="sublogo">SDN WAN</span>
+                            </div>
+                            <div id="navbar" className="collapse navbar-collapse">
+                              <ul className="nav navbar-nav">
+                                <li className="active"><a href="/WebContent/">Home</a></li>
+
+                                <li className=""><a href="/WebContent/MainPage.html">Policy</a></li>
+                              </ul>
                             </div>
                             <div className="leftnav">
                                 <UserProfile></UserProfile>
