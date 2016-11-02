@@ -277,10 +277,16 @@ define(
                                     }
                                 } else {
                                     var self = this;
+                                    var  templatedToLoad="templates/tab1.html";
+                                    var p=this.node().get('iconType')=="fb-icon"
+                                    var q=this.topology().srclink.iconType=="fb-icon"
 
+                                    if((p || q) & !(p & q)  ){
+                                      templatedToLoad="templates/configuringFbLink.html";
+                                    }
                                     $("#pageModal")
                                         .load(
-                                            "templates/tab1.html",
+                                        templatedToLoad,
                                             function() {
                                                 $('#pageModal ')
                                                     .modal(
