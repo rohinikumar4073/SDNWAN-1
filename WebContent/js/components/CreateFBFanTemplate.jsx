@@ -129,12 +129,12 @@ return (
 						</div>
 						<div className="form-group">
 							<label for="templateCategory">Template Category:</label>
-								<input onChange={this.onChangeFunction} type="text"
+								<input onChange={this.onChangeFunction} type="text" defaultValue="Fan" disabled="true"
 								className="form-control" id="templateCategory"></input>
 						</div>
             <div className="form-group">
-              <label for="timeStamp">Time Stamp:</label> <input
-                type="text" className="form-control" id="timeStamp"
+              <label for="timeStamp">Time Stamp:</label> <input disabled="true"
+                type="text" className="form-control" id="timeStamp" defaultValue={Date()}
                 onChange={this.onChangeFunction}></input>
             </div>
 
