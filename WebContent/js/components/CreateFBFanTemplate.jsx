@@ -12,12 +12,12 @@ define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButto
                   }else{
                     this.state.dataToBeSend[e.target.id]=e.target.value;
                   }
-                  
+
 this.setState({
               dataToBeSend: this.state.dataToBeSend
               });
-               
-                  
+
+
                   },    handleConfirm: function() {
                   var self = this;
                   $.ajax({
@@ -31,12 +31,12 @@ this.setState({
                   }
             }
 
-                 
+
         });
 
                   },
  getInitialState: function() {
-    
+
                         return {
                           dataToBeSend:{
                           		  "airFlow": "",
@@ -54,11 +54,11 @@ this.setState({
                           		    	   "timeStamp": ""
                           		    	   }
                           		    	   }
-            
+
                         }
-                        
+
       },
-render: function() { 
+render: function() {
 
 confirmButton = (
                   <BootstrapButton
@@ -83,14 +83,14 @@ return (
                 <div className="modal-body" >
 
 	<div className="accordion" >
-	
-	
-	
+
+
+
 		<div className="panel panel-default">
 			<div className="panel-heading">
 				<h4 className="panel-title">
 					<a data-toggle="collapse" href="#collapseFan" aria-expanded="true">Fan Information</a>
-						
+
 				</h4>
 			</div>
 			<div id="collapseFan" className="panel-collapse collapse in"
@@ -98,12 +98,12 @@ return (
 				<div className="panel-body">
 					<form>
 						<div className="form-group">
-							<label for="name">Name:</label> 
+							<label for="name">Name:</label>
 								<input onChange={this.onChangeFunction} type="text"
 								className="form-control" id="name"></input>
 						</div>
 						<div className="form-group">
-							<label for="revision">Revision:</label> 
+							<label for="revision">Revision:</label>
 								<input onChange={this.onChangeFunction} type="text"
 								className="form-control" id="revision"></input>
 						</div>
@@ -128,39 +128,45 @@ return (
 							</div>
 						</div>
 						<div className="form-group">
-							<label for="templateCategory">Template Category:</label> 
+							<label for="templateCategory">Template Category:</label>
 								<input onChange={this.onChangeFunction} type="text"
 								className="form-control" id="templateCategory"></input>
 						</div>
+            <div className="form-group">
+              <label for="timeStamp">Time Stamp:</label> <input
+                type="text" className="form-control" id="timeStamp"
+                onChange={this.onChangeFunction}></input>
+            </div>
+
 
 
 					</form>
 				</div>
 			</div>
 		</div>
-	
+
 
 
 <div className="form-group">
-	<label for="manufacturer">Manufacturer:</label> 
+	<label for="manufacturer">Manufacturer:</label>
 		<input onChange={this.onChangeFunction} type="text"
 		className="form-control" id="manufacturer"></input>
 </div>
 
 <div className="form-group">
-	<label for="orderablePartNumber">Orderable Part Number:</label> 
+	<label for="orderablePartNumber">Orderable Part Number:</label>
 		 <input onChange={this.onChangeFunction} type="text"
 		className="form-control" id="orderablePartNumber"></input>
 </div>
 
 <div className="form-group">
-	<label for="description">Description:</label> 
+	<label for="description">Description:</label>
 		<input onChange={this.onChangeFunction} type="text"
 		className="form-control" id="description"></input>
 </div>
 
 <div className="form-group">
-	<label for="clei">CLEI:</label> 
+	<label for="clei">CLEI:</label>
 		<input onChange={this.onChangeFunction} type="text"
 		className="form-control" id="clei"></input>
 </div>
@@ -186,8 +192,8 @@ return (
 </div>
 </div>
     <div className="modal-footer">
-        <div class="row">
-<div class="col-md-12 section-divider-bottom">
+        <div className="row">
+<div className="col-md-12 section-divider-bottom">
    {confirmButton}
 </div>
 </div>
