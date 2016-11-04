@@ -113,8 +113,8 @@ this.setState({
     										onChange={this.onChangeFunction}></input>
     								</div>
     								<div className="form-group">
-    									<label for="timestamp">Time Stamp:</label> <input type="text"
-    										className="form-control" id="timestamp"
+    									<label for="timeStamp">Time Stamp:</label> <input type="text" disabled="true"
+    										className="form-control" id="timeStamp" defaultValue={Date()}
     										onChange={this.onChangeFunction}></input>
     								</div>
     								<div className="form-group">
@@ -134,14 +134,9 @@ this.setState({
     								</div>
     								<div className="form-group">
     									<label for="templateCategory">Template Category:</label> <input
-    										type="text" className="form-control" id="templateCategory"
+    										type="text" className="form-control" id="templateCategory" defaultValue="Power Supply" disabled="true"
     										onChange={this.onChangeFunction}></input>
     								</div>
-                    <div className="form-group">
-                      <label for="timeStamp">Time Stamp:</label> <input
-                        type="text" className="form-control" id="timeStamp"
-                        onChange={this.onChangeFunction}></input>
-                    </div>
 
 
     							</form>
