@@ -33,7 +33,7 @@ this.setState({
 
         });
 
-                  },
+      },
  getInitialState: function() {
 
                         return {
@@ -107,9 +107,9 @@ return (
   										onChange={this.onChangeFunction} id="lastUpdatedBy"></input>
   								</div>
   								<div className="form-group">
-  									<label for="timestamp">Time Stamp:</label> <input type="text"
-  										className="form-control" onChange={this.onChangeFunction}
-  										id="timestamp"></input>
+  									<label for="timeStamp">Time Stamp:</label> <input type="text" disabled="true"
+  										className="form-control" onChange={this.onChangeFunction} defaultValue={Date()}
+  										id="timeStamp"></input>
   								</div>
   								<div className="form-group">
   									<label for="status">Status:</label>
@@ -127,17 +127,11 @@ return (
   									</div>
   								</div>
   								<div className="form-group">
-  									<label for="templateCategory">Template Category:</label> <input
+  									<label for="templateCategory">Template Category:</label> <input defaultValue="Operating System" disabled="true"
   										type="text" className="form-control" id="templateCategory"
   										onChange={this.onChangeFunction}></input>
 
   								</div>
-                  <div className="form-group">
-                    <label for="timeStamp">Time Stamp:</label>
-                    <input  type="text"  id="timeStamp"></input>
-                  </div>
-
-
 
   							</form>
   						</div>
