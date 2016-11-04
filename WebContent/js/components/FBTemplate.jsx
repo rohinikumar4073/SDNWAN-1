@@ -144,8 +144,8 @@ confirmButton = (
 
 
  							<div className="form-group">
- 								<label for="timestamp">Timestamp:</label> <input type="text"
- 									className="form-control" id="Timestamp"
+ 								<label for="timeStamp">Timestamp:</label> <input type="text" disabled="true"
+ 									className="form-control" id="timeStamp" defaultValue={Date()}
  									onChange={this.onChangeFunction}></input>
  							</div>
 
@@ -165,14 +165,9 @@ confirmButton = (
  								</div>
  								<div className="form-group">
  									<label for="templateCategory">Template Category:</label> <input
- 										type="text" className="form-control" id="templateCategory"
+ 										type="text" className="form-control" id="templateCategory" defaultValue="FB Template" disabled="true"
  										onChange={this.onChangeFunction}></input>
  								</div>
-                <div className="form-group">
-                  <label for="timeStamp">Time Stamp:</label> <input
-                    type="text" className="form-control" id="timeStamp"
-                    onChange={this.onChangeFunction}></input>
-                </div>
 
  							</div>
  </form>
