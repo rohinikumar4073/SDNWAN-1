@@ -94,10 +94,10 @@ this.setState({
     <div className="panel panel-default">
       <div className="panel-heading">
         <h4 className="panel-title">
-          <a data-toggle="collapse" href="#collapseT">Template Information</a>
+          	<a data-toggle="collapse" href="#collapseT" aria-expanded="true">Template Information</a>
         </h4>
       </div>
-      <div id="collapseT" className="panel-collapse collapse">
+      	<div id="collapseT" className="panel-collapse collapse in" role="tabpanel">
         <div className="panel-body">
   <form>
   <div className="form-group">
@@ -113,8 +113,8 @@ this.setState({
     <input type="text" className="form-control" id="lastUpdatedBy" onChange={this.onChangeFunction}></input>
   </div>
 <div className="form-group">
-    <label for="timestamp">Time Stamp:</label>
-    <input type="text" className="form-control" id="timestamp" onChange={this.onChangeFunction}></input>
+    <label for="timeStamp">Time Stamp:</label>
+    <input type="text" className="form-control" id="timeStamp" onChange={this.onChangeFunction} disabled="true" defaultValue={Date()}></input>
   </div>
   <div className="form-group">
     <label for="status">Status:</label>
@@ -130,16 +130,8 @@ this.setState({
   </div>
   <div className="form-group">
     <label for="templateCategory">Template Category:</label>
-    <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction}></input>
+    <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction} defaultValue="Transeiver" disabled="true"></input>
   </div>
-  <div className="form-group">
-    <label for="timeStamp">Time Stamp:</label> <input
-      type="text" className="form-control" id="timeStamp"
-      onChange={this.onChangeFunction}></input>
-  </div>
-
-
-
 </form>
 </div>
 </div>
