@@ -20,27 +20,77 @@ this.setState({
                },
 
                handleConfirm: function() {
-                 var self = this;
-                   $.ajax({
-             url: "http://localhost:50514/orchestrator/createHost",
-             type: 'post',
-               data: JSON.stringify(this.state.dataToBeSend),
-             contentType: "application/json; charset=utf-8",
-             success: function (data) {
-      if (self.props.onConfirm) {
-                     self.props.onConfirm(self.state.dataToBeSend);
-                   }
-             }
+              var self = this;
+              $.ajax({
+        url: "http://10.76.110.81:50513/FbTemplate/CreateInstances",
+        type: 'post',
+          data: JSON.stringify(this.state.dataToBeSend),
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+ if (self.props.onConfirm) {
+                self.props.onConfirm(self.state.dataToBeSend);
+              }
+        }
 
 
-         });
+    });
 
-                  },
-                    handleCancel: function() {
-                if (this.props.onCancel) {
-                  this.props.onCancel();
-                }
-                },
+              },
+getInitialState: function() {
+
+                    return {
+                      dataToBeSend:{
+  "dataPlaceConfiguration": {
+    "adminCost": "",
+    "adminState": "",
+    "dacCableUtilized": "",
+    "dacUtilized": "",
+    "description": "",
+    "enableFrameSupport": "",
+    "speed": "",
+    "transceiverType": ""
+  },
+  "fb_device_name": "",
+  "fb_groupid": "",
+  "forwarding_box_template": "",
+  "lldpEnablment": "",
+  "location_desc": "",
+  "management_configuration": {
+    "agent_cert_name": "",
+    "default_gatewayIp": "",
+    "dns_name": "",
+    "dns_serverIp": "",
+    "ip_address": "",
+    "management_interface": ""
+  },
+  "network_domain": "",
+  "openFlowInfo": {
+    "allowPassiveCon": "",
+    "connectionProtocol": "",
+    "dataPathId": "",
+    "failMode": "",
+    "masterControllerIp": "",
+    "protocolVersion": "",
+    "slaveControllerIp": ""
+  },
+  "operatingSystemConfiguration": {
+    "alarmHighTemp": "",
+    "alarmHistory": "",
+    "alarmLowTemp": "",
+    "enableLocalArpResponse": "",
+    "enableLocalIpv6ArpResponse": "",
+    "fb_sfp_interval": "",
+    "interfceFlowCounterInt": "",
+    "localArpResponseCoverage": "",
+    "localIpv6ArpResponseCoverage": "",
+    "puppetAgentUtilizad": ""
+  },
+  "site_id": ""
+}
+}
+
+  },
+
        handleCancel: function() {
                 if (this.props.onCancel) {
                   this.props.onCancel();
@@ -60,26 +110,24 @@ render: function() {
  return (
 <div  className={this.props.className}>
    <div className="modal-header">
-                <button
-                type="button"
-                className="close"
-                onClick={this.props.handleCancel}>
-                &times;
-                </button>
+                <button type="button" className="close" onClick={this.props.handleCancel}>
+                  &times;
+                  </button>
                 <h3>{this.props.header}</h3>
                 </div>
-                <div className="modal-body" >
-<div className="accordion" className={this.props.className}>
-	<div className="panel-group">
-		<div className="panel panel-default">
+   <div className="modal-body">
+
+
+    <div id="accordion">
+	   <div className="panel-group">
+	  <div className="panel panel-default">
 			<div className="panel-heading">
 				<h4 className="panel-title">
 					<a data-toggle="collapse" href="#collapseFB" aria-expanded="true">Device
 						Information</a>
 				</h4>
 			</div>
-			<div id="collapseFB" className="panel-collapse collapse in"
-				role="tabpanel">
+			<div id="collapseFB" className="panel-collapse collapse in" role="tabpanel">
 				<div className="panel-body">
 					<form>
 						<div className="form-group">
@@ -122,17 +170,18 @@ render: function() {
 					</form>
 				</div>
 			</div>
+    </div>
 
 
 
 			<div className="panel panel-default">
 				<div className="panel-heading">
 					<h4 className="panel-title">
-						<a data-toggle="collapse" href="#collapse1" className="collapsed">Data
+							<a data-toggle="collapse" href="#collapse1" aria-expanded="true">Data
 							Place Configuration</a>
 					</h4>
 				</div>
-				<div id="collapse1" className="panel-collapse collapse">
+					<div id="collapse1" className="panel-collapse collapse in" role="tabpanel">
 					<div className="panel-body">
 						<form>
 							<div className="form-group">
@@ -191,20 +240,14 @@ render: function() {
 				</div>
 			</div>
 
-
-
-
-
-
-
 			<div className="panel panel-default">
 				<div className="panel-heading">
 					<h4 className="panel-title">
-						<a data-toggle="collapse" href="#collapse3" className="collapsed">Management
+							<a data-toggle="collapse" href="#collapse3" aria-expanded="true">Management
 							Configuration </a>
 					</h4>
 				</div>
-				<div id="collapse3" className="panel-collapse collapse">
+				<div id="collapse3" className="panel-collapse collapse in" role="tabpanel">
 					<div className="panel-body">
 						<form>
 							<div className="form-group">
@@ -256,11 +299,11 @@ render: function() {
 		<div className="panel panel-default">
 			<div className="panel-heading">
 				<h4 className="panel-title">
-					<a data-toggle="collapse" href="#collapse4" className="collapsed">Open
+					<a data-toggle="collapse" href="#collapse4" aria-expanded="true">Open
 						Flow Information</a>
 				</h4>
 			</div>
-			<div id="collapse4" className="panel-collapse collapse">
+			<div id="collapse4" className="panel-collapse collapse in" role="tabpanel">
 				<div className="panel-body">
 					<form>
 						<div className="form-group">
@@ -316,51 +359,54 @@ render: function() {
 		<div className="panel panel-default">
 			<div className="panel-heading">
 				<h4 className="panel-title">
-					<a data-toggle="collapse" href="#collapse5" className="collapsed">Operating
+						<a data-toggle="collapse" href="#collapse5" aria-expanded="true">Operating
 						System Configuration</a>
 				</h4>
 			</div>
-			<div id="collapse5" className="panel-collapse collapse">
+			<div id="collapse5" className="panel-collapse collapse in" role="tabpanel">
 				<div className="panel-body">
 					<form>
 
 
 						<div className="form-group">
-							<label for="alarmHighTemp">Alarm High Temp:</label> < input
-							type="text" className="form-control" id="alarmHighTemp"
+							<label for="alarmHighTemp">Alarm High Temp:</label>
+							<input type="text" className="form-control" id="alarmHighTemp"
 							data-parentData="operatingSystemConfiguration"></input>
 						</div>
 						<div className="form-group">
-							<label for="alarmHistory">Alarm History:</label> <input
-								onChange={this.onChangeFunction} type="text"
+							<label for="alarmHistory">Alarm History:</label>
+								<input onChange={this.onChangeFunction} type="text"
 								className="form-control" id="alarmHistory"
 								data-parentData="operatingSystemConfiguration"></input>
 						</div>
 						<div className="form-group">
-							<label for="alarmLowTemp">Alarm Low Temp:</label> <input
-								onChange={this.onChangeFunction} type="text"
+							<label for="alarmLowTemp">Alarm Low Temp:</label>
+								<input onChange={this.onChangeFunction} type="text"
 								className="form-control" id="alarmLowTemp"
 								data-parentData="operatingSystemConfiguration"></input>
 						</div>
 						<div className="form-group">
-							<label for="fb_sfp_interval">FB SFP Interval:</label> <input
-								onChange={this.onChangeFunction} type="text"
+							<label for="fb_sfp_interval">FB SFP Interval:</label>
+								 <input onChange={this.onChangeFunction} type="text"
 								className="form-control" id="fb_sfp_interval"
 								data-parentData="operatingSystemConfiguration"></input>
 						</div>
+
 						<div className="form-group">
 							<label for="interfceFlowCounterInt">Interfce Flow Counter
 								Int:</label> <input onChange={this.onChangeFunction} type="text"
 								className="form-control" id="interfceFlowCounterInt"
 								data-parentData="operatingSystemConfiguration"
-								data-parentData="operatingSystemConfiguration"></input>
+							></input>
 						</div>
+
 						<div className="form-group">
-							<label for="localArpResponse">Local ARP Response:</label> <input
-								onChange={this.onChangeFunction} type="text"
+							<label for="localArpResponse">Local ARP Response:</label>
+								<input onChange={this.onChangeFunction} type="text"
 								className="form-control" id="localArpResponse"
 								data-parentData="operatingSystemConfiguration"></input>
 						</div>
+
 						<div className="form-group">
 							<label for="localArpResponseCoverage">Local ARP Response
 								Coverage:</label> <input onChange={this.onChangeFunction}
@@ -368,12 +414,14 @@ render: function() {
 								id="localArpResponseCoverage"
 								data-parentData="operatingSystemConfiguration"></input>
 						</div>
+
 						<div className="form-group">
 							<label for="localIpv6ArpResponse">Local IPv6 ARP
 								Response:</label> <input onChange={this.onChangeFunction}
 								type="text" className="form-control" id="localIpv6ArpResponse"
 								data-parentData="operatingSystemConfiguration"></input>
 						</div>
+
 						<div className="form-group">
 							<label for="localIpv6ArpResponseCoverage">Local IPv6 ARP
 								Response Coverage:</label> <input onChange={this.onChangeFunction}
@@ -390,17 +438,22 @@ render: function() {
 		</div>
 	</div>
 </div>
+                    </div>
 
+
+
+  <div className="modal-footer">
+      <div className="row">
+          <div className="col-md-12 section-divider-bottom">
+            {confirmButton}
 </div>
 </div>
-    <div className="modal-footer">
-        <div class="row">
-<div class="col-md-12 section-divider-bottom">
-   {confirmButton}
 </div>
 </div>
 
-                </div>
-</div>
+
+
+
+
 
 )  }}); return FormData; });

@@ -1,5 +1,5 @@
 define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) {
- 
+
   var FBTranseiverData = React.createClass({
   onChangeFunction:function(e){
                  var parnetId=e.target.getAttribute("data-parentdata")
@@ -13,12 +13,12 @@ define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButto
                   }else{
                     this.state.dataToBeSend[e.target.id]=e.target.value;
                   }
-                  
+
 this.setState({
               dataToBeSend: this.state.dataToBeSend
               });
-               
-                  
+
+
                   },    handleConfirm: function() {
                   var self = this;
                   $.ajax({
@@ -32,12 +32,12 @@ this.setState({
                   }
             }
 
-                 
+
         });
 
                   },
  getInitialState: function() {
-    
+
                         return {
                           dataToBeSend:{
 								  "clei": "",
@@ -59,9 +59,9 @@ this.setState({
 								}
 }
 },
- 
 
- 
+
+
     render: function() {
      confirmButton = (
                   <BootstrapButton
@@ -70,7 +70,7 @@ this.setState({
                   {this.props.confirm}
                   </BootstrapButton>
                   );
-      
+
 
 
       return (
@@ -85,19 +85,19 @@ this.setState({
                 <h3>{this.props.header}</h3>
                 </div>
                 <div className="modal-body" >
-      
+
 
   <div className="accordion" >
 
-    
+
  <div className="panel-group">
     <div className="panel panel-default">
       <div className="panel-heading">
         <h4 className="panel-title">
-          <a data-toggle="collapse" href="#collapseT">Template Information</a>
+          	<a data-toggle="collapse" href="#collapseT" aria-expanded="true">Template Information</a>
         </h4>
       </div>
-      <div id="collapseT" className="panel-collapse collapse">
+      	<div id="collapseT" className="panel-collapse collapse in" role="tabpanel">
         <div className="panel-body">
   <form>
   <div className="form-group">
@@ -113,8 +113,8 @@ this.setState({
     <input type="text" className="form-control" id="lastUpdatedBy" onChange={this.onChangeFunction}></input>
   </div>
 <div className="form-group">
-    <label for="timestamp">Time Stamp:</label>
-    <input type="text" className="form-control" id="timestamp" onChange={this.onChangeFunction}></input>
+    <label for="timeStamp">Time Stamp:</label>
+    <input type="text" className="form-control" id="timeStamp" onChange={this.onChangeFunction} disabled="true" defaultValue={Date()}></input>
   </div>
   <div className="form-group">
     <label for="status">Status:</label>
@@ -130,10 +130,8 @@ this.setState({
   </div>
   <div className="form-group">
     <label for="templateCategory">Template Category:</label>
-    <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction}></input>
+    <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction} defaultValue="Transeiver" disabled="true"></input>
   </div>
-  
-  
 </form>
 </div>
 </div>
@@ -145,12 +143,12 @@ this.setState({
     <label for="manufacturer">Manufacturer:</label>
     <input type="text" className="form-control" id="manufacturer" onChange={this.onChangeFunction}></input>
   </div>
-  
+
     <div className="form-group">
     <label for="orderablePartNumber">Orderable Part Number:</label>
     <input type="text" className="form-control" id="orderablePartNumber" onChange={this.onChangeFunction}></input>
   </div>
-  
+
     <div className="form-group">
     <label for="description">Description:</label>
     <input type="text" className="form-control" id="description" onChange={this.onChangeFunction}></input>
@@ -165,12 +163,12 @@ this.setState({
     <label for="supplierNo">Supplier Part Number:</label>
     <input type="text" className="form-control" id="supplierNo" onChange={this.onChangeFunction}></input>
   </div>
-  
+
     <div className="form-group">
     <label for="clei">CLEI:</label>
     <input type="text" className="form-control" id="clei" onChange={this.onChangeFunction}></input>
   </div>
-  
+
     <div className="form-group">
     <label for="materialId">Material ID (from Vz procurement system):</label>
     <input type="text" className="form-control" id="materialId" onChange={this.onChangeFunction}></input>
@@ -179,14 +177,14 @@ this.setState({
   </div>
     </div>
     <div className="modal-footer">
-        <div class="row">
-<div class="col-md-12 section-divider-bottom">
+        <div className="row">
+<div className="col-md-12 section-divider-bottom">
    {confirmButton}
 </div>
 </div>
 </div>
 </div>
- 
+
 )
 }
     });
