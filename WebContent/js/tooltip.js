@@ -171,7 +171,11 @@ define(
                         // tooltip
                         view: {
                             content: {
-                                content: [{
+                                content: [
+
+
+
+                                  {
                                         tag: 'div',
                                         name: "configData",
 
@@ -193,7 +197,28 @@ define(
                                             }
 
                                         ]
-                                    }, {
+                                    },
+
+
+                                    {
+                                            tag: 'div',
+                                            name: "configData",
+
+                                            events: {
+                                                'click': '{#onClickEvent1}'
+                                            },
+                                            content: [ {
+                                                    tag: "div",
+                                                    content: "Templates",
+                                                    props: {
+                                                        'class': "label-data"
+                                                    }
+                                                }
+
+                                            ]
+                                        },
+
+                                         {
                                         tag: 'div',
                                         name: 'classNamePort',
 
@@ -255,9 +280,26 @@ define(
                                             $('#pageModal ')
                                                 .modal(
                                                     'show')
+
+                                            configurationEvents.init(self);
+                                            configurationEvents.savingDetails();
+                                            configurationEvents.bridgeTable();
+                                            configurationEvents.portTable();
+                                        });
+
+                            },
+                            "onClickEvent1": function() {
+                              {/*var self = this.node();
+                                var fbName = $('g.node-selected')
+                                    .attr('data-id');*/}
+                                $("#pageModal")
+                                    .load(
+                                        "templates/templates.html",
+                                        function() {
                                             $('#pageModal ')
                                                 .modal(
                                                     'show')
+
                                             configurationEvents.init(self);
                                             configurationEvents.savingDetails();
                                             configurationEvents.bridgeTable();

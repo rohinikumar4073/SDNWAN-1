@@ -1,4 +1,4 @@
- define(['react','jquery','jsx!components/BootstrapButton','jsx!components/CreateNewFBForm','jsx!components/CreateFBFanTemplate','jsx!components/FBOSTemplate','jsx!components/FBPowerTemplate','jsx!components/FBTranseiverTemplate','jsx!components/FBTemplate','jsx!components/Environment'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS,FBPower,FBTranseiver,FBTemplate,Environment) {
+ define(['react','jquery','jsx!components/BootstrapButton','jsx!components/TemplateForms/CreateNewFBForm','jsx!components/TemplateForms/CreateFBFanTemplate','jsx!components/TemplateForms/FBOSTemplate','jsx!components/TemplateForms/FBPowerTemplate','jsx!components/TemplateForms/FBTranseiverTemplate','jsx!components/TemplateForms/FBTemplate','jsx!components/Environment'], function(React,$,BootstrapButton,FBForm,FBFan,FBOS,FBPower,FBTranseiver,FBTemplate,Environment) {
 
  var BootstrapModal = React.createClass({
     // The following two methods are the only places we need to
