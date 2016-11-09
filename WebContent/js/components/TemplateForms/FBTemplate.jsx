@@ -1,4 +1,4 @@
-define(['react','jsx!components/BootstrapButton'],function(React,BootstrapButton) { var FBData = React.createClass({
+define(['react','jsx!components/BootstrapButton','properties','toastr'],function(React,BootstrapButton,properties,toastr) { var FBData = React.createClass({
 onChangeFunction:function(e){
 var parnetId=e.target.getAttribute("data-parentdata")
 if(parnetId ) {
@@ -17,17 +17,19 @@ dataToBeSend: this.state.dataToBeSend });
  },
   handleConfirm: function() {
 var self = this;
-$.ajax({ url:"http://10.76.110.81:50513/FbTemplate/fbTemplate",
+$.ajax({
+  url:properties.templateIp+"fbTemplate",
 	type: 'post',
 	data: JSON.stringify(this.state.dataToBeSend),
 contentType:"application/json",
 charset:"utf-8",
 success: function (data) {
-   if(self.props.onConfirm) {
-    self.props.onConfirm(self.state.dataToBeSend);
+  toastr.success("Success! Template is created")
+  },
+  error: function (data){
+  toastr.error("Error! Template is not created")
+  }
 
-}
-}
  });
   },
    getInitialState: function() { return { dataToBeSend:{

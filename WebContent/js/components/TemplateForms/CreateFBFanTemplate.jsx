@@ -1,4 +1,4 @@
-define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) { var FbFanData = React.createClass({
+define(['react','jsx!components/BootstrapButton','properties','toastr'], function(React,BootstrapButton,properties,toastr) { var FbFanData = React.createClass({
 
    onChangeFunction:function(e){
                  var parnetId=e.target.getAttribute("data-parentdata")
@@ -21,14 +21,15 @@ this.setState({
                   },    handleConfirm: function() {
                   var self = this;
                   $.ajax({
-            url: "http://10.76.110.81:50513/FbTemplate/createFanTemplate",
+            url: properties.templateIp+"createFanTemplate",
             type: 'post',
               data: JSON.stringify(this.state.dataToBeSend),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-     if (self.props.onConfirm) {
-                    self.props.onConfirm(self.state.dataToBeSend);
-                  }
+                toastr.success("Success! Fan template is created")
+            },
+            error: function (data){
+              toastr.error("Error! Fan template is not created")
             }
 
 

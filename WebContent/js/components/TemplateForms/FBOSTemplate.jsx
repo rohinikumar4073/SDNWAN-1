@@ -1,4 +1,4 @@
-define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) { var FBOSData = React.createClass({
+define(['react','jsx!components/BootstrapButton','properties','toastr'], function(React,BootstrapButton,properties,toastr) { var FBOSData = React.createClass({
 onChangeFunction:function(e){
                  var parnetId=e.target.getAttribute("data-parentdata")
                   if(parnetId )
@@ -20,15 +20,16 @@ this.setState({
                   },    handleConfirm: function() {
                   var self = this;
                   $.ajax({
-            url: "http://10.76.110.81:50513/FbTemplate/CreateOsTemplate",
+            url: properties.templateIp+"CreateOsTemplate",
             type: 'post',
               data: JSON.stringify(this.state.dataToBeSend),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-     if (self.props.onConfirm) {
-                    self.props.onConfirm(self.state.dataToBeSend);
-                  }
-            }
+              toastr.success("Success! OS template is created")
+          },
+          error: function (data){
+            toastr.error("Error! OS template is not created")
+          }
 
 
         });

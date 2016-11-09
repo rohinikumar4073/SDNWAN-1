@@ -1,8 +1,13 @@
 define(['socket'],function(io){
-  var swaggerIp="http://localhost:50514/";
+  // var swaggerIp="http://localhost:50514/";
+  // var nodeIp="http://localhost:9090";
+  //
+  // var rmsIp ="http://localhost:50512/rms/";
+  var swaggerIp="http://10.76.110.81:50514/";
   var nodeIp="http://localhost:9090";
 
-  var rmsIp ="http://localhost:50512/rms/";
+  var rmsIp ="http://10.76.110.81:50512/rms/";
+  var templateIp = "http://10.76.110.94:50513/FbTemplate/"
   var pushTopology=   {
 "linkDetails": [
 
@@ -31,6 +36,7 @@ define(['socket'],function(io){
         },
         createHost:swaggerIp+"orchestrator/createHost",
         nodeIp:nodeIp,
+        templateIp:templateIp,
         rmsIp:rmsIp,
         pushTopology:swaggerIp+"orchestrator/generateTopology",
         createLink:swaggerIp+"orchestrator/createLink",

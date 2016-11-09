@@ -1,4 +1,5 @@
-define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) { var FBPowerData = React.createClass({
+define(['react','jsx!components/BootstrapButton','properties','toastr'], function(React,BootstrapButton,properties,toastr)
+{ var FBPowerData = React.createClass({
 
 onChangeFunction:function(e){
                  var parnetId=e.target.getAttribute("data-parentdata")
@@ -12,31 +13,30 @@ onChangeFunction:function(e){
                   }else{
                     this.state.dataToBeSend[e.target.id]=e.target.value;
                   }
-                  
+
 this.setState({
               dataToBeSend: this.state.dataToBeSend
               });
-               
-                  
+
+
                   },    handleConfirm: function() {
                   var self = this;
                   $.ajax({
-            url: "http://10.76.110.81:50513/FbTemplate/CreatePowerSupply",
+            url: properties.templateIp+"CreatePowerSupply",
             type: 'post',
               data: JSON.stringify(this.state.dataToBeSend),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-     if (self.props.onConfirm) {
-                    self.props.onConfirm(self.state.dataToBeSend);
-                  }
-            }
-
-                 
+              toastr.success("Success! Template is created")
+              },
+              error: function (data){
+              toastr.error("Error! Template is not created")
+              }
         });
 
                   },
  getInitialState: function() {
-    
+
                         return {
                           dataToBeSend:{
   "airFlow": "",
@@ -57,12 +57,12 @@ this.setState({
   }
 }
 }
-                        
-      },
- 
- 
 
- 
+      },
+
+
+
+
     render: function() {
     confirmButton = (
                   <BootstrapButton
@@ -129,8 +129,8 @@ this.setState({
     <label for="templateCategory">Template Category:</label>
     <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction}></input>
   </div>
-  
-  
+
+
 </form>
 </div>
 </div>
@@ -142,22 +142,22 @@ this.setState({
     <label for="manufacturer">Manufacturer:</label>
     <input type="text" className="form-control" id="manufacturer" onChange={this.onChangeFunction}></input>
   </div>
-  
+
     <div className="form-group">
     <label for="orderablePartNumber">Orderable Part Number:</label>
     <input type="text" className="form-control" id="orderablePartNumber" onChange={this.onChangeFunction}></input>
   </div>
-  
+
     <div className="form-group">
     <label for="description">Description:</label>
     <input type="text" className="form-control" id="description" onChange={this.onChangeFunction}></input>
   </div>
-  
+
     <div className="form-group">
     <label for="clei">CLEI:</label>
     <input type="text" className="form-control" id="clei" onChange={this.onChangeFunction}></input>
   </div>
-  
+
     <div className="form-group">
     <label for="materialId">Material ID (from Vz procurement system):</label>
     <input type="text" className="form-control" id="materialId" onChange={this.onChangeFunction}></input>
@@ -170,14 +170,14 @@ this.setState({
 <div className="radio">
   <label><input type="radio" name="powerType" onChange={this.onChangeFunction}></input>DC</label>
 </div>
-    
+
   </div>
 
 <div className="form-group">
     <label for="maxPower">Max Power Rating(Watts):</label>
     <input type="text" className="form-control" id="maxPower" onChange={this.onChangeFunction}></input>
   </div>
-  
+
    <div className="form-group">
     <label for="airFlow">Air Flow </label>
 	 <div className="radio">
@@ -186,9 +186,9 @@ this.setState({
 <div className="radio">
   <label><input type="radio" name="airFlow" onChange={this.onChangeFunction}></input>Back-to-Front</label>
 </div>
-    
+
   </div>
-  
+
 
   </div>
   </div>
@@ -200,8 +200,8 @@ this.setState({
 </div>
 </div>
 </div>
-  
-  
+
+
 )
 
    }
