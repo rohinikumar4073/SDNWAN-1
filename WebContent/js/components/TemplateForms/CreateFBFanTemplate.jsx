@@ -130,9 +130,15 @@ return (
 						</div>
 						<div className="form-group">
 							<label for="templateCategory">Template Category:</label>
-								<input onChange={this.onChangeFunction} type="text"
+								<input onChange={this.onChangeFunction} type="text" defaultValue="Fan" disabled="true"
 								className="form-control" id="templateCategory"></input>
 						</div>
+            <div className="form-group">
+              <label for="timeStamp">Time Stamp:</label> <input onChange={this.onChangeFunction} disabled="true"
+                type="text" className="form-control" id="timeStamp" defaultValue={Date()}></input>
+
+            </div>
+
 
 
 					</form>
@@ -187,8 +193,8 @@ return (
 </div>
 </div>
     <div className="modal-footer">
-        <div class="row">
-<div class="col-md-12 section-divider-bottom">
+        <div className="row">
+<div className="col-md-12 section-divider-bottom">
    {confirmButton}
 </div>
 </div>

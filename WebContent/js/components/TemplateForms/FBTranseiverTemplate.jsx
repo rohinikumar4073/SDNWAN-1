@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 define(['react','jsx!components/BootstrapButton','properties','toastr'], function(React,BootstrapButton,properties,toastr) {
+=======
+define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) {
+>>>>>>> 34de7d4d68d0dd8375e8e85b64e8b29dce877a79
 
   var FBTranseiverData = React.createClass({
   onChangeFunction:function(e){
@@ -34,6 +38,10 @@ this.setState({
               }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 34de7d4d68d0dd8375e8e85b64e8b29dce877a79
         });
 
                   },
@@ -95,10 +103,10 @@ this.setState({
     <div className="panel panel-default">
       <div className="panel-heading">
         <h4 className="panel-title">
-          <a data-toggle="collapse" href="#collapseT">Template Information</a>
+          	<a data-toggle="collapse" href="#collapseT" aria-expanded="true">Template Information</a>
         </h4>
       </div>
-      <div id="collapseT" className="panel-collapse collapse">
+      	<div id="collapseT" className="panel-collapse collapse in" role="tabpanel">
         <div className="panel-body">
   <form>
   <div className="form-group">
@@ -114,8 +122,8 @@ this.setState({
     <input type="text" className="form-control" id="lastUpdatedBy" onChange={this.onChangeFunction}></input>
   </div>
 <div className="form-group">
-    <label for="timestamp">Time Stamp:</label>
-    <input type="text" className="form-control" id="timestamp" onChange={this.onChangeFunction}></input>
+    <label for="timeStamp">Time Stamp:</label>
+    <input type="text" className="form-control" id="timeStamp" onChange={this.onChangeFunction} disabled="true" defaultValue={Date()}></input>
   </div>
   <div className="form-group">
     <label for="status">Status:</label>
@@ -131,10 +139,13 @@ this.setState({
   </div>
   <div className="form-group">
     <label for="templateCategory">Template Category:</label>
-    <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction}></input>
+    <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction} defaultValue="Transeiver" disabled="true"></input>
   </div>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 34de7d4d68d0dd8375e8e85b64e8b29dce877a79
 </form>
 </div>
 </div>
@@ -180,8 +191,8 @@ this.setState({
   </div>
     </div>
     <div className="modal-footer">
-        <div class="row">
-<div class="col-md-12 section-divider-bottom">
+        <div className="row">
+<div className="col-md-12 section-divider-bottom">
    {confirmButton}
 </div>
 </div>
