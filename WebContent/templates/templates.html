@@ -1,32 +1,23 @@
 <div class="modal-dialog">
-	<!-- Modal content-->
-	<!-- Modal content-->
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 			<h4 class="modal-title">Templates</h4>
 		</div>
 		<div class="modal-body">
-<div class="spin" data-spin></div>
-
-
+			<div class="spin" data-spin>
+			</div>
 			<div class="rowAll">
 				<div class="row">
 					<div class="col-md-12 col-sm-12">
 						<div class="col-xs-3 col-lg-2">
 							<ul class="nav nav-tabs tabs-left">
 								<li class="active"><a href="#fbInstantCre" data-toggle="tab">FB Instance Creation</a></li>
-								<li><a href="#fbFanTem" data-toggle="tab">FB Fan Template
-
-</a></li>
+								<li><a href="#fbFanTem" data-toggle="tab">FB Fan Template</a></li>
 								<li><a href="#fbOsTem" data-toggle="tab">FB OS Template</a></li>
 								<li><a href="#fbPowerSup" data-toggle="tab">FB Powersupply Template</a></li>
 								<li><a href="#fbTemplate" data-toggle="tab">FB Template</a></li>
 								<li><a href="#fbTranseiverTem" data-toggle="tab">FB Transiever Template</a></li>
-
-
-
-
 							</ul>
 						</div>
 						<div class="col-xs-9 col-lg-10">
@@ -38,358 +29,140 @@
 									<strong>Error!</strong>
 								</div>
 								<div class="tab-pane active" id="fbInstantCre">
-
-									<div id="accordion">
-									  <div class="panel-group">
-									       <div class="panel panel-default">
-									      <div class="panel-heading">
-									        <h4 class="panel-title">
-									<a data-toggle="collapse" href="#viewInstances" aria-expanded="true">View Instances</a>
-									</h4>
-									      </div>
-									      <div id="viewInstances" class="panel-collapse collapse in" role="tabpanel">
-									        <div class="panel-body">
-									          <table class="table table-bordered">
-									          	<thead>
-									          		<tr>
-																	<th>Edit</th>
-									          			<th>Name</th>
-									          		</tr>
-									          	</thead>
-									          	<tbody>
-									          	</tbody>
+									<div class="panel-group">
+									    <div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title">View Instances</h4>
+											</div>
+											<div class="panel-body">
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>Edit</th>
+															<th>Name</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
 									          </table>
-									        </div>
-									      </div>
-									    </div>
-									  </div>
-									</div>
-								</div>
-
-								<div class="tab-pane" id="fbFanTem">
-									<div id="accordion">
-										<div class="panel-group">
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a data-toggle="collapse" href="#fanInfo" aria-expanded="true">Fan Information</a>
-														</h4>
-												</div>
-												<div id="fanInfo" class="panel-collapse collapse in" role="tabpanel">
-													<div class="panel-body">
-														<div class="row">
-																			<div>
-
-																		<form>
-																					<div class="form-group col-md-4">
-																						<label for="name">Name:</label>
-																						<input type="text" class="form-control" id="name">
-																					</div>
-																					<div class="form-group col-md-4">
-																						<label for="revision">Revision:</label>
-																						<input type="text" class="form-control" id="revision">
-																					</div>
-																					<div class="form-group col-md-4">
-																							<label for="lastUpdatedBy">Last Updated By:</label>
-																						<input type="text" class="form-control" id="lastUpdatedBy">
-																					</div>
-																					<div class="form-group col-md-4">
-																							<label for="status">Status:</label>
-																							<div class="radio">
-													                      <label>
-													                        <input type="radio" name="status" >Draft
-													                      </label>
-													                    </div>
-													                    <div class="radio">
-													                      <label>
-													                        <input type="radio" name="status" >Available
-													                      </label>
-													                    </div>
-																							<div class="radio">
-																								<label>
-																									<input type="radio" name="status">Decommissioned
-																								</label>
-																							</div>
-																					</div>
-																					<div class="form-group col-md-4">
-																						<label for="templateCategory">Template Category:</label>
-																						<input type="text" class="form-control" id="templateCategory">
-																					</div>
-
-																				</form>
-																			</div>
-																		</div>
-													</div>
-												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
-								<div class="tab-pane" id="fbOsTem">
-									<div id="accordion">
-										<div class="panel-group">
-
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h4 class="panel-title">
-														<a data-toggle="collapse" href="#templateInfo" aria-expanded="true">Template
-															Information</a>
-														</h4>
-												</div>
-												<div id="templateInfo" class="panel-collapse collapse in" role="tabpanel">
-													<div class="panel-body">
-														<div class="row">
-																			<div>
-
-																		<form>
-																					<div class="form-group col-md-4">
-																						<label for="name">Name:</label>
-																						<input type="text" class="form-control" id="name">
-																					</div>
-																					<div class="form-group col-md-4">
-																						<label for="revision">Revision:</label>
-																						<input type="text" class="form-control" id="revision">
-																					</div>
-																					<div class="form-group col-md-4">
-																							<label for="lastUpdatedBy">Last Updated By:</label>
-																						<input type="text" class="form-control" id="lastUpdatedBy">
-																					</div>
-																					<div class="form-group col-md-4">
-																							<label for="status">Status:</label>
-																							<div class="radio">
-													                      <label>
-													                        <input type="radio" name="status" >Draft
-													                      </label>
-													                    </div>
-													                    <div class="radio">
-													                      <label>
-													                        <input type="radio" name="status" >Available
-													                      </label>
-													                    </div>
-																							<div class="radio">
-																								<label>
-																									<input type="radio" name="status">Decommissioned
-																								</label>
-																							</div>
-																					</div>
-																					<div class="form-group col-md-4">
-																						<label for="templateCategory">Template Category:</label>
-																						<input type="text" class="form-control" id="templateCategory">
-																					</div>
-
-																				</form>
-																			</div>
-																		</div>
-													</div>
-												</div>
+								<div class="tab-pane active" id="fbFanTem">
+									<div class="panel-group">
+									    <div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title">View Fan Template</h4>
+											</div>
+											<div class="panel-body">
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>Edit</th>
+															<th>Name</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+									          </table>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="tab-pane" id="fbPowerSup">
-								<div id="accordion">
-								  <div class="panel-group">
-								    <div class="panel panel-default">
-								      <div class="panel-heading">
-								        <h4 class="panel-title">
-								<a data-toggle="collapse" href="#viewPort" aria-expanded="true">View Ports</a>
-								</h4>
-								      </div>
-								      <div id="viewPort" class="panel-collapse collapse in" role="tabpanel">
-								        <div class="panel-body">
-								          <table class="table table-bordered">
-									          	<thead>
-									          		<tr>
-									          			<th>Name</th>
-									          			<th>VLAN Mode</th>
-									          			<th>Fb IP</th>
-									          			<th>Type</th>
-									          			<th>Speed</th>
-									          			<th>DAC</th>
-									          		</tr>
-									          	</thead>
-									          	<tbody>
-									          	</tbody>
+								<div class="tab-pane active" id="fbOsTem">
+									<div class="panel-group">
+									    <div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title">View OS Template</h4>
+											</div>
+											<div class="panel-body">
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>Edit</th>
+															<th>Name</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
 									          </table>
-								        </div>
-								      </div>
-								    </div>
-								    <div class="panel panel-default">
-								      <div class="panel-heading">
-								        <h4 class="panel-title">
-								<a data-toggle="collapse" href="#createPort" aria-expanded="true">Create Port</a>
-								</h4>
-								      </div>
-								      <div id="createPort" class="panel-collapse collapse in" role="tabpanel">
-								        <div class="panel-body">
-								          <div class="row">
-								            <div>
-
-								              <form>
-								                <div class="form-group col-md-12">
-								                  <div class="form-group col-md-4">
-								                    <label for="name">Name:</label>
-								                    <input type="text" class="form-control" data-id="name">
-								                  </div>
-								                  <div class="form-group col-md-4  ">
-								                    <label for="tag">Tag:</label>
-								                    <input type="text" class="form-control " data-id="tag">
-								                  </div>
-								                </div>
-								                <div class="form-group col-md-12">
-								                  <div class="form-group col-md-4">
-								                    <label for="fb_ip">FB IP:</label>
-								                    <input type="text" class="form-control" data-id="fb_ip">
-								                  </div>
-								                  <div class="form-group col-md-4">
-								                    <label for="type">Type:</label>
-								                    <input type="text" class="form-control" data-id="type">
-								                  </div>
-								                  <div class="form-group col-md-4">
-								                    <label for="speed">Speed:</label>
-								                    <input type="text" class="form-control" data-id="speed">
-								                  </div>
-								                </div>
-								                <div class="form-group col-md-12">
-
-								                  <div class="form-group col-md-4">
-								                    <label for="is_dac">DAC:</label>
-								                    <div class="radio">
-								                      <label>
-								                        <input type="radio" name="is_dac" data-id="True">True
-								                      </label>
-								                    </div>
-								                    <div class="radio">
-								                      <label>
-								                        <input type="radio" name="is_dac" data-id="False">False
-								                      </label>
-								                    </div>
-								                  </div>
-								                </div>
-								              </form>
-								            </div>
-								          </div>
-								        </div>
-								      </div>
-								    </div>
-								  </div>
-								</div>
-
-								</div>
-
-								<div class="tab-pane" id="fbTemplate">
-									<div class="row">
-										<div>
-
-											<form>
-												<div class="form-group col-md-4">
-													<label for="link_speed">Link Speed:</label> <input
-														type="text" class="form-control" id="link_speed">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="port_name">Port Name:</label> <input
-														type="text" class="form-control" id="port_name">
-												</div>
-											</form>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="tab-pane" id="fbTranseiverTem">
-									<div class="row">
-										<div>
-
-											<form>
-												<div class="form-group col-md-4">
-													<label for="counter_query_interval">Counter Query
-														Interval:</label> <input type="text" class="form-control"
-														id="counter_query_interval">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="sfp_query_interval">SFP Query Interval:</label>
-													<input type="text" class="form-control"
-														id="sfp_query_interval">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="sfp_enable">SFP Enable:</label>
-													<div class="radio">
-														<label> <input type="radio" name="sfp_enable">True
-														</label>
-													</div>
-													<div class="radio">
-														<label> <input type="radio" name="sfp_enable">False
-														</label>
-													</div>
-												</div>
-												<div class="form-group col-md-4">
-													<label for="alarm_enable">Alarm Enable:</label>
-													<div class="radio">
-														<label> <input type="radio" name="alarm_enable">True
-														</label>
-													</div>
-													<div class="radio">
-														<label> <input type="radio" name="alarm_enable">False
-														</label>
-													</div>
-												</div>
-												<div class="form-group col-md-4">
-													<label for="counter_enable">Counter Enable:</label>
-													<div class="radio">
-														<label> <input type="radio" name="counter_enable">True
-														</label>
-													</div>
-													<div class="radio">
-														<label> <input type="radio" name="counter_enable">False
-														</label>
-													</div>
-												</div>
-												<div class="form-group col-md-4">
-													<label for="alarm_high_temp">Alarm High Temp:</label> <input
-														type="text" class="form-control" id="alarm_high_temp">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="alarm_low_temp">Alarm Low Temp:</label> <input
-														type="text" class="form-control" id="alarm_low_temp">
-												</div>
-												<div class="form-group col-md-4">
-													<label for="hwflow_enable">HW Flow Enable:</label>
-													<div class="radio">
-														<label> <input type="radio" name="hwflow_enable">True
-														</label>
-													</div>
-													<div class="radio">
-														<label> <input type="radio" name="hwflow_enable">False
-														</label>
-													</div>
-													</div>
-
-													<div class="form-group col-md-4">
-														<label for="hwflow_query_interval">HW Flow Query
-															Interval:</label> <input type="text" class="form-control"
-															id="hwflow_query_interval">
-													</div>
-											</form>
-
+								<div class="tab-pane active" id="fbPowerSup">
+									<div class="panel-group">
+									    <div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title">View Powersupply Template</h4>
+											</div>
+											<div class="panel-body">
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>Edit</th>
+															<th>Name</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+									          </table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane active" id="fbTemplate">
+									<div class="panel-group">
+									    <div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title">View FB Template</h4>
+											</div>
+											<div class="panel-body">
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>Edit</th>
+															<th>Name</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+									          </table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="tab-pane active" id="fbTranseiverTem">
+									<div class="panel-group">
+									    <div class="panel panel-default">
+											<div class="panel-heading">
+												<h4 class="panel-title">View Transceiver Template</h4>
+											</div>
+											<div class="panel-body">
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>Edit</th>
+															<th>Name</th>
+														</tr>
+													</thead>
+													<tbody>
+													</tbody>
+									          </table>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-
 						</div>
-						<!-- /tab-content -->
 					</div>
 				</div>
-				<!-- /tabbable -->
 			</div>
-			<!-- /col -->
 		</div>
-		<!-- /row -->
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary btn-sm saveBtn">Save</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+		</div>
 	</div>
-	<!-- /row -->
-	<div class="modal-footer">
-		<button type="button" class="btn btn-primary btn-sm saveBtn">Save</button>
-		<button type="button" class="btn btn-default btn-sm"
-			data-dismiss="modal">Close</button>
-	</div>
-</div>
 </div>

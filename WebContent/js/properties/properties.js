@@ -7,7 +7,7 @@ define(['socket'],function(io){
   var nodeIp="http://localhost:9090";
 
   var rmsIp ="http://10.76.110.81:50512/rms/";
-  var templateIp = "http://10.76.110.94:50513/FbTemplate/"
+  var templateIp = "http://10.76.110.94:50513/FbTemplate/";
   var pushTopology=   {
 "linkDetails": [
 

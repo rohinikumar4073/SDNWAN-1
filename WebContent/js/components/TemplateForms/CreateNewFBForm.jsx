@@ -23,26 +23,19 @@ this.setState({
                handleConfirm: function() {
               var self = this;
               $.ajax({
-<<<<<<< HEAD
         url: properties.templateIp+"CreateInstances",
-=======
-        url: "http://10.76.110.81:50513/FbTemplate/CreateInstances",
->>>>>>> 34de7d4d68d0dd8375e8e85b64e8b29dce877a79
         type: 'post',
           data: JSON.stringify(this.state.dataToBeSend),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-<<<<<<< HEAD
                 toastr.success("Success! A new instance is successfully created")
         },
         error: function(data){
           toastr.error("Error! Could not create an instance")
-=======
  if (self.props.onConfirm) {
                 self.props.onConfirm(self.state.dataToBeSend);
               }
->>>>>>> 34de7d4d68d0dd8375e8e85b64e8b29dce877a79
-        }
+                    }
 
 
     });
