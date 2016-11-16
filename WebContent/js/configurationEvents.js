@@ -42,6 +42,59 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
 
     }
     return {
+      onChangeFunction: function() {
+
+      },
+        templateTable: function() {
+              var getURL = properties.templateIp + "listAllTemplates";
+              $.get(getURL, function(result) {
+                var collection = result;
+                var rows = [];
+                for(i = 0;i<result.Instances.length;i++){
+                  var tr = $('<tr>')
+                  tr.append("<td> <input type='radio' name='instances' onChange={configurationEvents.onChangeFunction}> </td>");
+                  tr.append($('<td>').append(result.Instances[i].name));
+                  $("#viewInstance").find('tbody')
+                      .append(tr);
+                }
+                for(i = 0;i<result.FS.length;i++){
+                  var tr = $('<tr>')
+                  tr.append("<td> <input type='radio' name='fs' onChange={configurationEvents.onChangeFunction}> </td>");
+                  tr.append($('<td>').append(result.FS[i].name));
+                  $("#viewFanTemplate").find('tbody')
+                      .append(tr);
+                }
+                for(i = 0;i<result.OS.length;i++){
+                  var tr = $('<tr>')
+                  tr.append("<td> <input type='radio' name='os' onChange={configurationEvents.onChangeFunction}> </td>");
+                  tr.append($('<td>').append(result.OS[i].name));
+                  $("#viewOsTemplate").find('tbody')
+                      .append(tr);
+                }
+                for(i = 0;i<result.PS.length;i++){
+                  var tr = $('<tr>')
+                  tr.append("<td> <input type='radio' name='ps' onChange={configurationEvents.onChangeFunction}> </td>");
+                  tr.append($('<td>').append(result.PS[i].name));
+                  $("#viewPowerSupplyTemplate").find('tbody')
+                      .append(tr);
+                }
+                for(i = 0;i<result.Templates.length;i++){
+                  var tr = $('<tr>')
+                  tr.append("<td> <input type='radio' name='templates' onChange={configurationEvents.onChangeFunction}> </td>");
+                  tr.append($('<td>').append(result.Templates[i].name));
+                  $("#viewFbTemplate").find('tbody')
+                      .append(tr);
+                }
+                for(i = 0;i<result.TS.length;i++){
+                  var tr = $('<tr>')
+                  tr.append("<td> <input type='radio' name='ts' onChange={configurationEvents.onChangeFunction}> </td>");
+                  tr.append($('<td>').append(result.TS[i].name));
+                  $("#viewTransceiverTemplate").find('tbody')
+                      .append(tr);
+                }
+
+              })
+        },
         bridgeTable: function() {
             var fbName = $('g.node-selected')
                 .attr('data-id');

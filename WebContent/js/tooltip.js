@@ -289,8 +289,8 @@ define(
 
                             },
                             "onClickEvent1": function() {
-                              {/*var self = this.node();
-                                var fbName = $('g.node-selected')
+                              {var self = this.node();
+                                /*var fbName = $('g.node-selected')
                                     .attr('data-id');*/}
                                 $("#pageModal")
                                     .load(
@@ -301,9 +301,9 @@ define(
                                                     'show')
 
                                             configurationEvents.init(self);
-                                            configurationEvents.savingDetails();
-                                            configurationEvents.bridgeTable();
-                                            configurationEvents.portTable();
+                                            //configurationEvents.savingDetails();
+                                            //configurationEvents.bridgeTable();
+                                            configurationEvents.templateTable();
                                         });
 
                             },
