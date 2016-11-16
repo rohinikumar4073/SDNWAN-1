@@ -48,13 +48,13 @@
 
 
 
-                    <FBForm data={this.props.children} header={this.props.title} onChangeFunction={this.setData}  handleCancel={this.handleCancel} className={this.props.template=='FBForm' ? "" :"hidden"}></FBForm>
-                    <FBFan data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBFan' ? "" :"hidden"}></FBFan>
-                    <FBOS data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBOS' ? "" :"hidden"}></FBOS>
-                    <FBPower data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBPower' ? "" :"hidden"}></FBPower>
-                    <FBTranseiver data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTranseiver' ? "" :"hidden"}></FBTranseiver>
-                    <FBTemplate data={this.props.children} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTemplate' ? "" :"hidden"}></FBTemplate>
-                    <Environment  header={this.props.title}  handleCancel={this.handleCancel}  className={this.props.template=='Environment' ? "" :"hidden"}></Environment>
+                    <FBForm data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData}  handleCancel={this.handleCancel} className={this.props.template=='FBForm' ? "" :"hidden"}></FBForm>
+                    <FBFan data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBFan' ? "" :"hidden"}></FBFan>
+                    <FBOS data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBOS' ? "" :"hidden"}></FBOS>
+                    <FBPower data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel} className={this.props.template=='FBPower' ? "" :"hidden"}></FBPower>
+                    <FBTranseiver data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTranseiver' ? "" :"hidden"}></FBTranseiver>
+                    <FBTemplate data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}  className={this.props.template=='FBTemplate' ? "" :"hidden"}></FBTemplate>
+                    <Environment  header={this.props.title}  close={this.close} handleCancel={this.handleCancel}  className={this.props.template=='Environment' ? "" :"hidden"}></Environment>
 
 
 

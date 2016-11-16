@@ -1,8 +1,7 @@
-define(['react','jsx!components/BootstrapButton','properties','toastr'], function(React,BootstrapButton,properties,toastr) {
+define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) {
 
 var FormData = React.createClass({
     onChangeFunction:function(e){
-      debugger;
                  var parnetId=e.target.getAttribute("data-parentdata")
                   if(parnetId )
                   {
@@ -23,19 +22,15 @@ this.setState({
                handleConfirm: function() {
               var self = this;
               $.ajax({
-        url: properties.templateIp+"CreateInstances",
+        url: "http://10.76.110.81:50513/FbTemplate/CreateInstances",
         type: 'post',
           data: JSON.stringify(this.state.dataToBeSend),
         contentType: "application/json; charset=utf-8",
         success: function (data) {
-                toastr.success("Success! A new instance is successfully created")
-        },
-        error: function(data){
-          toastr.error("Error! Could not create an instance")
  if (self.props.onConfirm) {
                 self.props.onConfirm(self.state.dataToBeSend);
               }
-                    }
+        }
 
 
     });

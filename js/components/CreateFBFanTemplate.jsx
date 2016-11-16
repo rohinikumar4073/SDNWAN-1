@@ -1,4 +1,4 @@
-define(['react','jsx!components/BootstrapButton','properties','toastr'], function(React,BootstrapButton,properties,toastr) { var FbFanData = React.createClass({
+define(['react','jsx!components/BootstrapButton'], function(React,BootstrapButton) { var FbFanData = React.createClass({
 
    onChangeFunction:function(e){
                  var parnetId=e.target.getAttribute("data-parentdata")
@@ -21,15 +21,14 @@ this.setState({
                   },    handleConfirm: function() {
                   var self = this;
                   $.ajax({
-            url: properties.templateIp+"createFanTemplate",
+            url: "http://10.76.110.81:50513/FbTemplate/createFanTemplate",
             type: 'post',
               data: JSON.stringify(this.state.dataToBeSend),
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                toastr.success("Success! Fan template is created")
-            },
-            error: function (data){
-              toastr.error("Error! Fan template is not created")
+     if (self.props.onConfirm) {
+                    self.props.onConfirm(self.state.dataToBeSend);
+                  }
             }
 
 
@@ -134,9 +133,9 @@ return (
 								className="form-control" id="templateCategory"></input>
 						</div>
             <div className="form-group">
-              <label for="timeStamp">Time Stamp:</label> <input onChange={this.onChangeFunction} disabled="true"
-                type="text" className="form-control" id="timeStamp" defaultValue={Date()}></input>
-
+              <label for="timeStamp">Time Stamp:</label> <input disabled="true"
+                type="text" className="form-control" id="timeStamp" defaultValue={Date()}
+                onChange={this.onChangeFunction}></input>
             </div>
 
 

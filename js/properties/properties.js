@@ -8,6 +8,7 @@ define(['socket'],function(io){
 
   var rmsIp ="http://10.76.110.81:50512/rms/";
   var templateIp = "http://10.76.110.94:50513/FbTemplate/";
+  var whiteListIp="http://10.76.110.81:50516/orchestrator/L2Policy";
   var pushTopology=   {
 "linkDetails": [
 
@@ -37,6 +38,7 @@ define(['socket'],function(io){
         createHost:swaggerIp+"orchestrator/createHost",
         nodeIp:nodeIp,
         templateIp:templateIp,
+        whiteListIp:whiteListIp,
         rmsIp:rmsIp,
         pushTopology:swaggerIp+"orchestrator/generateTopology",
         createLink:swaggerIp+"orchestrator/createLink",

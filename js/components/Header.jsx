@@ -1,6 +1,7 @@
 define([
-    'react', 'jquery', 'jsx!components/BootstrapLink'
-], function(React, $, BootstrapLink) {
+    'react', 'jquery', 'jsx!components/BootstrapLink','ReactRouter'
+], function(React, $, BootstrapLink,ReactRouter) {
+  var Link=ReactRouter.Link;
     var SearchForm = React.createClass({
         render: function() {
             return (
@@ -82,9 +83,9 @@ define([
                             </div>
                             <div id="navbar" className="collapse navbar-collapse">
                               <ul className="nav navbar-nav">
-                                <li className="active"><a href="/WebContent/">Home</a></li>
+                                <li className="active"><a href="/">Home</a></li>
 
-                                <li className=""><a href="/WebContent/MainPage.html">Policy</a></li>
+                                <li className=""><a href="/index.html">Policy</a></li>
                               </ul>
                             </div>
                             <div className="leftnav">

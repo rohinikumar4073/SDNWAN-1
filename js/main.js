@@ -31,11 +31,11 @@ shim : {
   }
 });
 
-require(['react','react-dom', 'jsx!components/Container'], function(React,ReactDom, Container) {
+require(['react','react-dom', 'jsx!components/Routing'], function(React,ReactDom, RoutingFile) {
 
-Container = React.createFactory(Container);
+RoutingFile = React.createFactory(RoutingFile);
 ReactDom.render(
-      Container(),
+      RoutingFile(),
       document.getElementById('main'));
 
 });

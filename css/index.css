@@ -512,3 +512,23 @@ header .navbar .navbar-nav{
 }header .navbar .navbar-collapse .nav.navbar-nav > li:first-child > a{
   padding-left: 10px;
 }
+.policies {
+    /* width: 90%;
+    margin: 0 7% 0 7%;
+    border: 1px solid black;*/
+}
+.policytable {
+    margin: 1% 0 0 1.1%;
+    width: 98.92%;
+}
+.policycreate {
+    float: right;
+    padding: 0 0 0 3px;
+    margin: 1% 0% 0 1%;
+}
+.polconstraint {
+
+    width: 97%;
+    margin: 0% 0 0 3%;
+
+}
