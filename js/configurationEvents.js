@@ -43,7 +43,8 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
     }
     return {
       onChangeFunction: function() {
-
+        var selected = $("input[type='radio'][name='rate']:checked").val();
+        alert(selected);
       },
         templateTable: function() {
               var getURL = properties.templateIp + "listAllTemplates";
@@ -52,7 +53,7 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                 var rows = [];
                 for(i = 0;i<result.Instances.length;i++){
                   var tr = $('<tr>')
-                  tr.append("<td> <input type='radio' name='instances' onChange={configurationEvents.onChangeFunction}> </td>");
+                  tr.append("<td> <input type='radio' name='instances' id="+result.Instances[i].name+" onChange={configurationEvents.onChangeFunction}> </td>");
                   tr.append($('<td>').append(result.Instances[i].name));
                   $("#viewInstance").find('tbody')
                       .append(tr);
