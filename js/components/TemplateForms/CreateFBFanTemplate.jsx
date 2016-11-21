@@ -1,6 +1,106 @@
 define([
-    'react', 'jsx!components/BootstrapButton', 'properties', 'toastr'
-], function(React, BootstrapButton, properties, toastr) {
+    'react', 'jsx!components/BootstrapButton', 'properties', 'toastr','react-jsonschema-form'
+], function(React, BootstrapButton, properties, toastr, Form) {
+  var JSFormTest=Form.default;
+  const schema ={
+  "definitions": {
+    "address": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Revision": {
+          "type": "string"
+        },
+        "Last Updated By": {
+          "type": "string"
+        },
+        "radio": {
+          "type": "string",
+          "title": "Status",
+          "enum": [
+            "Draft",
+            "Available",
+            "Decommissioned"
+          ]
+        },
+        "Template Category": {
+          "type": "string"
+        },
+        "Time Stamp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Name",
+        "Revision",
+        "Last Updated By"
+      ]
+    },
+    "address2": {
+      "type": "object",
+      "properties": {
+        "Manufacturer": {
+          "type": "string"
+        },
+        "Orderable Part Number": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "CLEI": {
+          "type": "string"
+        },
+        "Material ID (from Vz procurement system)": {
+          "type": "string"
+        },
+        "radio": {
+          "type": "number",
+          "title": "Status",
+          "enum": [
+            "Front-to-Back",
+            "Back-to-Front"
+          ]
+        }
+      }
+    }
+  },
+  "type": "object",
+  "properties": {
+    "billing_address": {
+      "title": "",
+      "$ref": "#/definitions/address2"
+    },
+    "Fan_Information": {
+      "title": "Fan Information",
+      "$ref": "#/definitions/address"
+    }
+  }
+};
+const uiSchema ={
+  "ui:order": [
+    "Fan_Information",
+    "billing_address"
+  ],
+  "Fan_Information": {
+    "radio": {
+      "ui:widget": "radio",
+      "ui:options": {
+        "inline": true
+      }
+    }
+  },
+  "billing_address": {
+    "radio": {
+      "ui:widget": "radio",
+      "ui:options": {
+        "inline": true
+      }
+    }
+  }
+};
     var FbFanData = React.createClass({
 
         onChangeFunction: function(e) {
@@ -39,21 +139,23 @@ this.props.close();
 
             return {
                 dataToBeSend: {
-                    "airFlow": "",
-                    "clei": "",
-                    "description": "",
-                    "manufacturer": "",
-                    "materialId": "",
-                    "orderablePartNo": "",
-                    "templateInfo": {
-                        "lastUpdatedBy": "",
-                        "name": "",
-                        "revision": "",
-                        "status": "",
-                        "templateCategory": "",
-                        "timeStamp": ""
-                    }
-                }
+  "billing_address": {
+    "Manufacturer": "",
+    "Orderable Part Number": "",
+    "Description": "",
+    "CLEI": "",
+    "Material ID (from Vz procurement system)": "",
+    "radio": "Front-to-Back"
+  },
+  "Fan_Information": {
+    "Name": "",
+    "Revision": "",
+    "Last Updated By": "",
+    "radio": "Available",
+    "Template Category": "",
+    "Time Stamp": ""
+  }
+}
 
             }
 
@@ -75,100 +177,13 @@ this.props.close();
                         <h3>{this.props.header}</h3>
                     </div>
                     <div className="modal-body">
+                      <JSFormTest schema={schema}
+                                  uiSchema={uiSchema}  onChange={console.log("changed")}
+                                   onSubmit={console.log("submitted")}
+                                   onError={console.log("errors")} />
 
-                        <div className="accordion">
 
-                            <div className="panel panel-default">
-                                <div className="panel-heading">
-                                    <h4 className="panel-title">
-                                        <a data-toggle="collapse" href="#collapseFan" aria-expanded="true">Fan Information</a>
 
-                                    </h4>
-                                </div>
-                                <div id="collapseFan" className="panel-collapse collapse in" role="tabpanel">
-                                    <div className="panel-body">
-                                        <form>
-                                            <div className="form-group">
-                                                <label for="name">Name:</label>
-                                                <input onChange={this.onChangeFunction} type="text" className="form-control" id="name"></input>
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="revision">Revision:</label>
-                                                <input onChange={this.onChangeFunction} type="text" className="form-control" id="revision"></input>
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="lastUpdatedBy">Last Updated By:</label>
-                                                <input onChange={this.onChangeFunction} type="text" className="form-control" id="lastUpdatedBy"></input>
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="status">Status:</label>
-                                                <div className="radio">
-                                                    <label>
-                                                        <input onChange={this.onChangeFunction} type="radio" name="status"></input>Draft</label>
-                                                </div>
-                                                <div className="radio">
-                                                    <label>
-                                                        <input onChange={this.onChangeFunction} type="radio" name="status"></input>Available</label>
-                                                </div>
-                                                <div className="radio">
-                                                    <label>
-                                                        <input onChange={this.onChangeFunction} type="radio" name="status"></input>Decommissioned</label>
-                                                </div>
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="templateCategory">Template Category:</label>
-                                                <input onChange={this.onChangeFunction} type="text" defaultValue="Fan" disabled="true" className="form-control" id="templateCategory"></input>
-                                            </div>
-                                            <div className="form-group">
-                                                <label for="timeStamp">Time Stamp:</label>
-                                                <input onChange={this.onChangeFunction} disabled="true" type="text" className="form-control" id="timeStamp" defaultValue={Date()}></input>
-
-                                            </div>
-
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="form-group">
-                                <label for="manufacturer">Manufacturer:</label>
-                                <input onChange={this.onChangeFunction} type="text" className="form-control" id="manufacturer"></input>
-                            </div>
-
-                            <div className="form-group">
-                                <label for="orderablePartNumber">Orderable Part Number:</label>
-                                <input onChange={this.onChangeFunction} type="text" className="form-control" id="orderablePartNumber"></input>
-                            </div>
-
-                            <div className="form-group">
-                                <label for="description">Description:</label>
-                                <input onChange={this.onChangeFunction} type="text" className="form-control" id="description"></input>
-                            </div>
-
-                            <div className="form-group">
-                                <label for="clei">CLEI:</label>
-                                <input onChange={this.onChangeFunction} type="text" className="form-control" id="clei"></input>
-                            </div>
-
-                            <div className="form-group">
-                                <label for="materialId">Material ID (from Vz procurement system):</label>
-                                <input onChange={this.onChangeFunction} type="text" className="form-control" id="materialId"></input>
-                            </div>
-
-                            <div className="form-group">
-                                <label for="airFlow">Air Flow
-                                </label>
-                                <div className="radio">
-                                    <label>
-                                        <input onChange={this.onChangeFunction} type="radio" name="airFlow"></input>Front-to-Back</label>
-                                </div>
-                                <div className="radio">
-                                    <label>
-                                        <input onChange={this.onChangeFunction} type="radio" name="airFlow"></input>Back-to-Front</label>
-                                </div>
-
-                            </div>
-                        </div>
                     </div>
                     <div className="modal-footer">
                         <div className="row">

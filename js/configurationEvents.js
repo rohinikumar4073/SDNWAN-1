@@ -47,7 +47,8 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
         alert(selected);
       },
         templateTable: function() {
-              var getURL = properties.templateIp + "listAllTemplates";
+              //var getURL = properties.templateIp + "listAllTemplates";
+              var getURL = "http://localhost:50513/FbTemplate/listAllTemplates";
               $.get(getURL, function(result) {
                 var collection = result;
                 var rows = [];

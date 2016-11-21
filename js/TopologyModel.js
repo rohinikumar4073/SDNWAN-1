@@ -48,7 +48,7 @@ define(['linkMode', 'bootstrap'], function(linkMode) {
 
             },
             getTopology:function(){
-              return this.topology();
+              return this.topology;
 
             }
         }

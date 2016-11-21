@@ -5,11 +5,14 @@ define([
 
     var Container = React.createClass({
         render: function() {
+        //  debugger;
+
             return (
                 <div>
                     <Header className="container-fluid"/>
+
                     <Body className="container-fluid"/>
-                </div>
+                     </div>
             );
         }
     });

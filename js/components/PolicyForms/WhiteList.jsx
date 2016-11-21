@@ -143,28 +143,15 @@ define([
 
                             <div className="form-group ">
 
-                                <label for="source">Source:</label>
-                                <div className="radio">
-                                    <label>
-                                        <input type="radio" name="source"></input>Prefix</label>
-                                </div>
-                                <div className="radio">
-                                    <label>
-                                        <input type="radio" name="source"></input>Node</label>
-                                </div>
+                                 
+                                <label for="source">Source Node Prefix IP:</label>
+                                <input type="text" className="form-control" id="source"></input>
                             </div>
 
-                            <div className="form-group">
 
-                                <label for="destination">Destination:</label>
-                                <div className="radio">
-                                    <label>
-                                        <input type="radio" name="destination"></input>Prefix</label>
-                                </div>
-                                <div className="radio">
-                                    <label>
-                                        <input type="radio" name="destination"></input>Node</label>
-                                </div>
+                            <div className="form-group ">
+                                <label for="destination">Destination Node Prefix IP:</label>
+                                <input type="text" className="form-control" id="destination"></input>
                             </div>
 
                             <div className="form-group ">

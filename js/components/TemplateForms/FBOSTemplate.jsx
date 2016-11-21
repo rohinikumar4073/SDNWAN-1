@@ -3,6 +3,21 @@ define([
 ], function(React, BootstrapButton, properties, toastr) {
     var FBOSData = React.createClass({
         onChangeFunction: function(e) {
+          var localArp=e.target.getAttribute("name");
+          if(localArp && localArp=="enableArp" ){
+            if(e.target.value=="true"){this.state.arpName="true";}
+            else{this.state.arpName="false";}
+          }
+
+
+
+            var localSubnet=e.target.getAttribute("name");
+            if(localSubnet && localSubnet=="enableNd" ){
+              if(e.target.value=="true"){this.state.subnetName="true";}
+              else{this.state.subnetName="false";}
+
+
+          }
             var parnetId = e.target.getAttribute("data-parentdata")
             if (parnetId) {
                 if (this.state.dataToBeSend[parnetId]) {
@@ -56,7 +71,9 @@ define([
                     "templateCategory": "",
                     "timeStamp": ""
 
-                }
+                },
+                subnetName:'',
+                arpName:''
             }
 
         },
@@ -67,6 +84,7 @@ define([
                     {this.props.confirm}
                 </BootstrapButton>
             );
+
             return (
                 <div className={this.props.className}>
                     <div className="modal-header">
@@ -197,34 +215,34 @@ define([
                                                     <label for="enableArp">Enable Local ARP Response Processing:</label>
                                                     <div className="radio">
                                                         <label>
-                                                            <input type="radio" name="enableArp" onChange={this.onChangeFunction}></input>True</label>
+                                                            <input type="radio" name="enableArp" onChange={this.onChangeFunction} value="true"></input>True</label>
                                                     </div>
                                                     <div className="radio">
                                                         <label>
-                                                            <input type="radio" name="enableArp" onChange={this.onChangeFunction}></input>False</label>
+                                                            <input type="radio" name="enableArp" onChange={this.onChangeFunction} value="false"></input>False</label>
                                                     </div>
 
                                                 </div>
                                                 <div className="form-group">
-                                                    <label for="localArp">Local ARP Response Subnet Coverage:</label>
-                                                    <input type="text" className="form-control" id="localArp" onChange={this.onChangeFunction}></input>
+                                                    <label for="localArp" className={ this.state.arpName== "true" ? "" :"hidden"}>Local ARP Response Subnet Coverage:</label>
+                                                    <input type="text" className={ this.state.arpName== "true" ? "form-control" :"hidden"} id="localArp" onChange={this.onChangeFunction}></input>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <label for="enableNd">Enable Local IPv6 ND Response Processing:</label>
                                                     <div className="radio">
                                                         <label>
-                                                            <input type="radio" name="enableNd" onChange={this.onChangeFunction}></input>True</label>
+                                                            <input type="radio"  name="enableNd" onChange={this.onChangeFunction} value="true"></input>True</label>
                                                     </div>
                                                     <div className="radio">
                                                         <label>
-                                                            <input type="radio" name="enableNd" onChange={this.onChangeFunction}></input>False</label>
+                                                            <input type="radio"  name="enableNd" onChange={this.onChangeFunction} value="false"></input>False</label>
                                                     </div>
                                                 </div>
 
                                                 <div className="form-group">
-                                                    <label for="localIpv6">Local IPv6 ND Response Subnet Coverage:</label>
-                                                    <input type="text" className="form-control" id="localIpv6" onChange={this.onChangeFunction}></input>
+                                                    <label for="localIpv6" className={ this.state.subnetName== "true" ? "" :"hidden"}>Local IPv6 ND Response Subnet Coverage:</label>
+                                                    <input type="text" className={ this.state.subnetName== "true" ? "form-control" :"hidden"} id="localIpv6" onChange={this.onChangeFunction} ></input>
                                                 </div>
 
                                                 <div className="form-group">

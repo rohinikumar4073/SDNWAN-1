@@ -31,7 +31,8 @@ shim : {
   }
 });
 
-require(['react','react-dom', 'jsx!components/Routing'], function(React,ReactDom, RoutingFile) {
+require(['react','react-dom', 'jsx!components/Routing'], function(React,ReactDom,  RoutingFile) {
+//'react-jsonschema-form',
 
 RoutingFile = React.createFactory(RoutingFile);
 ReactDom.render(
@@ -39,3 +40,7 @@ ReactDom.render(
       document.getElementById('main'));
 
 });
+//const Form = JSONSchemaForm.default;
+
+// or
+//const {default: Form} = JSONSchemaForm;
