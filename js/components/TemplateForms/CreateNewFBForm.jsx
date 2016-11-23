@@ -18,6 +18,7 @@ define([
 
             this.setState({dataToBeSend: this.state.dataToBeSend});
         },
+
         handleConfirm: function() {
             var self = this;
             $.ajax({
