@@ -2,21 +2,26 @@ define([
     'react', 'jsx!components/BootstrapButton', 'properties', 'toastr','react-jsonschema-form'
 ], function(React, BootstrapButton, properties, toastr, Form) {
   var JSFormTest=Form.default;
-  const schema ={
-  "definitions": {
-    "address": {
+  const schema = {
+  "type": "object",
+  "properties": {
+    "templateInfo": {
       "type": "object",
+      "title": "Fan Information",
       "properties": {
-        "Name": {
-          "type": "string"
+        "name": {
+          "type": "string",
+          "title": "Name"
         },
-        "Revision": {
-          "type": "string"
+        "revision": {
+          "type": "string",
+          "title": "Revision"
         },
-        "Last Updated By": {
-          "type": "string"
+        "lastUpdatedBy": {
+          "type": "string",
+          "title": "Last Updated By"
         },
-        "radio": {
+        "status": {
           "type": "string",
           "title": "Status",
           "enum": [
@@ -25,105 +30,92 @@ define([
             "Decommissioned"
           ]
         },
-        "Template Category": {
-          "type": "string"
+        "templateCategory": {
+          "type": "string",
+          "title": "Template Category"
         },
-        "Time Stamp": {
-          "type": "string"
+        "timeStamp": {
+          "type": "string",
+          "title": "Time Stamp"
         }
       },
       "required": [
-        "Name",
-        "Revision",
-        "Last Updated By"
+        "name",
+        "revision",
+        "lastUpdatedBy"
       ]
     },
-    "address2": {
-      "type": "object",
-      "properties": {
-        "Manufacturer": {
-          "type": "string"
-        },
-        "Orderable Part Number": {
-          "type": "string"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "CLEI": {
-          "type": "string"
-        },
-        "Material ID (from Vz procurement system)": {
-          "type": "string"
-        },
-        "radio": {
-          "type": "number",
-          "title": "Status",
-          "enum": [
-            "Front-to-Back",
-            "Back-to-Front"
-          ]
-        }
-      }
-    }
-  },
-  "type": "object",
-  "properties": {
-    "billing_address": {
-      "title": "",
-      "$ref": "#/definitions/address2"
+    "manufacturer": {
+      "type": "string",
+      "title": "Manufacturer"
     },
-    "Fan_Information": {
-      "title": "Fan Information",
-      "$ref": "#/definitions/address"
+    "orderablePartNo": {
+      "type": "string",
+      "title": "Orderable Part Number"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "clei": {
+      "type": "string",
+      "title": "CLEI"
+    },
+    "materialId": {
+      "type": "string",
+      "title": "Material ID (from Vz procurement system)"
+    },
+    "airFlow": {
+      "type": "string",
+      "title": "Air Flow",
+      "enum": [
+        "Front-to-Back",
+        "Back-to-Front"
+      ]
     }
   }
 };
-const uiSchema ={
-  "ui:order": [
-    "Fan_Information",
-    "billing_address"
-  ],
-  "Fan_Information": {
-    "radio": {
+
+  const uiSchema = {
+  "templateInfo": {
+    "status": {
       "ui:widget": "radio",
       "ui:options": {
         "inline": true
       }
     }
   },
-  "billing_address": {
-    "radio": {
-      "ui:widget": "radio",
-      "ui:options": {
-        "inline": true
-      }
+  "airFlow": {
+    "ui:widget": "radio",
+    "ui:options": {
+      "inline": true
     }
   }
 };
+
+
+
+
     var FbFanData = React.createClass({
 
-        onChangeFunction: function(e) {
-            var parnetId = e.target.getAttribute("data-parentdata")
-            if (parnetId) {
-                if (this.state.dataToBeSend[parnetId]) {
-                    this.state.dataToBeSend[parnetId][e.target.id] = e.target.value;
-                } else {
-                    this.state.dataToBeSend[parnetId][e.target.id] = e.target.value;
-                }
-            } else {
-                this.state.dataToBeSend[e.target.id] = e.target.value;
-            }
+        onSubmit: function(e) {
 
-            this.setState({dataToBeSend: this.state.dataToBeSend});
+          this.handleConfirm(e.formData)
+        //  for (var key in this.formData) {
+//   console.log(' name=' + key + ' value=' + thisformData[key]);
+
+   // do some more stuff with obj[key]
+//}
+
 
         },
-        handleConfirm: function() {
+        handleConfirm: function(data) {
+  
             var self = this;
-            $.ajax({
+                        $.ajax({
                 url: properties.templateIp + "createFanTemplate",
                 type: 'post',
-                data: JSON.stringify(this.state.dataToBeSend),
+                data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
                     toastr.success("Success! Fan template is created")
@@ -138,24 +130,7 @@ this.props.close();
         getInitialState: function() {
 
             return {
-                dataToBeSend: {
-  "billing_address": {
-    "Manufacturer": "",
-    "Orderable Part Number": "",
-    "Description": "",
-    "CLEI": "",
-    "Material ID (from Vz procurement system)": "",
-    "radio": "Front-to-Back"
-  },
-  "Fan_Information": {
-    "Name": "",
-    "Revision": "",
-    "Last Updated By": "",
-    "radio": "Available",
-    "Template Category": "",
-    "Time Stamp": ""
-  }
-}
+
 
             }
 
@@ -177,10 +152,13 @@ this.props.close();
                         <h3>{this.props.header}</h3>
                     </div>
                     <div className="modal-body">
+                      <div id="main"></div>
                       <JSFormTest schema={schema}
-                                  uiSchema={uiSchema}  onChange={console.log("changed")}
-                                   onSubmit={console.log("submitted")}
-                                   onError={console.log("errors")} />
+                                  uiSchema={uiSchema} onChange={this.onChangeFunction}
+                                   onSubmit={this.onSubmit}
+                                   onError={console.log("errors")}   >
+
+                                 </JSFormTest>
 
 
 
@@ -188,7 +166,7 @@ this.props.close();
                     <div className="modal-footer">
                         <div className="row">
                             <div className="col-md-12 section-divider-bottom">
-                                {confirmButton}
+
                             </div>
                         </div>
                     </div>
