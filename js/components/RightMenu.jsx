@@ -3,12 +3,15 @@ define([
     'reactDnd',
     'toastr',
     'properties',
+    'jsx!components/MultiLayeredLayout',
+    'jsx!components/DesignLayout',
     'nx',
     'ActionPanel',
     'TopologyModel',
     'MainView',
     'TopologyView'
-], function(React, reactDnd,toastr,properties) {
+
+], function(React, reactDnd,toastr,properties,MultiLayeredLayout,DesignLayout) {
     var global = nx.global;
 
     var DropTarget = reactDnd.DropTarget;
@@ -52,7 +55,11 @@ define([
         },
         getInitialState: function() {
 
-            return {showData: true, sourceData: "", destination: "",mainView:null};
+            return {showData: true, sourceData: "", destination: "",mainView:null,multiLayered:false};
+
+        },
+        setMultiLayered:function(){
+            this.setState( { multiLayered :!this.state.multiLayered});
 
         },
         componentDidMount: function() {
@@ -151,13 +158,17 @@ define([
 
                 <div className={(this.props.className || '')}>
                   <div className="float-actions">
+
                   <button type="button" className="btn btn-primary btn-sm "  onClick={this.pushTopology} >Push</button>
+                    <button type="button" className={this.state.multiLayered ? "btn btn-primary  btn-sm":"btn btn-default  btn-sm" }  onClick={this.setMultiLayered}  ><i className="fa fa-clone" aria-hidden="true"></i>
+  </button>
+
               		<button type="button" className="btn btn-default btn-sm"
               			 onClick={this.saveTopology}>Save</button>
-                  </div>
-                    <div className="layout-flex " id="layout">
+                 </div>
+                  { !this.state.multiLayered ? <DesignLayout /> : <MultiLayeredLayout /> }
 
-                    </div>
+
                 </div>
             );
         }

@@ -71,114 +71,114 @@ define([
             );
 
             return (
-                <div className={this.props.className}>
-                    <div className="modal-header">
-                        <button type="button" className="close" onClick={this.props.handleCancel}>
-                            &times;
-                        </button>
-                        <h3>{this.props.header}</h3>
-                    </div>
-                    <div className="modal-body">
+              <div className={this.props.className}>
+                  <div className="modal-header">
+                      <button type="button" className="close" onClick={this.props.handleCancel}>
+                          &times;
+                      </button>
+                      <h3>{this.props.header}</h3>
+                  </div>
+                  <div className="modal-body">
 
-                        <div className="accordion">
+                      <div className="accordion">
 
-                            <div className="panel-group">
-                                <div className="panel panel-default">
-                                    <div className="panel-heading">
-                                        <h4 className="panel-title">
-                                            <a data-toggle="collapse" href="#collapseT">Template Information</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapseT" className="panel-collapse collapse">
-                                        <div className="panel-body">
-                                            <form>
-                                                <div className="form-group">
-                                                    <label for="name">Name:</label>
-                                                    <input type="text" className="form-control" id="name" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="revision">Revision:</label>
-                                                    <input type="text" className="form-control" id="revision" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="lastUpdatedBy">Last Updated By:</label>
-                                                    <input type="text" className="form-control" id="lastUpdatedBy" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="timestamp">Time Stamp:</label>
-                                                    <input type="text" className="form-control" id="timestamp" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="status">Status:</label>
-                                                    <div className="radio">
-                                                        <label>
-                                                            <input type="radio" name="status" onChange={this.onChangeFunction}></input>Draft</label>
-                                                    </div>
-                                                    <div className="radio">
-                                                        <label>
-                                                            <input type="radio" name="status" onChange={this.onChangeFunction}></input>Available</label>
-                                                    </div>
-                                                    <div className="radio">
-                                                        <label>
-                                                            <input type="radio" name="status" onChange={this.onChangeFunction}></input>Decommissioned</label>
-                                                    </div>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="templateCategory">Template Category:</label>
-                                                    <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction}></input>
-                                                </div>
+                          <div className="panel-group">
+                              <div className="panel panel-default">
+                                  <div className="panel-heading">
+                                      <h4 className="panel-title">
+                                          <a data-toggle="collapse" href="#collapseT" aria-expanded="true">Template Information</a>
+                                      </h4>
+                                  </div>
+                                  <div id="collapseT" className="panel-collapse collapse in" role="tabpanel">
+                                      <div className="panel-body">
+                                          <form>
+                                              <div className="form-group">
+                                                  <label for="name">Name:</label>
+                                                  <input type="text" className="form-control" id="name" onChange={this.onChangeFunction}></input>
+                                              </div>
+                                              <div className="form-group">
+                                                  <label for="revision">Revision:</label>
+                                                  <input type="text" className="form-control" id="revision" onChange={this.onChangeFunction}></input>
+                                              </div>
+                                              <div className="form-group">
+                                                  <label for="lastUpdatedBy">Last Updated By:</label>
+                                                  <input type="text" className="form-control" id="lastUpdatedBy" onChange={this.onChangeFunction}></input>
+                                              </div>
+                                              <div className="form-group">
+                                                  <label for="timeStamp">Time Stamp:</label>
+                                                  <input type="text" className="form-control" id="timeStamp" onChange={this.onChangeFunction} disabled="true" defaultValue={Date()}></input>
+                                              </div>
+                                              <div className="form-group">
+                                                  <label for="status">Status:</label>
+                                                  <div className="radio">
+                                                      <label>
+                                                          <input type="radio" name="status" onChange={this.onChangeFunction}></input>Draft</label>
+                                                  </div>
+                                                  <div className="radio">
+                                                      <label>
+                                                          <input type="radio" name="status" onChange={this.onChangeFunction}></input>Available</label>
+                                                  </div>
+                                                  <div className="radio">
+                                                      <label>
+                                                          <input type="radio" name="status" onChange={this.onChangeFunction}></input>Decommissioned</label>
+                                                  </div>
+                                              </div>
+                                              <div className="form-group">
+                                                  <label for="templateCategory">Template Category:</label>
+                                                  <input type="text" className="form-control" id="templateCategory" onChange={this.onChangeFunction} defaultValue="Transeiver" disabled="true"></input>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
 
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                          <div className="form-group">
+                              <label for="manufacturer">Manufacturer:</label>
+                              <input type="text" className="form-control" id="manufacturer" onChange={this.onChangeFunction}></input>
+                          </div>
 
-                            <div className="form-group">
-                                <label for="manufacturer">Manufacturer:</label>
-                                <input type="text" className="form-control" id="manufacturer" onChange={this.onChangeFunction}></input>
-                            </div>
+                          <div className="form-group">
+                              <label for="orderablePartNumber">Orderable Part Number:</label>
+                              <input type="text" className="form-control" id="orderablePartNumber" onChange={this.onChangeFunction}></input>
+                          </div>
 
-                            <div className="form-group">
-                                <label for="orderablePartNumber">Orderable Part Number:</label>
-                                <input type="text" className="form-control" id="orderablePartNumber" onChange={this.onChangeFunction}></input>
-                            </div>
+                          <div className="form-group">
+                              <label for="description">Description:</label>
+                              <input type="text" className="form-control" id="description" onChange={this.onChangeFunction}></input>
+                          </div>
 
-                            <div className="form-group">
-                                <label for="description">Description:</label>
-                                <input type="text" className="form-control" id="description" onChange={this.onChangeFunction}></input>
-                            </div>
+                          <div className="form-group">
+                              <label for="supplier">Supplier:</label>
+                              <input type="text" className="form-control" id="supplier" onChange={this.onChangeFunction}></input>
+                          </div>
 
-                            <div className="form-group">
-                                <label for="supplier">Supplier:</label>
-                                <input type="text" className="form-control" id="supplier" onChange={this.onChangeFunction}></input>
-                            </div>
+                          <div className="form-group">
+                              <label for="supplierNo">Supplier Part Number:</label>
+                              <input type="text" className="form-control" id="supplierNo" onChange={this.onChangeFunction}></input>
+                          </div>
 
-                            <div className="form-group">
-                                <label for="supplierNo">Supplier Part Number:</label>
-                                <input type="text" className="form-control" id="supplierNo" onChange={this.onChangeFunction}></input>
-                            </div>
+                          <div className="form-group">
+                              <label for="clei">CLEI:</label>
+                              <input type="text" className="form-control" id="clei" onChange={this.onChangeFunction}></input>
+                          </div>
 
-                            <div className="form-group">
-                                <label for="clei">CLEI:</label>
-                                <input type="text" className="form-control" id="clei" onChange={this.onChangeFunction}></input>
-                            </div>
+                          <div className="form-group">
+                              <label for="materialId">Material ID (from Vz procurement system):</label>
+                              <input type="text" className="form-control" id="materialId" onChange={this.onChangeFunction}></input>
+                          </div>
 
-                            <div className="form-group">
-                                <label for="materialId">Material ID (from Vz procurement system):</label>
-                                <input type="text" className="form-control" id="materialId" onChange={this.onChangeFunction}></input>
-                            </div>
+                      </div>
+                  </div>
+                  <div className="modal-footer">
+                      <div className="row">
+                          <div className="col-md-12 section-divider-bottom">
+                              {confirmButton}
+                          </div>
+                      </div>
+                  </div>
+              </div>
 
-                        </div>
-                    </div>
-                    <div className="modal-footer">
-                        <div class="row">
-                            <div class="col-md-12 section-divider-bottom">
-                                {confirmButton}
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             )
         }

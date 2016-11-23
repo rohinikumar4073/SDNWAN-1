@@ -21,7 +21,8 @@ shim : {
     "nx":"next",
     "properties":"properties/properties",
     "socket":"socket.io-1.4.5",
-    "toastr":"toastr.min"
+    "toastr":"toastr.min",
+    "three":"three.min"
   },
 
   jsx: {
