@@ -8,7 +8,8 @@ shim : {
         "TopologyModel" : { "deps" :['nx'] },
         "MainView" : { "deps" :['nx'] },
         "ActionPanel":{ "deps" :['nx'] },
-        "configurationEvents":{ "deps" :['jquery.spin','properties'] }
+        "configurationEvents":{ "deps" :['jquery.spin','properties'] },
+        "OrbitControls":{"deps":["three"]}
     },
   paths: {
     "react": "react.min",
@@ -22,7 +23,8 @@ shim : {
     "properties":"properties/properties",
     "socket":"socket.io-1.4.5",
     "toastr":"toastr.min",
-    "three":"three.min"
+    "three":"three.min",
+    "OrbitControls":"threejs/controls/OrbitControls"
   },
 
   jsx: {

@@ -19,13 +19,16 @@ define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!compone
             $(this.refs.root).modal('hide');
         },
         open: function() {
-            $('#add-node-form')[0].reset();
-            $('#add-node-os')[0].reset();
-            $('#add-node-pp')[0].reset();
-            $('#add-node-host')[0].reset();
-
-
-
+            if(this.props.iconType=='fb-icon'){
+              $('#add-node-form')[0].reset();
+            } else if (this.props.iconType=='patch-panel') {
+              $('#add-node-pp')[0].reset();
+            }else if (this.props.iconType=='optical-switch') {
+              $('#add-node-os')[0].reset();
+            }else if (this.props.iconType=='host') {
+              $('#add-node-host')[0].reset();
+            }
+            
             $(this.refs.root).modal('show');
         },
 
@@ -33,10 +36,18 @@ define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!compone
             return (
                 <div className="modal fade" ref="root">
                     <div className="modal-dialog">
-                      <CreateFBComponent close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='fb-icon' ? "" :"hidden"} ></CreateFBComponent>
-                        <CreatePatchPanel close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='patch-panel' ? "" :"hidden"}></CreatePatchPanel>
-                          <CreateHost close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='host' ? "" :"hidden"}></CreateHost>
-                            <CreateOpticalSwitch close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} className={this.props.iconType=='optical-switch' ? "" :"hidden"} ></CreateOpticalSwitch>
+
+                      {this.props.iconType=='fb-icon'
+                      ? <CreateFBComponent close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
+                      : (this.props.iconType=='patch-panel'
+                  ? <CreatePatchPanel close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
+                  : (this.props.iconType=='host'
+              ? <CreateHost close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
+              : (this.props.iconType=='optical-switch'
+          ? <CreateOpticalSwitch close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
+          : ""
+      )))}
+
 
 
                   </div>

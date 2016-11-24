@@ -1,11 +1,118 @@
 define([
-    'react', 'jsx!components/BootstrapButton', 'properties', 'toastr'
+    'react', 'jsx!components/BootstrapButton', 'properties', 'toastr','bootstrap'
 ], function(React, BootstrapButton, properties, toastr) {
-    var SampleText = React.createClass({
+
+    var EthernetData = React.createClass({
+
         render: function() {
             return (
-                <div>
-                    <p>write your design code here</p>
+                <div className="power">
+                <div className="form-group">
+                    <label for="ethernetManagementInterfaceIdentifier">Ethernet Management Interface Identifier/Label #{this.props.index}:</label>
+                    <input type="text" className="form-control" id="ethernetManagementInterfaceIdentifier" onChange={this.onChangeFunction}></input>
+                </div>
+                <div className="form-group">
+                    <label for="connectionType">Connection Type #{this.props.index}:</label>
+                    <input type="text" className="form-control" id="connectionType" onChange={this.onChangeFunction}></input>
+                </div>
+                </div>
+            )
+        }
+    });
+
+
+    var ConsoleData = React.createClass({
+
+        render: function() {
+            return (
+                <div className="power">
+                <div className="form-group">
+                    <label for="ethernetManagementInterfaceIdentifier">Ethernet Management Interface Identifier/Label #{this.props.index}:</label>
+                    <input type="text" className="form-control" id="ethernetManagementInterfaceIdentifier" onChange={this.onChangeFunction}></input>
+                </div>
+                <div className="form-group">
+                    <label for="connectionType">Connection Type #{this.props.index}:</label>
+                    <input type="text" className="form-control" id="connectionType" onChange={this.onChangeFunction}></input>
+                </div>
+                </div>
+            )
+        }
+    });
+
+
+    var DataPlane = React.createClass({
+        getInitialState:function(){
+          return({
+            interface:""
+          })
+
+        },
+        onChangeFunction:function(e){
+          var interType = e.target.getAttribute("name");
+          if (interType && interType == "interfaceType") {
+              if (e.target.value == "QSFP+ 40GbE") {
+                  this.setState({interface:"true"});
+              } else {
+                  this.setState({interface:"false"});
+              }
+          }
+        },
+        render: function() {
+
+            return (
+                <div className="power">
+                <div className="form-group">
+                    <label for="interfaceType">Interface Type #{this.props.index}:</label>
+                    <div className="radio">
+                        <label>
+                            <input type="radio" name="interfaceType" onChange={this.onChangeFunction} value="SFP+ 1/10GbE"></input>
+                            SFP+ 1/10GbE</label>
+
+                    </div>
+                    <div className="radio">
+                        <label>
+                            <input type="radio" name="interfaceType" onChange={this.onChangeFunction} value="QSFP+ 40GbE"></input>QSFP+ 40GbE
+                        </label>
+                    </div>
+
+                </div>
+
+                <div className="form-group">
+                    <label for="dataPlaneInterfaceIdentifier">Data Plane Interface Identifier/Label #{this.props.index}:</label>
+                    <input type="text" className="form-control" id="dataPlaneInterfaceIdentifier" onChange={this.onChangeFunction}></input>
+                </div>
+                <div className="form-group">
+                    <label for="breakoutConnectorDataPlaneInterfaceIdentifier1" className={this.state.interface == "true"
+                        ? ""
+                        : "hidden"}>Breakout Connector #1 Data Plane Interface Identifier/Label:</label>
+                    <input type="text" className={this.state.interface == "true"
+                        ? "form-control"
+                        : "hidden"} id="breakoutConnectorDataPlaneInterfaceIdentifier1" onChange={this.onChangeFunction}></input>
+                </div>
+                <div className="form-group">
+                    <label for="breakoutConnectorDataPlaneInterfaceIdentifier2" className={this.state.interface == "true"
+                        ? ""
+                        : "hidden"}>Breakout Connector #2 Data Plane Interface Identifier/Label:</label>
+                    <input type="text" className={this.state.interface == "true"
+                        ? "form-control"
+                        : "hidden"} id="breakoutConnectorDataPlaneInterfaceIdentifier2" onChange={this.onChangeFunction}></input>
+                </div>
+                <div className="form-group">
+                    <label for="breakoutConnectorDataPlaneInterfaceIdentifier3" className={this.state.interface == "true"
+                        ? ""
+                        : "hidden"}>Breakout Connector #3 Data Plane Interface Identifier/Label:</label>
+                    <input type="text" className={this.state.interface == "true"
+                        ? "form-control"
+                        : "hidden"} id="breakoutConnectorDataPlaneInterfaceIdentifier3" onChange={this.onChangeFunction}></input>
+                </div>
+                <div className="form-group">
+                    <label for="breakoutConnectorDataPlaneInterfaceIdentifier4" className={this.state.interface == "true"
+                        ? ""
+                        : "hidden"}>Breakout Connector #4 Data Plane Interface Identifier/Label :</label>
+                    <input type="text" className={this.state.interface == "true"
+                        ? "form-control"
+                        : "hidden"} id="breakoutConnectorDataPlaneInterfaceIdentifier4" onChange={this.onChangeFunction}></input>
+                </div>
                 </div>
             )
         }
@@ -56,16 +163,29 @@ define([
             var interType = e.target.getAttribute("name");
             if (interType && interType == "interfaceType") {
                 if (e.target.value == "QSFP+ 40GbE") {
-                    this.state.interface = "true";
+                    this.props.interface = "true";
                 } else {
-                    this.state.interface = "false";
+                    this.props.interface = "false";
+                }
+            }
+
+
+            var ethernet = e.target.getAttribute("id");
+            if (ethernet && ethernet == "ethernetManagementInterfaces") {
+                var val = e.target.value;
+
+                this.state.ethernetSlots = [];
+                for (var i = 0; i < val; i++) {
+                    console.log("Power   " + i)
+                    this.state.ethernetSlots.push(i);
+
                 }
             }
 
             var power = e.target.getAttribute("id");
             if (power && power == "powerSupplySlots") {
                 var val = e.target.value;
-                var rows = [];
+
                 this.state.powerSupply = [];
                 for (var i = 0; i < val; i++) {
                     console.log("Power   " + i)
@@ -77,7 +197,7 @@ define([
             var fanSlots = e.target.getAttribute("id");
             if (fanSlots && fanSlots == "fanSlots") {
                 var val = e.target.value;
-                var rows = [];
+
                 this.state.fan = [];
                 for (var i = 0; i < val; i++) {
                     console.log("Fan   " + i)
@@ -136,6 +256,7 @@ define([
                 powerSupply: [],
                 fan: [],
                 elements: [],
+                ethernetSlots:[],
                 dataToBeSend: {
 
                     "airFlow": "",
@@ -196,7 +317,9 @@ define([
                     "weight": ""
 
                 },
-                interface: ''
+                interface:''
+
+
 
             }
         },
@@ -221,10 +344,10 @@ define([
                                 <div className="panel panel-default">
                                     <div className="panel-heading">
                                         <h4 className="panel-title">
-                                            <a data-toggle="collapse" href="#collapseFB1" aria-expanded="true">Template Information</a>
+                                            <a data-toggle="collapse" data-target="#collapseFB1" aria-expanded="true">Template Information</a>
                                         </h4>
                                     </div>
-                                    <div id="collapseFB1" className="panel-collapse collapse in" role="tabpanel">
+                                    <div id="collapseFB1" className=" collapse " role="tabpanel">
                                         <div className="panel-body">
                                             <form>
                                                 <div className="form-group">
@@ -449,97 +572,30 @@ define([
                                         <div className="panel-body">
                                             <form>
                                                 <div className="form-group">
-                                                    <label for="interfaceNo"># Data Plane Interfaces:</label>
+                                                    <label for="interfaceNo">Number of Data Plane Interfaces:</label>
                                                     <input type="text" className="form-control" id="interfaceNo" onChange={this.onChangeFunction}></input>
                                                 </div>
                                                 {this.state.elements.map(function(element, i) {
-                                                    return <SampleText data={i}/>
+                                                    return <DataPlane index={i + 1 }/>
                                                 })
 }
-                                                <div className="form-group">
-                                                    <label for="interfaceType">Interface Type:</label>
-                                                    <div className="radio">
-                                                        <label>
-                                                            <input type="radio" name="interfaceType" onChange={this.onChangeFunction} vlaue="SFP+ 1/10GbE"></input>
-                                                            SFP+ 1/10GbE</label>
 
-                                                    </div>
-                                                    <div className="radio">
-                                                        <label>
-                                                            <input type="radio" name="interfaceType" onChange={this.onChangeFunction} value="QSFP+ 40GbE"></input>QSFP+ 40GbE
-                                                        </label>
-                                                    </div>
-
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label for="dataPlaneInterfaceIdentifier">Data Plane Interface Identifier/Label:</label>
-                                                    <input type="text" className="form-control" id="dataPlaneInterfaceIdentifier" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="breakoutConnectorDataPlaneInterfaceIdentifier1" className={this.state.interface == "true"
-                                                        ? ""
-                                                        : "hidden"}>Breakout Connector #1 Data Plane Interface Identifier/Label:</label>
-                                                    <input type="text" className={this.state.interface == "true"
-                                                        ? "form-control"
-                                                        : "hidden"} id="breakoutConnectorDataPlaneInterfaceIdentifier1" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="breakoutConnectorDataPlaneInterfaceIdentifier2" className={this.state.interface == "true"
-                                                        ? ""
-                                                        : "hidden"}>Breakout Connector #2 Data Plane Interface Identifier/Label:</label>
-                                                    <input type="text" className={this.state.interface == "true"
-                                                        ? "form-control"
-                                                        : "hidden"} id="breakoutConnectorDataPlaneInterfaceIdentifier2" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="breakoutConnectorDataPlaneInterfaceIdentifier3" className={this.state.interface == "true"
-                                                        ? ""
-                                                        : "hidden"}>Breakout Connector #3 Data Plane Interface Identifier/Label:</label>
-                                                    <input type="text" className={this.state.interface == "true"
-                                                        ? "form-control"
-                                                        : "hidden"} id="breakoutConnectorDataPlaneInterfaceIdentifier3" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="breakoutConnectorDataPlaneInterfaceIdentifier4" className={this.state.interface == "true"
-                                                        ? ""
-                                                        : "hidden"}>Breakout Connector #4 Data Plane Interface Identifier/Label:</label>
-                                                    <input type="text" className={this.state.interface == "true"
-                                                        ? "form-control"
-                                                        : "hidden"} id="breakoutConnectorDataPlaneInterfaceIdentifier4" onChange={this.onChangeFunction}></input>
-                                                </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
-                                <form>
+
                                     <div className="form-group">
-                                        <label for="ethernetManagementInterfaces">Ethernet Management Interfaces:</label>
+                                        <label for="ethernetManagementInterfaces">Number of Ethernet Management Interfaces:</label>
                                         <input type="text" className="form-control" id="ethernetManagementInterfaces" onChange={this.onChangeFunction}></input>
                                     </div>
-                                </form>
+                                    {this.state.ethernetSlots.map(function(element, i) {
+                                        return <EthernetData index={i + 1}/>
+                                    })
+                                  }
 
-                                <div className="panel panel-default">
-                                    <div className="panel-heading">
-                                        <h4 className="panel-title">
-                                            <a data-toggle="collapse" href="#collapse5" aria-expanded="true">Ethernet Management Interface Info</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse5" className="panel-collapse collapse in" role="tabpanel">
-                                        <div className="panel-body">
-                                            <form>
-                                                <div className="form-group">
-                                                    <label for="ethernetManagementInterfaceIdentifier">Ethernet Management Interface Identifier/Label:</label>
-                                                    <input type="text" className="form-control" id="ethernetManagementInterfaceIdentifier" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="connectionType">Connection Type:</label>
-                                                    <input type="text" className="form-control" id="connectionType" onChange={this.onChangeFunction}></input>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+
+
                                 <form>
                                     <div className="form-group">
                                         <label for="consoleInterfaces">Console/Craft Interfaces:</label>
