@@ -1,66 +1,89 @@
-define(['socket'],function(io){
-  var swaggerIp="http://localhost:50514/";
-  var templateIp = "http://localhost:50513/FbTemplate/";
-  var whiteListIp="http://localhost:50516/orchestrator/L2Policy";
+define(['socket'], function(io) {
+    var orchestratorIp = "http://10.76.110.81:50516/orchestrator";
+    var templateIp = "http://10.76.110.78:50518/FbTemplate";
+    var rmsIp = "http://localhost:50512/rms/";
+    var nodeIp = "http://localhost:9090";
 
-  // var nodeIp="http://localhost:9090";
-  //
- var rmsIp ="http://localhost:50512/rms/";
-//  var swaggerIp="http://10.76.110.81:50514/";
-  var nodeIp="http://localhost:9090";
+    var whiteListIp = orchestratorIp + "/L2Policy";
+    var vpnPolicyIp = orchestratorIp + "/l2VpnPolicy";
+    var getAllIp = orchestratorIp + "/ipAvailability";
+    var getDynamicIp = orchestratorIp + "/dynamicBandwidth";
+    var getAllL2 = orchestratorIp + "/getAllL2Policy";
+    var getAllVpn = orchestratorIp + "/getAllVpnPolicy";
 
-  //var rmsIp ="http://10.76.110.81:50512/rms/";
-  //var whiteListIp="http://10.76.110.81:50516/orchestrator/L2Policy";
-//  var rmsIp ="http://10.76.110.81:50512/rms/";
-  //var templateIp = "http://10.76.110.94:50513/FbTemplate/";
-//  var whiteListIp="http://10.76.110.81:50516/orchestrator/L2Policy";
+    var vpnBgpIp = orchestratorIp + "/vpnBgp";
+    var bgpRoutingIp = orchestratorIp + "/bgpRouting";
+    var vpnBgpSessionIp = orchestratorIp + "/vpnBgpSession";
+    var getAllPowerIp = templateIp + "/getAllPowerSupply";
+    var getAllFanIp = templateIp + "/getAllFan";
+    var getAllosIp = templateIp + "/getAllOs";
+    var getAllTransIp = templateIp + "/getAllTrans";
 
-  var pushTopology=   {
-"linkDetails": [
+    var topologyData = null;
+    var pushTopology = {
+        "linkDetails": [
 
-],
-"nodeDetails": [
+        ],
+        "nodeDetails": [
 
-]
-};
+        ]
+    };
 
-    var socket = io.connect('http://localhost:9090');
+    var socket = io.connect(nodeIp);
     return {
-        addNode:function(id,type){
-          pushTopology.nodeDetails.push({
-            "id": id,
-            "type": type
-          })
+        saveTopologyData: function(data) {
+            topologyData = data;
+        },
+        getTopologyData: function() {
+            return topologyData;
+        },
+        addNode: function(id, type) {
+            pushTopology.nodeDetails.push({
+                "id": id,
+                "type": type
+            })
 
-      },
-        addLink:function(link){
+        },
+        addLink: function(link) {
             pushTopology.linkDetails.push({
-            "linkId": link
-          })
+                "linkId": link
+            })
         },
-        getTopologyPush:function(){
-          return pushTopology;
+        getTopologyPush: function() {
+            return pushTopology;
         },
-        createHost:swaggerIp+"orchestrator/createHost",
-        nodeIp:nodeIp,
-        templateIp:templateIp,
-        whiteListIp:whiteListIp,
-        rmsIp:rmsIp,
-        pushTopology:swaggerIp+"orchestrator/generateTopology",
-        createLink:swaggerIp+"orchestrator/createLink",
-        socket:function(){
-          if(socket){
-            if(socket.disconnected){
-                var socket = io.connect('http://localhost:9090');
+        createHost: orchestratorIp + "/createHost",
+        nodeIp: nodeIp,
+        templateIp: templateIp + '/',
+        whiteListIp: whiteListIp,
+        getAllPowerIp: getAllPowerIp,
+        getAllFanIp: getAllFanIp,
+        getAllosIp: getAllosIp,
+        getAllTransIp: getAllTransIp,
+        getAllIp: getAllIp,
+        getDynamicIp: getDynamicIp,
+        getAllL2: getAllL2,
+        vpnPolicyIp: vpnPolicyIp,
+        getAllVpn: getAllVpn,
+        vpnBgpIp: vpnBgpIp,
+        bgpRoutingIp: bgpRoutingIp,
+        vpnBgpSessionIp: vpnBgpSessionIp,
+        rmsIp: rmsIp,
+        pushTopology: orchestratorIp + "/generateTopology",
+        createLink: orchestratorIp + "/createLink",
+        socket: function() {
+            if (socket) {
+                if (socket.disconnected) {
+                    var socket = io.connect('http://localhost:9090');
+                    return socket;
+                }
                 return socket;
+            } else {
+                var socket = io.connect('http://localhost:9090');
             }
             return socket;
-          }else{
-                var socket = io.connect('http://localhost:9090');
-          }
-          return socket;
         },
-        envSettings:swaggerIp+"orchestrator/ipDetails"
+        envSettings: orchestratorIp + "/ipDetails"
 
     };
 

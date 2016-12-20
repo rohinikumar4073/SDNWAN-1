@@ -1,0 +1,201 @@
+{
+  "type": "object",
+  "properties": {
+    "templateInfo": {
+      "type": "object",
+      "title": "Template Information",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name"
+        },
+        "revision": {
+          "type": "string",
+          "title": "Revision"
+        },
+        "lastUpdatedBy": {
+          "type": "string",
+          "title": "Last Updated By"
+        },
+        "timeStamp": {
+          "type": "string",
+          "title": "Time Stamp",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "enum": [
+            "Draft",
+            "Available",
+            "Decommissioned"
+          ]
+        },
+        "templateCategory": {
+          "type": "string",
+          "title": "Template Category"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "osIdentifierOS": {
+      "type": "string",
+      "title": "OS Identifier/Label"
+    },
+    "manufacturerOS": {
+      "type": "string",
+      "title": "Manufacturer"
+    },
+    "versionOS": {
+      "type": "string",
+      "title": "Version"
+    },
+    "imageFileNameOS": {
+      "type": "string",
+      "title": "Image File Name"
+    },
+    "orderablePartNumberOS": {
+      "type": "string",
+      "title": "Orderable Part Number"
+    },
+    "descriptionOS": {
+      "type": "string",
+      "title": "Description"
+    },
+    "materialIdOS": {
+      "type": "string",
+      "title": "Material ID (from Vz procurement system)"
+    },
+    "openFlowVersionOS": {
+      "type": "string",
+      "title": "OpenFlow Protocol Version(s) Supported",
+      "enum": [
+        "1.3",
+        "1.5"
+      ]
+    },
+    "linuxVersionOS": {
+      "type": "string",
+      "title": "Linux kernel version"
+    },
+    "linuxBaseOS": {
+      "type": "string",
+      "title": "Linux Distribution base"
+    },
+    "osconfiguration": {
+      "type": "object",
+      "title": "OS Configuration",
+      "properties": {
+        "enableArp": {
+          "type": "boolean",
+          "title": "Enable Local ARP Response Processing"
+        },
+        "enableNd": {
+          "type": "boolean",
+          "title": "Enable Local IPv6 ND Response Processing"
+        },
+        "queryInterval": {
+          "type": "string",
+          "title": "FB & SFP Inventory Query Interval(sec)"
+        },
+        "interfaceInterval": {
+          "type": "string",
+          "title": "Interface and Flow Counter Query Interval(sec)"
+        },
+        "alarmHistory": {
+          "type": "string",
+          "title": "Alarm History",
+          "enum": [
+            "Enabled",
+            "Disabled"
+          ]
+        },
+        "alarmHigh": {
+          "type": "string",
+          "title": "Alarm High Temperature(F Degrees)"
+        },
+        "alarmLow": {
+          "type": "string",
+          "title": "Alarm Low Temperature(F Degrees)"
+        },
+        "puppet": {
+          "type": "boolean",
+          "title": "Puppet Agent Utilized"
+        }
+      }
+    }
+  }
+}
+
+
+
+
+{
+  "templateInfo": {
+    "status": {
+      "ui:widget": "radio",
+      "ui:options": {
+        "inline": true
+      }
+    },
+    "timeStamp": {},
+    "templateCategory": {
+      "ui:disabled": true
+    }
+  },
+  "openFlowVersionOS": {
+    "ui:widget": "radio",
+    "ui:options": {
+      "inline": true
+    }
+  },
+  "osconfiguration": {
+    "enableArp": {
+      "ui:widget": "radio"
+    },
+    "enableNd": {
+      "ui:widget": "radio"
+    },
+    "alarmHistory": {
+      "ui:widget": "radio"
+    },
+    "puppet": {
+      "ui:widget": "radio"
+    }
+  }
+}
+
+
+
+{
+  "templateInfo": {
+    "name": "t",
+    "revision": "a",
+    "lastUpdatedBy": "a",
+    "status": "Available",
+    "templateCategory": "",
+    "timeStamp": ""
+  },
+  "osIdentifierOS": "a",
+  "manufacturerOS": "a",
+  "versionOS": "a",
+  "imageFileNameOS": "a",
+  "orderablePartNumberOS": "a",
+  "descriptionOS": "a",
+  "materialIdOS": "a",
+  "openFlowVersionOS": "1.5",
+  "linuxVersionOS": "a",
+  "linuxBaseOS": "a",
+  "osconfiguration": {
+    "enableArp": true,
+    "enableNd": false,
+    "queryInterval": "a",
+    "interfaceInterval": "a",
+    "alarmHistory": "Disabled",
+    "alarmHigh": "a",
+    "alarmLow": "a",
+    "puppet": true
+  }
+}

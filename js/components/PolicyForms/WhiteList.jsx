@@ -1,5 +1,5 @@
 define([
-    'react', 'jquery', 'properties','toastr'
+    'react', 'jquery', 'properties', 'toastr'
 ], function(React, $, properties, toastr) {
 
     var BootstrapButton = React.createClass({
@@ -13,7 +13,21 @@ define([
     });
 
     var CreateWhiteList = React.createClass({
+
+        componentDidMount: function() {
+
+            var getAllIpURL = properties.getAllIp;
+            var self = this;
+            $.get(getAllIpURL, function(IpResult) {
+                var ipCollection = IpResult;
+                var rows = [];
+                self.setState({getAllIp: IpResult});
+                console.log(Object.keys(this.state.getAllIp));
+
+            })
+        },
         onChangeFunction: function(e) {
+
             var parnetId = e.target.getAttribute("data-parentdata")
             if (parnetId) {
                 if (this.state.dataToBeSend[parnetId]) {
@@ -41,56 +55,45 @@ define([
                 error: function(data) {
                     toastr.error("Error! Whitelist policy is not created")
                 }
-          });
-          this.props.close();
-
-
+            });
+            this.props.close();
 
         },
         getInitialState: function() {
 
             return {
+                getAllIp: [],
                 dataToBeSend: {
-                    "flow-attributes": {
-                        "bandwidth-limit": -1,
-                        "kind": "",
-                        "traffic-priority": -1
-                    },
-                    "flow-spec": {
-                        "destination": {
-                            "ip-prefix": "",
-                            "ipPrefix": ""
-                        },
-                        "source": {
-                            "ip-prefix": "",
-                            "ipPrefix": ""
-                        }
-                    },
-                    "path-bundle": [
-                        {
-                            "bundle-id": "",
-                            "bundleId": "",
-                            "constraints": {
-                                "default-use": "",
-                                "defaultUse": "",
-                                "element-policy": [
-                                    {
-                                        "id": "",
-                                        "type": "",
-                                        "use-override": ""
-                                    }
-                                ],
-                                "max-path-cost": "",
-                                "maxPathCost": "",
-                                "segment-policy": [{}]
-                            },
-                            "role": ""
-                        }
-                    ],
-                    "policy-id": "",
-                    "priority": -1
-                }
 
+                    "policy": [
+                        {
+                            "flow-attributes": {
+                                "kind": ""
+                            },
+                            "flow-spec": {
+                                "destination": {
+                                    "ip-prefix": ""
+                                },
+                                "source": {
+                                    "ip-prefix": ""
+                                }
+                            },
+                            "path-bundle": [
+                                {
+                                    "bundle-id": "",
+                                    "constraints": {
+                                        "default-use": "",
+                                        "max-path-cost": 0
+                                    },
+                                    "role": ""
+                                }
+                            ],
+                            "policy-id": "",
+                            "policy-version": "",
+                            "priority": 0
+                        }
+                    ]
+                }
             }
 
         },
@@ -106,13 +109,11 @@ define([
         },
 
         render: function() {
-          confirmButton = (
-                            <BootstrapButton
-                            onClick={this.handleConfirm}
-                            className="btn  btn-primary btn-sm" data="Create New">
-                            {this.props.confirm}
-                            </BootstrapButton>
-                            );
+            confirmButton = (
+                <BootstrapButton onClick={this.handleConfirm} className="btn  btn-primary btn-sm" data="Create New">
+                    {this.props.confirm}
+                </BootstrapButton>
+            );
 
             return (
 
@@ -120,59 +121,61 @@ define([
                     <div className="modal-header">
                         <button type="button" className="close" onClick={this.props.handleCancel}>
                             &times;</button>
-                          <h3>{this.props.header}</h3>
+                        <h3>{this.props.header}</h3>
                     </div>
 
                     <div className="modal-body">
-
                         <div>
-
                             <div className="well well-sm ">Configure Packet Policy</div>
-
+                              <div className="form-group">
+                                  <label for="label">Label:</label>
+                                  <input type="text" className="form-control" id="label"></input>
+                              </div>
                             <div className="form-group">
                                 <label for="policyId">Policy ID:</label>
                                 <input type="text" className="form-control" id="policyId"></input>
                             </div>
-
                             <div className="form-group ">
                                 <label for="policyPripority">Policy Pripority:</label>
                                 <input type="text" className="form-control" id="policyPripority"></input>
                             </div>
-
                             <div className="well well-sm">Flow Spec</div>
-
                             <div className="form-group ">
-
-                                 
                                 <label for="source">Source Node Prefix IP:</label>
-                                <input type="text" className="form-control" id="source"></input>
+                                <select className="form-control" id="source" onChange={this.onChangeFunction}>
+                                    {Object.keys(this.state.getAllIp).map(function(key) {
+                                        return (
+                                            <option value={this.state.getAllIp[key]}>{this.state.getAllIp[key]}</option>
+                                        )
+                                    }.bind(this))
+}
+                                </select>
                             </div>
-
-
                             <div className="form-group ">
                                 <label for="destination">Destination Node Prefix IP:</label>
-                                <input type="text" className="form-control" id="destination"></input>
+                                <select className="form-control" id="destination" onChange={this.onChangeFunction}>
+                                    {Object.keys(this.state.getAllIp).map(function(key) {
+                                        return (
+                                            <option value={this.state.getAllIp[key]}>{this.state.getAllIp[key]}</option>
+                                        )
+                                    }.bind(this))
+}
+                                </select>
                             </div>
-
                             <div className="form-group ">
                                 <label for="ipProtocol">IP Protocol:</label>
                                 <input type="text" className="form-control" id="ipProtocol"></input>
                             </div>
-
                             <div className="form-group">
                                 <label for="sourcePort">Source Port Range:</label>
                                 <input type="text" className="form-control" id="sourcePort"></input>
                             </div>
-
                             <div className="form-group">
                                 <label for="destPort">Destination Port Range:</label>
                                 <input type="text" className="form-control" id="destPort"></input>
                             </div>
-
                             <div className="well well-sm ">Flow Attributes</div>
-
                             <div className="form-group">
-
                                 <div className="radio">
                                     <label for="unidirec">
                                         <input type="radio" name="unidirec"></input>Unidirectional</label>
@@ -182,17 +185,14 @@ define([
                                         <input type="radio" name="unidirec"></input>Bidirectional</label>
                                 </div>
                             </div>
-
                             <div className="form-group ">
                                 <label for="trafficPolicy">Traffic Policy:</label>
                                 <input type="text" className="form-control" id="trafficPolicy"></input>
                             </div>
-
                             <div className="form-group ">
                                 <label for="bandwidthLimit">Bandwidth Limit:</label>
                                 <input type="text" className="form-control" id="bandwidthLimit"></input>
                             </div>
-
                             <div className="accordion">
                                 <div className="panel-group">
                                     <div className="panel panel-default">
@@ -273,7 +273,7 @@ define([
                     <div className="modal-footer">
                         <div class="row">
                             <div class="col-md-12 section-divider-bottom">
-                                 {confirmButton}
+                                {confirmButton}
                             </div>
                         </div>
                     </div>

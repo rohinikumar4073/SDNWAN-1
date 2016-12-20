@@ -23,6 +23,7 @@ var BootstrapLink = React.createClass({
           onHidden={this.handleModalDidClose}
           title={"Create "+this.props.heading}
           template={this.props.template}
+          data={this.props.data}
           >
 
           </BootstrapModal>
@@ -31,6 +32,7 @@ var BootstrapLink = React.createClass({
           </div>
           );
         },
+
         openModal: function() {
           $(".link").find(".modal").appendTo("body");
           this.refs.modal.open();

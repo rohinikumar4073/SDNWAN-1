@@ -19,7 +19,7 @@ define([
         },
 
         componentWillUnmount: function() {
-            this.serverRequest.abort();
+        //    this.serverRequest.abort();
         },
 
         render: function() {

@@ -60,11 +60,10 @@ define([
             socket.emit('component-save', JSON.stringify(patchinfo2));
 
             socket.on('component-save', function(data) {
-                console.log(data);
             });
 
             properties.addNode(this.state.dataToBeSend.name + "1", this.props.iconType)
-            properties.addNode(this.state.dataToBeSend.name + "2ß", this.props.iconType)
+            properties.addNode(this.state.dataToBeSend.name + "2", this.props.iconType)
 
             var node = {}
             if (this.props.coordinates.x && this.props.coordinates.y) {

@@ -39,15 +39,12 @@ define([
             }
             this.setState({coordinates: {}})
             this.refs.modal.open();
-            console.log("iconDetails" + iconDetails);
-
             this.setState({
                 bootstrapTitle: "Add " + title,
                 iconType: iconDetails
             })
         },
         toggleElement: function() {
-            console.log("Leftmenu toggle")
             if ($(".left-menu").hasClass("toggle-show")) {
               $(".n-topology ,svg").width($(window).width()-31)
               $(".left-menu").removeClass("toggle-show").addClass("toggle-hide").hide();
@@ -73,7 +70,7 @@ define([
                                 <i className="fa fa-caret-left" aria-hidden="true"></i>
                             </button>
                         </div>
-                        <RightMenu className="col-xs-8 col-md-8 col-lg-9 right-menu " topologyModel={this.topologyModel} createLink={this.createLink} topologyModelController={this.topologyModelController}></RightMenu>
+                        <RightMenu ref="RightMenu" className="col-xs-8 col-md-8 col-lg-9 right-menu " topologyModel={this.topologyModel} createLink={this.createLink} topologyModelController={this.topologyModelController}></RightMenu>
                         <BootstrapLinkCommon ref="modal" title={this.state.bootstrapTitle} iconType={this.state.iconType} coordinates={this.state.coordinates} topologyModel={this.topologyModel}/>
 
                     </div>
@@ -81,9 +78,8 @@ define([
             );
         },
         componentDidMount: function() {
-            //console.log("Inside component mount");
             var height = $(window).height();
-            $(".left-menu ,.right-menu ").height(height - 89);
+            $(".left-menu  ").height(height - 89);
 
         }
     });

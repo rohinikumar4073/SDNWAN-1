@@ -58,6 +58,7 @@ define([
                                     </li>
                                 </ul>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -72,22 +73,20 @@ define([
                     <nav className="navbar navbar-default navbar-fixed-top">
                         <div className="container-fluid">
                             <div className="navbar-header">
-                                <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                                    <span className="sr-only">Toggle navigation</span>
-                                    <span className="icon-bar"></span>
-                                    <span className="icon-bar"></span>
-                                    <span className="icon-bar"></span>
-                                </button>
-                                <a className="navbar-brand" href="index.html"></a>
-                                <span className="sublogo">SDN WAN</span>
-                            </div>
-                            <div id="navbar" className="collapse navbar-collapse">
-                              <ul className="nav navbar-nav">
-                                <li className="active"><a href="/">Home</a></li>
 
-                                <li className=""><a href="/index.html">Policy</a></li>
-                              </ul>
+                                <a className="navbar-brand" href="index.html"></a>
+                                <span className="sublogo">Network Creator</span>
+                                  <div className="verticalLine">&nbsp;</div>
+                                  <ul className="nav navbar-nav">
+                                    <li className=""><a href="#" className={this.props.isActive("Container")} onClick={this.props.setLink.bind(this,"Container")}>Home</a></li>
+                                    <li className=""><a href="#" className={this.props.isActive("Policy")} onClick={this.props.setLink.bind(this,"Policy")}>Policy</a></li>
+                                    <li className=""><a href="#" className={this.props.isActive("Bgp")} onClick={this.props.setLink.bind(this,"Bgp")}>BGP</a></li>
+                                  </ul>
+
+
                             </div>
+
+
                             <div className="leftnav">
                                 <UserProfile></UserProfile>
                                 <SearchForm></SearchForm>

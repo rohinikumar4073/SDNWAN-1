@@ -69,7 +69,7 @@ event.stopPropagation()
                   "name": this.state.dataToBeSend['termination-point'][0]['host-port-name'],
                   "speed": "",
                   "trunks": [""],
-                  "type": "",
+                  "type": "host",
                   "vlan_mode": ""
               }
 
@@ -94,7 +94,6 @@ event.stopPropagation()
        contentType: "application/json; charset=utf-8",
        success: function (data) {
          self.props.topologyModel.createNode(self.state.dataToBeSend["node-id"], self.props.iconType, self.props.coordinates);
-         console.log("iconType" + self.props.iconType)
          self.props.close();
          properties.addNode(self.state.dataToBeSend["node-id"],self.props.iconType)
 
@@ -133,7 +132,7 @@ event.stopPropagation()
                                   "tp-id": ""
                                 }
                               ],
-                              "type": ""
+                              "type": "host"
                             }
                                   }
                 },

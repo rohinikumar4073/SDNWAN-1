@@ -1,4 +1,4 @@
-(function(nx) {
+define(['properties','nx'],function(propsMethods){
     nx.graphic.Icons.registerIcon("fb-icon", "/css/images/ciscoicons/forwarding%20box.png", 36, 36);
     nx.graphic.Icons.registerIcon("optical-switch","/css/images/ciscoicons/optical%20switch.png", 36, 36);
     nx.graphic.Icons.registerIcon("patch-panel", "/css/images/ciscoicons/patchpanel.jpg", 75, 32);
@@ -33,28 +33,40 @@
         methods: {
             _ready: function(sender, event) {
                 var topo = this.view('_topology');
+
                 //register icon to instance
                 // topo.registerIcon("fbox", "/sdnwan/css/images/ciscoicons/optical%20amplifier.jpg", 32, 26);
                 //  topo.registerIcon("opticalswitch", "/sdnwan/css/images/ciscoicons/optical%20transport.jpg", 32, 32);
 
-            }
+            },
+
         },
         properties: {
-          topology:{
-            get:function(){
-    var topology = this.view('_topology');
-            return topology
-              }
-          },
+          renderData:{
+          set:function(data){
+            var topo = this.view('_topology');
+            topo.data(data)
+          }
+          }
+          ,
+          setTopologyModel: {
+             set: function(s) {
+            var topology = this.view('_topology');
+              propsMethods.saveTopologyData(topology.data())
 
+
+          },get:function(){
+            return "get1"
+          }
+              },
 
             width: function() {
                 var width = $(window).width();
-                return (width * 75) / 100 - 25;
+                return (width * 75) / 100 - 50;
             },
             height: function() {
                 var height = $(window).height();
-                return (height - 93);
+                return (height - 156);
             },
             newNode: {
                 set: function(inNode) {
@@ -85,4 +97,4 @@
 
 
     });
-})(nx);
+})

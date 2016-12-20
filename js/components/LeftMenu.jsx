@@ -1,6 +1,6 @@
 define([
-    'react', 'jquery', 'jsx!components/Components', 'jsx!components/Templates'
-], function(React, $, Components, Templates) {
+    'react', 'jquery', 'jsx!components/Components', 'jsx!components/Templates', 'configurationEvents'
+], function(React, $, Components, Templates, configurationEvents) {
 
     var LeftMenu = React.createClass({
         render: function() {
@@ -21,7 +21,6 @@ define([
                         </div>
                         <div className="tab-pane" id="templates">
                             <Templates source="http://114.8.10.211:50512/FbTemplate/getAllFbInstances"/>
-
                         </div>
                     </div>
                 </div>

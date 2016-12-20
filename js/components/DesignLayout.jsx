@@ -52,13 +52,13 @@ var DesignLayout = React.createClass({
       canDrop: PropTypes.bool.isRequired
   },
   componentDidMount: function() {
+
       var self=this;
       var model = this.props.topologyModel;
       var Shell = nx.define(nx.ui.Application, {
           methods: {
               start: function() {
               mainView  = new com.cisco.MainView();
-
                   mainView.attach(this);
                   mainView.model(model);
                   self.setState({mainView:mainView})
@@ -83,6 +83,13 @@ var DesignLayout = React.createClass({
 * invoke start method
 */
       shell.start();
+      var topologyData=localStorage.getItem('topologyData');
+      if(topologyData){
+        $(".layout-flex > .suggestions").hide()
+        this.props.topologyModel.renderData(
+          JSON.parse(topologyData))
+
+      }
 
   },
 
@@ -116,9 +123,12 @@ var DesignLayout = React.createClass({
     var y = this.props.y;
     var connectDropTarget = this.props.connectDropTarget;
     return connectDropTarget(
-<div className="layout-flex "  id="layout">
+      <div>        <h3> Topology Design
+ </h3>
 
-</div>)
+<div className="layout-flex"  id="layout">
+   <div className="suggestions"> Drag and drop Components here to start </div>
+</div></div>)
 
 }
 });

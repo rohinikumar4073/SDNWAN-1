@@ -2,6 +2,7 @@
  *
  */
 define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
+  var dom=null;
     var portController = function() {
         $("input[name=vlan_mode]").click(function() {
             if ($("input[name=vlan_mode]:checked").val() == "Trunk") {
@@ -40,60 +41,68 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
         $("div.alert-message-error").show().html(data.responseText);
 
     }
-
+    var srcDataNode = null;
+    var srcSelected = false;
     return {
 
+        getDom:function(){
+          return dom;
+        },
+        setDom:function(data){
+          dom=data
+        },
         templateTable: function() {
-              var getURL = properties.templateIp + "listAllTemplates";
-              $.get(getURL, function(result) {
+            var getURL = properties.templateIp + "listAllTemplates";
+            $.get(getURL, function(result) {
+
                 var collection = result;
                 var rows = [];
-                for(i = 0;i<result.Instances.length;i++){
-                  var tr = $('<tr>')
-                  tr.append("<td> <input type='radio' name='instances' value="+result.Instances[i].name+"></input> </td>");
-                  tr.append($('<td>').append(result.Instances[i].name));
-                  $("#viewInstance").find('tbody')
-                      .append(tr);
+                for (i = 0; i < result.Instances.length; i++) {
+                    var tr = $('<tr>')
+                    tr.append("<td> <input type='radio' name='instances' value=" + result.Instances[i].name + "></input> </td>");
+                    tr.append($('<td>').append(result.Instances[i].name));
+                    $("#viewInstance").find('tbody')
+                        .append(tr);
                 }
-                for(i = 0;i<result.FS.length;i++){
-                  var tr = $('<tr>')
-                  tr.append("<td> <input type='radio' name='fs' value="+result.FS[i].name+"></input> </td>");
-                  tr.append($('<td>').append(result.FS[i].name));
-                  $("#viewFanTemplate").find('tbody')
-                      .append(tr);
+                for (i = 0; i < result.FS.length; i++) {
+                    var tr = $('<tr>')
+                    tr.append("<td> <input type='radio' name='fs' value=" + result.FS[i].name + "></input> </td>");
+                    tr.append($('<td>').append(result.FS[i].name));
+                    $("#viewFanTemplate").find('tbody')
+                        .append(tr);
                 }
-                for(i = 0;i<result.OS.length;i++){
-                  var tr = $('<tr>')
-                  tr.append("<td> <input type='radio' name='os' value="+result.OS[i].name+"></input> </td>");
-                  tr.append($('<td>').append(result.OS[i].name));
-                  $("#viewOsTemplate").find('tbody')
-                      .append(tr);
+                for (i = 0; i < result.OS.length; i++) {
+                    var tr = $('<tr>')
+                    tr.append("<td> <input type='radio' name='os' value=" + result.OS[i].name + "></input> </td>");
+                    tr.append($('<td>').append(result.OS[i].name));
+                    $("#viewOsTemplate").find('tbody')
+                        .append(tr);
                 }
-                for(i = 0;i<result.PS.length;i++){
-                  var tr = $('<tr>')
-                  tr.append("<td> <input type='radio' name='ps' value="+result.PS[i].name+"></input> </td>");
-                  tr.append($('<td>').append(result.PS[i].name));
-                  $("#viewPowerSupplyTemplate").find('tbody')
-                      .append(tr);
+                for (i = 0; i < result.PS.length; i++) {
+                    var tr = $('<tr>')
+                    tr.append("<td> <input type='radio' name='ps' value=" + result.PS[i].name + "></input> </td>");
+                    tr.append($('<td>').append(result.PS[i].name));
+                    $("#viewPowerSupplyTemplate").find('tbody')
+                        .append(tr);
                 }
-                for(i = 0;i<result.Templates.length;i++){
-                  var tr = $('<tr>')
-                  tr.append("<td> <input type='radio' name='templates' value="+result.Templates[i].name+"></input> </td>");
-                  tr.append($('<td>').append(result.Templates[i].name));
-                  $("#viewFbTemplate").find('tbody')
-                      .append(tr);
+                for (i = 0; i < result.Templates.length; i++) {
+                    var tr = $('<tr>')
+                    tr.append("<td> <input type='radio' name='templates' value=" + result.Templates[i].name + "></input> </td>");
+                    tr.append($('<td>').append(result.Templates[i].name));
+                    $("#viewFbTemplate").find('tbody')
+                        .append(tr);
                 }
-                for(i = 0;i<result.TS.length;i++){
-                  var tr = $('<tr>')
-                  tr.append("<td> <input type='radio' name='ts' value="+result.TS[i].name+"></input> </td>");
-                  tr.append($('<td>').append(result.TS[i].name));
-                  $("#viewTransceiverTemplate").find('tbody')
-                      .append(tr);
+                for (i = 0; i < result.TS.length; i++) {
+                    var tr = $('<tr>')
+                    tr.append("<td> <input type='radio' name='ts' value=" + result.TS[i].name + "></input> </td>");
+                    tr.append($('<td>').append(result.TS[i].name));
+                    $("#viewTransceiverTemplate").find('tbody')
+                        .append(tr);
                 }
 
-              })
+            })
 
-              $("#assigningTemplates").click(function() {
+            $("#assigningTemplates").click(function() {
                 var fb_device_name = $('g.node-selected')
                     .attr('data-id');
                 var postURL = properties.templateIp + "assignTemplates?fb_device_name=" + fb_device_name;
@@ -119,14 +128,14 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                         data: JSON.stringify(jsonData),
                         contentType: "application/json; charset=utf-8",
                         success: function(data) {
-                          toastr.success("Templates assigned to node successfully")
+                            toastr.success("Templates assigned to node successfully")
                         },
                         error: function(data) {
-                          toastr.error("Could not assign templates")
+                            toastr.error("Could not assign templates")
                         }
-                      })
-              })
-            },
+                    })
+            })
+        },
 
         bridgeTable: function() {
             var fbName = $('g.node-selected')
@@ -557,76 +566,66 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
             var linkData = {
                 "destination": {
                     "dest-node": self
-		                        .node()
-		                        .id(),
+                        .node()
+                        .id(),
                     "dest-tp": $("input[name='portselcted']:checked").next().text()
                 },
-                "link-cost":	$("#linkcost").val(),
+                "link-cost": $("#linkcost").val(),
                 "link-group-id": [
-									$("#linkGroupId").val(),
+                    $("#linkGroupId").val(),
 
                 ],
                 "link-id": $("#linkId").val(),
                 "link-validate": $("#linkValid").val(),
                 "max-bandwidth": {
                     "unit": "GBPS",
-                    "value":$("#max-bandwidth").val()
+                    "value": $("#max-bandwidth").val()
                 },
                 "source": {
-                    "source-node": self
-                        .topology().srclink.node,
-                    "source-tp": self
-		                .topology().srclink.data
+                    "source-node": this.getSourceNodeDetails().node,
+                    "source-tp": this.getSourceNodeDetails().data
                 }
             };
-if(!$("#linkId").val()){
-	toastr.error("Enter link id");
-	return;
+            if (!$("#linkId").val()) {
+                toastr.error("Enter link id");
+                return;
 
-}
+            }
             self
                 .topology()
                 .addLink({
-                    source: self
-                        .topology().srclink.node,
+                    source: this.getSourceNodeDetails().node,
                     target: self
                         .node()
                         .id()
 
                 });
-								$.ajax({
-							url: properties.createLink,
-							type: 'post',
-							data: JSON.stringify(linkData),
-							contentType: "application/json; charset=utf-8",
-							success: function (data) {
-										toastr.success("Link is added successfully")
+            $.ajax({
+                url: properties.createLink,
+                type: 'post',
+                data: JSON.stringify(linkData),
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                    toastr.success("Link is added successfully")
                     properties.addLink($("#linkId").val())
-							}
+                }
 
-})
+            })
             var postURL1 = urlToSend +
-                self
-                .topology().srclink.node + "/" + self
-                .topology().srclink.data +
+                this.getSourceNodeDetails().node + "/" + this.getSourceNodeDetails().data +
                 "/false";
             var postURL2 = urlToSend +
                 self
                 .node()
                 .id() + "/" + $("input[name='portselcted']:checked").next().text() +
                 "/false";
-            if (self
-                .topology().srclink.iconType == "patch-panel" || self
-                .topology().srclink == "optical-switch") {
+            if (this.getSourceNodeDetails().iconType == "patch-panel" || this.getSourceNodeDetails().iconType == "optical-switch") {
                 var socket = properties.socket();
 
                 var patchupdate2 = {
-                    "name": self
-                        .topology().srclink.node,
-                    "type": self
-                        .topology().srclink.iconType,
-                    "portname": self
-                        .topology().srclink.data,
+                    "name": this.getSourceNodeDetails().node,
+                    "type": this.getSourceNodeDetails().iconType,
+                    "portname": this.getSourceNodeDetails().data,
                     "status": "true"
                 };
                 socket.emit('port-status-set', JSON.stringify(patchupdate2));
@@ -677,13 +676,165 @@ if(!$("#linkId").val()){
                         }
                     });
             }
-            self.topology().srclink = null;
+            this.setSourceSelected(false)
+            $('#pageModal ')
+                .modal(
+                    'hide')
+        },
+
+        initFStoOB: function(self) {
+            var saveLink = properties.createLink;
+            var postURL1 = urlToSend +
+                this.getSourceNodeDetails().node + "/" + this.getSourceNodeDetails().data +
+                "/false";
+            var postURL2 = urlToSend +
+                self
+                .node()
+                .id() + "/" + $("input[name='portselcted']:checked").next().text() +
+                "/false";
+
+            var socket = properties.socket();
+            self
+                .topology()
+                .addLink({
+                    source: this.getSourceNodeDetails().node,
+                    target: self
+                        .node()
+                        .id()
+                });
+
+            srcData = {};
+            if (this.getSourceNodeDetails().iconType == "fb-icon") {
+                srcData.name = this.getSourceNodeDetails().node;
+
+                srcData.link = {
+                    "l1-switch-port": $("input[name='portselcted']:checked").next().text(),
+                    "fb-port": this.getSourceNodeDetails().data
+                }
+            } else if (self
+                .node()
+                .iconType() == "fb-icon") {
+                srcData.name = self
+                    .node()
+                    .id();
+                srcData.link = {
+                    "l1-switch-port": this.getSourceNodeDetails().data,
+                    "fb-port": $("input[name='portselcted']:checked").next().text()
+                }
+            }
+            socket.emit('fbtooptical', srcData);
+
+            if (this.getSourceNodeDetails().iconType == "patch-panel" || this.getSourceNodeDetails().iconType == "optical-switch") {
+
+
+                var patchupdate2 = {
+                    "name": this.getSourceNodeDetails().node,
+                    "type": this.getSourceNodeDetails().iconType,
+                    "portname": this.getSourceNodeDetails().data,
+                    "status": "true"
+                };
+                //  socket.emit('port-status-set', JSON.stringify(patchupdate2));
+            } else {
+                $
+                    .ajax({
+                        url: postURL1,
+                        method: 'POST',
+
+                        contentType: "application/json; charset=utf-8",
+                        success: function(data) {
+                            handleSuccess(data);
+                        },
+                        error: function(data) {
+                            handleError(data)
+                        }
+                    });
+            }
+            if (self
+                .node().get("iconType") == "patch-panel" || self
+                .node().get("iconType") == "optical-switch") {
+                var socket = properties.socket();
+
+                var patchupdate2 = {
+                    "name": self
+                        .node()
+                        .id(),
+                    "type": self
+                        .node()
+                        .get("iconType"),
+                    "portname": $("input[name='portselcted']:checked").next().text(),
+                    "status": "true"
+                };
+                //  socket.emit('port-status-set', JSON.stringify(patchupdate2));
+
+            } else {
+                $
+                    .ajax({
+                        url: postURL2,
+                        method: 'POST',
+
+                        contentType: "application/json; charset=utf-8",
+                        success: function(data) {
+                            handleSuccess(data);
+                        },
+                        error: function(data) {
+                            handleError(data)
+                        }
+                    });
+            }
+            this.setSourceSelected(false)
 
             $('#pageModal ')
                 .modal(
                     'hide')
-        }
+        },
+        setSourceNodeDetails: function(data) {
+          var rightMenu =this.getDom();
+          rightMenu.state.sourceData.sourceName=data.node;
+          rightMenu.state.sourceData.sourceType=data.iconType;
+            rightMenu.state.sourceData.portData=data.data;
+            rightMenu.setState(rightMenu.state);
 
+            srcSelected = true;
+            srcDataNode = data;
+        },
+        isSourceSelected: function() {
+            return srcSelected;
+        },
+        getSourceNodeDetails: function() {
+            return srcDataNode;
+        },
+        setSourceSelected: function(value) {
+            srcSelected = value;
+        },
+        isValidLink: function(dest, src) {
+            var isValid = false;
+            switch (src) {
+                case "patch-panel":
+                    if (dest == "host") {
+                        isValid = true;
+                    } else if (dest == "fb-icon") {
+                        isValid = true;
+                    }
+                    break;
+                case "fb-icon":
+                    isValid = true;
+                    break;
+                case "optical-switch":
+                    if (dest == "fb-icon") {
+                        isValid = true;
+                    }
+                    break;
+                case "host":
+                    if (dest == "fb-icon") {
+                        isValid = true;
+                    } else if (dest == "patch-panel") {
+                        isValid = true;
+                    }
+                    break;
+                default:
+            }
+            return isValid
+        }
     }
 
 });

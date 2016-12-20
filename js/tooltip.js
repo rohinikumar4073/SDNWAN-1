@@ -1,6 +1,6 @@
 define(
-    ['linkMode', 'configurationEvents', 'jquery', 'properties', 'socket', 'bootstrap'],
-    function(linkMode, configurationEvents, $, properties, io) {
+    ['linkMode', 'configurationEvents', 'jquery', 'properties', 'socket', 'toastr','bootstrap'],
+    function(linkMode, configurationEvents, $, properties, io,toastr) {
         (function(nx) {
             // node tooltip class
             // see nx.graphic.Topology.Node reference to learn what node's
@@ -27,6 +27,7 @@ define(
 
                                     if (iconType == "optical-switch" || iconType == "patch-panel") {
                                         this.view("configData").set("class", "linkhide")
+                                        this.view("templateData").set("class", "linkhide")
                                         if (!linkMode.getFlag()){
                                             this.view("classNamePort").set("class", "linkhide")
                                         }else{
@@ -36,7 +37,6 @@ define(
                                         var resources = view._resources;
                                         var socket = properties.socket();
                                         var fetchComplete = function(data, view) {
-                                            console.log("inside fetch")
                                               var result = JSON.parse(data)
                                           if(iconType == "optical-switch" ){
                                             result=JSON.parse(result)
@@ -60,7 +60,6 @@ define(
                                                 })
                                                 // //debugger;
 
-                                            console.log(finalResults);
                                             //  socket.removeListener('port-status-fetch', fetchComplete);
                                         }
                                         var patchfetch = {
@@ -81,6 +80,8 @@ define(
 
                                     } else if (iconType == "host") {
                                         this.view("configData").set("class", "linkhide")
+                                        this.view("templateData").set("class", "linkhide")
+
                                         if (!linkMode.getFlag()){
                                             this.view("classNamePort").set("class", "linkhide")
                                         }else{
@@ -112,9 +113,12 @@ define(
                                         if (!linkMode.getFlag()){
                                             this.view("classNamePort").set("class", "linkhide")
                                               this.view("configData").set("class", "popup-section")
+                                              this.view("templateData").set("class", "popup-section")
+
                                         }else{
                                           this.view("classNamePort").set("class", "popup-section")
                                             this.view("configData").set("class", "linkhide")
+                                            this.view("templateData").set("class", "linkhide")
                                         }
                                         var postURL = properties.rmsIp +
                                             fbName +
@@ -202,12 +206,18 @@ define(
 
                                     {
                                             tag: 'div',
-                                            name: "configData",
+                                            name: "templateData",
 
                                             events: {
                                                 'click': '{#onClickEvent1}'
                                             },
-                                            content: [ {
+                                            content: [{
+                                                    tag: "i",
+                                                    props: {
+                                                        'class': "fa fa-file-text",
+                                                        'aria-hidden': "true"
+                                                    }
+                                                }, {
                                                     tag: "div",
                                                     content: "Templates",
                                                     props: {
@@ -308,22 +318,35 @@ define(
 
                             },
                             "onClickEvent2": function() {
-                                if (!this.topology().srclink) {
+                                if (!configurationEvents.isSourceSelected()) {
                                     //debugger;
-                                    this.topology().srclink = {
+                                    configurationEvents.setSourceNodeDetails( {
                                         node: this
                                             .node().id(),
                                         iconType: this
                                             .node().get('iconType'),
                                         "data": $("input[name='portselcted']:checked").next().text()
                                     }
+                                  );
                                 } else {
+                                    if(!configurationEvents.isValidLink(this.node().get('iconType'),configurationEvents.getSourceNodeDetails().iconType)){
+                                        toastr.error("Components cannot be connected")
+                                        return;
+                                    }
                                     var self = this;
-                                    var  templatedToLoad="templates/tab1.html";
-                                    var p=this.node().get('iconType')=="fb-icon"
-                                    var q=this.topology().srclink.iconType=="fb-icon"
+                                    var templatedToLoad="templates/tab1.html";
+                                    var isFbTarget=this.node().get('iconType')=="fb-icon"
+                                    var isFbSrc=configurationEvents.getSourceNodeDetails().iconType=="fb-icon"
+                                    var isOpticalSwitchSrc=this.node().get('iconType')=="optical-switch"
+                                    var isOpticalSwitchtarget=configurationEvents.getSourceNodeDetails().iconType=="optical-switch"
+                                    var isFBTrgOrSrc=((isFbTarget || isFbSrc) & !(isFbTarget & isFbSrc  ));
+                                    var isOptTrgOrSrc=  ((isOpticalSwitchSrc || isOpticalSwitchtarget) & !(isOpticalSwitchSrc & isOpticalSwitchtarget  ));
 
-                                    if((p || q) & !(p & q)  ){
+                                    if( isFBTrgOrSrc && isOptTrgOrSrc ){
+                                          configurationEvents.initFStoOB(self);
+                                      return;
+                                    }
+                                    if(isFBTrgOrSrc){
                                       templatedToLoad="templates/configuringFbLink.html";
                                     }
                                     $("#pageModal")

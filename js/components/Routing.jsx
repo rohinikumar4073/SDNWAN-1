@@ -1,17 +1,45 @@
 define([
-    'react', 'jsx!components/Container',  'jsx!components/Policy','ReactRouter'
-], function(React, Container,Policy,ReactRouter) {
-     var Router=ReactRouter.Router;
-          var Route=ReactRouter.Route;
-          var browserHistory=  ReactRouter.browserHistory;
+    'react', 'jsx!components/Container',  'jsx!components/Policy', 'jsx!components/Header', 'jsx!components/Bgp'
+], function(React, Container,Policy,Header,Bgp) {
+
     var RoutingFile = React.createClass({
+      getInitialState:function(){
+        return {
+          displayPage:"Container"
+        }
+      },
+      setLink:function(value){
+        this.setState({displayPage:value})
+        $(".navbar-header .navbar-toggle").click()
+        console.log(value);
+        this.onChangeFunction(displayPage);
+
+
+      //  $(".vz-global-header .navbar-toggle").click()
+      },
+      onChangeFunction:function(value){
+        this.setState({
+             displayPage: displayPage
+           });
+      },
+     isActive:function(highlight){
+               return((highlight===this.state.displayPage) ?'active':'default');
+       },
+
         render: function() {
             return (
-              <Router history={browserHistory}>
-                <Route path="/" component={Container}/>
-                <Route path="index.html" component={Policy}/>
+              <div>
+                <Header className="container-fluid" setLink={this.setLink} isActive={this.isActive} />
 
-                </Router>
+              { this.state.displayPage == 'Container'
+                  ? <Container  />
+                : ( this.state.displayPage == 'Policy'
+                    ? <Policy/>
+                  : ( this.state.displayPage == 'Bgp'
+                      ? <Bgp/>
+                    : ""
+                  ))
+              }</div>
             );
         }
     });

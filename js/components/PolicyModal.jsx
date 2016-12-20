@@ -1,4 +1,5 @@
-define(['react','jquery','jsx!components/BootstrapButton','jsx!components/PolicyForms/WhiteList'], function(React,$,BootstrapButton,WhiteList) {
+define(['react','jquery','jsx!components/BootstrapButton','jsx!components/PolicyForms/WhiteList','jsx!components/PolicyForms/DynamicBandwidth','jsx!components/PolicyForms/VpnPolicy','jsx!components/PolicyForms/SchedulePolicy'
+], function(React,$,BootstrapButton,WhiteList,DynamicBandwidth,VpnPolicy,SchedulePolicy) {
 
 var BootstrapModal = React.createClass({
    // The following two methods are the only places we need to
@@ -47,6 +48,9 @@ var BootstrapModal = React.createClass({
                <div className="modal-content">
 
                    <WhiteList header="Create WhiteList Policy"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='WhiteList' ? "" :"hidden"}></WhiteList>
+                   <DynamicBandwidth header="Create Dynamic Bandwidth Policy"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='DynamicBandwidth' ? "" :"hidden"}></DynamicBandwidth>
+                   <VpnPolicy header="Create VPN Policy"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='VpnPolicy' ? "" :"hidden"}></VpnPolicy>
+                    <SchedulePolicy header="Create Schedule Policy"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='SchedulePolicy' ? "" :"hidden"}></SchedulePolicy>
 
                </div>
                </div>

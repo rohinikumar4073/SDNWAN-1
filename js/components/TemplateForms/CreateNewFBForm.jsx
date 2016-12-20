@@ -1,29 +1,203 @@
 define([
-    'react', 'jsx!components/BootstrapButton', 'properties', 'toastr'
-], function(React, BootstrapButton, properties, toastr) {
-
-    var FormData = React.createClass({
-        onChangeFunction: function(e) {
-            debugger;
-            var parnetId = e.target.getAttribute("data-parentdata")
-            if (parnetId) {
-                if (this.state.dataToBeSend[parnetId]) {
-                    this.state.dataToBeSend[parnetId][e.target.id] = e.target.value;
-                } else {
-                    this.state.dataToBeSend[parnetId][e.target.id] = e.target.value;
-                }
-            } else {
-                this.state.dataToBeSend[e.target.id] = e.target.value;
-            }
-
-            this.setState({dataToBeSend: this.state.dataToBeSend});
+    'react', 'jsx!components/BootstrapButton', 'properties', 'toastr','react-jsonschema-form'
+], function(React, BootstrapButton, properties, toastr, Form) {
+var InsCreForm=Form.default;
+const schema ={
+  "title": "Device information",
+  "type": "object",
+  "required": [
+    "fb_device_name"
+  ],
+  "properties": {
+    "site_id": {
+      "type": "string",
+      "title": "Site Id"
+    },
+    "fb_device_name": {
+      "type": "string",
+      "title": "FB Device Name"
+    },
+    "fb_groupid": {
+      "type": "string",
+      "title": "FB Group ID"
+    },
+    "forwarding_box_template": {
+      "type": "string",
+      "title": "FB Template"
+    },
+    "lldpEnablment": {
+      "type": "string",
+      "title": "LLDP Enablement",
+      "minLength": 3
+    },
+    "location_desc": {
+      "type": "string",
+      "title": "Location Description"
+    },
+    "network_domain": {
+      "type": "string",
+      "title": "Network Domain"
+    },
+    "dataPlaceConfiguration": {
+      "type": "object",
+      "title": "Data Place Configuration",
+      "properties": {
+        "adminCost": {
+          "type": "string",
+          "title": "Admin Cost"
         },
-        handleConfirm: function() {
+        "adminState": {
+          "type": "string",
+          "title": "Admin State"
+        },
+        "dacCableUtilized": {
+          "type": "string",
+          "title": "DAC Cable Utilized"
+        },
+        "dacUtilized": {
+          "type": "string",
+          "title": "DAC Utilized"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description"
+        },
+        "enableFrameSupport": {
+          "type": "string",
+          "title": "Enable Frame Support"
+        },
+        "speed": {
+          "type": "string",
+          "title": "Speed"
+        },
+        "transceiverType": {
+          "type": "string",
+          "title": "Transceiver Type"
+        }
+      }
+    },
+    "management_configuration": {
+      "type": "object",
+      "title": "Management Configuration",
+      "properties": {
+        "agent_cert_name": {
+          "type": "string",
+          "title": "Agent Cert Name"
+        },
+        "default_gatewayIp": {
+          "type": "string",
+          "title": "Default Gateway IP"
+        },
+        "dns_name": {
+          "type": "string",
+          "title": "DNS Name"
+        },
+        "dns_serverIp": {
+          "type": "string",
+          "title": "Dns Server IP"
+        },
+        "ip_address": {
+          "type": "string",
+          "title": "IP Address"
+        },
+        "management_interface": {
+          "type": "string",
+          "title": "Management Interface"
+        }
+      }
+    },
+    "openFlowInfo": {
+      "type": "object",
+      "title": "Open Flow Information",
+      "properties": {
+        "allowPassiveCon": {
+          "type": "string",
+          "title": "Allow Passive Con"
+        },
+        "connectionProtocol": {
+          "type": "string",
+          "title": "Connection Protocol"
+        },
+        "dataPathId": {
+          "type": "string",
+          "title": "Data Path ID"
+        },
+        "failMode": {
+          "type": "string",
+          "title": "Fail Mode"
+        },
+        "masterControllerIp": {
+          "type": "string",
+          "title": "Master Controller IP"
+        },
+        "protocolVersion": {
+          "type": "string",
+          "title": "Protocol Version"
+        },
+        "slaveControllerIp": {
+          "type": "string",
+          "title": "Slave Controller IP"
+        }
+      }
+    },
+    "operatingSystemConfiguration": {
+      "type": "object",
+      "title": "Operating System Configuration",
+      "properties": {
+        "alarmHighTemp": {
+          "type": "string",
+          "title": "Alarm High Temp"
+        },
+        "alarmHistory": {
+          "type": "string",
+          "title": "Alarm History"
+        },
+        "alarmLowTemp": {
+          "type": "string",
+          "title": "Alarm Low Temp"
+        },
+        "fb_sfp_interval": {
+          "type": "string",
+          "title": "FB SFP Interval"
+        },
+        "interfceFlowCounterInt": {
+          "type": "string",
+          "title": "Interfce Flow Counter Int"
+        },
+        "enableLocalArpResponse": {
+          "type": "string",
+          "title": "Local ARP Response"
+        },
+        "localArpResponseCoverage": {
+          "type": "string",
+          "title": "Local ARP Response Coverage"
+        },
+        "enableLocalIpv6ArpResponse": {
+          "type": "string",
+          "title": "Local IPv6 ARP Response"
+        },
+        "localIpv6ArpResponseCoverage": {
+          "type": "string",
+          "title": "Local IPv6 ARP Response Coverage"
+        }
+      }
+    }
+  }
+};
+
+
+    var InstanceFb = React.createClass({
+      onSubmit: function(e) {
+
+        this.handleConfirm(e.formData)
+
+      },
+        handleConfirm: function(data) {
             var self = this;
             $.ajax({
                 url: properties.templateIp + "CreateInstances",
                 type: 'post',
-                data: JSON.stringify(this.state.dataToBeSend),
+                data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
                     toastr.success("Success! A new instance is successfully created")
@@ -42,54 +216,7 @@ define([
         getInitialState: function() {
 
             return {
-                dataToBeSend: {
-                    "dataPlaceConfiguration": {
-                        "adminCost": "",
-                        "adminState": "",
-                        "dacCableUtilized": "",
-                        "dacUtilized": "",
-                        "description": "",
-                        "enableFrameSupport": "",
-                        "speed": "",
-                        "transceiverType": ""
-                    },
-                    "fb_device_name": "",
-                    "fb_groupid": "",
-                    "forwarding_box_template": "",
-                    "lldpEnablment": "",
-                    "location_desc": "",
-                    "management_configuration": {
-                        "agent_cert_name": "",
-                        "default_gatewayIp": "",
-                        "dns_name": "",
-                        "dns_serverIp": "",
-                        "ip_address": "",
-                        "management_interface": ""
-                    },
-                    "network_domain": "",
-                    "openFlowInfo": {
-                        "allowPassiveCon": "",
-                        "connectionProtocol": "",
-                        "dataPathId": "",
-                        "failMode": "",
-                        "masterControllerIp": "",
-                        "protocolVersion": "",
-                        "slaveControllerIp": ""
-                    },
-                    "operatingSystemConfiguration": {
-                        "alarmHighTemp": "",
-                        "alarmHistory": "",
-                        "alarmLowTemp": "",
-                        "enableLocalArpResponse": "",
-                        "enableLocalIpv6ArpResponse": "",
-                        "fb_sfp_interval": "",
-                        "interfceFlowCounterInt": "",
-                        "localArpResponseCoverage": "",
-                        "localIpv6ArpResponseCoverage": "",
-                        "puppetAgentUtilizad": ""
-                    },
-                    "site_id": ""
-                }
+
             }
 
         },
@@ -101,11 +228,7 @@ define([
         },
 
         render: function() {
-            confirmButton = (
-                <BootstrapButton onClick={this.handleConfirm} className="btn  btn-primary btn-sm" data="Create New">
-                    {this.props.confirm}
-                </BootstrapButton>
-            );
+
 
             return (
                 <div className={this.props.className}>
@@ -117,257 +240,25 @@ define([
                     </div>
                     <div className="modal-body">
 
-                        <div id="accordion">
-                            <div className="panel-group">
-                                <div className="panel panel-default">
-                                    <div className="panel-heading">
-                                        <h4 className="panel-title">
-                                            <a data-toggle="collapse" href="#collapseFB" aria-expanded="true">Device Information</a>
-                                        </h4>
+                      <InsCreForm  schema={schema}
+                                  onError={errors => {
+                                    console.log("i am errors" + errors);
+                                    }}
+                                    onSubmit={this.onSubmit}>
+                                    <div>
+                                        <button type="submit" className="btn  btn-primary btn-sm fixedbt">Create New
+                                        </button>
                                     </div>
-                                    <div id="collapseFB" className="panel-collapse collapse in" role="tabpanel">
-                                        <div className="panel-body">
-                                            <form>
-                                                <div className="form-group">
-                                                    <label for="site_id">Site ID:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="site_id"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="fb_devicename">FB Device Name:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="fb_device_name"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="fb_groupid">FB Group ID:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="fb_groupid"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="fb_template">FB Template:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="forwarding_box_template"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="lldpEnablment">LLDP Enablement:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="lldpEnablment"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="locationDesc">Location Description:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="location_desc"></input>
-                                                </div>
+                                       </InsCreForm>
 
-                                                <div className="form-group">
-                                                    <label for="network_domain">Network Domain:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="network_domain"></input>
-                                                </div>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="panel panel-default">
-                                    <div className="panel-heading">
-                                        <h4 className="panel-title">
-                                            <a data-toggle="collapse" href="#collapse1" aria-expanded="true">Data Place Configuration</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse1" className="panel-collapse collapse in" role="tabpanel">
-                                        <div className="panel-body">
-                                            <form>
-                                                <div className="form-group">
-                                                    <label for="adminCost">Admin Cost:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="adminCost" data-parentData="dataPlaceConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="adminState">Admin State:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="adminState" data-parentData="dataPlaceConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="dacCableUtilized">DAC Cable Utilized:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="dacCableUtilized" data-parentData="dataPlaceConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="dacUtilized">DAC Utilized:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="dacUtilized" data-parentData="dataPlaceConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="description">Description:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="description" data-parentData="dataPlaceConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="enableFrameSupport">Enable Frame Support:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="enableFrameSupport" data-parentData="dataPlaceConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="speed">Speed:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="speed" data-parentData="dataPlaceConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="transceiverType">Transceiver Type:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="transceiverType" data-parentData="dataPlaceConfiguration"></input>
-                                                </div>
-
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="panel panel-default">
-                                    <div className="panel-heading">
-                                        <h4 className="panel-title">
-                                            <a data-toggle="collapse" href="#collapse3" aria-expanded="true">Management Configuration
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse3" className="panel-collapse collapse in" role="tabpanel">
-                                        <div className="panel-body">
-                                            <form>
-                                                <div className="form-group">
-                                                    <label for="agentCertName">Agent Cert Name:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="agent_cert_name" data-parentData="management_configuration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="default_gatewayIp">Default Gateway IP:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="default_gatewayIp" data-parentData="management_configuration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="dns_name">DNS Name:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="dns_name" data-parentData="management_configuration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="dns_serverIp">Dns Server IP:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="dns_serverIp" data-parentData="management_configuration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="ip_address">IP Address:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="ip_address" data-parentData="management_configuration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="management_interface">Management Interface:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="management_interface" data-parentData="management_configuration"></input>
-                                                </div>
-
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="panel panel-default">
-                                    <div className="panel-heading">
-                                        <h4 className="panel-title">
-                                            <a data-toggle="collapse" href="#collapse4" aria-expanded="true">Open Flow Information</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse4" className="panel-collapse collapse in" role="tabpanel">
-                                        <div className="panel-body">
-                                            <form>
-                                                <div className="form-group">
-                                                    <label for="allowPassiveCon">Allow Passive Con:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="allowPassiveCon" data-parentData="openFlowInfo"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="connectionProtocol">Connection Protocol:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="connectionProtocol" data-parentData="openFlowInfo"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="dataPathId">Data Path ID:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="dataPathId" data-parentData="openFlowInfo"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="failMode">Fail Mode:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="failMode" data-parentData="openFlowInfo"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="masterControllerIp">Master Controller IP:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="masterControllerIp" data-parentData="openFlowInfo"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="protocolVersion">Protocol Version:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="protocolVersion" data-parentData="openFlowInfo"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="slaveControllerIp">Slave Controller IP:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="slaveControllerIp" data-parentData="openFlowInfo"></input>
-                                                </div>
-
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div className="panel panel-default">
-                                    <div className="panel-heading">
-                                        <h4 className="panel-title">
-                                            <a data-toggle="collapse" href="#collapse5" aria-expanded="true">Operating System Configuration</a>
-                                        </h4>
-                                    </div>
-                                    <div id="collapse5" className="panel-collapse collapse in" role="tabpanel">
-                                        <div className="panel-body">
-                                            <form>
-
-                                                <div className="form-group">
-                                                    <label for="alarmHighTemp">Alarm High Temp:</label>
-                                                    <input type="text" className="form-control" id="alarmHighTemp" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="alarmHistory">Alarm History:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="alarmHistory" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="alarmLowTemp">Alarm Low Temp:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="alarmLowTemp" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-                                                <div className="form-group">
-                                                    <label for="fb_sfp_interval">FB SFP Interval:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="fb_sfp_interval" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label for="interfceFlowCounterInt">Interfce Flow Counter Int:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="interfceFlowCounterInt" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label for="localArpResponse">Local ARP Response:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="localArpResponse" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label for="localArpResponseCoverage">Local ARP Response Coverage:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="localArpResponseCoverage" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label for="localIpv6ArpResponse">Local IPv6 ARP Response:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="localIpv6ArpResponse" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-
-                                                <div className="form-group">
-                                                    <label for="localIpv6ArpResponseCoverage">Local IPv6 ARP Response Coverage:</label>
-                                                    <input onChange={this.onChangeFunction} type="text" className="form-control" id="localIpv6ArpResponseCoverage" data-parentData="operatingSystemConfiguration"></input>
-                                                </div>
-
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
-                    <div className="modal-footer">
-                        <div className="row">
-                            <div className="col-md-12 section-divider-bottom">
-                                {confirmButton}
-                            </div>
-                        </div>
+                    <div className="modal-footer fixedspace">
                     </div>
                 </div>
 
             )
         }
     });
-    return FormData;
+    return InstanceFb;
 });

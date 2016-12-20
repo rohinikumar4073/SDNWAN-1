@@ -6,9 +6,13 @@ define(['linkMode', 'bootstrap'], function(linkMode) {
             newNode: null,
             newLink: null,
             setLinkMode: null,
-            topology:null
+            setTopologyModel:null,
+            renderData:null
         },
         methods: {
+          callrenderData:function(data){
+            this.renderData(data);
+          },
             createNode: function(label, iconType, coordinates) {
 
                 var id = this.nodeId();
@@ -38,6 +42,7 @@ define(['linkMode', 'bootstrap'], function(linkMode) {
             },
             setLinkMod: function() {
                 linkMode.setFlag(true);
+
             },
             resetLinkMod: function() {
                 linkMode.setFlag(false);
@@ -47,8 +52,9 @@ define(['linkMode', 'bootstrap'], function(linkMode) {
                 this.newLink(inLink);
 
             },
-            getTopology:function(){
-              return this.topology;
+            setTopology:function(){
+              var topology={};
+               this.setTopologyModel(topology);
 
             }
         }

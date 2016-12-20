@@ -1,12 +1,12 @@
 define([
-    'react', 'jsx!components/PolicyBody', 'jsx!components/Header'
-], function(React, PolicyBody, Header) {
+    'react', 'jsx!components/PolicyBody'
+], function(React, PolicyBody) {
 
     var Policy = React.createClass({
         render: function() {
             return (
                 <div>
-                    <Header className="container-fluid"/>
+
                     <PolicyBody className="container-fluid"/>
                 </div>
             );

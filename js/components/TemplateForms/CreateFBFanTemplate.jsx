@@ -1,7 +1,7 @@
 define([
     'react', 'jsx!components/BootstrapButton', 'properties', 'toastr','react-jsonschema-form'
 ], function(React, BootstrapButton, properties, toastr, Form) {
-  var JSFormTest=Form.default;
+  var FanTempForm=Form.default;
   const schema = {
   "type": "object",
   "properties": {
@@ -75,7 +75,9 @@ define([
     }
   }
 };
-
+function MyCustomWidget() {
+  return <input defaultValue={Date()} className="form-control" disabled="true" />;
+}
   const uiSchema = {
   "templateInfo": {
     "status": {
@@ -83,9 +85,16 @@ define([
       "ui:options": {
         "inline": true
       }
+    },
+    "timeStamp": {
+       "ui:widget": MyCustomWidget
+    },
+    "templateCategory": {
+      "ui:disabled": true
     }
   },
   "airFlow": {
+  "classNames": "greeting",
     "ui:widget": "radio",
     "ui:options": {
       "inline": true
@@ -93,10 +102,16 @@ define([
   }
 };
 
-
+const formData={
+  "templateInfo": {
+    "templateCategory": "Fan Template"
+  }
+};
 
     var FbFanData = React.createClass({
-
+    /*  onClick : function(e){
+      console.log("test");
+        },*/
         onSubmit: function(e) {
 
           this.handleConfirm(e.formData)
@@ -123,10 +138,7 @@ this.props.close();
         },
         getInitialState: function() {
 
-            return {
-
-
-            }
+            return {}
 
         },
         render: function() {
@@ -142,26 +154,23 @@ this.props.close();
                     </div>
                     <div className="modal-body">
 
-                        <JSFormTest  schema={schema}
-                                    uiSchema={uiSchema} 
-                                     onError={console.log("errors")}
-                                       onSubmit={this.onSubmit}>
-                                       <div>
-
-                                               <button type="submit" className="btn  btn-primary btn-sm" >Create New
-                                                   </button>
-                                           </div>
-                                          </JSFormTest>
+                        <FanTempForm  schema={schema}
+                                    uiSchema={uiSchema}
+                                      formData={formData}
+                                    onError={errors => {
+                                      console.log("i am errors" + errors);
+                                      }}
+                                      onSubmit={this.onSubmit}>
+                                      <div>
+                                          <button type="submit" className="btn  btn-primary btn-sm fixedbt">Create New
+                                          </button>
+                                      </div>
+                                         </FanTempForm>
 
 
 
                     </div>
-                    <div className="modal-footer">
-                        <div className="row">
-                            <div className="col-md-12 section-divider-bottom">
-
-                            </div>
-                        </div>
+                    <div className="modal-footer fixedspace">
                     </div>
                 </div>
 

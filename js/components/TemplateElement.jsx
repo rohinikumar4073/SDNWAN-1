@@ -28,13 +28,9 @@ define([
             return connectDragSource(
 
                 <div>
-                    <button className="btn btn-default " type="button" onClick={this.props.onClick}>
-                        <i className={"fa " + this.props.collection.className} aria-hidden="true"></i>
-                    </button>
-                    <div>
-                        {this.props.collection.fb_device_name}
-                    </div>
-
+                    <span onClick={this.props.onClick} className="templatedata">
+                        {this.props.collection.name}
+                    </span>
                 </div>
             );
         }

@@ -24,7 +24,9 @@ shim : {
     "socket":"socket.io-1.4.5",
     "toastr":"toastr.min",
     "three":"three.min",
-    "OrbitControls":"threejs/controls/OrbitControls"
+    "OrbitControls":"threejs/controls/OrbitControls",
+    "Detector":"threejs/Detector"
+
   },
 
   jsx: {
@@ -34,14 +36,19 @@ shim : {
   }
 });
 
-require(['react','react-dom', 'jsx!components/Routing'], function(React,ReactDom,  RoutingFile) {
+require(['react','react-dom', 'jsx!components/Routing','jquery'], function(React,ReactDom,  RoutingFile, $ ) {
 //'react-jsonschema-form',
+$( document ).on( "click", "legend", function(e) {
+  e.preventDefault();
+   $(this).siblings().toggle('slow');
+  // console.log( $.now() );
+
+});//'react-jsonschema-form',
 
 RoutingFile = React.createFactory(RoutingFile);
-ReactDom.render(
-      RoutingFile(),
+var Dom=ReactDom.render(
+      RoutingFile({"displayPage":"Container"}),
       document.getElementById('main'));
-
 });
 //const Form = JSONSchemaForm.default;
 

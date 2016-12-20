@@ -8,7 +8,6 @@ define(function(){
         },
 				setFlagNoHide: function(booleanValue){
 					flag=booleanValue;
-
 				},
         getFlag:function(){
         	return flag;

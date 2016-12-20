@@ -52,7 +52,6 @@ define([
          socket.emit('component-save',JSON.stringify(this.state.dataToBeSend));
 
             this.props.topologyModel.createNode(this.state.dataToBeSend.name, this.props.iconType, this.props.coordinates);
-            console.log("iconType" + this.props.iconType)
             this.props.close();
             properties.addNode(this.state.dataToBeSend.name,this.props.iconType)
 

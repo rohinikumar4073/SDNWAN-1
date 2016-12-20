@@ -13,7 +13,8 @@
                         newNode: '{newNode}',
                         newLink: '{newLink}',
                         setLinkMode:'{setLinkMode}',
-                          topology:'{topology}'
+                          setTopologyModel:'{setTopologyModel}',
+                          renderData:'{renderData}'
                     }
                 }
             ]

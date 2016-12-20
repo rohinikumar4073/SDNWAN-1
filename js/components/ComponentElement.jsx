@@ -1,5 +1,6 @@
 
 define([
+    'jquery',
     'react',
     'reactDnd',
     'nx',
@@ -8,7 +9,7 @@ define([
     'MainView',
     'TopologyView',
     'tooltip'
-], function(React, reactDnd) {
+], function($, React, reactDnd) {
 
     var DragSource = reactDnd.DragSource;
     var PropTypes = React.PropTypes;
@@ -19,7 +20,7 @@ define([
 
         beginDrag: function(props) {
             // Return the data describing the dragged item
-            console.log("Begin Drag");
+            $(".layout-flex > .suggestions").hide()
             var item = {
                 collection: props.collection
             };
@@ -73,14 +74,18 @@ define([
             //    this.setState({childVisible: false});
         },
         addEvent: function(e) {
+            $(".layout-flex > .suggestions").hide()
             if (this.props.collection.name == "link") {
                 var link = "";
                 if (this.state.selectedLinkClass) {
                     this.setState({selectedLinkClass: ""});
                     link = "linkReset";
+                    	$("#forLinkMode").hide();
+
                 } else {
                     this.setState({selectedLinkClass: "selected-link-class"});
                     link = "linkSet";
+                      $("#forLinkMode").show();
                 }
                 this.props.topologyModel(link, this.props.collection.className);
                 return;
