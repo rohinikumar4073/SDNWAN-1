@@ -9,43 +9,29 @@ define([
         componentDidMount: function() {
           var arrayData = [
               {
-
-                "heading": "FB Instance Creation",
-                "template":"FBForm",
-                "data": [
-
-                ]
-              },{
-                "heading": "FB Powersupply Template",
-                "template":"FBPower",
-                "data": [
-
-                ]
-              },{
                 "heading": "FB OS Template",
                 "template":"FBOS",
                 "data": [
 
                 ]
               },{
-                "heading": "FB Template",
-                "template":"FBTemplate",
+                "heading": "FB Transiever Hardware Template",
+                "template":"FBTranseiverHardware",
                 "data": [
 
                 ]
               },{
-                "heading": "FB Fan Template",
-                "template":"FBFan",
+                "heading": "FB Transiever Software Template",
+                "template":"FBTranseiverSoftware",
                 "data": [
 
                 ]
               },{
-                "heading": "FB Transiever Template",
-                "template":"FBTranseiver",
+                "heading": "FB Hardware Template",
+                "template": "FBHardware",
                 "data": [
 
                 ]
-
               }
           ]
           this.setState({elements: arrayData});
@@ -56,6 +42,7 @@ define([
               $.each(result, function(k, v) {
 
       //display the key and value pair
+      if(elements[index] && elements[index].data)
         elements[index].data=v;
         this.setState({elements:elements})
         this.refs["template"+index].setCollection()

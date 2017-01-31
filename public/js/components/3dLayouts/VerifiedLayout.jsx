@@ -220,16 +220,16 @@ define([
         renderLayout: function(data) {
             $("#verifiedlayout").empty()
             this.makeDefault();
-            var nodeData = data["verified-packet-topology-message"]["verified-packet-topology"]["network-topology"]["topology"][0].node;
+            var nodeData = data["verified-packet-topology-message"]["verified-packet-topology"]["topology"][0].node;
             this.initScene();
             this.animate();
 
             threeDservices.loadNodes(nodeData,this,scene,targetList,threeDservices);
-            if( data["verified-packet-topology-message"]["verified-packet-topology"]["network-topology"]["l1-services"]){
-              var liServices = data["verified-packet-topology-message"]["verified-packet-topology"]["network-topology"]["l1-services"]["l1-service"];
+            if( data["verified-packet-topology-message"]["verified-packet-topology"]["l1-services"]){
+              var liServices = data["verified-packet-topology-message"]["verified-packet-topology"]["l1-services"]["l1-service"];
               threeDservices.loadOpticalNodes(liServices,this,scene,targetList,threeDservices);
             }
-            var linkData = data["verified-packet-topology-message"]["verified-packet-topology"]["network-topology"]["topology"][0].link;
+            var linkData = data["verified-packet-topology-message"]["verified-packet-topology"]["topology"][0].link;
             threeDservices.loadLinks(linkData,this,scene,targetList,threeDservices);
             document.addEventListener('mousemove', this.onDocumentMouseMove, false);
 
@@ -241,7 +241,7 @@ define([
             return (
                 <div  className="verifiedlayout">
                     <h3>
-                        Verified Layout</h3>
+                        Verified Topology</h3>
                       <div className="layout-flex " id="verifiedlayout"></div>
                     <BootstrapLink ref="modal" data={this.state.modalHeading} className="hideLink" template={"MultiLayeredTopologyDetails"} addRow={this.addRow}/>
                 </div>

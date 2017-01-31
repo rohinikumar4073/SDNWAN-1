@@ -35,7 +35,7 @@ var BootstrapLink = React.createClass({
         },
 
         openModal: function() {
-          $(".link").find(".modal").appendTo("body");
+    $(".link").find(".modal").appendTo("body");
           this.refs.modal.open();
           },
           closeModal: function(data) {

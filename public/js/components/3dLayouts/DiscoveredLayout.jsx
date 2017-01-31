@@ -221,14 +221,20 @@ SCREEN_WIDTH = parseInt($("#discoverlayout").width());
             var discoveredTopology=data["discovered-topology-message"]["discovered-topology"];
             this.initScene();
             this.animate();
-            var nodeData = discoveredTopology["network-topology"]["topology"][0].node;
+            nodeData={}
+            if(discoveredTopology["network-topology"])
+             nodeData = discoveredTopology["network-topology"]["topology"][0].node;
+             else
+             nodeData = discoveredTopology["topology"][0].node;
+
+
             threeDservices.loadNodes(nodeData,this,scene,targetList,threeDservices);
-            if( discoveredTopology["network-topology"]["l1-services"]){
-              var liServices = data["verified-packet-topology-message"]["verified-packet-topology"]["network-topology"]["l1-services"]["l1-service"];
+            if( discoveredTopology["l1-services"]){
+              var liServices = data["verified-packet-topology-message"]["verified-packet-topology"]["l1-services"]["l1-service"];
               threeDservices.loadOpticalNodes(liServices,this,scene,targetList,threeDservices);
 
             }
-            var linkData = discoveredTopology["network-topology"]["topology"][0].link;
+            var linkData = discoveredTopology["topology"][0].link;
             threeDservices.loadLinks(linkData,this,scene,targetList,threeDservices);
                         document.addEventListener('mousemove', this.onDocumentMouseMove, false);
 
@@ -240,7 +246,7 @@ SCREEN_WIDTH = parseInt($("#discoverlayout").width());
             return (
                 <div className="directlayout">
                     <h3>
-                        Discovered Layout</h3>
+                        Discovered Topology</h3>
                       <div className="layout-flex " id="discoverlayout" ></div>
                     <BootstrapLink ref="modal" data={this.state.modalHeading} className="hideLink" template={"MultiLayeredTopologyDetails"} addRow={this.addRow}/>
                 </div>

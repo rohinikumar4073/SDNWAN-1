@@ -237,13 +237,19 @@ define([
         renderLayout: function(data) {
           $("#multilayered").empty()
           this.makeDefault();
-            var nodeData = data["multilayer-topology-message"]["multilayer-topology"]["network-topology"]["topology"][0].node;
+          var nodeData={};
+          if(data["multilayer-topology-message"]["multilayer-topology"]["network-topology"])
+             nodeData = data["multilayer-topology-message"]["multilayer-topology"]["network-topology"]["topology"][0].node;
+            else  if(data["multilayer-topology-message"]["multilayer-topology"]["topology"])
+            nodeData = data["multilayer-topology-message"]["multilayer-topology"]["topology"][0].node;
+
+
             this.initScene();
             this.animate();
             threeDservices.loadNodes(nodeData, this, scene, targetList, threeDservices);
-            var liServices = data["multilayer-topology-message"]["multilayer-topology"]["network-topology"]["l1-services"]["l1-service"];
+            var liServices = data["multilayer-topology-message"]["multilayer-topology"]["l1-services"]["l1-service"];
             threeDservices.loadOpticalNodes(liServices, this, scene, targetList, threeDservices);
-            var linkData = data["multilayer-topology-message"]["multilayer-topology"]["network-topology"]["topology"][0].link;
+            var linkData = data["multilayer-topology-message"]["multilayer-topology"]["topology"][0].link;
             threeDservices.loadLinks(linkData, this, scene, targetList, threeDservices);
             document.addEventListener('mousemove', this.onDocumentMouseMove, false);
 
@@ -255,7 +261,7 @@ define([
             return (
                 <div>
                     <h3>
-                        MultiLayered Layout</h3>
+                        MultiLayered Topology</h3>
 
                     <div className="layout-flex " id="multilayered" className="multilayered"></div>
                     <BootstrapLink ref="modal" data={this.state.modalHeading} className="hideLink" template={"MultiLayeredTopologyDetails"} addRow={this.addRow}/>

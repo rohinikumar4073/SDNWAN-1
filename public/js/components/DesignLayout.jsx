@@ -89,13 +89,25 @@ socket.on('port-status', function(data) {
 * invoke start method
 */
       shell.start();
-      var topologyData=localStorage.getItem('topologyData');
-      if(topologyData){
-        $(".layout-flex > .suggestions").hide()
-        this.props.topologyModel.renderData(
-          JSON.parse(topologyData))
+      var self=this;
+      $.ajax({
+          url: properties.getNativeTopologyData,
+          type: 'get',
+          contentType: "application/json; charset=utf-8",
+          success: function(data) {
+              var dat=JSON.parse(data);
+              if(dat && dat.nodes.length>0){
+              $(".layout-flex > .suggestions").hide()
+              self.props.topologyModel.renderData(dat);
+            }
 
-      }
+
+
+          },
+          error: function(data) {
+          }
+
+      });
 
   },
 

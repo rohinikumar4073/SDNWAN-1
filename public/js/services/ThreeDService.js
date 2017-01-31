@@ -11,7 +11,7 @@ define(['three',
             xvalueOB: -175,
             getPositions: function(i, v, self) {
                 var x, y, z;
-                if (v.type == "forwarding-box") {
+                if (v.type == "forwarding-box" || v.type=="host") {
                     y = 108;
                     self.xValueFB = self.xValueFB + 35;
                     x = self.xValueFB;
@@ -75,15 +75,19 @@ define(['three',
                     var destination = v.destination["dest-node"];
 
                     var source = v.source["source-node"];
-
+                    if(!destination || !source)
+                    return;
+                    if(threeDservices.positions.fb[source] && threeDservices.positions.fb[destination])
                     threeDservices.addLink(threeDservices.positions.fb[source], threeDservices.positions.fb[destination], scene, targetList);
                     if (v.destination["l1-switch-port"]) {
                         var destinationOpticalLink = v.destination["l1-switch-port"].split(":")[0];
+                        if(threeDservices.positions.fb[destination] && threeDservices.positions.os[destinationOpticalLink])
                         threeDservices.addLink(threeDservices.positions.fb[destination], threeDservices.positions.os[destinationOpticalLink], scene, targetList);
 
                     }
                     if (v.source["l1-switch-port"]) {
                         var sourceDestinationLInk = v.source["l1-switch-port"].split(":")[0];
+                        if(threeDservices.positions.fb[source] && threeDservices.positions.os[sourceDestinationLInk])
                         threeDservices.addLink(threeDservices.positions.fb[source], threeDservices.positions.os[sourceDestinationLInk], scene, targetList);
 
                     }
@@ -113,6 +117,7 @@ define(['three',
                                 opticalDevices.push(ZPOINT);
                                 threeDservices.positions.os[ZPOINT] = threeDservices.addOpticalSwitch(parent, scene, targetList, threeDservices, opticalDevices.length - 1, ZPOINT);
                             }
+                            if(threeDservices.positions.os[APOINT] && threeDservices.positions.os[ZPOINT])
                             threeDservices.addLink(threeDservices.positions.os[APOINT], threeDservices.positions.os[ZPOINT], scene, targetList)
                         })
 
@@ -125,12 +130,18 @@ define(['three',
                 var textureFB = THREE.ImageUtils.loadTexture("css/images/ciscoicons/forwarding%20box.png", {}, function() {
                     parent.renderScene()
                 });
+                var textureHost= THREE.ImageUtils.loadTexture("css/images/ciscoicons/host.jpg", {}, function() {
+                    parent.renderScene()
+                });
+
                 self.xValueFB = -175;
                 nodeData.forEach(function(v, i) {
                     var texture = null;
                     if (v.type == "forwarding-box") {
                         texture = textureFB;
-                    }
+                    }else  if (v.type == "host") {
+                          texture = textureHost;
+                      }
                     var cubeGeometry1 = new THREE.CubeGeometry(20, 20, 20);
                     var cubeMaterial1 = new THREE.MeshBasicMaterial({
                         color: 0x049FD9,

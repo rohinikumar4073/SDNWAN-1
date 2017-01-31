@@ -30,21 +30,19 @@ setParentState:function(data){
                 console.log('Connected: ' + frame);
                 var counter = 1;
                 stompClient.subscribe('/topic/messages', function(getMultiLayerTopologyMessage) {
+                  debugger;
+                      var topology=JSON.parse(JSON.parse(getMultiLayerTopologyMessage.body).content);
+                  if(topology && topology.type){
+                      if(topology.type=="discovered"){
+                        this.refs["discoveredlayout"].renderLayout(JSON.parse(topology.message))
+                      }else   if(topology.type=="multilayer"){
+                          this.refs["multilayered"].renderLayout(JSON.parse(topology.message))
+                        }else  if(topology.type=="verified"){
+                            this.refs["verifiedlayout"].renderLayout(JSON.parse(topology.message))
+                          }
+                  }
                     //  console.log(JSON.parse(getMultiLayerTopologyMessage.body).content);
-                    if (counter == 1) {
-                        counter = 2
-                        this.refs["multilayered"].renderLayout(JSON.parse(JSON.parse(JSON.parse(getMultiLayerTopologyMessage.body).content).message))
 
-                        stompClient.send("/app/kafka", {}, JSON.stringify({'name': 'vz-sdn.orchestrator.verified-packet-topology'}));
-                    } else if (counter == 2) {
-
-                      this.refs["verifiedlayout"].renderLayout(JSON.parse(JSON.parse(JSON.parse(getMultiLayerTopologyMessage.body).content).message))
-
-                        stompClient.send("/app/kafka", {}, JSON.stringify({'name': 'vz-sdn.orchestrator.discovered-topology'}));
-                        counter = 3;
-                    } else {
-                      this.refs["discoveredlayout"].renderLayout(JSON.parse(JSON.parse(JSON.parse(getMultiLayerTopologyMessage.body).content).message))
-                    }
                 }.bind(this));
                 stompClient.send("/app/kafka", {}, JSON.stringify({'name': 'vz-sdn.orchestrator.multilayer-topology'}));
                 //setTimeout(stompClient.send("/app/kafka", {}, JSON.stringify({'name': 'vz-sdn.orchestrator.verified-packet-topology'})),1500);
@@ -714,7 +712,7 @@ setParentState:function(data){
                     }
                 }
             }
-            this.refs["multilayered"].renderLayout(testData)
+  //          this.refs["multilayered"].renderLayout(testData)
 
             var testData2 = {
                 "verified-packet-topology-message": {
@@ -866,7 +864,7 @@ setParentState:function(data){
                     }
                 }
             }
-           this.refs["verifiedlayout"].renderLayout(testData2)
+    //       this.refs["verifiedlayout"].renderLayout(testData2)
             var testData3 = {
                 "discovered-topology-message": {
                     "discovered-topology": {
@@ -1015,7 +1013,7 @@ setParentState:function(data){
                     }
                 }
             }
-            this.refs["discoveredlayout"].renderLayout(testData3)
+      //    this.refs["discoveredlayout"].renderLayout(testData3)
 
         },
         render: function() {

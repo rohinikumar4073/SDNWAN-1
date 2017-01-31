@@ -1,0 +1,755 @@
+Table of Contents
+1.	GET CPU MEMORY DATA	2
+2.	GET FAN STATUS	4
+3.	GET POWER STATUS	5
+4.	GET QSFP INVENTORY STATUS	6
+5.	GET SFP INVENTORY STATUS	7
+6.	GET BRIDGE ATTRIBUTES SERVICE	8
+7.	GET ALARM HISTORY SERVICE	9
+8.	GET SWITCH CONFIGURATION SERVICE	10
+9.	GET ALL LLDP NEIGHBORS SERVICE	12
+10.	GET LLDP NEIGHBOR SERVICE	13
+11.	SET FB CONFIGURATION POLLING FREQUENCY TIME	14
+12.	SET FB INVENTORY POLLING FREQUENCY TIME	15
+13.	SET SYSTEM STATUS POLLING FREQUENCY TIME	15
+14.	SET FLOWCOUNT POLLING FREQUENCY TIME	16
+15.	SET NEIGHBOR DISCOVERY POLLING FREQUENCY TIME	16
+16.	SET PORT ATTRIBUTES POOLING FREQUENCY TIME	17
+17.	SET PORT STATISTICS POOLING FREQUENCY TIME	17
+18.	SET TRANSCEIVER INVENTORY POOLING FREQUENCY TIME	18
+19.	START FB MONITORING SERVICE	18
+20.	STOP FB MONITORING SERVICE	19
+
+ 
+Resources
+1.	Get CPU Memory Data
+GET
+/oneoss-ems/ems/v1/{fb_name}/cpu_memory_data
+
+This API Returns CPU memory data for given Forwarding Box name.
+Request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get CPU and Memory information
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+{
+  "node-id": "picat1",
+  "system-time": "2016-12-21T17:21:31Z",
+  "uptime": {
+    "days": 6,
+    "hours": 18,
+    "minutes": 32
+  },
+  "cpu-load": {
+    "system": 95.6,
+    "user": 3.7,
+    "idle": 95.6
+  },
+  "memory": {
+    "memory-unit": "KiB",
+    "total": 8158088,
+    "used": 224056,
+    "free": 7934032
+  },
+  "task": {
+    "total": 79,
+    "running": 1,
+    "sleeping": 78
+  },
+  "power-supply-unit": [
+    {
+      "component-id": 2,
+      "input-voltage-level": "good",
+      "power-alert": false,
+      "LED": "green",
+      "present": true
+    },
+    {
+      "component-id": 1,
+      "input-voltage-level": "false",
+      "power-alert": false,
+      "LED": "green",
+      "present": true
+    }
+  ],
+  "fan": [
+    {
+      "component-id": 5,
+      "direction": "front-to-back",
+      "speed-rpm": 0,
+      "fault-status": false
+    },
+    {
+      "component-id": 1,
+      "direction": "front-to-back",
+      "speed-rpm": 30,
+      "fault-status": false
+    },
+    {
+      "component-id": 3,
+      "direction": "front-to-back",
+      "speed-rpm": 0,
+      "fault-status": false
+    },
+    {
+      "component-id": 4,
+      "direction": "front-to-back",
+      "speed-rpm": 0,
+      "fault-status": false
+    },
+    {
+      "component-id": 2,
+      "direction": "front-to-back",
+      "speed-rpm": 0,
+      "fault-status": false
+    }
+  ],
+  "time": "2016-12-21T17:21:31Z"
+}
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+2.	Get Fan Status
+GET
+/oneoss-ems/ems/v1/{fb_name}/fan_status
+
+This API Returns Fan inventory for given Forwarding Box name.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get fan status
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+[
+  {
+    "component-id": 5,
+    "direction": "front-to-back",
+    "speed-rpm": 0,
+    "fault-status": false
+  },
+  {
+    "component-id": 1,
+    "direction": "front-to-back",
+    "speed-rpm": 30,
+    "fault-status": false
+  },
+  {
+    "component-id": 3,
+    "direction": "front-to-back",
+    "speed-rpm": 0,
+    "fault-status": false
+  },
+  {
+    "component-id": 4,
+    "direction": "front-to-back",
+    "speed-rpm": 0,
+    "fault-status": false
+  },
+  {
+    "component-id": 2,
+    "direction": "front-to-back",
+    "speed-rpm": 0,
+    "fault-status": false
+  }
+]
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+
+3.	Get Power Status
+GET
+/oneoss-ems/ems/v1/{fb_name}/power_status
+
+This API Returns Power Status for given Forwarding Box name.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get power information
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+[
+  {
+    "component-id": 2,
+    "input-voltage-level": "good",
+    "power-alert": false,
+    "LED": "green",
+    "present": true
+  },
+  {
+    "component-id": 1,
+    "input-voltage-level": "false",
+    "power-alert": false,
+    "LED": "green",
+    "present": true
+  }
+]
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+4.	Get QSFP Inventory Status
+GET
+/oneoss-ems/ems/v1/{fb_name}/qsfp_inventory
+
+This API Returns QSFP Inventory for given Forwarding Box name.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get QSFP Inventory information
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+[
+]
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+
+5.	Get SFP Inventory Status
+GET
+/oneoss-ems/ems/v1/{fb_name}/sfp_inventory
+
+This API Returns SFP Inventory for given Forwarding Box name.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get SFP Inventory information
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+[
+  {
+    "port_name": "te-1/1/1",
+    "vendor_name": "Amphenol",
+    "vendor_sn": "CN0358VV4892H9E",
+    "wavelength": "256 nm",
+    "temperature": "117995 F",
+    "supply_voltage": "65535.00 V",
+    "connector": "Copper pigtail",
+    "length_copper": "5 m",
+    "length_50m": "0 m",
+    "length_625m": "0 m",
+    "length_9m": "0 m",
+    "length_9m_km": "0 m",
+    "plugged_in": true,
+    "rx_receive_power": "65535.00 dbM",
+    "tx_bias_current": "65535.00 mA",
+    "tx_optical_power": "65535.00 dbM"
+  },
+  {
+    "port_name": "te-1/1/17",
+    "vendor_name": "Mellanox",
+    "vendor_sn": "MT1317VS00938",
+    "wavelength": "256 nm",
+    "temperature": "117995 F",
+    "supply_voltage": "65535.00 V",
+    "connector": "Copper pigtail",
+    "length_copper": "1 m",
+    "length_50m": "0 m",
+    "length_625m": "0 m",
+    "length_9m": "0 m",
+    "length_9m_km": "0 m",
+    "plugged_in": true,
+    "rx_receive_power": "65535.00 dbM",
+    "tx_bias_current": "65535.00 mA",
+    "tx_optical_power": "65535.00 dbM"
+  }
+]
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+
+6.	Get Bridge Attributes Service
+GET
+/oneoss-ems/ems/v1/{fb_name}/bridge_attributes
+
+This API Returns QSFP Inventory for given Forwarding Box name.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get Bridge Attributes information
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+[
+  {
+    "name": "br0",
+    "datapath_type": "",
+    "datapath_id": "fb02480fcfafc155",
+    "lldp_enable": true,
+    "controller_address": "10.0.0.48",
+    "protocols": "OpenFlow13",
+    "fail_mode": "secure"
+  }
+]
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+7.	Get Alarm History Service
+GET
+/oneoss-ems/ems/v1/{fb_name}/alarm_history
+
+This API returns last 200 Alarms for given Forwarding Box sorted by time of occurrence.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get list of alarms 
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+[
+  {
+    "alarm_id": "94451d84-0027-4c20-a10b-64b49cb20536",
+    "raise_time": "Thu Sep 1 01:56:31 2016",
+    "switch_name": "DC1-FB2",
+    "severity_code": "critical",
+    "entity_text": "te-1/1/5",
+    "alarm_text": "Port link down"
+  },
+  {
+    "alarm_id": "6f5abe01-ae1a-4392-a485-57e46c6e7fca",
+    "raise_time": "Thu Sep 1 01:56:31 2016",
+    "switch_name": "DC1-FB2",
+    "severity_code": "critical",
+    "entity_text": "te-1/1/1",
+    "alarm_text": "Port link down"
+  },
+  {
+    "alarm_id": "fa72c7a8-5752-4cfc-b797-59b3e488123e",
+    "raise_time": "Fri Sep 2 06:47:20 2016",
+    "switch_name": "DC1-FB2",
+    "severity_code": "critical",
+    "entity_text": "te-1/1/5",
+    "alarm_text": "Port link down"
+  },
+  {
+    "alarm_id": "eef05208-0b1c-4d12-af65-19f5091268f8",
+    "raise_time": "Fri Sep 2 06:47:22 2016",
+    "switch_name": "DC1-FB2",
+    "severity_code": "critical",
+    "entity_text": "te-1/1/1",
+    "alarm_text": "Port link down"
+  }
+]
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+8.	Get Switch Configuration Service
+GET
+/oneoss-ems/ems/v1/{fb_name}/switch_configuration
+
+This API returns information about Switch Configuration for given Forwarding Box.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get FB Configuration 
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+{
+  "fb-config": {
+    "node-id": "picat1",
+    "ssl": {
+      "private-key": "/ovs/var/lib/openvswitch/pki/pica8-privkey.pem",
+      "certificate": "/ovs/var/lib/openvswitch/pki/pica8-cert.pem",
+      "ca-cert": "/ovs/var/lib/openvswitch/pki/controller.cacert",
+      "bootstrap-ca-cert": true
+    },
+    "alarm": {
+      "enable": true,
+      "temperature": {
+        "temperature-unit": "Fahrenheit",
+        "high-threshold": 140,
+        "low-threshold": 32
+      }
+    },
+    "data-plane": {
+      "proxy-arp-subnet": [
+        "10.0.0.0/24"
+      ],
+      "proxy-icmpv6-subnet": [
+        "FEC0:0:0:1000::/62"
+      ],
+      "neighbor-discovery": {
+        "enable": true
+      },
+      "select-group-hash-fields": [
+        "nw_dst",
+        "nw_src"
+      ]
+    },
+    "picos": {
+      "flow-handling-mode": "hardware_flow_only",
+      "query": {
+        "query-interval-unit": "second",
+        "enable-sfp-query": true,
+        "sfp-query-interval": 60,
+        "enable-counter-query": true,
+        "counter-query-interval": 60,
+        "enable-hardware-flow-query": true,
+        "hardware-flow-query-interval": 60
+      },
+      "tcam-region": [
+        {
+          "match-configuration": "ipv4",
+          "hardware-flow-start-index": 513,
+          "hardware-flow-end-index": 3840,
+          "hardware-flow-region-size": 2048
+        },
+        {
+          "match-configuration": "ipv6_64",
+          "hardware-flow-start-index": 257,
+          "hardware-flow-end-index": 512,
+          "hardware-flow-region-size": 2048
+        },
+        {
+          "match-configuration": "ipv6_full",
+          "hardware-flow-start-index": 1,
+          "hardware-flow-end-index": 256,
+          "hardware-flow-region-size": 2048
+        }
+      ]
+    },
+    "time": "2016-12-21T17:41:50Z"
+  }
+}
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+
+9.	Get All LLDP Neighbors service
+GET
+/oneoss-ems/ems/v1/lldp_neighbors
+
+This API returns all neighbors for all Forwarding Boxes.
+request body parameters
+Parameter	Value	description
+		
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+[
+  {
+    "local-fb-name": "picat1",
+    "local-fb-port": "te-1/1/1",
+    "remote-fb-name": "picat2",
+    "remote-fb-port": "te-1/1/1",
+    "time": "2016-05-16T16:34:53Z",
+    "status": "up"
+  },
+  {
+    "local-fb-name": "picat2",
+    "local-fb-port": "te-1/1/1",
+    "remote-fb-name": "picat1",
+    "remote-fb-port": "te-1/1/1",
+    "time": "2016-05-16T16:34:53Z",
+    "status": "up"
+  }
+]
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+
+10.	Get LLDP Neighbor service
+GET
+/oneoss-ems/ems/v1/lldp_neighbor/{fbName}
+
+This API returns neighbors for a given Forwarding Box name.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to get neighbor information  in the n/w topology
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+[
+  {
+    "local-fb-name": "picat1",
+    "local-fb-port": "te-1/1/1",
+    "remote-fb-name": "picat2",
+    "remote-fb-port": "te-1/1/1",
+    "time": "2016-05-16T16:34:53Z",
+    "status": "up"
+  }
+]
+
+404	
+FB name not found
+599	
+Device Connection Error
+500
+Internal server error
+11.	Set FB configuration polling frequency time
+PUT
+/oneoss-ems/ems/v1/configure/polling_time/fb_configuration/{time_in_sec}
+
+This API sets polling time for FB configurations.
+request body parameters
+Parameter	Value	description
+{time_in_sec}	Integer
+Default: none	Frequency of time interval to poll FB Configuration periodically  
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+500	
+Internal error
+
+12.	Set FB inventory polling frequency time
+PUT
+/oneoss-ems/ems/v1/configure/polling_time/fb_inventory/{time_in_sec}
+
+This API sets polling time for FB inventory.
+request body parameters
+Parameter	Value	description
+{time_in_sec}	integer
+Default: none	Frequency of time interval to poll FB Inventory periodically
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+500	
+Internal error
+
+13.	Set System Status polling frequency time
+PUT
+/oneoss-ems/ems/v1/configure/polling_time/system_status/{time_in_sec}
+
+This API sets polling time for System(FB) Status.
+request body parameters
+Parameter	Value	description
+{time_in_sec}	integer
+Default: none	Frequency of time interval to poll System Status periodically
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+500	
+Internal error
+
+14.	Set FlowCount polling frequency time
+PUT
+/oneoss-ems/ems/v1/configure/polling_time/flow_count/{time_in_sec}
+
+This API sets polling time for Flow Count.
+request body parameters
+Parameter	Value	description
+{time_in_sec}	integer
+Default: none	Frequency of time interval to poll FB Flow Count periodically
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+500	
+Internal error
+
+15.	Set Neighbor Discovery polling frequency time
+PUT
+/oneoss-ems/ems/v1/configure/polling_time/flow_count/{time_in_sec}
+
+This API sets polling time for Neighbor Discovery(LLDP).
+request body parameters
+Parameter	Value	description
+{time_in_sec}	integer
+Default: none	Frequency of time interval to poll Neighbor Discovery periodically
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+500	
+Internal error
+
+16.	Set Port attributes pooling frequency time
+PUT
+/oneoss-ems/ems/v1/configure/polling_time/port_attributes/{time_in_sec}
+
+This API sets polling time for FB Port attributes.
+request body parameters
+Parameter	Value	description
+{time_in_sec}	integer
+Default: none	Frequency of time interval to poll FB Port attributes periodically
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+500	
+Internal error
+
+17.	Set Port Statistics pooling frequency time
+PUT
+/oneoss-ems/ems/v1/configure/polling_time/port_statistics/{time_in_sec}
+
+This API sets polling time for FB Port Statistics.
+request body parameters
+Parameter	Value	description
+{time_in_sec}	integer
+Default: none	Frequency of time interval to poll FB Port statistics periodically
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+500	
+Internal error
+
+18.	Set Transceiver Inventory pooling frequency time
+PUT
+/oneoss-ems/ems/v1/configure/polling_time/transceiver_inventory/{time_in_sec}
+
+This API sets polling time for FB Transceiver Inventory.
+request body parameters
+Parameter	Value	description
+{time_in_sec}	integer
+Default: none	Frequency of time interval to poll FB Transceiver Inventory periodically
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+500	
+Internal error
+
+19.	Start FB monitoring service
+PUT
+/oneoss-ems/ems/v1/start_monitoring/{fb_name}/{fb_ip}
+
+This API start’s monitoring for the given FB regardless of the configuration status of the FB.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to start monitor
+{fb_ip}	string
+Default: none	FB IP
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Monitoring started successfully
+
+500	
+Errors occurred while starting Monitoring
+
+20.	Stop FB monitoring service
+PUT
+/oneoss-ems/ems/v1/stop_monitoring/{fb_name}
+
+This API stop monitoring for the given FB regardless of the configuration status of the FB.
+request body parameters
+Parameter	Value	description
+{fb_name}	string
+Default: none	FB name to stop monitoring
+
+Acceptable request representations:
+None
+Available response representations:
+
+200 - application/json (content)
+Success
+
+404	
+FB name not found
+
+500	
+Errors occurred while stopping Monitoring
+

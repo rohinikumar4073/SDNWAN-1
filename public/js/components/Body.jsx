@@ -24,13 +24,13 @@ define([
             if (data.collection.name == "link") {
                 return;
             }
-            this.refs.modal.open();
 
-            this.setState({
-                bootstrapTitle: "Add " + data.collection.name,
-                iconType: data.collection.className,
-                coordinates: coordinates
-            })
+                        this.setState({
+                            bootstrapTitle: "Add " + data.collection.name,
+                            iconType: data.collection.className,  submitMode:"Save",
+                            coordinates: coordinates,formData:{}
+                        },this.refs.modal.open)
+
         },
         topologyModelControllerLinkMode: function(title, iconDetails) {
             if (title == "linkSet") {
@@ -40,12 +40,14 @@ define([
                 this.topologyModel.resetLinkMod();
                 return;
             }
-            this.setState({coordinates: {}})
-            this.refs.modal.open();
             this.setState({
                 bootstrapTitle: "Add " + title,
-                iconType: iconDetails
-            })
+                iconType: iconDetails,
+                 submitMode:"Save",
+                coordinates: {},
+                formData:{}
+            },this.refs.modal.open)
+
         },
         toggleElement: function() {
             if ($(".left-menu").hasClass("toggle-show")) {

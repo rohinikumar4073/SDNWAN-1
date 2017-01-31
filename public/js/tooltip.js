@@ -25,18 +25,19 @@ define(
                                     switch (iconType) {
                                         case "optical-switch":
                                         case "patch-panel":
+                                        case "host":
                                             this.view("configData").set("class", "linkhide");
                                             this.view("templateData").set("class", "linkhide");
                                             // Setting config and template data to hidden
                                             var finalResults = []
                                             var fetchComplete=function(data,view){
                                               var result = JSON.parse(data)
-                                              if (iconType == "optical-switch") {
+                                              if (iconType == "optical-switch" ||iconType == "host") {
                                                   result = JSON.parse(result)
                                               }
                                               result.forEach(function(v, i) {
                                                       var res = null;
-                                                      if (iconType == "optical-switch") {
+                                                      if (iconType == "optical-switch" ||iconType == "host") {
                                                           res = v;
                                                       }else {
                                                           res = JSON.parse(v)
@@ -49,6 +50,7 @@ define(
                                                       finalResults.push(res);
                                                   })
 
+
                                             }
                                             var resources = view._resources;
                                             var socket = properties.socket();
@@ -60,16 +62,27 @@ define(
                                                     "name": fbName,
                                                     "type": iconType
                                                 };
+                                                $.ajax({
+                                                    url: properties.getPortStatus,
+                                                    type: 'post',
+                                                    data: JSON.stringify(patchfetch),
+                                                    contentType: "application/json; charset=utf-8",
+                                                    success: fetchComplete,
+                                                    error: function(data) {
+                                                      //  toastr.error("Not able to add Optical Switch")
+                                                    }
 
-                                                socket.emit('port-status-fetch', JSON.stringify(patchfetch));
-                                                //debugger;
-                                                socket.on('port-status', function(data) {
-                                                  fetchComplete(data)
-                                                }.bind(fetchComplete))
+                                                });
                                                 setTimeout(function() {
                                                     view.set('items', finalResults)
 
                                                 }, 500)
+                                              //  socket.emit('port-status-fetch', JSON.stringify(patchfetch));
+                                                //debugger;
+                                                socket.on('port-status', function(data) {
+                                                  fetchComplete(data)
+                                                }.bind(fetchComplete))
+
 
                                             } else {
                                                 this.view("editData").set("class", "popup-section");
@@ -77,35 +90,7 @@ define(
                                                 this.view("deleteComponent").set("class", "popup-section");
                                             }
                                             break;
-                                        case "host":
-                                            this.view("configData").set("class", "linkhide")
-                                            this.view("templateData").set("class", "linkhide")
-                                            this.view("deleteComponent").set("class", "linkhide")
-                                            var postURL = properties.rmsIp + "/"
-                                            fbName +
-                                                "/port/find";
-                                            if (isLinkMode) {
 
-                                                this.view("classNamePort").set("class", "linkhide")
-                                                $.post(postURL, function(result) {
-                                                    var collection = result;
-
-                                                    result.forEach(function(v, i) {
-                                                        if (v.isFree == "true") {
-                                                            v.isAllocated = false
-                                                        } else {
-                                                            v.isAllocated = true
-                                                        }
-                                                    })
-                                                    view.set('items', result)
-
-
-                                                })
-
-                                            } else {
-                                                this.view("classNamePort").set("class", "popup-section")
-                                            }
-                                            break;
                                         case "fb-icon":
                                             if (isLinkMode) {
 
@@ -326,8 +311,6 @@ define(
 
                             "onClickEvent": function() {
                                 var self = this.node();
-                                var fbName = $('g.node-selected')
-                                    .attr('data-id');
                                 $("#pageModal")
                                     .load(
                                         "templates/tab.html",
@@ -337,18 +320,15 @@ define(
                                                     'show')
 
                                             configurationEvents.init(self);
-                                            configurationEvents.savingDetails();
-                                            configurationEvents.bridgeTable();
-                                            configurationEvents.portTable();
+                                            configurationEvents.savingDetails(self);
+                                            configurationEvents.bridgeTable(self);
+                                            configurationEvents.portTable(self);
+                                            //configurationEvents.getDetails(self);
                                         });
 
                             },
                             "onClickEvent1": function() {
-                                {
                                     var self = this.node();
-                                    /*var fbName = $('g.node-selected')
-                                        .attr('data-id');*/
-                                }
                                 $("#pageModal")
                                     .load(
                                         "templates/templates.html",
@@ -356,27 +336,70 @@ define(
                                             $('#pageModal ')
                                                 .modal(
                                                     'show')
-
-                                            configurationEvents.init(self);
-                                            //configurationEvents.savingDetails();
-                                            //configurationEvents.bridgeTable();
-                                            configurationEvents.templateTable();
+                                                    debugger;
+                                            //configurationEvents.init(self);
+                                            configurationEvents.templateTable(self);
                                         });
 
                             },
                             "deleteNode": function() {
+                                var sureDel=confirm("Please confirm to delete node")
+                                if(!sureDel){
+                                  return;
+                                }
+                              var self = this.node();
+                           var name = self.get("label");
+                           var type = self.get("iconType");
+                           var data = {
+                             "name": name,
+                             "type": type
+                           }
 
-                                var self = this.node();
-                                self.remove()
-                                $(".n-topology-tooltip").hide()
+                          $.ajax({
+                            url: properties.deleteNode,
+                            type: 'post',
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            success: function(returnData){
+                              self.topology().removeNode(
+                                  self.node().id());
+                                  $.ajax({
+                                      url: properties.saveNativeTopologyData,
+                                      type: 'post',
+                                      data: JSON.stringify( self.topology().getData()),
+                                      contentType: "application/json; charset=utf-8",
+                                      success: function(data) {
+                                          $.ajax({
+                                            url: properties.rmsIp + name + "/delete",
+                                            type: 'delete',
+                                            data: "",
+                                            contentType: "application/json; charset=utf-8",
+                                            success: function(data){
 
+                                            },
+                                            error:function(data){
 
+                                            }
+                                          })
+                                      }
+                                  })
+                              toastr.success("Deleted " +data.name+ " successfully");
                             },
+                            error: function(returnData){
+                              toastr.error("Could not delete  " +data.name);
+                            }
+                          })
+
+                           $(".n-topology-tooltip").hide()
+                            },
+
                             "onClickEvent2": function() {
                                 if (!configurationEvents.isSourceSelected()) {
                                     //debugger;
                                     configurationEvents.setSourceNodeDetails({
                                         node: this
+                                            .node().get("label"),
+                                        id: this
                                             .node().id(),
                                         iconType: this
                                             .node().get('iconType'),
@@ -400,9 +423,7 @@ define(
                                         configurationEvents.initFStoOB(self);
                                         return;
                                     }
-                                    if (isFBTrgOrSrc) {
-                                        templatedToLoad = "templates/configuringFbLink.html";
-                                    }
+
                                     $("#pageModal")
                                         .load(
                                             templatedToLoad,
@@ -429,6 +450,7 @@ define(
                                 var uploadedData = {
                                     bootstrapTitle: "",
                                     submitMode: "Update",
+                                    iconType:self.iconType(),
                                     formData: {
                                         name: self.get("label"),
                                         id: self.get("id")
@@ -442,7 +464,11 @@ define(
                                         uploadedData.bootstrapTitle = "Editing Optical Switch"
                                         break;
                                     case "patch-panel":
-                                        uploadedData.bootstrapTitle = "Editing Patch Panel"
+                                        uploadedData.bootstrapTitle = "Editing Patch Panel";
+                                        break;
+                                    case "host":
+                                          uploadedData.bootstrapTitle = "Editing Host";
+                                          uploadedData.formData["node-id"]=self.get("label");
 
                                 }
                                 var bodyElement = configurationEvents.getBodyReference();

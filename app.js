@@ -15,6 +15,9 @@ var redis = require('redis');
 //var client = redis.createClient();
 var client = redis.createClient(6379,"localhost");
 
+client.on("error", function (err) {
+    console.log("Error " + err);
+});
 var rdb = require('./DBinfo');
 var comp = require('./components');
 
@@ -32,7 +35,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+routes.client=client;
+routes.comp=comp;
 app.use('/', routes);
 
 
@@ -103,7 +107,6 @@ io.on('connection', function(clientws) {
         var dat = JSON.parse(data);
         var portdetails;
         var type;
-
         if (dat.type == "patch-panel") {
             var portinfo = [];
             for (var i = 0; i < parseInt(dat.portsno); i++) {
@@ -114,7 +117,8 @@ io.on('connection', function(clientws) {
 
         } else {
             type = "_optical";
-            portdetails = '[{"name":"ALPHA-FB1:Shelf: 1   Slot: 1   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 2   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 3   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 4   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 5   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 6   Subslot: 1   Port: 1","status":"false"}]';
+            //portdetails = '[{"name":"ALPHA-FB1:Shelf: 1   Slot: 1   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 2   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 3   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 4   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 5   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 6   Subslot: 1   Port: 1","status":"false"}]';
+            portdetails =  JSON.stringify(dat.ports);
         }
         comp.storeComponent(client, dat.name + type, portdetails, function(data) {
             io.emit("component-status", "success");
@@ -122,6 +126,24 @@ io.on('connection', function(clientws) {
         });
     });
 
+    clientws.on('component-delete', function(data){
+      var type;
+      var name;
+      var dat = JSON.parse(data);
+      if(dat.type == "fb-icon"){
+        type = "_forwardingData";
+      }
+      else if(dat.type == "optical-switch"){
+        type = "_opticalData";
+      }
+      else{
+        type = "_hostData";
+      }
+      name = dat.name;
+      comp.deleteComponent(client, dat.name + type, name, function(data){
+        io.emit("component-status","success");
+      })
+    });
 
 
     clientws.on('port-status-fetch', function(data) {
@@ -147,35 +169,39 @@ io.on('connection', function(clientws) {
         var dat = JSON.parse(data);
         var type = "";
         if (dat.type == "patch-panel") {
-            type = "_patch"
-        } else {
-            type = "_optical"
+            type = "_patchPorts"
+        } else if (dat.type == "optical-switch") {
+            type = "_opticalPorts"
+        }else if (dat.type == "host") {
+            type = "_hostPorts"
         }
-
+        console.log("type"+type)
         comp.fetchComponent(client, dat.name + type, function(portinfo) {
 
-            var ports = JSON.parse(portinfo);
+            var ports = JSON.parse(JSON.parse(portinfo));
 
             var j = 0;
             var newports = [];
 
 
-            for (var k = 0; k < ports.length; k++) {
-                //  console.log("portname is :"+dat.portname+"  objstatus is :"+ports[k]+"  datstatus is :"+dat.status);
 
-                if (dat.portname == JSON.parse(ports[k]).name) {
-                    newports[k] = '{"name":"' + dat.portname + '","status":"' + dat.status + '"}';
-                } else {
-                    newports[k] = '{"name":"' + JSON.parse(ports[k]).name + '","status":"' + JSON.parse(ports[k]).status + '"}';
-                }
+              for (var k = 0; k < ports.length; k++) {
+                    console.log("portname is :"+dat.portname+"  objstatus is :"+ports[k]+"  datstatus is :"+dat.status);
 
-            }
+                  if (dat.portname == ports[k].name){
+                      newports.push({name:dat.portname ,
+                                    status:dat.status });
+                  } else {
+                      newports.push(ports[k]);
+                  }
+
+              }
 
             console.log("updated : " + newports);
 
 
 
-            comp.setComponent(client, dat.name + type, newports, function(status) {
+            comp.setComponent(client, dat.name + type, JSON.stringify(newports), function(status) {
 
                 console.log("status");
 

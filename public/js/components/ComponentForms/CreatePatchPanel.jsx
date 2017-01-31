@@ -52,12 +52,36 @@ define([
             var patchinfo1 = JSON.parse(JSON.stringify(data))
             patchinfo1.name = data.name + "1";
             patchinfo2.name = data.name + "2";
-            socket.emit('component-save', JSON.stringify(patchinfo1));
-            socket.emit('component-save', JSON.stringify(patchinfo2));
+            $.ajax({
+                url: properties.saveComponent,
+                type: 'post',
+                data: JSON.stringify(patchinfo1),
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
 
-            socket.on('component-save', function(data) {
+                    toastr.success("PatchPanel 1 added successfully")
+
+                },
+                error: function(data) {
+                    toastr.error("Not able to add host")
+                }
+
             });
+            $.ajax({
+                url: properties.saveComponent,
+                type: 'post',
+                data: JSON.stringify(patchinfo2),
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
 
+                    toastr.success("PatchPanel 2 added successfully")
+
+                },
+                error: function(data) {
+                    toastr.error("Not able to add PatchPanel")
+                }
+
+            });
             properties.addNode(data.name + "1", this.props.iconType)
             properties.addNode(data.name + "2", this.props.iconType)
 

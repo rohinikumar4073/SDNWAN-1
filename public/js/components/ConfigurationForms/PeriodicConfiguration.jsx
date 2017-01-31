@@ -50,32 +50,18 @@ define([
             return {}
         },
         render: function() {
-
             return (
-                <div className={"modal-content " + this.props.className}>
-                    <div className="modal-header">
-                        <button type="button" className="close" onClick={this.props.handleCancel}>
-                            &times;
-                        </button>
-                        <h3>{this.props.header}</h3>
-                    </div>
-                    <div className="modal-body">
-
+                <div className={this.props.className}>
+                    <div className="configuration">
                         <PeriodicConfiguration schema={schema} uiSchema={uiSchema} formData={formData} onError={errors => {
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
-                                <button type="submit" className="btn  btn-primary btn-sm">Create New</button>
+                                <button type="submit" className="btn  btn-primary btn-sm">Save</button>
                             </div>
                         </PeriodicConfiguration>
                     </div>
-                    <div className="modal-footer">
-                        <div className="row">
-                            <div className="col-md-12 section-divider-bottom"></div>
-                        </div>
-                    </div>
                 </div>
-
             )
         }
     });

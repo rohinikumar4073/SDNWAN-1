@@ -1,264 +1,222 @@
 define([
-    'react', 'jquery', 'properties', 'toastr'
-], function(React, $, properties, toastr) {
-
-    var BootstrapButton = React.createClass({
-        render: function() {
-            return (
-                <a {...this.props} href="javascript:;" role="button" className={(this.props.className || '')}>
-                    {this.props.data}
-                </a>
-            );
-        }
-    });
-
-
-    var ScheduleConnection = React.createClass({
-        render: function() {
-            return (
-                <div className="power">
-
-                    <div className="form-group">
-                        <label for="conn-group-id">Connection Group ID #{this.props.index}:</label>
-                        <input type="text" className="form-control" id="conn-group-id" onChange={this.onChangeFunction}></input>
-                    </div>
-                    <div className="form-group">
-                        <label for="type">Type #{this.props.index}:</label>
-                        <input type="text" className="form-control" id="type" onChange={this.onChangeFunction}></input>
-                    </div>
-                    <div className="form-group">
-                        <label for="a-endpoints">A Endpoints #{this.props.index}:</label>
-                        <input type="text" className="form-control" id="a-endpoints" onChange={this.onChangeFunction}></input>
-                    </div>
-                    <div className="form-group">
-                        <label for="z-endpoints">Z Endpoints #{this.props.index}:</label>
-                        <input type="text" className="form-control" id="z-endpoints" onChange={this.onChangeFunction}></input>
-                    </div>
-                    <div className="form-group">
-                        <label for="link-group-a-z">Link Group A-Z #{this.props.index}:</label>
-                        <input type="text" className="form-control" id="link-group-a-z" onChange={this.onChangeFunction}></input>
-                    </div>
-                    <div className="form-group">
-                        <label for="link-group-z-a">Link Group Z-A #{this.props.index}:</label>
-                        <input type="text" className="form-control" id="link-group-z-a" onChange={this.onChangeFunction}></input>
-                    </div>
-                    <div className="form-group">
-                        <label for="min_bw">Minimum Bandwidth #{this.props.index}:</label>
-                        <input type="text" className="form-control" id="min_bw" onChange={this.onChangeFunction}></input>
-                    </div>
-                    <div className="form-group">
-                        <label for="max_bw">Maximum Bandwidth #{this.props.index}:</label>
-                        <input type="text" className="form-control" id="max_bw" onChange={this.onChangeFunction}></input>
-                    </div>
-                    <div className="form-group">
-                        <label for="verify">Verify #{this.props.index}:</label>
-                        <div className="radio">
-                            <label for="discovered">
-                                <input type="radio" name="verify"></input>True</label>
-                        </div>
-                        <div className="radio">
-                            <label for="discovered">
-                                <input type="radio" name="verify"></input>False</label>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-    });
-
-    var CreateSchedulePolicy = React.createClass({
-        onChangeFunction: function(e) {
-
-            var con = e.target.getAttribute("id");
-            if (con && con == 'conn') {
-                var val = e.target.value;
-                this.state.scheduleConnection = [];
-                for (var i = 0; i < val; i++) {
-                    this.state.scheduleConnection.push(i);
-                }
-            }
-            var parnetId = e.target.getAttribute("data-parentdata")
-            if (parnetId) {
-                if (this.state.dataToBeSend[parnetId]) {
-                    this.state.dataToBeSend[parnetId][e.target.id] = e.target.value;
-                } else {
-                    this.state.dataToBeSend[parnetId][e.target.id] = e.target.value;
-                }
-            } else {
-                this.state.dataToBeSend[e.target.id] = e.target.value;
-            }
-
-            this.setState({dataToBeSend: this.state.dataToBeSend});
-
-        },
-        handleConfirm: function() {
-            var self = this;
-            $.ajax({
-                url: properties.schedulePolicyIp,
-                type: 'post',
-                data: JSON.stringify(this.state.dataToBeSend),
-                contentType: "application/json; charset=utf-8",
-                success: function(data) {
-                    toastr.success("Success! Dynamic Bandwidth policy is created")
-                },
-                error: function(data) {
-                    toastr.error("Error! Dynamic Bandwidth policy is not created")
-                }
-            });
-            this.props.close();
-
-        },
-        getInitialState: function() {
-
-            return {
-                scheduleConnection: [],
-                dataToBeSend: {
-                    "service_id": "",
-                    "schedule": {
-                        "start_date_time": "",
-                        "end_date_time": ""
+    'react', 'jquery', 'properties', 'toastr', 'react-jsonschema-form'
+], function(React, $, properties, toastr, Form) {
+    var SchedulePolicyForm = Form.default;
+    const schema = {
+        "type": "object",
+        "properties": {
+            "schedulePolicyInput": {
+                "type": "object",
+                "title":"Schedule Policy",
+                "properties": {
+                    "service_id": {
+                        "type": "string",
+                        "title": "Service ID"
                     },
-                    "connections": [
-                        {
-                            "conn-grp-id": "",
-                            "type": "",
-                            "a-endpoints": "",
-                            "z-endpoints": "",
-                            "min_bw": "",
-                            "max_bw": "",
-                            "link_group_a_z": "",
-                            "link_group_z_a": "",
-                            "verify": ""
+                    "schedule": {
+                        "type": "object",
+                        "title": "Schedule",
+                        "properties": {
+                            "start_date_time": {
+                                "type": "string",
+                                "title": "Start Date Time"
+                            },
+                            "end_date_time": {
+                                "type": "string",
+                                "title": "End Date Time"
+                            }
                         }
-                    ],
+                    },
+                    "connections": {
+                        "type": "array",
+                        "title": "Connections",
+                        "items":{
+                          "type":"object",
+                        "properties": {
+                            "conn-grp-id": {
+                                "type": "string",
+                                "title": "Connection Group ID"
+                            },
+                            "type": {
+                                "type": "string",
+                                "title": "Type"
+                            },
+                            "a-endpoints": {
+                                "type": "string",
+                                "title": "A Endpoints"
+                            },
+                            "z-endpoints": {
+                                "type": "string",
+                                "title": "Z Endpoints"
+                            },
+                            "min_bw": {
+                                "type": "string",
+                                "title": "Minimum Bandwidth"
+                            },
+                            "max_bw": {
+                                "type": "string",
+                                "title": "Maximum Bandwidth"
+                            },
+                            "link_group_a_z": {
+                                "type": "string",
+                                "title": "Link Group A-Z"
+                            },
+                            "link_group_z_a": {
+                                "type": "string",
+                                "title": "Link Group Z-A"
+                            },
+                            "verify": {
+                                "type": "boolean",
+                                "title": "Verify"
+                            }
+                        }
+                      }
+                    },
                     "policies": {
-                        "policy_id": "",
-                        "flow_spec": {
-                            "source_prefix": "",
-                            "destination_prefix": ""
-                        },
-                        "flow_attributes": {
-                            "bidirectional": ""
-                        },
-                        "path_bundle_list": {
-                            "bundle_id": "",
-                            "role": "",
-                            "constraints": {
-                                "max_path_cost": "",
-                                "element_policy": {
-                                    "id": "",
-                                    "type": "",
-                                    "use": ""
+                        "type": "object",
+                        "title": "Policies",
+                        "properties": {
+                            "policy_id": {
+                                "type": "string",
+                                "title": "Policy ID"
+                            },
+                            "flow_spec": {
+                                "type": "object",
+                                "title": "Flow Specification",
+                                "properties": {
+                                    "source_prefix": {
+                                        "type": "string",
+                                        "title": "Source Prefix"
+                                    },
+                                    "destination_prefix": {
+                                        "type": "string",
+                                        "title": "Destination Prefix"
+                                    }
+                                }
+                            },
+                            "flow_attributes": {
+                                "type": "object",
+                                "title": "Flow Attributes",
+                                "properties": {
+                                    "bidirectional": {
+                                        "type": "boolean",
+                                        "title": "Bidirectional"
+                                    }
+                                }
+                            },
+                            "path_bundle_list": {
+                                "type": "object",
+                                "title": "Path Bundle List",
+                                "properties": {
+                                    "bundle_id": {
+                                        "type": "string",
+                                        "title": "Bundle ID"
+                                    },
+                                    "Role": {
+                                        "type": "string",
+                                        "title": "Role"
+                                    },
+                                    "constraints": {
+                                        "type": "object",
+                                        "title": "Constraints",
+                                        "properties": {
+                                            "max_path_cost": {
+                                                "type": "integer",
+                                                "title": "Maximum Path Cost"
+                                            },
+                                            "element_policy": {
+                                                "type": "object",
+                                                "title": "Element Policy",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "title": "ID"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "title": "Type"
+                                                    },
+                                                    "use": {
+                                                        "type": "string",
+                                                        "title": "Use"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-        },
-        keyPressFunction: function(event) {
-            var keycode = (event.keyCode
-                ? event.keyCode
-                : event.which);
-            if (keycode == '13') {
-                this.handleConfirm();
-            }
-            event.stopPropagation()
+        }
+    };
+
+    const uiSchema = {
+      "schedulePolicyInput":{
+        "connections":{
+          "verify":{
+            "ui:widget":"radio"
+          }
+        }
+
+      }
+
+    };
+    const formData = {
+
+    };
+    var CreateSchedulePolicy= React.createClass({
+        /*  onClick : function(e){
+      console.log("test");
+        },*/
+        onSubmit: function(e) {
+            this.handleConfirm(e.formData)
         },
 
+        handleConfirm: function(data) {
+            var self = this;
+            $.ajax({
+                url: properties.schedulePolicyIp,
+                type: 'post',
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                    toastr.success("Success! Schedule Policy is created")
+                },
+                error: function(data) {
+                    toastr.error("Error! Schedule Policy is not created")
+                }
+
+            });
+            this.props.close();
+        },
+        getInitialState: function() {
+            return {}
+        },
         render: function() {
-            confirmButton = (
-                <BootstrapButton onClick={this.handleConfirm} className="btn  btn-primary btn-sm" data="Create New">
-                    {this.props.confirm}
-                </BootstrapButton>
-            );
-
             return (
-
                 <div className={"modal-content " + this.props.className}>
                     <div className="modal-header">
                         <button type="button" className="close" onClick={this.props.handleCancel}>
-                            &times;</button>
+                            &times;
+                        </button>
                         <h3>{this.props.header}</h3>
                     </div>
                     <div className="modal-body">
+                    <SchedulePolicyForm schema={schema} uiSchema={uiSchema} validate={this.validate} formData={formData} onSubmit={this.onSubmit} onError={errors => {
+                        console.log("i am errors" + errors);
+                    }} onSubmit={this.onSubmit}>
                         <div>
-                            <div className="form-group">
-                                <label for="label">Label:</label>
-                                <input type="text" className="form-control" id="label"></input>
-                            </div>
-                            <div className="form-group">
-                                <label for="service_id">Service ID:</label>
-                                <input type="text" className="form-control" id="service_id"></input>
-                            </div>
-                            <div className="well well-sm ">Schedule</div>
-                            <form>
-                                <div className="form-group">
-                                    <label for="start_date_time">Start Date Time:</label>
-                                    <input type="text" className="form-control" id="start_date_time" onChange={this.onChangeFunction}></input>
-                                </div>
-
-                                <div className="form-group">
-                                    <label for="end_date_time">End Date Time:</label>
-                                    <input type="text" className="form-control" id="end_date_time" onChange={this.onChangeFunction}></input>
-                                </div>
-                                <div className="form-group">
-                                    <label for="conn">Connections:</label>
-                                    <input type="text" className="form-control" id="conn" onChange={this.onChangeFunction}></input>
-                                </div>
-                                {this.state.scheduleConnection.map(function(element, i) {
-                                    return <ScheduleConnection index={i + 1}/>
-                                })
-}
-                                <div className="form-group">
-                                    <label for="policyId">Policy ID:</label>
-                                    <input type="text" className="form-control" id="policyId"></input>
-                                </div>
-                                <div className="well well-sm ">Flow Attributes</div>
-                                <div className="form-group">
-                                    <div className="radio">
-                                        <label for="unidirec">
-                                            <input type="radio" name="unidirec"></input>Unidirectional</label>
-                                    </div>
-                                    <div className="radio">
-                                        <label for="unidirec">
-                                            <input type="radio" name="unidirec"></input>Bidirectional</label>
-                                    </div>
-                                </div>
-                                <div className="form-group ">
-                                    <label for="bundleId">Bundle ID:</label>
-                                    <input type="text" className="form-control" id="bundleId"></input>
-                                </div>
-                                <div className="form-group ">
-                                    <label for="role">Role:</label>
-                                    <input type="text" className="form-control" id="role_type"></input>
-                                </div>
-                                <div className="well well-sm ">Constraints</div>
-                                <div className="form-group ">
-                                    <label for="defaultUse">Default Use:</label>
-                                    <input type="text" className="form-control" id="defaultUse"></input>
-                                </div>
-                                <div className="well well-sm ">Element Policy</div>
-                                <div className="form-group">
-                                    <label for="id">ID:</label>
-                                    <input type="text" className="form-control" id="id"></input>
-                                    <label for="type">Type:</label>
-                                    <input type="text" className="form-control" id="type"></input>
-                                    <label for="useOverride">Use Override:</label>
-                                    <input type="text" className="form-control" id="useOverride"></input>
-                                </div>
-                            </form>
+                            <button type="submit" className="btn btn-sm btn-primary" data="Save">{this.props.submitMode}</button>
+                            <button onClick={this.props.handleCancel} type="button" className="btn btn-sm btn-default" data="Cancel">Cancel</button>
                         </div>
+                    </SchedulePolicyForm>
                     </div>
-                    <div className="modal-footer">
-                        <div class="row">
-                            <div class="col-md-12 section-divider-bottom">
-                                {confirmButton}
-                            </div>
-                        </div>
-                    </div>
+                    <div className="modal-footer fixedspace"></div>
                 </div>
-            );
+            )
         }
     });
     return CreateSchedulePolicy;

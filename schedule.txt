@@ -1,0 +1,57 @@
+{
+  "label": "Scheduled Service",
+  "productId": "5848738b-6185-4f47-bd3d-ec5c359d7e9b",
+  "properties": {
+    "ofDomainId": "{{OF DOMAIN ID}}",
+    "vwanDomainId": "{{VWAN DOMAIN ID}}",
+    "schedulePolicyInput": {
+      "service_id": "abcdef",
+      "schedule": {
+        "start_date_time": "{{START TIME}}",
+        "end_date_time": "{{END TIME}}"
+      },
+      "connections": [
+        {
+          "conn-grp-id": "conn_grp_1",
+          "type": "dynamic",
+          "a-endpoints": "ALPHA-FB1",
+          "z-endpoints": "EPSILON-FB1",
+          "min_bw": "10G",
+          "max_bw": "10G",
+          "link_group_a_z": "ALPHA-FB1_EPSILON-FB1_G1",
+          "link_group_z_a": "EPSILON-FB1_ALPHA-FB1_G1",
+          "verify": "true"
+        }
+      ],
+      "policies": {
+        "policy_id": "policy_dc1_dc2_copy",
+        "flow_spec": {
+          "source_prefix": "100.10.10.0/24",
+          "destination_prefix": "100.20.10.0/24"
+        },
+        "flow_attributes": {
+          "bidirectional": "yes"
+        },
+        "path_bundle_list": {
+          "bundle_id": "pb12",
+          "role": "active",
+          "constraints": {
+            "max_path_cost": 20,
+            "element_policy": {
+              "id": "lg_dc1_dc2_copy",
+              "type": "link_group",
+              "use": "must"
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+curl -k -X POST --header "Authorization: token {{TOKEN}}" --header "Content-type: application/json" --header "Accept: application/json" -d '{"label":"Scheduled Service","productId":"5848738b-6185-4f47-bd3d-ec5c359d7e9b","properties":{"ofDomainId":"{{OF DOMAIN ID}}","vwanDomainId":"{{VWAN DOMAIN ID}}","schedulePolicyInput":"{\"service_id\":\"abcdef\",\"schedule\": {\"start_date_time\": \"{{START TIME}}\",\"end_date_time\": \"{{END TIME}}\"},\"connections\":[{ \"conn-grp-id\":\"conn_grp_1\",\"type\":\"dynamic\",\"a-endpoints\":\"ALPHA-FB1\",\"z-endpoints\":\"EPSILON-FB1\",\"min_bw\": \"10G\",\"max_bw\": \"10G\",\"link_group_a_z\": \"ALPHA-FB1_EPSILON-FB1_G1\",\"link_group_z_a\": \"EPSILON-FB1_ALPHA-FB1_G1\",\"verify\":\"true\"}],\"policies\": {\"policy_id\":\"policy_dc1_dc2_copy\",\"flow_spec\":{\"source_prefix\": \"100.10.10.0/24\",\"destination_prefix\": \"100.20.10.0/24\"},\"flow_attributes\":{\"bidirectional\": \"yes\"},\"path_bundle_list\": {\"bundle_id\":\"pb12\",\"role\":\"active\",\"constraints\":{\"max_path_cost\":20,\"element_policy\":{\"id\":\"lg_dc1_dc2_copy\",\"type\":\"link_group\",\"use\":\"must\"}}}}}"}}' "https://54.236.234.21/bpocore/market/api/v1/resources"

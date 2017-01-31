@@ -1,4 +1,4 @@
-define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!components/ComponentForms/CreateHost','jsx!components/ComponentForms/CreatePatchPanel','jsx!components/ComponentForms/CreateOpticalSwitch'], function(React,CreateFBComponent,CreateHost,CreatePatchPanel,CreateOpticalSwitch) {
+define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!components/ComponentForms/CreateHost','jsx!components/ComponentForms/CreatePatchPanel','jsx!components/ComponentForms/CreateOpticalSwitch'], function(React,CreateForwardingBox,CreateHost,CreatePatchPanel,CreateOpticalSwitch) {
     var BootstrapButton = React.createClass({
         render: function() {
             return (
@@ -19,11 +19,20 @@ define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!compone
             $(this.refs.root).modal('hide');
         },
         open: function() {
-             if (this.props.iconType=='host') {
-              $('#add-node-host')[0].reset();
-            }
-
             $(this.refs.root).modal('show');
+            switch (this.props.iconType) {
+              case "optical-switch":
+                this.refs.os.updateData()
+                break;
+              case "fb-icon":
+                this.refs.fb.updateData()
+                break;
+              case "host":
+                this.refs.host.updateData()
+                break;
+              default:
+
+            }
         },
 
         render: function() {
@@ -32,13 +41,13 @@ define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!compone
                     <div className="modal-dialog">
 
                       {this.props.iconType=='fb-icon'
-                      ? <CreateFBComponent close={this.close} title={this.props.title} formData={this.props.formData} submitMode={this.props.submitMode} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
+                      ? <CreateForwardingBox ref="fb" close={this.close} title={this.props.title} formData={this.props.formData} submitMode={this.props.submitMode} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
                       : (this.props.iconType=='patch-panel'
                   ? <CreatePatchPanel close={this.close} title={this.props.title} iconType={this.props.iconType} submitMode={this.props.submitMode} formData={this.props.formData} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
                   : (this.props.iconType=='host'
-              ? <CreateHost close={this.close} title={this.props.title} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
+              ? <CreateHost ref="host" close={this.close} title={this.props.title} iconType={this.props.iconType} submitMode={this.props.submitMode} formData={this.props.formData} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
               : (this.props.iconType=='optical-switch'
-          ? <CreateOpticalSwitch close={this.close} title={this.props.title}  submitMode={this.props.submitMode} formData={this.props.formData} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
+          ? <CreateOpticalSwitch ref="os" close={this.close} title={this.props.title}  submitMode={this.props.submitMode} formData={this.props.formData} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
           : ""
       )))}
 

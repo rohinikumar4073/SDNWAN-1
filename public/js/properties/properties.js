@@ -1,38 +1,36 @@
-define(['socket'], function(io) {
-    var orchestratorIp = "http://10.76.110.81:50516/orchestrator";
-    var templateIp = "http://10.76.110.78:50518/FbTemplate";
-    var rmsIp = "http://localhost:50512/rms";
-    var nodeIp = "http://localhost:9090";
-    var webSocketIp=window.location.hostname+":50572/kafka";
-    var websocketStomp="http://"+window.location.hostname+":8080/Kafka-websocket-project-0.0.1/kafka-message-websocket/";
-
-    //var rmsIp ="http://localhost:50512/rms/";
-  /*  r nodeIp="http://"+window.location.hostname+":9090";
-  var orchestratorIp="http://"+window.location.hostname+":8080/orchPolicy-0.0.1/orchestrator";
-  var templateIp="http://"+window.location.hostname+":8080/fbInstance-0.0.1/FbTemplate";
-  var rmsIp ="http://"+window.location.hostname+":8080/rms-0.0.1/rms";
-  var webSocketIp=window.location.hostname+":50572/kafka";
-  var websocketStomp="http://"+window.location.hostname+":8080/Kafka-websocket-project-0.0.1/kafka-message-websocket/";
-";*/
+define(['socket','config'], function(io,config) {
+var orchestratorIp = config.orchestratorIp;
+    var templateIp = config.templateIp;
+   var rmsIp = config.rmsIp;
+    var webSocketIp=config.webSocketIp;
+    var websocketStomp=config.websocketStomp;
+ var nodeIp=config.nodeIp;
     var whiteListIp = orchestratorIp + "/L2Policy";
     var vpnPolicyIp = orchestratorIp + "/l2VpnPolicy";
+    var whiteListIp = orchestratorIp + "/save/L2Policy";
+    var vpnPolicyIp = orchestratorIp + "/save/l2VpnPolicy";
+    var envIp = orchestratorIp + "/ipDetails";
     var getAllIp = orchestratorIp + "/ipAvailability";
-    var getDynamicIp = orchestratorIp + "/dynamicBandwidth";
+    var getDynamicIp = orchestratorIp + "/save/dynamicBandwidth";
     var getAllL2 = orchestratorIp + "/getAllL2Policy";
     var getAllVpn = orchestratorIp + "/getAllVpnPolicy";
     var getAllBgpRouting= orchestratorIp + "/getAllBgpRouting";
     var getAllVpnBgp = orchestratorIp + "/getAllVpnBgp";
     var getAllVpnBgpSession = orchestratorIp + "/getAllVpnBgpSession";
+    var emsConfigIp="http://localhost:50512/rms/fbname/emsConfiguration";
 
     var vpnBgpIp = orchestratorIp + "/vpnBgp";
     var bgpRoutingIp = orchestratorIp + "/bgpRouting";
     var vpnBgpSessionIp = orchestratorIp + "/vpnBgpSession";
-    var schedulePolicyIp = orchestratorIp + "/schedulePolicy";
+    var schedulePolicyIp = orchestratorIp + "/schedulePolicy/save";
     var getAllPowerIp = templateIp + "/getAllPowerSupply";
     var getAllFanIp = templateIp + "/getAllFan";
     var getAllosIp = templateIp + "/getAllOs";
-    var getAllTransIp = templateIp + "/getAllTrans";
-
+    var getAllTransIp = templateIp + "/getAllTransHardware";
+    var getAllTransSoftware = templateIp + "/getAllTransSoftware";
+    var getAllHardware = templateIp + "/getAllHardware";
+    var saveComponent=nodeIp+"/saveComponent";
+    var deleteNode=nodeIp+"/deleteNode";
     var topologyData = null;
     var pushTopology = {
         "linkDetails": [
@@ -66,8 +64,8 @@ define(['socket'], function(io) {
         getTopologyPush: function() {
             return pushTopology;
         },
-        websocketStomp:"http://10.200.0.32:8080/Kafka-websocket-project-0.0.1/kafka-message-websocket/",
-        webSocketIp:"localhost:50572/kafka",
+        websocketStomp:websocketStomp,
+        webSocketIp:webSocketIp,
         createHost: orchestratorIp + "/createHost",
         nodeIp: nodeIp,
         templateIp: templateIp + '/',
@@ -76,6 +74,8 @@ define(['socket'], function(io) {
         getAllFanIp: getAllFanIp,
         getAllosIp: getAllosIp,
         getAllTransIp: getAllTransIp,
+        getAllTransSoftware: getAllTransSoftware,
+        getAllHardware: getAllHardware,
         getAllIp: getAllIp,
         getDynamicIp: getDynamicIp,
         getAllL2: getAllL2,
@@ -89,8 +89,16 @@ define(['socket'], function(io) {
         getAllVpnBgp: getAllVpnBgp,
         getAllVpnBgpSession: getAllVpnBgpSession,
         rmsIp: rmsIp,
+        envIp: envIp,
+        emsConfigIp: emsConfigIp,
         pushTopology: orchestratorIp + "/generateTopology",
         createLink: orchestratorIp + "/createLink",
+        saveComponent:saveComponent,
+        deleteNode:deleteNode,
+        getPortStatus:nodeIp+"/getPortStatus",
+        saveNativeTopologyData:nodeIp+"/saveTopology",
+        getNativeTopologyData:nodeIp+"/getTopology",
+
         socket: function() {
             if (socket) {
                 if (socket.disconnected) {
@@ -103,13 +111,47 @@ define(['socket'], function(io) {
             }
             return socket;
         },
-        getMaxNode:function(){
-          if(localStorage.getItem("topologyData")){
-            var topology=JSON.parse(localStorage.getItem("topologyData"))
-            return topology.nodes.length+1;
-          }else{
-            return 1;
+
+        getMaxNode:function(dataObj,callback,key,self){
+          $.ajax({
+
+              url: nodeIp+"/getKey?key="+key ,
+              type: 'get',
+              contentType: "application/json; charset=utf-8",
+              success: function(data) {
+                if(data){
+                    var length=JSON.parse(data);
+                    callback(dataObj,length,self)
+                }
+                console.log("Pushed the details.")
+
+
+
+              },
+              error: function(data) {
+                console.log("Error in saving details.")
+              }
+
+          });
+        },
+        saveMaxNode:function(value,key){
+          var maxNode={
+            key:key,
+            value:value
           }
+          $.ajax({
+              url: nodeIp+"/saveKey" ,
+              type: 'post',
+              data:JSON.stringify(maxNode),
+              contentType: "application/json; charset=utf-8",
+              success: function(data) {
+                console.log("saved key successfully.")
+                },
+              error: function(data) {
+                console.log("Error in saving details.")
+              }
+
+          });
         },
         envSettings: orchestratorIp + "/ipDetails"
 

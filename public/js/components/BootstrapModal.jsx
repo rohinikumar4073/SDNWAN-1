@@ -2,20 +2,16 @@ define([
     'react',
     'jquery',
     'jsx!components/BootstrapButton',
-    'jsx!components/TemplateForms/CreateNewFBForm',
-    'jsx!components/TemplateForms/CreateFBFanTemplate',
     'jsx!components/TemplateForms/FBOSTemplate',
-    'jsx!components/TemplateForms/FBPowerTemplate',
-    'jsx!components/TemplateForms/FBTranseiverTemplate',
-    'jsx!components/TemplateForms/FBTemplate',
-    'jsx!components/TemplateForms/DetailsNewfbform',
-    'jsx!components/TemplateForms/DetailsFBFanForm',
-    'jsx!components/TemplateForms/DetailsPower',
+    'jsx!components/TemplateForms/FBTranseiverHardwareTemplate',
     'jsx!components/TemplateForms/DetailsFBOS',
-    'jsx!components/TemplateForms/DetailsTrans',
+    'jsx!components/TemplateForms/DetailsTransHardware',
+    'jsx!components/TemplateForms/DetailsTransSoftware',
+    'jsx!components/TemplateForms/DetailsHardware',
+    'jsx!components/TemplateForms/FBHardwareTemplate',
     'jsx!components/Environment',
     'jsx!components/MultiLayeredTopologyDetails'
-], function(React, $, BootstrapButton, FBForm, FBFan, FBOS, FBPower, FBTranseiver, FBTemplate, DetailsFB, DetailsFBFan, DetailsPower, DetailsFBOS, DetailsTransiever, Environment, MultiLayeredTopologyDetails) {
+], function(React, $, BootstrapButton, FBOS, FBTranseiverHardware, DetailsFBOS, DetailsTransieverHardware, DetailsTransieverSoftware, DetailsHardware, FBHardwareTemplate, Environment, MultiLayeredTopologyDetails) {
     var BootstrapModal = React.createClass({
         // The following two methods are the only places we need to
         // integrate Bootstrap or jQuery with the components lifecycle methods.
@@ -59,33 +55,25 @@ define([
                 <div className="modal fade" ref="root">
                     <div className="modal-dialog">
                         <div className="modal-content">
-                            {this.props.template == 'FBForm'
-                                ? <FBForm data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                : (this.props.template == 'FBFan'
-                                    ? <FBFan data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                    : (this.props.template == 'FBOS'
-                                        ? <FBOS data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                        : (this.props.template == 'FBPower'
-                                            ? <FBPower data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                            : (this.props.template == 'FBTranseiver'
-                                                ? <FBTranseiver data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                : (this.props.template == 'FBTemplate'
-                                                    ? <FBTemplate data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                    : (this.props.template == 'Environment'
-                                                        ? <Environment header={this.props.title} close={this.close} handleCancel={this.handleCancel}/>
-                                                        : (this.props.template == 'MultiLayeredTopologyDetails'
-                                                            ? <MultiLayeredTopologyDetails data={this.props.data} header={this.props.title} close={this.close} handleCancel={this.handleCancel}/>
-                                                            : (this.props.template == 'DetailsFB'
-                                                                ? <DetailsFB collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                                : (this.props.template == 'DetailsFBFan'
-                                                                    ? <DetailsFBFan collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                                    : (this.props.template == 'DetailsPower'
-                                                                        ? <DetailsPower collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                                        : (this.props.template == 'DetailsFBOS'
-                                                                            ? <DetailsFBOS collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                                            : (this.props.template == 'DetailsTransiever'
-                                                                                ? <DetailsTransiever collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                                                : ""))))))))))))}
+                            {this.props.template == 'FBOS'
+                                ? <FBOS data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
+                                : (this.props.template == 'FBTranseiverHardware'
+                                    ? <FBTranseiverHardware data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
+                                    : (this.props.template == 'Environment'
+                                        ? <Environment header={this.props.title} close={this.close} handleCancel={this.handleCancel}/>
+                                        : (this.props.template == 'MultiLayeredTopologyDetails'
+                                            ? <MultiLayeredTopologyDetails data={this.props.data} header={this.props.title} close={this.close} handleCancel={this.handleCancel}/>
+                                            : (this.props.template == 'DetailsFBOS'
+                                                ? <DetailsFBOS collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
+                                                : (this.props.template == 'DetailsTransieverHardware'
+                                                    ? <DetailsTransieverHardware collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
+                                                    : (this.props.template == 'FBHardware'
+                                                        ? <FBHardwareTemplate collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
+                                                        : (this.props.template == 'DetailsHardware'
+                                                            ? <DetailsHardware collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
+                                                          : (this.props.template == 'DetailsTransieverSoftware'
+                                                                ? <DetailsTransieverSoftware collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
+                                                                : "" ))))))))}
 
                         </div>
                     </div>

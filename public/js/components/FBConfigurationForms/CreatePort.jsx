@@ -1,0 +1,127 @@
+define([
+    'react', 'jquery', 'properties', 'react-jsonschema-form'
+], function(React, $, properties, Form) {
+    var FormCreatePort = Form.default;
+
+    const schema = {
+        "type": "object",
+        "required":["name"],
+
+          "properties": {
+              "name": {
+                  "type": "string",
+                  "title": "Name"
+              },
+              "tp_id": {
+                "type": "string",
+                "title": "TP ID"
+              },
+              "tag":{
+                "type": "integer",
+                "title": "Tag"
+              },
+              "fb_ip":{
+                "type": "string",
+                "title": "FB IP",
+              },
+              "type":{
+                "type": "string",
+                "title": "Type"
+              },
+              "speed":{
+                "type": "string",
+                "title": "Speed"
+              },
+              "trunks":{
+                "type":"array",
+                "title":"Trunks",
+                "items":{
+                  "type":"string",
+                }
+              },
+              "is_dac":{
+                "type": "string",
+                "title": "DAC",
+                "enum":[
+                  "True",
+                  "False"
+                ]
+              },
+              "vlan_mode":{
+                "type":"string",
+                "title":"Vlan Mode"
+              }
+        }
+
+
+
+    };
+    const uiSchema = {
+      "is_dac":{
+        "ui:widget": "radio",
+        "ui:options": {
+          "inline": true
+        }
+      }
+    };
+    const formData = {};
+
+    var CreatePort = React.createClass({
+      validate:function(formData, errors){
+        var ipv4 = /^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/;
+        if(formData["fb_ip"]){
+          if (!formData["fb_ip"].match(ipv4)){
+             errors["fb_ip"].addError("Invalid Ip Address");
+             }
+        }
+return errors;
+      },
+
+      onSubmit: function(e) {
+        var fbName = this.props.fbName;
+        var jsonData = e.formData;
+        var postURL = properties.rmsIp +
+            fbName +
+            "/port/add";
+var self=this;
+
+        $
+            .ajax({
+                url: postURL,
+                method: 'POST',
+                data: JSON.stringify(jsonData),
+                contentType: "application/json; charset=utf-8",
+                success: function(data) {
+                  var val = self.props.configurationEvents.handleSuccess(data);
+                  if(val){
+                    var tr = $('<tr>')
+                    tr.append($('<td>').append(jsonData.name));
+                    tr.append($('<td>').append(""));
+                    tr.append($('<td>').append(jsonData.tag));
+                    tr.append($('<td>').append(jsonData.fb_ip));
+                    tr.append($('<td>').append(jsonData.type));
+                    tr.append($('<td>').append(jsonData.speed));
+                    tr.append($('<td>').append(jsonData.is_dac));
+                    tr.append($('<td>').append(jsonData.vlan_mode));
+                    $("#viewPort").find('tbody')
+                        .append(tr)
+                  }
+                },
+                error: function(data) {
+                    self.props.configurationEvents.handleError(data);
+                }
+            });
+      },
+        render: function() {
+            return (
+
+                        <FormCreatePort schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} validate={this.validate} formData={this.props.formData} className="FormCreatePort configFB" onError={errors => {
+                        }}>
+                        </FormCreatePort>
+            );
+        }
+    });
+
+    return CreatePort;
+
+});

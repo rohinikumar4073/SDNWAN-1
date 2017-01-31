@@ -1,6 +1,6 @@
 define([
-    'react', 'jquery', 'jsx!components/BootstrapButton','jsx!components/ConfigurationForms/PeriodicConfiguration', 'jsx!components/ConfigurationForms/PublisherConfiguration'
-], function(React, $, BootstrapButton,PeriodicConfiguration,PublisherConfiguration) {
+    'react', 'jquery', 'jsx!components/BootstrapButton','jsx!components/ConfigurationForms/PeriodicConfiguration', 'jsx!components/ConfigurationForms/PublisherConfiguration', 'jsx!components/ConfigurationForms/EmsConfiguration', 'jsx!components/ConfigurationForms/MonitoringService'
+], function(React, $, BootstrapButton,PeriodicConfiguration,PublisherConfiguration,EmsConfiguration,MonitoringService) {
 
     var ConfigurationModal = React.createClass({
         // The following two methods are the only places we need to
@@ -48,6 +48,9 @@ define([
 
                 <PeriodicConfiguration header="Create Periodic Configuration"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='periodicConfiguration' ? "" :"hidden"}></PeriodicConfiguration>
                 <PublisherConfiguration header="Create Publisher Configuration"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='publisherConfiguration' ? "" :"hidden"}></PublisherConfiguration>
+                <EmsConfiguration header="Create EMS Configuration"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='emsConfiguration' ? "" :"hidden"}></EmsConfiguration>
+                <MonitoringService header="FB Monitoring Service"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='fbMonitoring' ? "" :"hidden"}></MonitoringService>
+
                     </div>
                 </div>
             );

@@ -28,7 +28,8 @@ shim : {
     "Detector":"threejs/Detector",
     "fixedTable":"../fixed-data-table-master/dist/fixed-data-table",
     "sockjs":"websocket/sockjs",
-    "stomp":"websocket/stomp"
+    "stomp":"websocket/stomp",
+    'config':'properties/config'
 
   },
 
@@ -44,6 +45,8 @@ require(['react','react-dom', 'jsx!components/Routing','jquery'], function(React
 $( document ).on( "click", "legend", function(e) {
   e.preventDefault();
    $(this).siblings().toggle('slow');
+    $(this).toggleClass('menu-open');
+
   // console.log( $.now() );
 
 });//'react-jsonschema-form',

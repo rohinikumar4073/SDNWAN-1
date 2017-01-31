@@ -1,212 +1,292 @@
 define([
-    'react', 'jquery','properties','toastr'
-], function(React, $,properties,toastr) {
+    'react', 'jquery', 'properties', 'toastr', 'react-jsonschema-form'
+], function(React, $, properties, toastr, Form) {
 
+    var FormHost = Form.default;
 
-      var schema = {
-          "type": "object",
-          "required": ["name"],
-          "properties": {
-
-              "name": {
-                  "type": "string",
-                  "title": "Name"
-              }
-          }
-
-      };
-      var uiSchema = {};
-      var formData = {};
     var CreateHost = React.createClass({
+      validate:function(formData, errors){
+        var ipv4 = /^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/;
+      formData["terminationPoint"].forEach(function(v,i){
+        v["ipAddress"].forEach(function(t,s){
+          if(t){
+                 if (!t.match(ipv4)){
+                    errors["terminationPoint"].addError("Invalid Ip Address");
+                 }
+               }
+        })
 
-      onChangeFunction:function(e){
-                   var parnetId=e.target.getAttribute("data-parentdata")
-                   var isList=e.target.getAttribute("list")
-                    if(parnetId )
-                    {if(this.state.dataToBeSend[parnetId] && isList && isList=="true"){
-                      var dataJson={};
-                      dataJson[e.target.id]=e.target.value;
-                      this.state.dataToBeSend[parnetId][0][e.target.id]=e.target.value;
-                    }else if(this.state.dataToBeSend[parnetId] ){
-                        this.state.dataToBeSend[parnetId][e.target.id]=e.target.value;
-                        }else{
-                         this.state.dataToBeSend[parnetId][e.target.id]=e.target.value;
-                        }
-                    }else{
-                      this.state.dataToBeSend[e.target.id]=e.target.value;
-                    }
-
-    this.setState({
-                dataToBeSend: this.state.dataToBeSend
-
-                });
-                 },
-      keyPressFunction: function(event) {
-
-          var keycode = (event.keyCode
-              ? event.keyCode
-              : event.which);
-          if (keycode == '13') {
-              this.handleConfirm();
-          }
-event.stopPropagation()
+      })
+return errors;
       },
 
-        handleConfirm: function() {
-          if(!this.state.dataToBeSend['node-id']){
-            toastr.error("Please enter host name")
-            return
+      onSubmit: function(e) {
+          this.handleConfirm(e.formData)
+      },
+
+      checkDuplicate: function(dat,hostname){
+        if(dat){
+          if(dat.nodes.length == 0){
+            return true;
           }
-          if(!this.state.dataToBeSend['termination-point'][0]['host-port-name']){
-            toastr.error("Please enter host port name")
-            return
+          for(var i=0;i<dat.nodes.length;i++){
+            if(dat.nodes[i].label == hostname){
+              return false;
+            }
+            else if(i==dat.nodes.length-1){
+              return true;
+            }
+            else {
+              continue;
+            }
           }
-          var self = this;
-          var postURL = properties.rmsIp +
-              this.state.dataToBeSend['node-id'] +
-              "/port/add";
+        } else {
+          return true;
+        }
+      },
 
-              jsonData = {
-                  "fb_ip": "",
-                  "is_dac": "",
-                  "name": this.state.dataToBeSend['termination-point'][0]['host-port-name'],
-                  "speed": "",
-                  "trunks": [""],
-                  "type": "host",
-                  "vlan_mode": ""
-              }
+      updateData:function(){
+        if(this.props.submitMode != "Save"){
 
-          $
-              .ajax({
-                  url: postURL,
-                  method: 'POST',
-                  data: JSON.stringify(jsonData),
-                  contentType: "application/json; charset=utf-8",
-                  success: function(data) {
-                    toastr.success("Port added successfully")
-                  },
-                  error: function(data) {
-                    toastr.error("Not able to add port")
-                  }
-              });
-
+          var name=this.props.formData["name"]+"_host";
+          var id=this.props.formData.id;
+          var self=this;
           $.ajax({
-       url: properties.createHost,
-       type: 'post',
-       data: JSON.stringify(this.state.dataToBeSend),
-       contentType: "application/json; charset=utf-8",
-       success: function (data) {
-         self.props.topologyModel.createNode(self.state.dataToBeSend["node-id"], self.props.iconType, self.props.coordinates);
-         self.props.close();
-         properties.addNode(self.state.dataToBeSend["node-id"],self.props.iconType)
-
-         toastr.success("Host added successfully")
-
-       },
-       error: function(data) {
-         toastr.error("Not able to add host")
-       }
-
-
-       });
-  this.props.close();
-          },
-
-          getInitialState: function() {
-
-                                  return {
-                                    hostName:"",
-                                    dataToBeSend:
-                                      {
-                              "node-id": "",
-                              "subnets": {
-                                "staticSubnet": [
-                                  {
-                                    "subnetId": ""
-                                  }
-                                ]
-                              },
-                              "termination-point": [
-                                {
-                                  "host-port-name": "",
-                                  "ip-address": [
-                                    ""
-                                  ],
-                                  "tp-id": ""
-                                }
-                              ],
-                              "type": "host"
-                            }
-                                  }
-                },
-
-          handleCancel: function() {
-
-              if (this.props.onCancel) {
-                  this.props.onCancel();
+              url: properties.nodeIp+"/getKey?key="+name ,
+              type: 'get',
+              contentType: "application/json; charset=utf-8",
+              success: function(data) {
+                var formData=JSON.parse(data);
+                // console.log(data);
+                // debugger;
+                formData.id=id;
+              self.setState({"formData":formData});
+                console.log("Pushed the details.")
+              },
+              error: function(data) {
+                console.log("Error in saving details.")
               }
-                  this.props.close();
-          },
+          });
+        }else{
+          this.setState({"formData":{
+              "nodeId": "",
+              "subnets": {
+                  "staticSubnet": [
+                      {
+                          "subnetId": ""
+                      }
+                  ]
+              },
+              "terminationPoint": [
+                  {
+                      "hostPortName": "",
+                      "ipAddress": [""],
+                      "tpId": ""
+                  }
+              ],
+              "type": "host"
+          }});
+        }
+      },
+
+        handleConfirm: function(data) {
+        data.type= "host";
+            var self = this;
+            var check = true;
+            var hostname = data["nodeId"];
+            $.ajax({
+              url: properties.getNativeTopologyData,
+              type: 'get',
+              contentType: "application/json; charset=utf-8",
+              success: function(nodeData){
+                var dat=JSON.parse(nodeData);
+                if(self.props.submitMode !== "Update"){
+                  check = self.checkDuplicate(dat, hostname);
+                }
+                    if(check){
+                      var portData={name:data["nodeId"],ports:[],type:"host"};
+                    data["terminationPoint"].forEach(function(v,i){
+                        portData.ports.push({name:v["hostPortName"],status:"false"})
+                    })
+                      $.ajax({
+                          url: properties.saveComponent,
+                          type: 'post',
+                          data: JSON.stringify(portData),
+                          contentType: "application/json; charset=utf-8",
+                          success: function(datareturn) {
+                            if (datareturn == "success") {
+                              if(self.props.submitMode == "Update"){
+                                toastr.success("Host updated successfully");
+                                return;
+                              }
+                                self.props.topologyModel.createNode(data["nodeId"],self.props.iconType, self.props.coordinates);
+                                self.props.close();
+                                properties.addNode(data["nodeId"], self.props.iconType)
+                                toastr.success("Host " + data["nodeId"] + " added successfully")
+                                console.log(data);
+                            } else {
+                                toastr.error("Error in adding host " + data["nodeId"] + " ")
+
+                            }
+                          },
+                          error: function(data) {
+                              toastr.error("Not able to add Host")
+                          }
+
+                      });
+                      var hostData={value: data,key:data["nodeId"]+"_host"}
+                      $.ajax({
+                          url: properties.nodeIp+"/saveKey",
+                          type: 'post',
+                          data: JSON.stringify(hostData),
+                          contentType: "application/json; charset=utf-8",
+                          success: function(datareturn) {
+                            console.log("saved the host detials")
+                          },
+                          error: function(data) {
+                              toastr.error("Not able to save host detials")
+                          }
+
+                      });
+
+                    }
+                    else{
+                      toastr.error("Node already exists. Provide a different name");
+                    }
+              },
+              error: function(data){
+
+              }
+            });
+
+            if (this.props.submitMode == "Update")
+                this.props.topologyModel.updateNodeModel({name: data["nodeId"], formData: this.state.formData});
+        this.props.close();
+        },
+
+        getInitialState: function() {
+
+            return {
+                schema:{
+                    "type": "object",
+                    "required": [
+                      "nodeId",
+                    ],
+                    "properties": {
+                        "nodeId": {
+                            "type": "string",
+                            "title": "Node Id"
+                        },
+                        "subnets": {
+                          "required": [
+                            "staticSubnet",
+                          ],
+                            "type": "object",
+                            "title": "Subnets",
+                            "properties": {
+                                "staticSubnet": {
+                                    "type": "array",
+                                    "title": "Static Sub Net",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "subnetId": {
+                                                "type": "string",
+                                                "title": "Subnet Id"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        ,
+                        "terminationPoint":
+                            {
+                              "type":"array",
+                              "title":"Termination Point",
+                              "items":{
+                                  "type":"object",
+                                "required":[  "hostPortName","ipAddress"],
+                                "properties":{
+                                  "hostPortName":{
+                                    "type":"string",
+                                    "title":"Host Port Name"
+                                  },
+                                  "ipAddress":{
+                                      "title": "IP Address",
+                                    "type":"array",
+                                    "items":{
+                                      "type":"string"
+                                    }
 
 
+
+                                  },
+                                  "tpId": {
+                                    "title":"TP ID",
+                                    "type":"string"
+                                  }
+                                }
+                              }
+
+
+                            }
+                    }
+                },
+               uiSchema :{},
+               formData :{
+                   "nodeId": "",
+                   "subnets": {
+                       "staticSubnet": [
+                           {
+                               "subnetId": ""
+                           }
+                       ]
+                   },
+                   "terminationPoint": [
+                       {
+                           "hostPortName": "",
+                           "ipAddress": [""],
+                           "tpId": ""
+                       }
+                   ],
+                   "type": "host"
+               },
+                hostName: "",
+                dataToBeSend: {}
+            }
+        },
+
+        handleCancel: function() {
+
+            if (this.props.onCancel) {
+                this.props.onCancel();
+            }
+            this.props.close();
+        },
 
         render: function() {
             return (
 
+                <div className={"modal-content " + this.props.className}>
+                    <div className="modal-header">
+                        <button type="button" className="close" onClick={this.handleCancel}>
+                            &times;</button>
+                        <h3>{this.props.title}</h3>
+                    </div>
+                    <div className="modal-body">
+                        <FormHost schema={this.state.schema} uiSchema={this.state.uiSchema} validate={this.validate} formData={this.state.formData} className="formFB" onSubmit={this.onSubmit} onError={errors => {
+                            console.log("i am errors" + errors);
+                        }} onSubmit={this.onSubmit}>
+                            <div>
+                                <button type="submit" className="btn btn-sm btn-primary" data="Save">{this.props.submitMode}</button>
+                                <button onClick={this.handleCancel} type="button" className="btn btn-sm btn-default" data="Cancel">Cancel</button>
+                            </div>
+                        </FormHost>
 
-              <div  className={"modal-content "+this.props.className}>
-                  <div className="modal-header">
-                      <button type="button" className="close" onClick={this.handleCancel}>
-                          &times;</button>
-                      <h3>{this.props.title}</h3>
-                  </div>
-                  <div className="modal-body">
-                      <form id="add-node-host">
+                    </div>
 
-                          <div >
-                              <div className="form-group">
-                                  <label for="nodeId">Node Id:</label>
-
-                                  <input type="text"  onKeyDown={this.keyPressFunction}  className="form-control" id="node-id" onChange={this.onChangeFunction}></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="subnets">Subnets</label>
-
-                                  <input type="text" className="form-control" id="subnets"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="static-subnet">Static Subnet :</label>
-
-                                  <input type="text" className="form-control" id="static-subnet"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="tp_id">TP ID:</label>
-
-                                  <input type="text" className="form-control" id="tp_id"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="host-port-name">Host Port Name :</label>
-
-                                  <input type="text" className="form-control" onChange={this.onChangeFunction} data-parentdata="termination-point" list="true"id="host-port-name"></input>
-                              </div>
-                              <div className="form-group">
-                                  <label for="ip-address">IP Address :</label>
-
-                                  <input type="text" className="form-control" id="ip-address"></input>
-                              </div>
-                          </div>
-                      </form>
-                  </div>
-                  <div className="modal-footer">
-                      <div class="row">
-                          <div class="col-md-12 section-divider-bottom">
-                              <BootstrapButton onClick={this.handleConfirm} className="btn btn-sm btn-primary" data="Save"></BootstrapButton>
-                              <BootstrapButton onClick={this.handleCancel} className="btn btn-sm btn-default" data="Cancel"></BootstrapButton>
-
-                          </div>
-                      </div>
-                  </div>
-              </div>
+                </div>
 
             );
         }

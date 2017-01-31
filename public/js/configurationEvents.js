@@ -1,7 +1,11 @@
 /**
  *
  */
-define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
+define(["properties", "toastr",'react','react-dom', 'jsx!components/FBConfigurationForms/CreateBridge',
+'jsx!components/FBConfigurationForms/CreatePort','jsx!components/FBConfigurationForms/CreateController',
+'jsx!components/FBConfigurationForms/CreateLLDP', 'jsx!components/FBConfigurationForms/CreateARP',
+'jsx!components/FBConfigurationForms/CreatePollingFrequencies','jsx!components/FBConfigurationForms/CreateSSL','toastr','jquery.spin'],
+function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateController, CreateLLDP,CreateARP, CreatePollingFrequencies, CreateSSL,toastr) {
   var dom=null;
     var portController = function() {
         $("input[name=vlan_mode]").click(function() {
@@ -22,23 +26,31 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
         $('.spin').spin('hide');
         var val = data.type;
         if ((!data.error) && (val != "failure")) {
-            $("div.alert-message-success").show().html("Succesfully Added");
-            $("div.alert-message-error").hide();
+          //  $("div.alert-message-success").show().html("Succesfully Added");
+          //  $("div.alert-message-error").hide();
+          toastr.success("Succesfully Added");
+          return true;
         } else if (val == "failure") {
-            $("div.alert-message-success").hide();
-            $("div.alert-message-error").show().html(data.message);
-        } else {
-            $("div.alert-message-success").hide();
-            $("div.alert-message-error").show().html(data.error.error);
+        //    $("div.alert-message-success").hide();
+          //  $("div.alert-message-error").show().html(data.message);
+          toastr.error(data.message);
+          return false;
+          } else {
+          //  $("div.alert-message-success").hide();
+          //  $("div.alert-message-error").show().html(data.error.error);
+          toastr.error(data.error.error)
+
         }
     }
     var handleError = function(data) {
         $('.spin').spin('hide');
 
-        console
-            .log("Error");
-        $("div.alert-message-success").hide();
-        $("div.alert-message-error").show().html(data.responseText);
+    //    console
+    //        .log("Error");
+    //    $("div.alert-message-success").hide();
+    //    $("div.alert-message-error").show().html(data.responseText);
+        toastr.error(data.responseText)
+
 
     }
     var srcDataNode = null;
@@ -46,6 +58,8 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
     var bodyElement=null;
 
     return {
+      handleSuccess:handleSuccess,
+      handleError:handleError,
       setBodyReference:function(data){
         bodyElement=data;
 
@@ -57,28 +71,27 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
           return dom;
         },
         setDom:function(data){
-          dom=data
+          dom=data;
         },
-        templateTable: function() {
+        // getDetails: function(node){
+        //   var fbName = node.get("label")
+        //   var getURL = properties.templateIp + fbName +"/get-templates";
+        //   $.get(getURL, function(result){
+        //     var collection = result;
+        //     var rows = [];
+        //     let elem = document.querySelector("#root_counter_query_interval");
+        //     let event = new Event('input', { bubbles: true });
+        //     elem.value="bob@example.com";
+        //     elem.dispatchEvent(event);
+        //
+        //   })
+        // },
+
+        templateTable: function(node) {
             var getURL = properties.templateIp + "listAllTemplates";
             $.get(getURL, function(result) {
-
                 var collection = result;
                 var rows = [];
-                for (i = 0; i < result.Instances.length; i++) {
-                    var tr = $('<tr>')
-                    tr.append("<td> <input type='radio' name='instances' value=" + result.Instances[i].name + "></input> </td>");
-                    tr.append($('<td>').append(result.Instances[i].name));
-                    $("#viewInstance").find('tbody')
-                        .append(tr);
-                }
-                for (i = 0; i < result.FS.length; i++) {
-                    var tr = $('<tr>')
-                    tr.append("<td> <input type='radio' name='fs' value=" + result.FS[i].name + "></input> </td>");
-                    tr.append($('<td>').append(result.FS[i].name));
-                    $("#viewFanTemplate").find('tbody')
-                        .append(tr);
-                }
                 for (i = 0; i < result.OS.length; i++) {
                     var tr = $('<tr>')
                     tr.append("<td> <input type='radio' name='os' value=" + result.OS[i].name + "></input> </td>");
@@ -86,48 +99,43 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                     $("#viewOsTemplate").find('tbody')
                         .append(tr);
                 }
-                for (i = 0; i < result.PS.length; i++) {
+                for (i = 0; i < result.TSHW.length; i++) {
                     var tr = $('<tr>')
-                    tr.append("<td> <input type='radio' name='ps' value=" + result.PS[i].name + "></input> </td>");
-                    tr.append($('<td>').append(result.PS[i].name));
-                    $("#viewPowerSupplyTemplate").find('tbody')
-                        .append(tr);
-                }
-                for (i = 0; i < result.Templates.length; i++) {
-                    var tr = $('<tr>')
-                    tr.append("<td> <input type='radio' name='templates' value=" + result.Templates[i].name + "></input> </td>");
-                    tr.append($('<td>').append(result.Templates[i].name));
-                    $("#viewFbTemplate").find('tbody')
-                        .append(tr);
-                }
-                for (i = 0; i < result.TS.length; i++) {
-                    var tr = $('<tr>')
-                    tr.append("<td> <input type='radio' name='ts' value=" + result.TS[i].name + "></input> </td>");
+                    tr.append("<td> <input type='radio' name='tshw' value=" + result.TSHW[i].name + "></input> </td>");
                     tr.append($('<td>').append(result.TS[i].name));
-                    $("#viewTransceiverTemplate").find('tbody')
+                    $("#viewTransceiverHardwareTemplate").find('tbody')
+                        .append(tr);
+                }
+                for (i = 0; i < result.TSSW.length; i++) {
+                    var tr = $('<tr>')
+                    tr.append("<td> <input type='radio' name='tssw' value=" + result.TSSW[i].name + "></input> </td>");
+                    tr.append($('<td>').append(result.TS[i].name));
+                    $("#viewTransceiverSoftwareTemplate").find('tbody')
+                        .append(tr);
+                }
+                for (i = 0; i < result.HW.length; i++) {
+                    var tr = $('<tr>')
+                    tr.append("<td> <input type='radio' name='hw' value=" + result.HW[i].name + "></input> </td>");
+                    tr.append($('<td>').append(result.HW[i].name));
+                    $("#viewHardwareTemplate").find('tbody')
                         .append(tr);
                 }
 
             })
 
             $("#assigningTemplates").click(function() {
-                var fb_device_name = $('g.node-selected')
-                    .attr('data-id');
+                var fb_device_name = node.get("label")
                 var postURL = properties.templateIp + "assignTemplates?fb_device_name=" + fb_device_name;
-                var fbInstance = $('input[name="instances"]:checked').val();
-                var fbFS = $('input[name="fs"]:checked').val();
                 var fbOS = $('input[name="os"]:checked').val();
-                var fbPS = $('input[name="ps"]:checked').val();
-                var fbTemplate = $('input[name="templates"]:checked').val();
-                var fbTS = $('input[name="ts"]:checked').val();
+                var fbTSHW = $('input[name="tshw"]:checked').val();
+                var fbTSSW = $('input[name="tssw"]:checked').val();
+                var fbHW = $('input[name="hw"]:checked').val();
                 var jsonData = {
                     fb_device_name: fb_device_name,
-                    fbFS: fbFS,
-                    fbInstance: fbInstance,
                     fbOS: fbOS,
-                    fbPS: fbPS,
-                    fbTS: fbTS,
-                    fbTemplate: fbTemplate
+                    fbTSHW: fbTSHW,
+                    fbTSSW: fbTSSW,
+                    fbHW: fbHW
                 };
                 $
                     .ajax({
@@ -145,9 +153,8 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
             })
         },
 
-        bridgeTable: function() {
-            var fbName = $('g.node-selected')
-                .attr('data-id');
+        bridgeTable: function(node) {
+            var fbName = node.get("label")
             var getURL = properties.rmsIp +
                 fbName +
                 "/listBridge";
@@ -169,9 +176,8 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
             })
         },
 
-        portTable: function() {
-            var fbName = $('g.node-selected')
-                .attr('data-id');
+        portTable: function(node) {
+            var fbName = node.get("label")
             var getURL = properties.rmsIp +
                 fbName +
                 "/list-ports";
@@ -193,11 +199,29 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
 
             })
         },
-        savingDetails: function() {
+        savingDetails: function(node) {
 
-            var fbName = $('g.node-selected')
-                .attr('data-id');
+            var fbName = node.get("label")
+            var postURL = properties.rmsIp +
+                fbName +
+                "/composite";
+                  $('#pageModal button.deployBtn').click(function(){
+                    $
+                        .ajax({
+                            url: postURL,
+                            method: 'POST',
+                            data: JSON.stringify({}),
+                            contentType: "application/json; charset=utf-8",
+                            success: function(data) {
+                                  handleSuccess(data);
 
+                            },
+                            error: function(data) {
+                              handleError(data);
+                            }
+                        });
+
+                  })
             $('#pageModal button.saveBtn').click(
                 function() {
                     var formID = $('#pageModal div.tab-content .tab-pane.active')
@@ -208,313 +232,31 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                         case 'fbConfig':
                             console
                                 .log('fbConfig');
-                            var postURL = urlToSend +
-                                fbName +
-                                "/add-bridge";
-                            var name = $('#' +
-                                formID +
-                                ' #name')[0].value;
-                            var datapath_type = $('#' +
-                                formID +
-                                ' #datapath_type')[0].value;
-                            var datapath_id = $('#' +
-                                formID +
-                                ' #datapath_id')[0].value;
-                            var protocols = $('#' +
-                                formID +
-                                ' #protocols')[0].value;
-                            var fb_ip = $('#' +
-                                formID +
-                                ' #fb_ip')[0].value;
-                            var jsonData = {
-                                name: name,
-                                datapath_type: datapath_type,
-                                datapath_id: datapath_id,
-                                protocols: protocols,
-                                fb_ip: fb_ip
-                            };
-
-                            $('.spin').spin();
-                            $('.spin').spin('show');
-
-                            $
-                                .ajax({
-                                    url: postURL,
-                                    method: 'POST',
-                                    data: JSON.stringify(jsonData),
-                                    contentType: "application/json; charset=utf-8",
-                                    success: function(data) {
-                                        var tr = $('<tr>')
-                                        tr.append($('<td>').append(jsonData.name));
-                                        tr.append($('<td>').append(jsonData.datapath_type));
-                                        tr.append($('<td>').append(jsonData.datapath_id));
-                                        tr.append($('<td>').append(jsonData.protocols));
-                                        tr.append($('<td>').append(jsonData.fb_ip));
-                                        $("#viewBridge").find('tbody')
-                                            .append(tr)
-                                        handleSuccess(data);
-
-                                    },
-                                    error: function(data) {
-                                        handleError(data)
-                                    }
-                                });
+                                $(".FormCreateBridge button").click();
                             break;
-                        case 'fbConfigLink':
-                            console
-                                .log('fbConfigLink');
-                            var postURL = urlToSend +
-                                fbName +
-                                "/add-bridge";
-                            var link_speed = $('#' +
-                                formID +
-                                ' #link_speed')[0].value;
-                            var jsonData = {
-                                link_speed: link_speed
-                            };
 
-                            $
-                                .ajax({
-                                    url: postURL,
-                                    method: 'POST',
-                                    data: jsonData,
-                                    contentType: 'application/json',
-                                    success: function() {
-                                        console
-                                            .log("Success");
-                                    },
-                                    error: function() {
-                                        console
-                                            .log("Error");
-                                    }
-                                });
-                            break;
                         case 'addPort':
                             console
                                 .log('addPort');
-                            var postURL = urlToSend +
-                                fbName +
-                                "/port/add";
-                            var name = $(
-                                    '#' +
-                                    formID)
-                                .find(
-                                    'input[data-id="name"]')[0].value;
-                            var vlanMode = "access";
-                            //  $('#'+formID).find('input[name="vlan_mode"]:checked').val();
-                            //  var vlanMode = $(
-                            //  		'#'
-                            //  				+ formID)
-                            //  		.find(
-                            //  				'input[name="vlan_mode"]:checked')
-                            //  		.attr(
-                            // 				'data-id');
-                            var fb_ip = $(
-                                    '#' +
-                                    formID)
-                                .find(
-                                    'input[data-id="fb_ip"]')[0].value;
-                            var type = $(
-                                    '#' +
-                                    formID)
-                                .find(
-                                    'input[data-id="type"]')[0].value;
-                            var speed = $(
-                                    '#' +
-                                    formID)
-                                .find(
-                                    'input[data-id="speed"]')[0].value;
-                            var tag = $(
-                                    '#' +
-                                    formID)
-                                .find(
-                                    'input[data-id="tag"]')[0].value;
-                            // var trunks = ""
-                            // var
-                            // isDac
-                            // =
-                            // $('#'+formID).find('input[name="is_dac"]:checked').val();
-                            var isDac = $(
-                                    '#' +
-                                    formID)
-                                .find(
-                                    'input[name="is_dac"]:checked')
-                                .attr(
-                                    'data-id');
-                            var idDacreturn = false;
-                            if (isDac == "true") {
-                                idDacreturn = true;
-                            }
-                            var jsonData = null
-                            if (vlanMode.toLowerCase == "access")
-                                jsonData = {
-                                    "fb_ip": fb_ip,
-                                    "is_dac": idDacreturn,
-                                    "name": name,
-                                    "speed": speed,
-                                    "tag": parseInt(tag),
-                                    "type": type,
-                                    "vlan_mode": vlanMode.toLowerCase()
-                                }
-                            else
-                                jsonData = {
-                                    "fb_ip": fb_ip,
-                                    "is_dac": idDacreturn,
-                                    "name": name,
-                                    "speed": speed,
-                                    "trunks": [parseInt(trunks)],
-                                    "type": type,
-                                    "vlan_mode": vlanMode.toLowerCase()
-                                }
+                                $(".FormCreatePort button").click();
+                                break;
 
-                            $
-                                .ajax({
-                                    url: postURL,
-                                    method: 'POST',
-                                    data: JSON.stringify(jsonData),
-                                    contentType: "application/json; charset=utf-8",
-                                    success: function(data) {
-                                        var tr = $('<tr>')
-                                        tr.append($('<td>').append(jsonData.name));
-                                        tr.append($('<td>').append(jsonData.vlan_mode));
-                                        tr.append($('<td>').append(jsonData.fb_ip));
-                                        tr.append($('<td>').append(jsonData.type));
-                                        tr.append($('<td>').append(jsonData.speed));
-                                        tr.append($('<td>').append(jsonData.is_dac));
-                                        $("#viewPort").find('tbody')
-                                            .append(tr)
-                                        handleSuccess(data);
-                                    },
-                                    error: function(data) {
-                                        handleError(data);
-                                    }
-                                });
-                            break;
                         case 'fbConfigController':
-                            console
-                                .log('fbConfigController');
-                            var postURL = urlToSend +
-                                fbName +
-                                "/set-controller";
-
-                            var name = $('#' +
-                                formID +
-                                ' #name')[0].value;
-                            var controller_ip = $('#' +
-                                formID +
-                                ' #controller_ip')[0].value;
-                            var of_port = $('#' +
-                                formID +
-                                ' #of_port')[0].value;
-                            var protocols = $('#' +
-                                formID +
-                                ' #protocols')[0].value;
-                            var fb_ip = $('#' +
-                                formID +
-                                ' #fb_ip')[0].value;
-
-                            var jsonData = {
-                                name: name,
-                                controller_ip: controller_ip,
-                                of_port: of_port,
-                                connect_protocol: protocols,
-                                fb_ip: fb_ip
-                            };
-
-                            $
-                                .ajax({
-                                    url: postURL,
-                                    method: 'POST',
-                                    data: JSON.stringify(jsonData),
-                                    contentType: "application/json; charset=utf-8",
-                                    success: function(data) {
-                                        console
-                                            .log("Success");
-
-                                        $("div.alert-message-success").show();
-                                    },
-                                    error: function(data) {
-                                        console
-                                            .log("Error");
-
-                                        $("div.alert-message-error").show();
-                                    }
-                                });
+                        console
+                            .log('fbConfigController');
+                            $(".FormCreateController button").click();
                             break;
+
                         case 'lldpConfigIL':
                             console
                                 .log('lldpConfigIL');
-                            http: //localhost:50512/rms/test/set-lldp
-                                var postURL = urlToSend +
-                                    fbName +
-                                    "/set-lldp";
-                            var fb_br = $('#' +
-                                formID +
-                                ' #fb_br')[0].value;
-                            var fb_ip = $('#' +
-                                formID +
-                                ' #fb_ip')[0].value;
-                            var per_interface_settings = $('#' +
-                                formID +
-                                ' #per_interface_settings')[0].value;
-
-                            var jsonData = {
-                                fb_br: fb_br,
-                                fb_ip: fb_ip,
-                                per_interface_settings: per_interface_settings
-                            };
-
-                            $
-                                .ajax({
-                                    url: postURL,
-                                    method: 'POST',
-                                    data: JSON.stringify(jsonData),
-                                    contentType: "application/json; charset=utf-8",
-                                    success: function(data) {
-                                        console
-                                            .log("Success");
-                                        $("div.alert-message-success").show();
-                                    },
-                                    error: function(data) {
-                                        console
-                                            .log("Error");
-                                        $("div.alert-message-error").show();
-                                    }
-                                });
+                          $(".FormCreateLLDP button").click();
                             break;
+
                         case 'configArp':
                             console
                                 .log('configArp');
-                            var postURL = urlToSend +
-                                fbName +
-                                "/configure/neighbor-discovery";
-                            var arp_subnet = $('#' +
-                                formID +
-                                ' #arp_subnet')[0].value;
-                            var nd_subnet = $('#' +
-                                formID +
-                                ' #nd_subnet')[0].value;
-
-                            var jsonData = {
-                                arp_subnet: arp_subnet,
-                                nd_subnet: nd_subnet
-                            };
-
-                            $
-                                .ajax({
-                                    url: postURL,
-                                    method: 'POST',
-                                    data: jsonData,
-                                    contentType: 'application/json',
-                                    success: function() {
-                                        console
-                                            .log("Success");
-                                    },
-                                    error: function() {
-                                        console
-                                            .log("Error");
-                                    }
-                                });
+                            $(".FormCreateARP button").click();
                             break;
                         case 'configTcam':
                             console
@@ -554,13 +296,58 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                                     }
                                 });
                             break;
+
+                            case 'addPortInterval':
+                            console
+                                .log('addPortInterval');
+                          $(".FormCreatePollingFrequencies button").click();
+                            break;
+
+                            case 'sslConfigService':
+                            console
+                                .log('sslConfigService');
+                          $(".FormCreateSSL button").click();
+                            break;
                     }
                 })
 
 
         },
+        isInt: function(value) {
+                var x = parseFloat(value);
+                return !isNaN(value) && (x | 0) === x;
+            },
         init: function(node) {
             portController();
+          var bridge = React.createFactory(CreateBridge);
+          var port = React.createFactory(CreatePort);
+          var controller = React.createFactory(CreateController);
+          var lldp = React.createFactory(CreateLLDP);
+          var arp = React.createFactory(CreateARP);
+          var pollingFrequencies = React.createFactory(CreatePollingFrequencies);
+          var ssl = React.createFactory(CreateSSL);
+            ReactDom.render(
+              ssl({"configurationEvents":this,fbName:node.get("label")}),
+              document.getElementById('createSSLForm'));
+            ReactDom.render(
+              pollingFrequencies({"configurationEvents":this,fbName:node.get("label")}),
+              document.getElementById('createPollingFrequenciesForm'));
+            ReactDom.render(
+              arp({"configurationEvents":this,fbName:node.get("label")}),
+              document.getElementById('createARPForm'));
+            ReactDom.render(
+              lldp({"configurationEvents":this,fbName:node.get("label")}),
+              document.getElementById('createLLDPForm'));
+            ReactDom.render(
+              controller({"configurationEvents":this,fbName:node.get("label")}),
+              document.getElementById('createControllerFrom'));
+            ReactDom.render(
+                  port({"configurationEvents":this,fbName:node.get("label")}),
+                  document.getElementById('createPortForm'));
+                  debugger;
+            ReactDom.render(
+                  bridge({"configurationEvents":this,fbName:node.get("label")}),
+                  document.getElementById('createBridgeForm'));
             var iconType = node.iconType();
             if (iconType == "optical-fiber") {
                 $("#pageModal .modal-title").html("Configure Optical Switch")
@@ -568,14 +355,31 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                 $("#pageModal .modal-title").html("Configure Forwarding Box")
 
             }
+
+        },
+        saveNativeTopology:function(data){
+
+          var topologyData =data;
+        //  localStorage.setItem("topologyData", JSON.stringify(topologyData))
+          $.ajax({
+              url: properties.saveNativeTopologyData,
+              type: 'post',
+              data: JSON.stringify(topologyData),
+              contentType: "application/json; charset=utf-8",
+              success: function(data) {
+
+              }
+          })
         },
         initLinkEvents: function(self) {
             var saveLink = properties.createLink;
             var linkData = {
+              "lid": "",
+              "link":{
                 "destination": {
                     "dest-node": self
                         .node()
-                        .id(),
+                        .get("label"),
                     "dest-tp": $("input[name='portselcted']:checked").next().text()
                 },
                 "link-cost": $("#linkcost").val(),
@@ -592,42 +396,69 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                 "source": {
                     "source-node": this.getSourceNodeDetails().node,
                     "source-tp": this.getSourceNodeDetails().data
+                },
+              },
+
+                "reverseLink":{
+                  "linkId": $("#linkIdReverse").val(),
+                  "linkGroupId": [
+                      $("#linkGroupIdReverse").val(),
+                  ]
                 }
             };
-            if (!$("#linkId").val()) {
-                toastr.error("Enter link id");
+
+            if (!this.isInt($("#max-bandwidth").val())) {
+            toastr.error("Max Bandwidth should be integer");
                 return;
 
             }
-            self
-                .topology()
-                .addLink({
-                    source: this.getSourceNodeDetails().node,
-                    target: self
-                        .node()
-                        .id()
+            if (!this.isInt($("#linkcost").val())) {
+                toastr.error("Link Cost should be integer");
+                return;
 
-                });
-            $.ajax({
-                url: properties.createLink,
-                type: 'post',
-                data: JSON.stringify(linkData),
-                contentType: "application/json; charset=utf-8",
-                success: function(data) {
-                    toastr.success("Link is added successfully")
-                    properties.addLink($("#linkId").val())
-                }
+            }
+            var that=this;
+            properties.getMaxNode({
+                source: this.getSourceNodeDetails().id,
+                target: self
+                    .node()
+                    .id()
+                  },function(dataObj,length){
+                    dataObj.id=length;
+                      self
+                          .topology()
+                          .addLink(dataObj);
 
-            })
+                              linkData["lid"]=length;
+                              console.log(linkData);
+                              debugger;
+                              $.ajax({
+                                  url: properties.createLink,
+                                  type: 'post',
+                                  data: JSON.stringify(linkData),
+                                  contentType: "application/json; charset=utf-8",
+                                  success: function(data) {
+                                      toastr.success("Link is added successfully")
+                                  }
+
+                              })
+                              properties.saveMaxNode(++length,"linkCounter");
+                              that.saveNativeTopology(self
+                                  .topology().getData())
+
+                    },"linkCounter");
+
+
+
             var postURL1 = urlToSend +
                 this.getSourceNodeDetails().node + "/" + this.getSourceNodeDetails().data +
                 "/false";
             var postURL2 = urlToSend +
                 self
                 .node()
-                .id() + "/" + $("input[name='portselcted']:checked").next().text() +
+                .get("label") + "/" + $("input[name='portselcted']:checked").next().text() +
                 "/false";
-            if (this.getSourceNodeDetails().iconType == "patch-panel" || this.getSourceNodeDetails().iconType == "optical-switch") {
+            if (this.getSourceNodeDetails().iconType == "patch-panel" || this.getSourceNodeDetails().iconType == "optical-switch"|| this.getSourceNodeDetails().iconType == "host") {
                 var socket = properties.socket();
 
                 var patchupdate2 = {
@@ -641,7 +472,7 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                 $
                     .ajax({
                         url: postURL1,
-                        method: 'POST',
+                        method: 'GET',
 
                         contentType: "application/json; charset=utf-8",
                         success: function(data) {
@@ -654,13 +485,14 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
             }
             if (self
                 .node().get("iconType") == "patch-panel" || self
-                .node().get("iconType") == "optical-switch") {
+                .node().get("iconType") == "optical-switch" || self
+                .node().get("iconType") == "host") {
                 var socket = properties.socket();
 
                 var patchupdate2 = {
                     "name": self
                         .node()
-                        .id(),
+                        .get("label"),
                     "type": self
                         .node()
                         .get("iconType"),
@@ -673,7 +505,7 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                 $
                     .ajax({
                         url: postURL2,
-                        method: 'POST',
+                        method: 'GET',
 
                         contentType: "application/json; charset=utf-8",
                         success: function(data) {
@@ -691,6 +523,8 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
         },
 
         initFStoOB: function(self) {
+          this.setSourceSelected(false)
+
             var saveLink = properties.createLink;
             var postURL1 = urlToSend +
                 this.getSourceNodeDetails().node + "/" + this.getSourceNodeDetails().data +
@@ -698,18 +532,26 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
             var postURL2 = urlToSend +
                 self
                 .node()
-                .id() + "/" + $("input[name='portselcted']:checked").next().text() +
+                .get("label") + "/" + $("input[name='portselcted']:checked").next().text() +
                 "/false";
 
             var socket = properties.socket();
-            self
-                .topology()
-                .addLink({
-                    source: this.getSourceNodeDetails().node,
-                    target: self
-                        .node()
-                        .id()
-                });
+            var that=this;
+            properties.getMaxNode({
+                source: this.getSourceNodeDetails().id,
+                target: self
+                    .node()
+                    .id()
+                  },function(dataObj,length){
+                    dataObj.id=length;
+                      self
+                          .topology()
+                          .addLink(dataObj);
+                          properties.saveMaxNode(++length,"linkCounter");
+                          that.saveNativeTopology(self
+                              .topology().getData());
+                    },"linkCounter");
+
 
             srcData = {};
             if (this.getSourceNodeDetails().iconType == "fb-icon") {
@@ -724,7 +566,7 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                 .iconType() == "fb-icon") {
                 srcData.name = self
                     .node()
-                    .id();
+                    .get("label");
                 srcData.link = {
                     "l1-switch-port": this.getSourceNodeDetails().data,
                     "fb-port": $("input[name='portselcted']:checked").next().text()
@@ -741,12 +583,13 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                     "portname": this.getSourceNodeDetails().data,
                     "status": "true"
                 };
-                //  socket.emit('port-status-set', JSON.stringify(patchupdate2));
+
+                  socket.emit('port-status-set', JSON.stringify(patchupdate2));
             } else {
                 $
                     .ajax({
                         url: postURL1,
-                        method: 'POST',
+                        method: 'GET',
 
                         contentType: "application/json; charset=utf-8",
                         success: function(data) {
@@ -765,7 +608,7 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                 var patchupdate2 = {
                     "name": self
                         .node()
-                        .id(),
+                        .get("label"),
                     "type": self
                         .node()
                         .get("iconType"),
@@ -778,7 +621,7 @@ define(["properties", "toastr", 'jquery.spin'], function(properties, toastr) {
                 $
                     .ajax({
                         url: postURL2,
-                        method: 'POST',
+                        method: 'GET',
 
                         contentType: "application/json; charset=utf-8",
                         success: function(data) {

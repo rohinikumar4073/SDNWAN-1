@@ -1,7 +1,8 @@
 define([
-    'react', 'jquery', 'jsx!components/BootstrapLink','ReactRouter'
-], function(React, $, BootstrapLink,ReactRouter) {
+    'react', 'jquery', 'jsx!components/BootstrapLink','ReactRouter','react-progress-bar-plus'
+], function(React, $, BootstrapLink, ReactRouter, ProgressBar) {
   var Link=ReactRouter.Link;
+
     var SearchForm = React.createClass({
         render: function() {
             return (
@@ -69,7 +70,10 @@ define([
     var Header = React.createClass({
         render: function() {
             return (
-                <header className="vz-global-header">
+
+
+                             <header className="vz-global-header">
+
                     <nav className="navbar navbar-default navbar-fixed-top">
                         <div className="container-fluid">
                             <div className="navbar-header">

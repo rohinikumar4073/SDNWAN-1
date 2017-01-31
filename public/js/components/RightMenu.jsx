@@ -12,15 +12,46 @@ define([
         componentDidMount:function(){
           configurationEvents.setDom(this);
         },
+        saveNativeTopology:function(){
+			 this.props.topologyModel.setTopology()
+          var topologyData = properties.getTopologyData();
+
+
+        //  localStorage.setItem("topologyData", JSON.stringify(topologyData))
+          $.ajax({
+              url: properties.saveNativeTopologyData,
+              type: 'post',
+              data: JSON.stringify(topologyData),
+              contentType: "application/json; charset=utf-8",
+              success: function(data) {
+
+              }
+          })
+        },
         pushTopology: function() {
-            var top = properties.getTopologyPush();
-            this.props.topologyModel.setTopology()
-            var topologyData = properties.getTopologyData();
-            localStorage.setItem("topologyData", JSON.stringify(topologyData))
+          this.props.topologyModel.setTopology()
+          var topologyData = properties.getTopologyData();
+          this.saveNativeTopology()
+          var nodeData=[]
+          var linkData=[]
+          topologyData.links.forEach(function(v,i){
+            var link={};
+          link.linkId=v.id;
+          linkData.push(link);
+          })
+          topologyData.nodes.forEach(function(v,i){
+            var node={};
+          node.type=v.iconType;
+          node.id=v.label;;
+          nodeData.push(node);
+          })
+          topologyData.nodeDetails=nodeData;
+          topologyData.linkDetails=linkData;
+
             $.ajax({
                 url: properties.pushTopology,
                 type: 'post',
-                data: JSON.stringify(top),
+                data: JSON.stringify(topologyData),
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
                     toastr.success("Topology is pushed successfully")
@@ -29,11 +60,30 @@ define([
 
         },
         saveTopology: function() {
-            var top = properties.getTopologyPush();
+
+          this.props.topologyModel.setTopology()
+          var topologyData = properties.getTopologyData();
+          this.saveNativeTopology()
+          var nodeData=[]
+          var linkData=[]
+          topologyData.links.forEach(function(v,i){
+            var link={};
+          link.linkId=v.id;
+          linkData.push(link);
+          })
+          topologyData.nodes.forEach(function(v,i){
+            var node={};
+          node.type=v.iconType;
+          node.id=v.label;;
+          nodeData.push(node);
+          })
+          topologyData.nodeDetails=nodeData;
+          topologyData.linkDetails=linkData;
+          this.saveNativeTopology()
             $.ajax({
                 url: properties.pushTopology,
                 type: 'post',
-                data: JSON.stringify(top),
+                data: JSON.stringify(topologyData),
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
                     toastr.success("Topology is saved successfully")
@@ -71,6 +121,7 @@ console.log("state "+state)
                             <h3 className="linktext">Link Mode On</h3>
                             <h4>Selected Source</h4>
                             <div><span className="left">Name </span><span className="center" >:</span><span  className="right">{this.state.sourceData.sourceName}</span></div>
+                            <div><span className="left">Port ID </span><span className="center" >:</span><span  className="right"></span></div>
                             <div><span className="left">Type </span><span  className="center">:</span><span  className="right">{this.state.sourceData.sourceType}</span></div>
                               <div><span className="left">Port </span><span  className="center">:</span><span  className="right">{this.state.sourceData.portData}</span></div>
                               <a href="#" className="clrSrc" onClick={this.clearSource}> Clear Source </a>

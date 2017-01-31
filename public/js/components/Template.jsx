@@ -7,10 +7,10 @@ define([
     'jsx!components/BootstrapLink',
     'jsx!components/Details',
     'jsx!components/TemplateDetails',
-    'jsx!components/PowerDetails',
     'jsx!components/FbosDetails',
-      'jsx!components/TransDetails',
-], function(React, $, configurationEvents, properties, TemplateElement, BootstrapLink, Details, TemplateDetails, PowerDetails, FbosDetails, TransDetails) {
+      'jsx!components/TransHardwareDetails',
+      'jsx!components/HardwareDetails',
+], function(React, $, configurationEvents, properties, TemplateElement, BootstrapLink, Details, TemplateDetails, FbosDetails, TransHardwareDetails, HardwareDetails) {
     var Template = React.createClass({
 
         toggleData: function() {
@@ -57,19 +57,13 @@ define([
           this.state.currentClickedElement=i;
             var templateName = this.props.collection[i].name;
             var getURL = "";
-            this.props.heading == 'FB Instance Creation'
-                ? getURL = properties.templateIp + "FindTemplate?fb_device_name=" + templateName
-                : this.props.heading == 'FB Powersupply Template'
-                    ? getURL = properties.getAllPowerIp
-                    : this.props.heading == 'FB OS Template'
+                    this.props.heading == 'FB OS Template'
                         ? getURL = properties.getAllosIp
-                        : this.props.heading == 'FB Fan Template'
-                            ? getURL = properties.getAllFanIp
-                            : this.props.heading == 'FB Transiever Template'
+                            : this.props.heading == 'FB Transiever Hardware Template'
                                 ? getURL = properties.getAllTransIp
-                                :this.props.heading == 'Details New fb form'
-                                ? getURL = properties.templateIp + "FindTemplate?fb_device_name=" + templateName
-                                : getURL = ""
+                                : this.props.heading == 'FB Hardware Template'
+                                    ? getURL = properties.getAllHardware
+                                    : ""
 
             $.get(getURL, function(result) {
 
@@ -105,8 +99,7 @@ define([
                     }
 
                 }
-                console.log('collection'+ this.state.collection);
-                this.setState({collection: this.state.collection})
+              this.setState({collection: this.state.collection})
             }.bind(this));
         },
         render: function() {
@@ -121,7 +114,7 @@ define([
                                 : "fa fa-caret-right"} aria-hidden="true"></i>
                         </span>
                     </h5>
-                    <hr/>
+                  <hr/>
 
                     <div className={this.state.showData
                         ? "create-new"
@@ -137,18 +130,14 @@ define([
                             if (!data.isDetails)
                                 return <TemplateElement onClick={boundClick} collection={data} key={i}/>
                             else{
-                              return (this.props.heading=='FB Instance Creation'
-                              ? <Details collection={data} key={i}/>
-                            :(this.props.heading=='FB Powersupply Template'
-                            ? <PowerDetails collection={data} key={i}/>
-                          :(this.props.heading=='FB OS Template'
+                              return (this.props.heading=='FB OS Template'
                             ? <FbosDetails collection={data} key={i}/>
-                            :(this.props.heading=='FB Fan Template'
-                              ? <TemplateDetails collection={data} key={i}/>
-                              :(this.props.heading=='FB Transiever Template'
-                                ? <TransDetails collection={data} key={i}/>
+                          :(this.props.heading=='FB Transiever Hardware Template'
+                                ? <TransHardwareDetails collection={data} key={i}/>
+                              : (this.props.heading=='FB Hardware Template'
+                            ? <HardwareDetails collection={data} key={i}/>
                           : ""
-                      )))))
+                        )))
 
                             }
 

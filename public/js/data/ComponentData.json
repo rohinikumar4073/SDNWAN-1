@@ -30,15 +30,6 @@
         "materialId":"Material Id" ,
         "airFlow":"Airflow"
       }, {
-        "name": "Patch Panel",
-        "className": "patch-panel",
-        "manufacturer":"Manufacturer1",
-        "orderablePartNumber":"Orderable Part Number",
-        "description":"Description" ,
-        "CLB":"CLB",
-        "materialId":"Material Id" ,
-        "airFlow":"Airflow"
-      }, {
         "name": "Host",
         "className": "host",
         "manufacturer":"Manufacturer1",
@@ -48,6 +39,7 @@
         "materialId":"Material Id" ,
         "airFlow":"Airflow"
       }
+      
     ]
   }
 ]

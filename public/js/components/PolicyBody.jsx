@@ -8,7 +8,11 @@ define(['react','jsx!components/PolicyLink','jsx!components/BootstrapButton','pr
           $.get(getAllL2URL, function(IpResult) {
               var ipCollection = IpResult;
               var rows = [];
-              self.setState({getAllL2: IpResult});
+			  debugger;
+			  $.each(IpResult, function(k, v) {
+					rows.push(v[0])
+				})
+              self.setState({getAllL2: rows});
               console.log(this.state.getAllL2);
           })
 
@@ -88,30 +92,20 @@ define(['react','jsx!components/PolicyLink','jsx!components/BootstrapButton','pr
                                         <div className="row">
                                             <div>
                                                 <table className="table table-bordered policytable">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Bundle ID</th>
-                                                            <th>Role</th>
-                                                            <th>Default use</th>
-
-                                                            <th>ID</th>
-                                                            <th>Type</th>
-                                                            <th>Use Override</th>
-
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>6628</td>
-                                                            <td>bandwidth listing</td>
-                                                            <td>listing</td>
-                                                            <td>662</td>
-                                                            <td>unidirectional</td>
-                                                            <td>yes</td>
-
-                                                        </tr>
-
-                                                    </tbody>
+                                                  <thead>
+                                                      <tr>
+                                                          <th>Policy ID</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                            {this.state.getAllL2.map(function(element, i) {
+                                                                return (
+                                                                    <tr>
+                                                                    <td>{element["policy-id"]}</td>  </tr>
+                                                                )
+                                                            }.bind(this))
+                                                    }
+                                                  </tbody>
                                                 </table>
 
                                             </div>
@@ -135,7 +129,7 @@ define(['react','jsx!components/PolicyLink','jsx!components/BootstrapButton','pr
                                                 <table className="table table-bordered policytable">
                                                     <thead>
                                                         <tr>
-                                                            <th>Bundle ID</th>
+                                                            <th>VPN Name</th>
 
                                                         </tr>
                                                     </thead>

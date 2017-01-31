@@ -47,10 +47,10 @@ var BootstrapModal = React.createClass({
                <div className="modal-dialog">
                <div className="modal-content">
 
-                   <WhiteList header="Create WhiteList Policy"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='WhiteList' ? "" :"hidden"}></WhiteList>
-                   <DynamicBandwidth header="Create Dynamic Bandwidth Policy"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='DynamicBandwidth' ? "" :"hidden"}></DynamicBandwidth>
-                   <VpnPolicy header="Create VPN Policy"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='VpnPolicy' ? "" :"hidden"}></VpnPolicy>
-                    <SchedulePolicy header="Create Schedule Policy"  close={this.close} handleCancel={this.handleCancel} className={this.props.template=='SchedulePolicy' ? "" :"hidden"}></SchedulePolicy>
+                   <WhiteList header="Create WhiteList Policy"  close={this.close} handleCancel={this.handleCancel} submitMode="Save" className={this.props.template=='WhiteList' ? "" :"hidden"}></WhiteList>
+                   <DynamicBandwidth header="Create Dynamic Bandwidth Policy"  close={this.close} submitMode="Save"  handleCancel={this.handleCancel} className={this.props.template=='DynamicBandwidth' ? "" :"hidden"}></DynamicBandwidth>
+                   <VpnPolicy header="Create VPN Policy"  close={this.close} handleCancel={this.handleCancel} submitMode="Save" className={this.props.template=='VpnPolicy' ? "" :"hidden"}></VpnPolicy>
+                    <SchedulePolicy header="Create Schedule Policy"  close={this.close} handleCancel={this.handleCancel} submitMode="Save" className={this.props.template=='SchedulePolicy' ? "" :"hidden"}></SchedulePolicy>
 
                </div>
                </div>
