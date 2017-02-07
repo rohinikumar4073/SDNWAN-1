@@ -89,6 +89,29 @@ define([
     const formData = {};
 
     var CreatePollingFrequencies = React.createClass({
+      componentDidMount: function(){
+        var fbName = this.props.fbName;
+        var pollingData;
+        var self=this;
+        debugger;
+
+          $.ajax({
+          url: properties.rmsIp + fbName + "/get-pollingfrequency",
+          method: 'GET',
+          data: "",
+          contentType: "application/json; charset=utf-8",
+          success: function(data){
+            debugger;
+            self.setState({formData: data})
+          },
+          error: function(data){
+          }
+        });
+      },
+
+      getInitialState:function(){
+        return{formData: {}};
+      },
       onSubmit: function(e) {
         var fbName = this.props.fbName;
         var jsonData = e.formData;
@@ -116,7 +139,7 @@ var self=this;
         render: function() {
             return (
 
-                        <FormCreatePollingFrequencies schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.props.formData} className="FormCreatePollingFrequencies configFB" onError={errors => {
+                        <FormCreatePollingFrequencies schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.state.formData} className="FormCreatePollingFrequencies configFB" onError={errors => {
                             console.log("i am errors" + errors);
                         }}>
                         </FormCreatePollingFrequencies>

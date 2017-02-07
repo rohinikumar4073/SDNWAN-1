@@ -1,12 +1,10 @@
 define(['socket','config'], function(io,config) {
-var orchestratorIp = config.orchestratorIp;
+    var orchestratorIp = config.orchestratorIp;
     var templateIp = config.templateIp;
-   var rmsIp = config.rmsIp;
+    var rmsIp = config.rmsIp;
     var webSocketIp=config.webSocketIp;
     var websocketStomp=config.websocketStomp;
- var nodeIp=config.nodeIp;
-    var whiteListIp = orchestratorIp + "/L2Policy";
-    var vpnPolicyIp = orchestratorIp + "/l2VpnPolicy";
+    var nodeIp=config.nodeIp;
     var whiteListIp = orchestratorIp + "/save/L2Policy";
     var vpnPolicyIp = orchestratorIp + "/save/l2VpnPolicy";
     var envIp = orchestratorIp + "/ipDetails";
@@ -23,11 +21,8 @@ var orchestratorIp = config.orchestratorIp;
     var bgpRoutingIp = orchestratorIp + "/bgpRouting";
     var vpnBgpSessionIp = orchestratorIp + "/vpnBgpSession";
     var schedulePolicyIp = orchestratorIp + "/schedulePolicy/save";
-    var getAllPowerIp = templateIp + "/getAllPowerSupply";
-    var getAllFanIp = templateIp + "/getAllFan";
     var getAllosIp = templateIp + "/getAllOs";
-    var getAllTransIp = templateIp + "/getAllTransHardware";
-    var getAllTransSoftware = templateIp + "/getAllTransSoftware";
+    var getAllTransIp = templateIp + "/getAllTrans";
     var getAllHardware = templateIp + "/getAllHardware";
     var saveComponent=nodeIp+"/saveComponent";
     var deleteNode=nodeIp+"/deleteNode";
@@ -70,11 +65,8 @@ var orchestratorIp = config.orchestratorIp;
         nodeIp: nodeIp,
         templateIp: templateIp + '/',
         whiteListIp: whiteListIp,
-        getAllPowerIp: getAllPowerIp,
-        getAllFanIp: getAllFanIp,
         getAllosIp: getAllosIp,
         getAllTransIp: getAllTransIp,
-        getAllTransSoftware: getAllTransSoftware,
         getAllHardware: getAllHardware,
         getAllIp: getAllIp,
         getDynamicIp: getDynamicIp,
@@ -95,6 +87,7 @@ var orchestratorIp = config.orchestratorIp;
         createLink: orchestratorIp + "/createLink",
         saveComponent:saveComponent,
         deleteNode:deleteNode,
+        orchestratorIp:orchestratorIp,
         getPortStatus:nodeIp+"/getPortStatus",
         saveNativeTopologyData:nodeIp+"/saveTopology",
         getNativeTopologyData:nodeIp+"/getTopology",

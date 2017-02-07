@@ -95,7 +95,13 @@ socket.on('port-status', function(data) {
           type: 'get',
           contentType: "application/json; charset=utf-8",
           success: function(data) {
-              var dat=JSON.parse(data);
+            var dat;
+            if(!data){
+              dat = {nodes: [], links: [], nodeSet: []};
+            }
+            else{
+              dat=JSON.parse(data);
+            }
               if(dat && dat.nodes.length>0){
               $(".layout-flex > .suggestions").hide()
               self.props.topologyModel.renderData(dat);

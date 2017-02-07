@@ -1,6 +1,6 @@
 define([
-    'react', 'reactDnd'
-], function(React, reactDnd) {
+    'react', 'reactDnd','jsx!components/BootstrapLink'
+], function(React, reactDnd, BootstrapLink) {
 
     var DragSource = reactDnd.DragSource;
     var PropTypes = React.PropTypes;
@@ -16,7 +16,10 @@ define([
     }
 
     var TemplateElement = React.createClass({
-
+        loadData:function(){
+        this.props.onClick();
+        this.refs["link"].openModal()
+      },
         propTypes: {
             connectDragSource: PropTypes.func.isRequired,
             isDragging: PropTypes.bool.isRequired
@@ -26,12 +29,15 @@ define([
             var isDragging = this.props.isDragging;
 
             return connectDragSource(
-
                 <div>
-                    <span onClick={this.props.onClick} className="templatedata">
-                        {this.props.collection.name}
-                    </span>
+                  <ul>
+                    <li onClick = {this.loadData}>
+                        <a href = "#">{this.props.collection.name}</a>
+                    </li>
+                  </ul>
+                  <BootstrapLink ref="link" data = {this.props.collection.name} className="hidden" collection = {this.props.templateCollection} heading={this.props.heading} template={this.props.template}/>
                 </div>
+
             );
         }
 

@@ -58,8 +58,6 @@ define(['linkMode', 'properties', 'jquery', 'bootstrap'], function(linkMode, pro
             },
 
             createNode: function(label, iconType, coordinates) {
-
-
                 properties.getMaxNode({label:label, iconType:iconType, coordinates:coordinates}, this.createNodeCallBack,"idCounter",this)
             },
             createNodeCallBack: function(dataObj, id, self) {
@@ -70,9 +68,11 @@ define(['linkMode', 'properties', 'jquery', 'bootstrap'], function(linkMode, pro
                     label: dataObj.label,
                     iconType: dataObj.iconType
                 };
+                var width = $(window).width();
+                var smallWidth=(width * 25) / 100 ;
                 if (coordinates.x && coordinates.y) {
-                    node.x = coordinates.x - 400;
-                    node.y = coordinates.y - 90;
+                    node.x = coordinates.x - smallWidth;
+                    node.y = coordinates.y - 60;
                 } else {
                     node.x = Math.floor(Math.random() * 400);
                     node.y = Math.floor(Math.random() * 400);

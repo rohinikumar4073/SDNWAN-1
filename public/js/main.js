@@ -42,14 +42,28 @@ shim : {
 
 require(['react','react-dom', 'jsx!components/Routing','jquery'], function(React,ReactDom,  RoutingFile, $ ) {
 //'react-jsonschema-form',
-$( document ).on( "click", "legend", function(e) {
+/*$( document ).on( "click", "legend", function(e) {
   e.preventDefault();
    $(this).siblings().toggle('slow');
     $(this).toggleClass('menu-open');
 
   // console.log( $.now() );
 
-});//'react-jsonschema-form',
+});*///'react-jsonschema-form',
+
+$( document ).on( "click", ".policiesCreate > fieldset > legend", function(e) {
+  e.preventDefault();
+   $(this).siblings().toggle('slow');
+    $(this).toggleClass('menu-open');
+    $(this).closest('.array-item').find('.array-item-toolbox').toggle();
+});
+
+$( document ).on( "click", ".pathbundleCreate > fieldset > legend", function(e) {
+  e.preventDefault();
+   $(this).siblings().toggle('slow');
+    $(this).toggleClass('menu-open');
+
+});
 
 RoutingFile = React.createFactory(RoutingFile);
 var Dom=ReactDom.render(

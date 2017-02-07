@@ -21,6 +21,10 @@ define(['properties','nx'],function(propsMethods){
                     },
                     linkConfig: {
                         linkType: 'curve'
+                    },layoutType: 'USMap',
+                    layoutConfig: {
+                        longitude: 'model.longitude',
+                        latitude: 'model.latitude'
                     },
                     identityKey: 'id',
                     showIcon: true
@@ -58,7 +62,7 @@ define(['properties','nx'],function(propsMethods){
 
             width: function() {
                 var width = $(window).width();
-                return (width * 75) / 100 - 50;
+                return (width * 100) / 120 - 50;
             },
             height: function() {
                 var height = $(window).height();

@@ -10,25 +10,19 @@ define([
           var arrayData = [
               {
                 "heading": "FB OS Template",
-                "template":"FBOS",
+                "template":"DetailsFBOS",
                 "data": [
 
                 ]
               },{
                 "heading": "FB Transiever Hardware Template",
-                "template":"FBTranseiverHardware",
-                "data": [
-
-                ]
-              },{
-                "heading": "FB Transiever Software Template",
-                "template":"FBTranseiverSoftware",
+                "template":"DetailsTransieverHardware",
                 "data": [
 
                 ]
               },{
                 "heading": "FB Hardware Template",
-                "template": "FBHardware",
+                "template": "DetailsHardware",
                 "data": [
 
                 ]

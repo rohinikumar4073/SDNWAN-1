@@ -6,7 +6,7 @@ define([
     const schema = {
         "type": "object",
         "properties": {
-            "name": {
+            "ssl_name": {
                 "type": "string",
                 "title": "Name"
             },
@@ -30,6 +30,16 @@ define([
               "type": "string",
               "title": "FB IP",
               "format": "ipv4"
+            },
+            "group_hash_fields": {
+              "type": "string",
+              "title": "Group Hash Field",
+              "default": "nw_dst,nw_src"
+            },
+            "flow_handling_mode": {
+              "type": "string",
+              "title": "Flow Handling Mode",
+              "default": "hardware_flow_only"
             }
         }
     };
@@ -37,6 +47,25 @@ define([
     const formData = {};
 
     var CreateSSL = React.createClass({
+      componentDidMount: function(){
+        var fbName = this.props.fbName;
+        var sslData;
+        var self=this;
+          $.ajax({
+          url: properties.rmsIp + fbName + "/get-ssl",
+          method: 'GET',
+          data: "",
+          contentType: "application/json; charset=utf-8",
+          success: function(data){
+            self.setState({formData: data})
+          },
+          error: function(data){
+          }
+        });
+      },
+      getInitialState:function(){
+        return{formData: {}};
+      },
       validate:function(formData, errors){
         var ipv4 = /^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/;
         if(formData["fb_ip"]){
@@ -73,7 +102,7 @@ var self=this;
         render: function() {
             return (
 
-                        <FormCreateSSL schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} validate={this.validate} formData={this.props.formData} className="FormCreateSSL configFB" onError={errors => {
+                        <FormCreateSSL schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} validate={this.validate} formData={this.state.formData} className="FormCreateSSL configFB" onError={errors => {
                             console.log("i am errors" + errors);
                         }}>
                       </FormCreateSSL>

@@ -2,6 +2,40 @@ define([
     'react', 'jquery', 'properties', 'react-jsonschema-form'
 ], function(React, $, properties, Form) {
     var FormCreateLLDP = Form.default;
+    const schema = {
+      "type": "object",
+      "properties": {
+        "global_lldp_enable": {
+          "type": "boolean",
+          "title": "Global LLDP Enable",
+          "default": true
+        },
+        "lldp_msg_tx_hold":{
+          "type": "string",
+          "title": "LLDP Message TX Hold",
+          "default": "120"
+        },
+        "lldp_msg_tx_interval":{
+          "type": "string",
+          "title": "LLDP Message TX Interval",
+          "default": "30"
+        },
+        "lldp_reinit_delay":{
+          "type": "string",
+          "title": "LLDP Reinit Delay",
+          "default": "2"
+        },
+        "lldp_tx_delay":{
+          "type": "string",
+          "title": "LLDP TX Delay",
+          "default": "2"
+        },
+        "fb_ip": {
+          "type": "string",
+          "title": "FB IP"
+        }
+      }
+ };
 
     const uiSchema = {
 
@@ -19,65 +53,31 @@ define([
       }
     };
 
-    const formData = {
-      "per_interface_settings":{
-        "port_name": "Test"
-      }
-    };
+    const formData = {};
 
     var CreateLLDP = React.createClass({
 
-
       componentDidMount: function(){
-        var LLDPschema = this.state.schema;
-        fbName = this.props.fbName;
-        var getURL = properties.rmsIp +
-            fbName +
-            "/list-ports";
-        $.get(getURL, function(result) {
-            var collection = result;
-            var rows = [];
-            // result.forEach(function(v,i){
-            //   LLDPschema.properties["per_interface_settings"]["port_name"].defaultValue = "Test";
-            // })
-            this.setState({schema: LLDPschema});
-        }.bind(this));
-      },
-      getInitialState:function(){
-        return {
-          schema : {
-           "type": "object",
-           "properties": {
-               "fb_br": {
-                   "type": "string",
-                   "title": "FB BR"
-               },
-               "fb_ip":{
-                 "type": "string",
-                 "title": "FB IP"
-               },
-               "per_interface_settings": {
-                 "type": "object",
-                 "title": "Per Interface Setting",
-                 "properties": {
-                   "port_name": {
-                     "type": "string",
-                     "title": "Port Name"
-                   },
-                   "rxtx":{
-                     "type": "string",
-                     "title": "RX/TX",
-                     "enum": [
-                       "rx",
-                       "tx"
-                     ]
-                   }
-                 }
-               }
-           }
+        var fbName = this.props.fbName;
+        var lldpData;
+        var self=this;
+        debugger;
 
-       }
-     }
+          $.ajax({
+          url: properties.rmsIp + fbName + "/get-lldp",
+          method: 'GET',
+          data: "",
+          contentType: "application/json; charset=utf-8",
+          success: function(data){
+            self.setState({formData: data})
+          },
+          error: function(data){
+          }
+        });
+      },
+
+      getInitialState:function(){
+        return{formData: {}};
       },
       validate:function(formData, errors){
         var ipv4 = /^([0-9]{1,3}\.){3}[0-9]{1,3}(\/([0-9]|[1-2][0-9]|3[0-2]))?$/;
@@ -96,7 +96,7 @@ return errors;
           jsonData["per_interface_settings"]={};
         var postURL = properties.rmsIp +
             fbName +
-            "/set-lldp/perint";
+            "/set-lldp";
 var self=this;
 
         $
@@ -118,7 +118,7 @@ var self=this;
         render: function() {
             return (
 
-                        <FormCreateLLDP schema={this.state.schema} uiSchema={uiSchema} validate={this.validate} onSubmit={this.onSubmit} formData={formData} className="FormCreateLLDP configFB" onError={errors => {
+                        <FormCreateLLDP schema={schema} uiSchema={uiSchema} validate={this.validate} onSubmit={this.onSubmit} formData={this.state.formData} className="FormCreateLLDP configFB" onError={errors => {
                             console.log("i am errors" + errors);
                         }}>
                         </FormCreateLLDP>            );

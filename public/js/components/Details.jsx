@@ -27,7 +27,7 @@ define([
                     <DetailsElement data={this.props.collection.network_domain} labelData="Network Domain"/>
                     <DetailsElement data={this.props.collection.site_id} labelData="Site ID"/>
                     <DetailsElement data={this.props.collection.location_desc} labelData="Location Desc"/>
-                   <BootstrapLink data="View Details" collection = {this.props.collection} heading={this.state.elements.heading} template={this.state.elements.template}/>
+                    <BootstrapLink data="View Details" collection = {this.props.collection} heading={this.state.elements.heading} template={this.state.elements.template}/>
 
 
 

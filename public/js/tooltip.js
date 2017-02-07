@@ -28,27 +28,28 @@ define(
                                         case "host":
                                             this.view("configData").set("class", "linkhide");
                                             this.view("templateData").set("class", "linkhide");
+                                            this.view("cloneData").set("class", "linkhide");
                                             // Setting config and template data to hidden
                                             var finalResults = []
-                                            var fetchComplete=function(data,view){
-                                              var result = JSON.parse(data)
-                                              if (iconType == "optical-switch" ||iconType == "host") {
-                                                  result = JSON.parse(result)
-                                              }
-                                              result.forEach(function(v, i) {
-                                                      var res = null;
-                                                      if (iconType == "optical-switch" ||iconType == "host") {
-                                                          res = v;
-                                                      }else {
-                                                          res = JSON.parse(v)
-                                                      }
-                                                      if (res.status == "false") {
-                                                          res.isAllocated = false
-                                                      } else {
-                                                          res.isAllocated = true
-                                                      }
-                                                      finalResults.push(res);
-                                                  })
+                                            var fetchComplete = function(data, view) {
+                                                var result = JSON.parse(data)
+                                                if (iconType == "optical-switch" || iconType == "host") {
+                                                    result = JSON.parse(result)
+                                                }
+                                                result.forEach(function(v, i) {
+                                                    var res = null;
+                                                    if (iconType == "optical-switch" || iconType == "host") {
+                                                        res = v;
+                                                    } else {
+                                                        res = JSON.parse(v)
+                                                    }
+                                                    if (res.status == "false") {
+                                                        res.isAllocated = false
+                                                    } else {
+                                                        res.isAllocated = true
+                                                    }
+                                                    finalResults.push(res);
+                                                })
 
 
                                             }
@@ -69,18 +70,18 @@ define(
                                                     contentType: "application/json; charset=utf-8",
                                                     success: fetchComplete,
                                                     error: function(data) {
-                                                      //  toastr.error("Not able to add Optical Switch")
+                                                        //  toastr.error("Not able to add Optical Switch")
                                                     }
 
                                                 });
                                                 setTimeout(function() {
-                                                    view.set('items', finalResults)
+                                                        view.set('items', finalResults)
 
-                                                }, 500)
-                                              //  socket.emit('port-status-fetch', JSON.stringify(patchfetch));
-                                                //debugger;
+                                                    }, 500)
+                                                    //  socket.emit('port-status-fetch', JSON.stringify(patchfetch));
+                                                    //debugger;
                                                 socket.on('port-status', function(data) {
-                                                  fetchComplete(data)
+                                                    fetchComplete(data)
                                                 }.bind(fetchComplete))
 
 
@@ -103,6 +104,7 @@ define(
                                                 this.view("templateData").set("class", "linkhide")
                                                 this.view("editData").set("class", "linkhide")
                                                 this.view("deleteComponent").set("class", "linkhide")
+                                                this.view("cloneData").set("class", "linkhide")
                                                 $.post(postURL, function(result) {
                                                     var collection = result;
 
@@ -123,6 +125,7 @@ define(
                                                 this.view("configData").set("class", "popup-section")
                                                 this.view("templateData").set("class", "popup-section")
                                                 this.view("deleteComponent").set("class", "popup-section")
+                                                this.view("cloneData").set("class", "popup-section")
 
                                             }
                                             break;
@@ -166,6 +169,28 @@ define(
                         view: {
                             content: {
                                 content: [{
+                                        tag: 'div',
+                                        name: "cloneData",
+
+                                        events: {
+                                            'click': '{#cloneClickEvent}'
+                                        },
+                                        content: [{
+                                                tag: "i",
+                                                props: {
+                                                    'class': "fa fa-clone",
+                                                    'aria-hidden': "true"
+                                                }
+                                            }, {
+                                                tag: "div",
+                                                content: "Clone",
+                                                props: {
+                                                    'class': "label-data"
+                                                }
+                                            }
+
+                                        ]
+                                    }, {
                                         tag: 'div',
                                         name: "configData",
 
@@ -308,6 +333,11 @@ define(
                             }
                         },
                         methods: {
+                            "cloneClickEvent": function() {
+                                var self = this.node();
+                                configurationEvents.cloneFb(self);
+
+                            },
 
                             "onClickEvent": function() {
                                 var self = this.node();
@@ -323,12 +353,13 @@ define(
                                             configurationEvents.savingDetails(self);
                                             configurationEvents.bridgeTable(self);
                                             configurationEvents.portTable(self);
+                                            configurationEvents.controllerTable(self);
                                             //configurationEvents.getDetails(self);
                                         });
 
                             },
                             "onClickEvent1": function() {
-                                    var self = this.node();
+                                var self = this.node();
                                 $("#pageModal")
                                     .load(
                                         "templates/templates.html",
@@ -336,61 +367,98 @@ define(
                                             $('#pageModal ')
                                                 .modal(
                                                     'show')
-                                                    debugger;
+                                            debugger;
                                             //configurationEvents.init(self);
                                             configurationEvents.templateTable(self);
                                         });
 
                             },
                             "deleteNode": function() {
-                                var sureDel=confirm("Please confirm to delete node")
-                                if(!sureDel){
-                                  return;
+                                var sureDel = confirm("Please confirm to delete node")
+                                if (!sureDel) {
+                                    return;
                                 }
-                              var self = this.node();
-                           var name = self.get("label");
-                           var type = self.get("iconType");
-                           var data = {
-                             "name": name,
-                             "type": type
-                           }
+                                var self = this.node();
+                                var name = self.get("label");
+                                var type = self.get("iconType");
+                                var data = {
+                                    "name": name,
+                                    "type": type
+                                }
+                                switch (type) {
+                                    case "optical-switch":
 
-                          $.ajax({
-                            url: properties.deleteNode,
-                            type: 'post',
-                            data: JSON.stringify(data),
-                            contentType: "application/json; charset=utf-8",
-                            success: function(returnData){
-                              self.topology().removeNode(
-                                  self.node().id());
-                                  $.ajax({
-                                      url: properties.saveNativeTopologyData,
-                                      type: 'post',
-                                      data: JSON.stringify( self.topology().getData()),
-                                      contentType: "application/json; charset=utf-8",
-                                      success: function(data) {
-                                          $.ajax({
-                                            url: properties.rmsIp + name + "/delete",
-                                            type: 'delete',
-                                            data: "",
-                                            contentType: "application/json; charset=utf-8",
-                                            success: function(data){
+                                            $.ajax({
+                                                url: properties.deleteNode,
+                                                type: 'post',
+                                                data: JSON.stringify(data),
+                                                contentType: "application/json; charset=utf-8",
+                                                success: function(returnData) {
 
-                                            },
-                                            error:function(data){
+                                                    self.topology().removeNode(
+                                                        self.node().id());
+                                                    $.ajax({
+                                                        url: properties.saveNativeTopologyData,
+                                                        type: 'post',
+                                                        data: JSON.stringify(self.topology().getData()),
+                                                        contentType: "application/json; charset=utf-8",
+                                                        success: function(data) {
+                                                            toastr.success("Deleted " + name + " successfully");
+                                                        },
+                                                        error: function(data) {
+                                                            toastr.error("Could not delete  " + name);
+                                                        }
+                                                    })
 
-                                            }
-                                          })
-                                      }
-                                  })
-                              toastr.success("Deleted " +data.name+ " successfully");
-                            },
-                            error: function(returnData){
-                              toastr.error("Could not delete  " +data.name);
-                            }
-                          })
 
-                           $(".n-topology-tooltip").hide()
+                                                }
+                                            });
+                                            break;
+
+                                    case "fb-icon":
+                                    case "host":
+
+                                            $.ajax({
+                                                url: properties.deleteNode,
+                                                type: 'post',
+                                                data: JSON.stringify(data),
+                                                contentType: "application/json; charset=utf-8",
+                                                success: function(returnData) {
+                                                    $.ajax({
+                                                        url: properties.rmsIp + name + "/delete",
+                                                        type: 'delete',
+                                                        data: "",
+                                                        contentType: "application/json; charset=utf-8",
+                                                        success: function(data) {
+                                                            self.topology().removeNode(
+                                                                self.node().id());
+                                                            $.ajax({
+                                                                url: properties.saveNativeTopologyData,
+                                                                type: 'post',
+                                                                data: JSON.stringify(self.topology().getData()),
+                                                                contentType: "application/json; charset=utf-8",
+                                                                success: function(data) {
+                                                                    toastr.success("Deleted " + name + " successfully");
+                                                                },
+                                                                error: function(data) {
+                                                                    toastr.error("Could not delete  " + name);
+                                                                }
+                                                            })
+                                                        }
+                                                    })
+
+                                                },
+                                                error: function(returnData) {
+
+                                                }
+                                            })
+                                        break;
+
+                                }
+
+
+
+                                $(".n-topology-tooltip").hide()
                             },
 
                             "onClickEvent2": function() {
@@ -450,7 +518,7 @@ define(
                                 var uploadedData = {
                                     bootstrapTitle: "",
                                     submitMode: "Update",
-                                    iconType:self.iconType(),
+                                    iconType: self.iconType(),
                                     formData: {
                                         name: self.get("label"),
                                         id: self.get("id")
@@ -467,8 +535,8 @@ define(
                                         uploadedData.bootstrapTitle = "Editing Patch Panel";
                                         break;
                                     case "host":
-                                          uploadedData.bootstrapTitle = "Editing Host";
-                                          uploadedData.formData["node-id"]=self.get("label");
+                                        uploadedData.bootstrapTitle = "Editing Host";
+                                        uploadedData.formData["node-id"] = self.get("label");
 
                                 }
                                 var bodyElement = configurationEvents.getBodyReference();
@@ -505,15 +573,6 @@ define(
                 view: {
                     content: {
                         content: [{
-                            tag: 'h1',
-                            content: [{
-                                tag: 'span',
-                                content: 'Link #'
-                            }, {
-                                tag: 'span',
-                                content: '{#link.id}'
-                            }]
-                        }, {
                             tag: 'div',
                             content: [{
                                 tag: 'span',
@@ -524,7 +583,7 @@ define(
                             }, {
                                 tag: 'span',
                                 // we access link's model to show a source node's name
-                                content: '{#link.model.source.name}'
+                                content: '{#link.model.source.label}'
                             }]
                         }, {
                             tag: 'div',
@@ -537,15 +596,72 @@ define(
                             }, {
                                 tag: 'span',
                                 // we access link's model to show a target node's name
-                                content: '{#link.model.target.name}'
+                                content: '{#link.model.target.label}'
                             }]
-                        }],
+                        }, {
+                            tag: 'div',
+                            name: "deleteComponent",
+                            props: {
+                                'class': "popup-section"
+                            },
+                            events: {
+                                'click': '{#deleteNode}'
+                            },
+                            content: [{
+                                    tag: "i",
+                                    props: {
+                                        'class': "fa fa-trash",
+                                        'aria-hidden': "true"
+                                    }
+                                }, {
+                                    tag: "div",
+                                    content: "Delete",
+                                    props: {
+                                        'class': "label-data"
+                                    }
+                                }
+
+                            ]
+                        }, ],
                         props: {
                             'class': 'custom-tooltip'
                         }
 
 
 
+                    }
+                },
+                methods: {
+                    deleteNode: function() {
+                        var sureDel = confirm("Please confirm to delete node")
+                        if (!sureDel) {
+                            return;
+                        }
+                        var id = this._link._model._id;
+                        var self = this;;
+                        var promise = function(self, properties) {
+                            $.ajax({
+                                url: properties.saveNativeTopologyData,
+                                type: 'post',
+                                data: JSON.stringify(self.topology().getData()),
+                                contentType: "application/json; charset=utf-8",
+                                success: function(data) {}
+                            })
+                        }
+                        $.ajax({
+                            url: properties.orchestratorIp + "/" + id + "/deleteLink",
+                            type: 'DELETE',
+                            success: function(result) {
+                                toastr.success("Link is deleted successfully")
+                                self.topology().removeLink(self._link._model._id);
+                                promise(self, properties)
+                                $(".n-topology-tooltip").hide()
+                                    // Do something with the result
+                            },
+                            error: function(data) {
+                                toastr.error("Error in deleting link")
+                            }
+                        });
                     }
                 }
             });

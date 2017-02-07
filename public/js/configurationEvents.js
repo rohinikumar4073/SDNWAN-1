@@ -4,9 +4,17 @@
 define(["properties", "toastr",'react','react-dom', 'jsx!components/FBConfigurationForms/CreateBridge',
 'jsx!components/FBConfigurationForms/CreatePort','jsx!components/FBConfigurationForms/CreateController',
 'jsx!components/FBConfigurationForms/CreateLLDP', 'jsx!components/FBConfigurationForms/CreateARP',
-'jsx!components/FBConfigurationForms/CreatePollingFrequencies','jsx!components/FBConfigurationForms/CreateSSL','toastr','jquery.spin'],
-function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateController, CreateLLDP,CreateARP, CreatePollingFrequencies, CreateSSL,toastr) {
+'jsx!components/FBConfigurationForms/CreatePollingFrequencies','jsx!components/FBConfigurationForms/CreateSSL','toastr','jsx!components/ComponentForms/CloneFb','jquery.spin',
+],
+function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateController, CreateLLDP,CreateARP, CreatePollingFrequencies, CreateSSL,toastr, CloneFb) {
   var dom=null;
+  var bridge;
+  var port;
+  var controller;
+  var lldp;
+  var arp;
+  var pollingFrequencies;
+  var ssl;
     var portController = function() {
         $("input[name=vlan_mode]").click(function() {
             if ($("input[name=vlan_mode]:checked").val() == "Trunk") {
@@ -99,18 +107,11 @@ function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateCon
                     $("#viewOsTemplate").find('tbody')
                         .append(tr);
                 }
-                for (i = 0; i < result.TSHW.length; i++) {
+                for (i = 0; i < result.TS.length; i++) {
                     var tr = $('<tr>')
-                    tr.append("<td> <input type='radio' name='tshw' value=" + result.TSHW[i].name + "></input> </td>");
+                    tr.append("<td> <input type='radio' name='ts' value=" + result.TS[i].name + "></input> </td>");
                     tr.append($('<td>').append(result.TS[i].name));
                     $("#viewTransceiverHardwareTemplate").find('tbody')
-                        .append(tr);
-                }
-                for (i = 0; i < result.TSSW.length; i++) {
-                    var tr = $('<tr>')
-                    tr.append("<td> <input type='radio' name='tssw' value=" + result.TSSW[i].name + "></input> </td>");
-                    tr.append($('<td>').append(result.TS[i].name));
-                    $("#viewTransceiverSoftwareTemplate").find('tbody')
                         .append(tr);
                 }
                 for (i = 0; i < result.HW.length; i++) {
@@ -127,14 +128,12 @@ function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateCon
                 var fb_device_name = node.get("label")
                 var postURL = properties.templateIp + "assignTemplates?fb_device_name=" + fb_device_name;
                 var fbOS = $('input[name="os"]:checked').val();
-                var fbTSHW = $('input[name="tshw"]:checked').val();
-                var fbTSSW = $('input[name="tssw"]:checked').val();
+                var fbTS = $('input[name="ts"]:checked').val();
                 var fbHW = $('input[name="hw"]:checked').val();
                 var jsonData = {
                     fb_device_name: fb_device_name,
                     fbOS: fbOS,
-                    fbTSHW: fbTSHW,
-                    fbTSSW: fbTSSW,
+                    fbTS: fbTS,
                     fbHW: fbHW
                 };
                 $
@@ -158,46 +157,205 @@ function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateCon
             var getURL = properties.rmsIp +
                 fbName +
                 "/listBridge";
+                var collection;
             $.get(getURL, function(result) {
-                var collection = result;
+                collection = result;
                 var bridgeTable = $("#viewBridge");
                 var rows = [];
                 result.forEach(function(v, i) {
                     var tr = $('<tr>')
-                    tr.append($('<td>').append(v.name));
+                    tr.append($('<td class=bridgeName>').append(v.name));
                     tr.append($('<td>').append(v.datapath_type));
-                    tr.append($('<td>').append(v.datapath_id));
-                    tr.append($('<td>').append(v.protocols));
+                    tr.append($('<td>').append(v["bridge_other_config"]["datapath-id"]));
+                    tr.append($('<td>').append(v.protocol));
                     tr.append($('<td>').append(v.fb_ip));
+                    tr.append($('<td>').append("<div class = 'popup-section'><i class= 'fa fa-pencil editBridge' aria-hidden='true'></i><div class='label-data'>Edit</div></div>"))
+                    tr.append($('<td>').append("<div class = 'popup-section'><i class='fa fa-trash deleteBridge' aria-hidden='true'></i><div class='label-data'>Delete</div></div>"))
                     $("#viewBridge").find('tbody')
                         .append(tr)
                 })
 
             })
-        },
+            $(document).on('click', '.deleteBridge', function(){
+              var sureDel=confirm("Please confirm to delete bridge")
+              if(!sureDel){
+                return;
+              }
+              else{
+                var name_bridge = $(this).closest("tr").find('.bridgeName').text();
+                var trToRemove = $(this).closest("tr");
+                var deleteURL = properties.rmsIp + fbName + "/delete-bridge/";
+                debugger;
+                $.ajax({
+                  url: deleteURL,
+                  method: 'delete',
+                  data: "",
+                  contentType: "application/json; charset=utf-8",
+                  success:function(data){
+                    trToRemove.remove();
+                    toastr.success("Deleted " +name_bridge+ " successfully");
+                  },
+                  error:function(data){
+                    toastr.error("Could not delete " +name_bridge);
+                  }
+                });
+              }
+
+            })
+            var configRef= this;
+            $(document).on('click', '.editBridge', function(){
+              var name_bridge = $(this).closest("tr").find('.bridgeName').text();
+              var tr = $(this).closest("tr");
+              var dataBridge;
+              collection.forEach(function(v,i){
+                if(v.name == name_bridge){
+                  dataBridge = collection[i];
+                }
+              })
+              bridge = React.createFactory(CreateBridge);
+              ReactDom.render(
+                    bridge({formData: dataBridge,tr: tr, submitMode:"Update","configurationEvents":configRef,fbName:node.get("label")}),
+                    document.getElementById('createBridgeForm'));
+            })
+          },
 
         portTable: function(node) {
             var fbName = node.get("label")
             var getURL = properties.rmsIp +
                 fbName +
                 "/list-ports";
+            var collection;
             $.get(getURL, function(result) {
-                var collection = result;
+                collection = result;
                 var portTable = $("#viewPort");
                 var rows = [];
                 result.forEach(function(v, i) {
                     var tr = $('<tr>')
-                    tr.append($('<td>').append(v.name));
-                    tr.append($('<td>').append(v.vlan_mode));
+                    tr.append($('<td class=portName>').append(v.name));
+                    tr.append($('<td>').append(""));
+                    tr.append($('<td>').append(v.tag));
                     tr.append($('<td>').append(v.fb_ip));
                     tr.append($('<td>').append(v.type));
                     tr.append($('<td>').append(v.speed));
                     tr.append($('<td>').append(v.is_dac));
+                    tr.append($('<td>').append(v.vlan_mode));
+                    tr.append($('<td>').append("<div class = 'popup-section'><i class= 'fa fa-pencil editPort' aria-hidden='true'></i><div class='label-data'>Edit</div></div>"))
+                    tr.append($('<td>').append("<div class = 'popup-section'><i class='fa fa-trash deletePort' aria-hidden='true'></i><div class='label-data'>Delete</div></div>"))
                     $("#viewPort").find('tbody')
                         .append(tr)
                 })
 
             })
+
+            $(document).on('click', '.deletePort', function(){
+              var sureDel=confirm("Please confirm to delete port")
+              if(!sureDel){
+                return;
+              }
+              else{
+                var name_port = $(this).closest("tr").find('.portName').text();
+                var trToRemove = $(this).closest("tr");
+                var deleteURL = properties.rmsIp + fbName + "/" +name_port + "/delete";
+                debugger;
+                $.ajax({
+                  url: deleteURL,
+                  method: 'delete',
+                  data: "",
+                  contentType: "application/json; charset=utf-8",
+                  success:function(data){
+                    trToRemove.remove();
+                    toastr.success("Deleted " +name_port+ " successfully");
+                  },
+                  error:function(data){
+                    toastr.error("Could not delete " +name_port);
+                  }
+                });
+              }
+            })
+            var configRef= this;
+            $(document).on('click', '.editPort', function(){
+              var name_port = $(this).closest("tr").find('.portName').text();
+              var tr = $(this).closest("tr");
+              var dataPort;
+              collection.forEach(function(v,i){
+                if(v.name == name_port){
+                  dataPort = collection[i];
+                }
+              })
+              port = React.createFactory(CreatePort);
+              ReactDom.render(
+                    port({formData: dataPort,submitMode: "Update",tr: tr,"configurationEvents":configRef,fbName:node.get("label")}),
+                    document.getElementById('createPortForm'));
+            })
+        },
+
+        controllerTable: function(node){
+          var fbName = node.get("label")
+          var getURL = properties.rmsIp +
+              fbName +
+              "/get-controller";
+          var collection;
+          $.get(getURL, function(result) {
+              collection = result;
+              var controllerTable = $("#viewController");
+              var rows = [];
+              result.forEach(function(v, i) {
+                  var tr = $('<tr>')
+                  tr.append($('<td class=controllerName>').append(v.name));
+                  tr.append($('<td>').append(v.controller_ip));
+                  tr.append($('<td>').append(v.of_port));
+                  tr.append($('<td>').append(v.connect_protocol));
+                  tr.append($('<td>').append(v.fb_ip));
+                  tr.append($('<td>').append("<div class = 'popup-section'><i class= 'fa fa-pencil editController' aria-hidden='true'></i><div class='label-data'>Edit</div></div>"))
+                  tr.append($('<td>').append("<div class = 'popup-section'><i class='fa fa-trash deleteController' aria-hidden='true'></i><div class='label-data'>Delete</div></div>"))
+                  $("#viewController").find('tbody')
+                      .append(tr)
+              })
+
+          })
+
+          $(document).on('click', '.deleteController', function(){
+            var sureDel=confirm("Please confirm to delete Controller")
+            if(!sureDel){
+              return;
+            }
+            else{
+              var name_controller = $(this).closest("tr").find('.controllerName').text();
+              var trToRemove = $(this).closest("tr");
+              var deleteURL = properties.rmsIp + fbName +  "/delete/" + name_controller ;
+              debugger;
+              $.ajax({
+                url: deleteURL,
+                method: 'delete',
+                data: "",
+                contentType: "application/json; charset=utf-8",
+                success:function(data){
+                  trToRemove.remove();
+                  toastr.success("Deleted " +name_controller+ " successfully");
+                },
+                error:function(data){
+                  toastr.error("Could not delete " +name_controller);
+                }
+              });
+            }
+          })
+
+          var configRef= this;
+          $(document).on('click', '.editController', function(){
+            var name_controller = $(this).closest("tr").find('.controllerName').text();
+            var tr = $(this).closest("tr");
+            var dataController;
+            collection.forEach(function(v,i){
+              if(v.name == name_controller){
+                dataController = collection[i];
+              }
+            })
+            controller = React.createFactory(CreateController);
+            ReactDom.render(
+                  controller({formData: dataController,submitMode: "Update",tr: tr,"configurationEvents":configRef,fbName:node.get("label")}),
+                  document.getElementById('createControllerFrom'));
+          })
+
         },
         savingDetails: function(node) {
 
@@ -319,7 +477,7 @@ function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateCon
             },
         init: function(node) {
             portController();
-          var bridge = React.createFactory(CreateBridge);
+          bridge = React.createFactory(CreateBridge);
           var port = React.createFactory(CreatePort);
           var controller = React.createFactory(CreateController);
           var lldp = React.createFactory(CreateLLDP);
@@ -356,6 +514,16 @@ function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateCon
 
             }
 
+        },
+        cloneFb: function(node){
+var cloneFB = React.createFactory(CloneFb);
+$("#pageModal").empty()
+ReactDom.render(
+      cloneFB({"configurationEvents":this,fbName:node.get("label"),submitMode:"Create",formData:{},className:"test",header:"Clone FB Box"}),
+      document.getElementById('pageModal'));
+      $('#pageModal ')
+          .modal(
+              'show')
         },
         saveNativeTopology:function(data){
 
@@ -425,20 +593,21 @@ function(properties, toastr,React,ReactDom,  CreateBridge, CreatePort, CreateCon
                     .id()
                   },function(dataObj,length){
                     dataObj.id=length;
-                      self
-                          .topology()
-                          .addLink(dataObj);
+
 
                               linkData["lid"]=length;
                               console.log(linkData);
-                              debugger;
                               $.ajax({
                                   url: properties.createLink,
                                   type: 'post',
                                   data: JSON.stringify(linkData),
                                   contentType: "application/json; charset=utf-8",
                                   success: function(data) {
+                                    self
+                                        .topology()
+                                        .addLink(dataObj);
                                       toastr.success("Link is added successfully")
+
                                   }
 
                               })

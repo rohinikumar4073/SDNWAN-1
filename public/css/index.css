@@ -1,12 +1,11 @@
-
-legend:after{
+/*legend:after{
   font-family: "Glyphicons Halflings";
   content: "\2212";
   float: right;
   color: #CD040B;
   padding: 0;
   font-size: 14px;
-}
+}*/
 
 .menu-open:after {
   content: "\2b";
@@ -709,7 +708,7 @@ header .navbar .navbar-collapse .nav.navbar-nav>li:first-child>a {
     width: 98.92%;
 }
 
-.policycreate {
+.policyCreate {
     float: right;
     padding: 0 0 0 3px;
     margin: 1% 0% 0 1%;
@@ -793,4 +792,53 @@ span.templatedata:hover {
 .configuration {
   width:100%;
   padding:15px 0 15px 35px;
+}
+
+/*New*/
+.policies{ padding:0 30px;}
+.policies .panel-body{ border:0 !important;}
+.policytable{margin:0; width:100%;}
+.policies .accordion .panel-body{padding:0!important;}
+.iconPosition{ float:right;margin:5px 0;}
+.iconPosition .link a,.iconPosition .link a:hover{ text-decoration:none; font-weight:bold;}
+.policyCreate{width: 500px;position: fixed;right: 0;top: 0;z-index: 9; height:100%; border:0; border-radius:0;}
+
+.policyCreate .modal-header{display:block;  height:65px;}
+.policyCreate .modal-header h3{margin-bottom:0; margin-top:10px}
+.policyCreate .modal-footer {display:block; height:10%;}
+.policyCreate .modal-body {min-height: 85%;  display:block; overflow:auto;}
+.policyCreate .col-xs-9{ width:90%;}
+.policyCreate label,.policyCreate legend{ font-size:14px;    font-family: nhg-display-bold,arial,sans-serif;}
+.policyCreate legend{    margin: 20px 0;padding: 0 0 6px;}
+.policyCreate .form-group { margin-bottom: 25px;}
+
+.policiesCreate > fieldset .field-object,.policiesCreate > fieldset .field-array{background:#e8f6fe; margin-bottom: 0; padding:15px;}
+.policiesCreate > fieldset .field-object,.pathbundleCreate{box-shadow: 2px 2px 5px rgba(0,0,0,.2);}
+.policiesCreate > fieldset .field-array .field-array-of-object{padding:0;}
+.policiesCreate > fieldset > legend,.pathbundleCreate > fieldset > legend{   cursor: pointer;}
+.policiesCreate > fieldset > legend:after,.pathbundleCreate > fieldset > legend:after{
+  font-family: "Glyphicons Halflings";
+  content: "\2212";
+  float: right;
+  color: #CD040B;
+  padding: 0;
+  font-size: 14px;
+}
+
+.policiesCreate > fieldset > legend.menu-open:after,.pathbundleCreate > fieldset > legend.menu-open:after {
+  content: "\2b" !important;
+  padding: 0;
+}
+.pathbundleCreate  .field-object{background:#e4e5e3 !important; margin-bottom:15px !important;}
+
+.policyCreate .array-item-toolbox{width: 40px;padding: 0;position: relative;float: right;right: 45px;top: 28px;}
+.policyCreate .array-item-toolbox button{ border-radius:50%;font-size: 12px; line-height: 12px !important;}
+.policyCreate .array-item-toolbox button:after{content:'';}
+
+.pathbundleCreate .array-item-toolbox{ float:right; width: 40px; padding:0;    top: -18px;right: 36px;}
+.pathbundleCreate .array-item-toolbox button{ border-radius:50%;font-size: 12px; line-height: 12px !important;}
+.pathbundleCreate .array-item-toolbox button:after{content:'';}
+.iconPosition i{padding-right: 5px}
+.iconPosition{
+  cursor: pointer;
 }

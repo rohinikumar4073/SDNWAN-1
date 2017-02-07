@@ -6,12 +6,11 @@ define([
     'jsx!components/TemplateForms/FBTranseiverHardwareTemplate',
     'jsx!components/TemplateForms/DetailsFBOS',
     'jsx!components/TemplateForms/DetailsTransHardware',
-    'jsx!components/TemplateForms/DetailsTransSoftware',
     'jsx!components/TemplateForms/DetailsHardware',
     'jsx!components/TemplateForms/FBHardwareTemplate',
     'jsx!components/Environment',
     'jsx!components/MultiLayeredTopologyDetails'
-], function(React, $, BootstrapButton, FBOS, FBTranseiverHardware, DetailsFBOS, DetailsTransieverHardware, DetailsTransieverSoftware, DetailsHardware, FBHardwareTemplate, Environment, MultiLayeredTopologyDetails) {
+], function(React, $, BootstrapButton, FBOS, FBTranseiverHardware, DetailsFBOS, DetailsTransieverHardware, DetailsHardware, FBHardwareTemplate, Environment, MultiLayeredTopologyDetails) {
     var BootstrapModal = React.createClass({
         // The following two methods are the only places we need to
         // integrate Bootstrap or jQuery with the components lifecycle methods.
@@ -71,9 +70,7 @@ define([
                                                         ? <FBHardwareTemplate collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
                                                         : (this.props.template == 'DetailsHardware'
                                                             ? <DetailsHardware collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                          : (this.props.template == 'DetailsTransieverSoftware'
-                                                                ? <DetailsTransieverSoftware collection={this.props.collection} data={this.props.children} close={this.close} header={this.props.title} onChangeFunction={this.setData} handleCancel={this.handleCancel}/>
-                                                                : "" ))))))))}
+                                                          : "" )))))))}
 
                         </div>
                     </div>
@@ -84,6 +81,7 @@ define([
             debugger;
             if (this.props.onCancel) {
                 this.props.onCancel();
+                event.stopPropagation();
             }
         },
         setData: function(e) {

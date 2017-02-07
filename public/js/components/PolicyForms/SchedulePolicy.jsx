@@ -183,23 +183,26 @@ define([
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
-                    toastr.success("Success! Schedule Policy is created")
+                    toastr.success("Success! Schedule Policy is created");
+                    this.props.setHidden("schedulePolicy");
                 },
                 error: function(data) {
                     toastr.error("Error! Schedule Policy is not created")
                 }
 
             });
-            this.props.close();
+        },handleCancel:function(){
+          this.props.setHidden("schedulePolicy");
+
         },
         getInitialState: function() {
             return {}
         },
         render: function() {
             return (
-                <div className={"modal-content " + this.props.className}>
+                <div className={this.props.className}>
                     <div className="modal-header">
-                        <button type="button" className="close" onClick={this.props.handleCancel}>
+                        <button type="button" className="close" onClick={this.handleCancel}>
                             &times;
                         </button>
                         <h3>{this.props.header}</h3>
@@ -210,7 +213,7 @@ define([
                     }} onSubmit={this.onSubmit}>
                         <div>
                             <button type="submit" className="btn btn-sm btn-primary" data="Save">{this.props.submitMode}</button>
-                            <button onClick={this.props.handleCancel} type="button" className="btn btn-sm btn-default" data="Cancel">Cancel</button>
+                            <button onClick={this.handleCancel} type="button" className="btn btn-sm btn-default" data="Cancel">Cancel</button>
                         </div>
                     </SchedulePolicyForm>
                     </div>

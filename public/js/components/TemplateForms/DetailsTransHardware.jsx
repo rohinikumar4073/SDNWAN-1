@@ -56,24 +56,6 @@ define([
               "type": "string",
               "title": "CLEI"
           },
-          "materialId": {
-              "type": "string",
-              "title": "Material ID (from Vz procurement system)"
-          },
-          "powerSupplyType": {
-              "type": "string",
-              "title": "Power Supply Type",
-              "enum": ["AC", "DC"]
-          },
-          "maxPowerRating": {
-              "type": "string",
-              "title": "Max Power Rating(Watts)"
-          },
-          "airFlow": {
-              "type": "string",
-              "title": "Air Flow",
-              "enum": ["Front-to-Back", "Back-to-Front"]
-          }
       }
   };
   function MyCustomWidget(props) {

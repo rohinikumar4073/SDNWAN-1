@@ -27,6 +27,25 @@ define([
     const formData = {};
 
     var CreateARP = React.createClass({
+      componentDidMount: function(){
+        var fbName = this.props.fbName;
+        var arpData;
+        var self =this;
+          $.ajax({
+          url: properties.rmsIp + fbName + "/get-arpnd",
+          method: 'GET',
+          data: "",
+          contentType: "application/json; charset=utf-8",
+          success: function(data){
+            self.setState({formData: data})
+          },
+          error: function(data){
+          }
+        });
+      },
+      getInitialState:function(){
+        return{formData: {}};
+      },
       onSubmit: function(e) {
         var fbName = this.props.fbName;
         var jsonData = e.formData;
@@ -55,7 +74,7 @@ var self=this;
         render: function() {
             return (
 
-                        <FormCreateARP schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.props.formData} className="FormCreateARP configFB" onError={errors => {
+                        <FormCreateARP schema={schema} uiSchema={uiSchema} onSubmit={this.onSubmit} formData={this.state.formData} className="FormCreateARP configFB" onError={errors => {
                             console.log("i am errors" + errors);
                         }}>
                         </FormCreateARP>

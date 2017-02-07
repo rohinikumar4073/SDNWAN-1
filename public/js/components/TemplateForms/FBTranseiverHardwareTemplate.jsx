@@ -128,7 +128,7 @@ define([
         handleConfirm: function(data) {
             var self = this;
             $.ajax({
-                url: properties.templateIp + "createTransceiverHardware",
+                url: properties.templateIp + "createTransceiver",
                 type: 'post',
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",

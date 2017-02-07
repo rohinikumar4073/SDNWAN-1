@@ -67,7 +67,14 @@ define([
   const uiSchema = {
 
   };
-  const formData = {};
+  const formData = {
+    "kafka":{
+      "ipAddress":"10.0.0.0",
+      "port":"1"
+
+      }
+
+  };
 
   var Environment= React.createClass({
     /*  onClick : function(e){
@@ -122,7 +129,29 @@ return errors;
         this.props.close();
     },
     getInitialState: function() {
-        return {}
+
+        return {
+          formData:{}
+        }
+    },
+    componentDidMount: function(){
+
+      var self = this;
+      $.ajax({
+          url: "http://10.76.110.81:50516/orchestrator/getIp",
+          type: 'get',
+          contentType: "application/json; charset=utf-8",
+          success: function(data) {
+            var formData = JSON.parse(data);
+              self.setState({formData: formData});
+              console.log("Pushed the details.")
+          },
+          error: function(data) {
+              console.log("Error in saving details.")
+          }
+
+      });
+
     },
     render: function() {
         return (
@@ -134,7 +163,7 @@ return errors;
                     <h3>{this.props.header}</h3>
                 </div>
                 <div className="modal-body">
-                <SettingsForm schema={schema} uiSchema={uiSchema} validate={this.validate} formData={this.props.formData} onSubmit={this.onSubmit} onError={errors => {
+                <SettingsForm schema={schema} uiSchema={uiSchema} validate={this.validate} formData={this.state.formData} onSubmit={this.onSubmit} onError={errors => {
                     console.log("i am errors" + errors);
                 }} onSubmit={this.onSubmit}>
                     <div>

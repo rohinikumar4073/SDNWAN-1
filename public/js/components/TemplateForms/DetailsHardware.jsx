@@ -40,18 +40,18 @@ define([
           },
           "required": ["name"]
         },
-        "physical_interface":{
+        "interfaces":{
           "type": "array",
           "title": "Physical Interface",
       "items": {
         "type": "object",
         "properties": {
-          "physical_interface_#": {
+          "physical_interface": {
             "title": "Physical Interface",
             "type": "integer",
             "minimum": 0
           },
-          "physical_interface_speed/type": {
+          "physical_interface_speed": {
             "title": "Physical Interface Speed/Type",
             "type": "string",
             "enum": [
@@ -61,8 +61,8 @@ define([
           }
         },
         "required": [
-          "physical_interface_#",
-          "physical_interface_speed/type"
+          "physical_interface",
+          "physical_interface_speed"
         ],
         "additionalProperties": false
       },
@@ -75,6 +75,7 @@ define([
     }
 
     const uiSchema = {
+      "ui:readonly": true,
       "templateInfo": {
           "status": {
               "ui:widget": "radio",
@@ -120,12 +121,12 @@ define([
                         <h3>{this.props.header}</h3>
                     </div>
                     <div className="modal-body">
-                        <DetHardwreForm schema={schema} uiSchema={uiSchema} formData={this.props.collection}>
+                        <DetHardwareForm schema={schema} uiSchema={uiSchema} formData={this.props.collection}>
                         <div>
                             <button type="submit" className="btn  btn-primary btn-sm fixedbt hideLink">Create New
                             </button>
                         </div>
-                        </DetHardwreForm>
+                        </DetHardwareForm>
                     </div>
 
                 </div>
