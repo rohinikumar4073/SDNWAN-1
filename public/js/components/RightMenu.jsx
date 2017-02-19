@@ -36,9 +36,14 @@ define([
           var linkData=[]
           topologyData.links.forEach(function(v,i){
             var link={};
-          link.linkId=v.id;
-          linkData.push(link);
+            var srcNode = v.source;
+            var destNode = v.target;
+            if(properties.getTopology().getNode(srcNode).get("iconType") != 'optical-switch' && properties.getTopology().getNode(destNode).get("iconType") != 'optical-switch'){
+              link.linkId=v.id;
+              linkData.push(link);
+            }
           })
+          debugger;
           topologyData.nodes.forEach(function(v,i){
             var node={};
           node.type=v.iconType;
@@ -54,7 +59,10 @@ define([
                 data: JSON.stringify(topologyData),
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
-                    toastr.success("Topology is pushed successfully")
+                    toastr.success("Topology is deployed successfully!");
+                },
+                error: function(data) {
+                  toastr.error("Could not deploy the topology");
                 }
             })
 
@@ -86,7 +94,10 @@ define([
                 data: JSON.stringify(topologyData),
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
-                    toastr.success("Topology is saved successfully")
+                    toastr.success("Topology is saved successfully!");
+                },
+                error: function(data) {
+                  toastr.error("Could not save the topology");
                 }
             })
 
@@ -134,7 +145,7 @@ console.log("state "+state)
                           {this.state.toggleLayerButton}
                       </button>
 
-                        <button type="button" className={!this.state.multiLayered? "btn btn-primary btn-sm":"hidden" } title="Push Topology" onClick={this.pushTopology}>Push</button>
+                        <button type="button" className={!this.state.multiLayered? "btn btn-primary btn-sm":"hidden" } title="Push Topology" onClick={this.pushTopology}>Deploy</button>
 
                         <button type="button" className={!this.state.multiLayered? "btn btn-primary btn-sm":"hidden" }   title="Save Topology" onClick={this.saveTopology}>Save</button>
                     </div>

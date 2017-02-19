@@ -1,4 +1,4 @@
-define(['linkMode', 'properties', 'jquery', 'bootstrap'], function(linkMode, properties, $) {
+define(['linkMode', 'properties', 'jquery', 'd3','bootstrap'], function(linkMode, properties, $,d3) {
     nx.define('com.cisco.TopologyModel', nx.data.ObservableObject, {
         properties: {
             nodeId: 1,
@@ -57,26 +57,37 @@ define(['linkMode', 'properties', 'jquery', 'bootstrap'], function(linkMode, pro
                 }.bind(this))
             },
 
-            createNode: function(label, iconType, coordinates) {
-                properties.getMaxNode({label:label, iconType:iconType, coordinates:coordinates}, this.createNodeCallBack,"idCounter",this)
+            createNode: function(label, iconType, coordinates,isCloining) {
+                properties.getMaxNode({label:label, iconType:iconType, coordinates:coordinates}, this.createNodeCallBack,"idCounter",this,isCloining)
             },
-            createNodeCallBack: function(dataObj, id, self) {
+            createNodeCallBack: function(dataObj, id, self,isCloining) {
                 //  var id = this.nodeId();
               var coordinates=dataObj.coordinates;
+              var projection = d3.geo.albersUsa();
+
                 var node = {
                     id: JSON.parse(id),
                     label: dataObj.label,
                     iconType: dataObj.iconType
                 };
+                if(!isCloining){
                 var width = $(window).width();
                 var smallWidth=(width * 25) / 100 ;
                 if (coordinates.x && coordinates.y) {
-                    node.x = coordinates.x - smallWidth;
-                    node.y = coordinates.y - 60;
+                  node.x = coordinates.x - smallWidth-50;
+                  node.y = coordinates.y -190;
                 } else {
                     node.x = Math.floor(Math.random() * 400);
                     node.y = Math.floor(Math.random() * 400);
                 }
+              }else{
+                debugger;
+                node.x =coordinates.x;
+                node.y = coordinates.y;
+              }
+                var p = projection.invert([node.x, node.y]);
+                node.latitude=p[1];
+                node.longitude=p[0];
                 self.newNode(node);
                 //  this.nodeId(++id);
                 self.saveNativeTopology()
@@ -95,11 +106,18 @@ define(['linkMode', 'properties', 'jquery', 'bootstrap'], function(linkMode, pro
             createLink: function(inLink) {
               properties.getMaxLinkNode(inLink,this.createLinkCallBack,"linkCounter",this)
             },
-            setLinkMod: function() {
+            setLinkMod: function(isVirtual) {
                 linkMode.setFlag(true);
+                if(isVirtual){
+                  linkMode.setVirtualFlag(true);
+                }
             },
-            resetLinkMod: function() {
+            resetLinkMod: function(isVirtual
+            ) {
                 linkMode.setFlag(false);
+                if(isVirtual){
+                  linkMode.setVirtualFlag(false);
+                }
             },
             createLinkPatchPanel: function(inLink) {
                 this.newLink(inLink);

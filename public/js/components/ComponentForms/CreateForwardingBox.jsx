@@ -240,12 +240,18 @@ define([
             var check = true;
             data.type = "fb-icon";
             var fbname = data.name;
+            var dat;
             $.ajax({
                 url: properties.getNativeTopologyData,
                 type: 'get',
                 contentType: "application/json; charset=utf-8",
                 success: function(nodeData) {
-                    var dat = JSON.parse(nodeData);
+                  if(!nodeData){
+                    dat = {nodes: [], links: [], nodeSet: []};
+                  }
+                  else{
+                    dat=JSON.parse(nodeData);
+                  }
                     if(self.props.submitMode !== "Update"){
                       check = self.checkDuplicate(dat, fbname);
                     }
@@ -264,13 +270,51 @@ define([
                                     self.props.topologyModel.createNode(data.name, self.props.iconType, self.props.coordinates);
                                     properties.addNode(data.name, self.props.iconType);
                                     self.props.close();
-                                    toastr.success("Forwarding Box " + data.name + " added successfully")
+                                    toastr.success("Forwarding Box " + data.name + " added successfully");
+                                    var logData =
+                                        {
+                                          "configuration": "Create Forwarding Box",
+                                          "type": "success",
+                                          "message": "Forwarding box created sucessfully!",
+                                          "element": fbname
+                                        }
+                                    $.ajax({
+                                      url: properties.saveLog,
+                                      type: 'post',
+                                      data: JSON.stringify(logData),
+                                      contentType: "application/json; charset=utf-8",
+                                      success: function(dataReturn){
+                                        console.log("Log saved");
+                                      },
+                                      error: function(dataReturn){
+                                        console.log("Log not saved");
+                                      }
+                                    })
                                 } else {
                                     toastr.error("Error in adding Forwarding Box " + data.name + " ")
 
                                 }
                             },
                             error: function(data) {
+                              var logData =
+                                  {
+                                    "configuration": "Create Forwarding Box",
+                                    "type": "Failure",
+                                    "message": "Forwarding box created sucessfully!",
+                                    "element": fbname
+                                  }
+                              $.ajax({
+                                url: properties.saveLog,
+                                type: 'post',
+                                data: JSON.stringify(logData),
+                                contentType: "application/json; charset=utf-8",
+                                success: function(dataReturn){
+                                  console.log("Log saved");
+                                },
+                                error: function(dataReturn){
+                                  console.log("Log not saved");
+                                }
+                              })
                                 toastr.error("Not able to add Forwarding Box")
                             }
 
@@ -304,7 +348,6 @@ define([
 
             if (this.props.submitMode == "Update")
                 this.props.topologyModel.updateNodeModel({name: data.name, formData: this.state.formData});
-            this.props.close();
         },
 
         render: function() {

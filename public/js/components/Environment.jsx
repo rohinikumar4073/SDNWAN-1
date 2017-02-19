@@ -68,12 +68,6 @@ define([
 
   };
   const formData = {
-    "kafka":{
-      "ipAddress":"10.0.0.0",
-      "port":"1"
-
-      }
-
   };
 
   var Environment= React.createClass({
@@ -138,7 +132,7 @@ return errors;
 
       var self = this;
       $.ajax({
-          url: "http://10.76.110.81:50516/orchestrator/getIp",
+          url: properties.orchestratorIp+"/getIp",
           type: 'get',
           contentType: "application/json; charset=utf-8",
           success: function(data) {

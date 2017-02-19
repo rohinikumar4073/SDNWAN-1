@@ -9939,6 +9939,16 @@ var nx = {
             height: 32,
             name: "Router",
             font: ["\ue61c", "\ue61d"]
+        }, "fb-icon": {
+            width: 32,
+            height: 32,
+            name: "fb-icon",
+            font: ["\ue618", "\ue619"]
+        },  "optical-switch": {
+            width: 32,
+            height: 32,
+            name: "optical-switch",
+            font: ["\ue61c", "\ue61d"]
         },
         wlc: {
             width: 32,
@@ -9951,6 +9961,10 @@ var nx = {
             font: ["\ue612", "\ue611"]
         },
         server: {
+            width: 32,
+            height: 32,
+            font: ["\ue61b", "\ue61a"]
+        },host: {
             width: 32,
             height: 32,
             font: ["\ue61b", "\ue61a"]
@@ -9970,7 +9984,7 @@ var nx = {
             height: 32,
             font: ["\ue622", "\ue623"]
         },
-        host: {
+        bgp: {
             width: 32,
             height: 32,
             font: ["\ue624", "\ue625"]

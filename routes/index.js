@@ -85,7 +85,6 @@ router.post('/saveTopology', function(req, res, next) {
     //var dat = JSON.parse(req.data);
 });
 router.post('/saveKey', function(req, res, next) {
-
     var body = req.body;
 
     router.comp.storeComponent(router.client, body.key, body.value, function(data) {
@@ -97,7 +96,11 @@ router.post('/saveKey', function(req, res, next) {
 router.get('/getTopology', function(req, res, next) {
     router.comp.fetchComponent(router.client, "topologyData", function(data) {
         //console.log("data"+data)
+        if(data)
         res.send(data);
+        else {
+          res.send('{"nodes":[],"links":[]}')
+        }
     });
 });
 

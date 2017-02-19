@@ -53,6 +53,7 @@ define([
     };
     const uiSchema = {};
     const formData = {};
+    
     var CreateBridge = React.createClass({
       getInitialState: function(){
         return{formData: {}}
@@ -75,14 +76,15 @@ return errors;
               "/edit-bridge";
               debugger;
             var self = this;
+            debugger;
             $.ajax({
               url: postURL,
               method: 'POST',
               data: JSON.stringify(jsonData),
               contentType: "application/json; charset=utf-8",
               success: function(data){
-                var val = self.props.configurationEvents.handleSuccess(data);
-                if(val){
+                // var val = self.props.configurationEvents.handleSuccess(data);
+                // if(val){
                   debugger;
                   var tr = self.props.tr;
                   console.log(tr.find("td:nth-child(2)"));
@@ -91,7 +93,7 @@ return errors;
                   tr.find("td:nth-child(3)").html(jsonData["datapath-id"]);
                   tr.find("td:nth-child(4)").html(jsonData.protocol);
                   tr.find("td:nth-child(5)").html(jsonData.fb_ip);
-                }
+                //}
               },
               error: function(data){
                 toastr.error("Could not update data!");
@@ -126,8 +128,8 @@ return errors;
                       tr.append($('<td>').append(data["dataPathId"]));
                       tr.append($('<td>').append(jsonData.protocol));
                       tr.append($('<td>').append(jsonData.fb_ip));
-                      tr.append($('<td>').append("<div class = 'popup-section'><i class= 'fa fa-pencil editBridge' aria-hidden='true'></i><div class='label-data'>Edit</div></div>"))
-                      tr.append($('<td>').append("<div class = 'popup-section'><i class='fa fa-trash deleteBridge' aria-hidden='true'></i><div class='label-data'>Delete</div></div>"))
+                      tr.append($('<td>').append("<div class = 'popup-section'><i class= 'fa fa-pencil editBridge' aria-hidden='true'><div class='label-data'>Edit</div></i></div>"))
+                      tr.append($('<td>').append("<div class = 'popup-section'><i class='fa fa-trash deleteBridge' aria-hidden='true'><div class='label-data'>Delete</div></i></div>"))
                       $("#viewBridge").find('tbody')
                           .append(tr)
                     }

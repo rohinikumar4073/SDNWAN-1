@@ -117,8 +117,9 @@ define([
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
-                                <button type="submit" className="btn btn-sm btn-primary" data="Save">{this.props.submitMode}</button>
-                                <button onClick={this.handleCancel} type="button" className="btn btn-sm btn-default" data="Cancel">Cancel</button>
+                            <button type="submit" className={"btn btn-sm btn-primary"+this.props.buttonClassName} data="Save">{this.props.submitMode}</button>
+                            <button onClick={this.handleCancel} type="button" className={"btn btn-sm btn-default"+this.props.buttonClassName}
+                            data="Cancel">Cancel</button>
                             </div>
                         </VpnPolicyForm>
                     </div>

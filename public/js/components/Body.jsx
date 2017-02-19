@@ -39,7 +39,13 @@ define([
             } else if (title == "linkReset") {
                 this.topologyModel.resetLinkMod();
                 return;
-            }
+            } else  if (title == "virtual_linkSet") {
+                    this.topologyModel.setLinkMod("virtual");
+                    return;
+                } else if (title == "virtual_linkReset") {
+                    this.topologyModel.resetLinkMod("virtual");
+                    return;
+                }
             this.setState({
                 bootstrapTitle: "Add " + title,
                 iconType: iconDetails,

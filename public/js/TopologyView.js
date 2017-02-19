@@ -1,8 +1,5 @@
 define(['properties','nx'],function(propsMethods){
-    nx.graphic.Icons.registerIcon("fb-icon", "/css/images/ciscoicons/forwarding%20box.png", 36, 36);
-    nx.graphic.Icons.registerIcon("optical-switch","/css/images/ciscoicons/optical%20switch.png", 36, 36);
-    nx.graphic.Icons.registerIcon("patch-panel", "/css/images/ciscoicons/patchpanel.jpg", 75, 32);
-    nx.graphic.Icons.registerIcon("host", "/css/images/ciscoicons/standard%20host.jpg", 24, 32);
+   
     nx.define('com.cisco.TopologyView', nx.ui.Component, {
         view: {
             content: {
@@ -17,11 +14,18 @@ define(['properties','nx'],function(propsMethods){
                     },
                     nodeConfig: {
                         label: 'model.label',
-                        iconType: 'model.iconType'
+                        iconType: '{#icon}'
                     },
                     linkConfig: {
+                      color: function(link, model) {
+                          debugger;
+                          if(link._data.virtual){
+                             return '#CBDA5C';
+                          }
+                           return '#75C6EF';
+                       },
                         linkType: 'curve'
-                    },layoutType: 'USMap',
+                    },  layoutType: 'USMap',
                     layoutConfig: {
                         longitude: 'model.longitude',
                         latitude: 'model.latitude'
@@ -42,6 +46,13 @@ define(['properties','nx'],function(propsMethods){
 
         },
         properties: {
+icon: {
+                value: function() {
+                    return function(vertex) {
+                        return vertex.get("iconType");
+                    }
+                }
+            },
           renderData:{
           set:function(data){
             var topo = this.view('_topology');
@@ -52,7 +63,7 @@ define(['properties','nx'],function(propsMethods){
           setTopologyModel: {
              set: function(s) {
             var topology = this.view('_topology');
-              propsMethods.saveTopologyData(topology.data())
+              propsMethods.saveTopologyData(topology.data(), topology)
 
 
           },get:function(){

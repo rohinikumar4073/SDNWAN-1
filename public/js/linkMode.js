@@ -1,5 +1,6 @@
 define(function(){
 	var flag=false;
+	var virtualFlag=false;
     return {
         setFlag: function(booleanValue){
         	$(".n-topology-tooltip").hide()
@@ -11,6 +12,12 @@ define(function(){
 				},
         getFlag:function(){
         	return flag;
-        }
+        },
+				getVirtualFlag:function(){
+					return virtualFlag;
+				},
+				setVirtualFlag:function(booleanValue){
+					virtualFlag=booleanValue;
+				}
 }
 });

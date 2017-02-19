@@ -1,6 +1,11 @@
 define([
-    'react', 'jquery', 'properties', 'toastr', 'react-jsonschema-form'
-], function(React, $, properties, toastr, Form) {
+    'react',
+    'jquery',
+    'properties',
+    'toastr',
+    'react-jsonschema-form',
+    'react-dom'
+], function(React, $, properties, toastr, Form, ReactDom) {
     var EmsForm = Form.default;
     const schema = {
         "type": "object",
@@ -41,7 +46,6 @@ define([
         }
     };
     const uiSchema = {};
-    const formData = {};
 
     var EmsConfiguration = React.createClass({
         /*  onClick : function(e){
@@ -54,7 +58,7 @@ define([
         handleConfirm: function(data) {
             var self = this;
             $.ajax({
-                url: properties.emsConfigIp,
+                url: properties.emsConfigIp + this.state.url,
                 type: 'post',
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
@@ -64,22 +68,29 @@ define([
                 error: function(data) {
                     toastr.error("Error! Unable to update EMS Configuration")
                 }
-
             });
-            this.props.close();
+            self.state.status = false;
+            self.state.url = "save";
+        },
+        onDeploy: function() {
+            var self = this;          
+            self.state.status = true;
+            self.state.url = "deploy";
+            $('#emsConfig').trigger('click');
         },
         getInitialState: function() {
-            return {}
+            return {formData: {}, status: false, url: "save"}
         },
         render: function() {
             return (
                 <div className={this.props.className}>
                     <div className="configuration">
-                        <EmsForm schema={schema} uiSchema={uiSchema} validate={this.validate} formData={formData} onSubmit={this.onSubmit} onError={errors => {
+                        <EmsForm schema={schema} uiSchema={uiSchema} validate={this.validate} formData={this.state.formData} onSubmit={this.onSubmit} onError={errors => {
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
-                                <button type="submit" className="btn btn-sm btn-primary" data="Save">Save</button>
+                                <button type="submit" id="emsConfig" className="btn btn-sm btn-primary" data="Save">Save</button>
+                                <button type="button" onClick={this.onDeploy} className="btn btn-sm btn-primary" data="Deploy">Deploy</button>
                             </div>
                         </EmsForm>
                     </div>

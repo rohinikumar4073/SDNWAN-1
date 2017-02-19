@@ -7,7 +7,10 @@ define([
         "type": "object",
         "properties": {
             "includeStats": {
-                "type": "string",
+                "type": "array",
+                "items":{
+                  "type":"string"
+                },
                 "title": "Include Stats"
             },
             "updateInterval": {
@@ -25,11 +28,8 @@ define([
 
     var CreatePublisherConfiguration = React.createClass({
         onSubmit: function(e) {
-
             this.handleConfirm(e.formData)
-
         },
-
         handleConfirm: function(data) {
             var self = this;
             $.ajax({
@@ -44,7 +44,6 @@ define([
                     toastr.error("Error! Publisher Configuration is not created")
                 }
             });
-            this.props.close();
         },
         getInitialState: function() {
             return {}
@@ -58,7 +57,7 @@ define([
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
-                                <button type="submit" className="btn  btn-primary btn-sm">Save</button>
+                                <button type="submit" id="publisher" className="btn  btn-primary btn-sm" data="Save">Save</button>
                             </div>
                         </PublisherConfiguration>
                     </div>

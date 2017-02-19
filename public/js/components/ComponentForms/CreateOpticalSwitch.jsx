@@ -72,8 +72,8 @@ define([
         validate: function(formData, error){
           var flag = 0;
           console.log(formData);
-          for(var i=0;i<formData.listOfPorts.length;i++){
-              for(var j=i+1;j<formData.listOfPorts.length;j++){
+          for(var i = 0; i < formData.listOfPorts.length; i++){
+              for(var j = i+1; j < formData.listOfPorts.length; j++){
                 if(JSON.stringify(formData.listOfPorts[i]) === JSON.stringify(formData.listOfPorts[j])){
                   flag = 1;
                   break;
@@ -102,7 +102,6 @@ define([
               return true;
             }
             for(var i=0;i<dat.nodes.length;i++){
-              debugger;
               if(dat.nodes[i].label == osname){
                 return false;
               }
@@ -146,6 +145,7 @@ define([
             var check = true;
             data.type = "optical-switch";
             var osname = data.name;
+
             $.ajax({
               url: properties.getNativeTopologyData,
               type: 'get',
@@ -189,13 +189,51 @@ define([
                                     self.props.topologyModel.createNode(data.name, self.props.iconType, self.props.coordinates);
                                     self.props.close();
                                     properties.addNode(data.name, self.props.iconType)
-                                    toastr.success("Optical Switch " + data.name + " added successfully")
+                                    toastr.success("Optical Switch " + data.name + " added successfully");
+                                    var logData =
+                                        {
+                                          "configuration": "Create Optical Switch",
+                                          "type": "success",
+                                          "message": "Optical Switch created sucessfully!",
+                                          "element": osname
+                                        }
+                                    $.ajax({
+                                      url: properties.saveLog,
+                                      type: 'post',
+                                      data: JSON.stringify(logData),
+                                      contentType: "application/json; charset=utf-8",
+                                      success: function(dataReturn){
+                                        console.log("Log saved");
+                                      },
+                                      error: function(dataReturn){
+                                        console.log("Log not saved");
+                                      }
+                                    })
                                 } else {
                                     toastr.error("Error in adding Optical Switch " + data.name + " ")
 
                                 }
                             },
                             error: function(data) {
+                              var logData =
+                                  {
+                                    "configuration": "Create Optical Switch",
+                                    "type": "Failure",
+                                    "message": "Optical Switch not created sucessfully!",
+                                    "element": osname
+                                  }
+                              $.ajax({
+                                url: properties.saveLog,
+                                type: 'post',
+                                data: JSON.stringify(logData),
+                                contentType: "application/json; charset=utf-8",
+                                success: function(dataReturn){
+                                  console.log("Log saved");
+                                },
+                                error: function(dataReturn){
+                                  console.log("Log not saved");
+                                }
+                              })
                                 toastr.error("Not able to add Optical Switch")
                             }
 

@@ -112,6 +112,24 @@ define([
           return true;
         }
       },
+      validate: function(formData, error){
+        var flag = 0;
+        for(var i = 0; i < formData["interfaces"].length; i++){
+          for(var j = i+1; j < formData["interfaces"].length; j++){
+            if(formData["interfaces"][i]["host_port_name"] == formData["interfaces"][j]["host_port_name"]){
+              flag = 1;
+              break;
+            }
+          }
+          if(flag){
+            break;
+          }
+        }
+        if(flag){
+          error["interfaces"].addError("Ports cannot have the same name");
+        }
+        return error;
+      },
       updateData:function(){
         if(this.props.submitMode != "Save"){
 
@@ -142,6 +160,7 @@ define([
           var self = this;
           var check = true;
           var hostname = data["host_name"];
+          
           $.ajax({
             url: properties.getNativeTopologyData,
             type: 'get',
@@ -170,13 +189,50 @@ define([
                               self.props.topologyModel.createNode(data["host_name"], self.props.iconType, self.props.coordinates);
                               self.props.close();
                               properties.addNode(data["host_name"], self.props.iconType)
-                              toastr.success("Host " + data["host_name"] + " added successfully")
-                              console.log(data);
+                              toastr.success("Host " + data["host_name"] + " added successfully");
+                              var logData =
+                                  {
+                                    "configuration": "Create Host",
+                                    "type": "success",
+                                    "message": "Host created sucessfully!",
+                                    "element": hostname
+                                  }
+                              $.ajax({
+                                url: properties.saveLog,
+                                type: 'post',
+                                data: JSON.stringify(logData),
+                                contentType: "application/json; charset=utf-8",
+                                success: function(dataReturn){
+                                  console.log("Log saved");
+                                },
+                                error: function(dataReturn){
+                                  console.log("Log not saved");
+                                }
+                              })
                           } else {
                               toastr.error("Error in adding host " + data["host_name"])
                           }
                         },
                         error: function(data) {
+                          var logData =
+                              {
+                                "configuration": "Create Host",
+                                "type": "Failure",
+                                "message": "Host not created sucessfully!",
+                                "element": hostname
+                              }
+                          $.ajax({
+                            url: properties.saveLog,
+                            type: 'post',
+                            data: JSON.stringify(logData),
+                            contentType: "application/json; charset=utf-8",
+                            success: function(dataReturn){
+                              console.log("Log saved");
+                            },
+                            error: function(dataReturn){
+                              console.log("Log not saved");
+                            }
+                          })
                             toastr.error("Not able to add Host");
                         }
 
@@ -223,7 +279,7 @@ define([
                   <div className="modal-body">
                       <FormHost schema={schema} uiSchema={uiSchema} validate={this.validate} formData={this.state.formData} className="formFB" onSubmit={this.onSubmit} onError={errors => {
                           console.log("i am errors" + errors);
-                      }} onSubmit={this.onSubmit}>
+                      }} onSubmit={this.onSubmit} showErrorList={false}>
                           <div>
                               <button type="submit" className="btn btn-sm btn-primary" data="Save">{this.props.submitMode}</button>
                               <button onClick={this.handleCancel} type="button" className="btn btn-sm btn-default" data="Cancel">Cancel</button>

@@ -1,6 +1,6 @@
 define([
-    'react', 'jsx!components/Container',  'jsx!components/Policy', 'jsx!components/Header', 'jsx!components/Bgp', 'jsx!components/Configuration','jsx!components/Logs'
-], function(React, Container,Policy,Header,Bgp,Configuration,Logs) {
+    'react', 'jsx!components/Container',  'jsx!components/Policy', 'jsx!components/Header', 'jsx!components/Bgp', 'jsx!components/Configuration','jsx!components/Logs','jsx!components/Inventory'
+], function(React, Container,Policy,Header,Bgp,Configuration,Logs,Inventory) {
 
     var RoutingFile = React.createClass({
       getInitialState:function(){
@@ -12,7 +12,7 @@ define([
         this.setState({displayPage:value})
         $(".navbar-header .navbar-toggle").click()
         console.log(value);
-  
+
 
 
       //  $(".vz-global-header .navbar-toggle").click()
@@ -33,16 +33,18 @@ define([
 
               { this.state.displayPage == 'Container'
                   ? <Container  />
-                : ( this.state.displayPage == 'Policy'
-                    ? <Policy/>
-                  : ( this.state.displayPage == 'Bgp'
+                : ( this.state.displayPage == 'Inventory'
+                    ? <Inventory/>
+                  :  ( this.state.displayPage == 'Policy'
+                      ? <Policy/>
+                    : ( this.state.displayPage == 'Bgp'
                       ? <Bgp/>
                     : ( this.state.displayPage == 'Configuration'
                       ? <Configuration/>
                     : ( this.state.displayPage == 'Logs'
                         ? <Logs/>
                     : ""
-                  ))))
+                  )))))
               }</div>
             );
         }

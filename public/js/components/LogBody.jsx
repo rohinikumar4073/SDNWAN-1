@@ -1,161 +1,101 @@
 define([
-    'react', 'jquery', 'properties', 'toastr', 'fixedTable'
-], function(React, $, properties, toastr, fixedTable) {
+    'react', 'jquery', 'properties', 'toastr', 'fixedTable', 'sockjs','properties','agGrid','reactCellRendererFactory','reactFilterFactory','stomp'
+], function(React, $, properties, toastr, fixedTable, SockJS, properties,agGridReact,reactCellRendererFactory,reactFilterFactory) {
 //const {Table, Column, Cell} = fixedTable;
-    var Cell = fixedTable.Cell;
-    var Table = fixedTable.Table;
-    var Column = fixedTable.Column;
-    var Row = fixedTable.Row;
-    var TextCell = React.createClass({
-        render: function() {
-            return (
-                <cell>{this.props.rowIndex + 1}</cell>
-            )
-        }
-    });
-    var DataCell = React.createClass({
-        render: function() {
-            return (
-                <cell>{this.props.data[this.props.rowIndex][this.props.col]}</cell>
-            )
-        }
-    });
-
+var AgGridReactGRID=agGridReact.AgGridReact;
     var CreateLogTable = React.createClass({
-        onFilterChange: function(e) {
-            if (!e.target.value) {
-                this.setState({filteredJson: this.state.myJson});
-            }
-            var filterBy = e.target.value.toLowerCase();
-            var size = this.state.myJson.length;
-            var filteredIndexes = [];
-            for (var index = 0; index < size; index++) {
-                var {event} = this.state.myJson[index];
-                if (event.toLowerCase().indexOf(filterBy) !== -1) {
-                    filteredIndexes.push(index);
-                }
-            }
-            this.setState({
-                filteredJson: new DataListWrapper(filteredIndexes, this.state.myJson)
-            });
-        },
-        onChangeFunction: function(e) {
-            this.setState({myJson: this.state.myJson});
-        },
-        handleConfirm: function() {},
-        getInitialState: function() {
-            return {
-                number: 1,
-                myJson: [
-                    {
-                        "event": "Fan Template Creation",
-                        "status": "Success",
-                        "timestamp": "1233",
-                        "remarks": "Fan template created"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "OS Template Creation",
-                        "status": "Success",
-                        "timestamp": "1233",
-                        "remarks": "Succesfully created"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }, {
-                        "event": "FB Template Creation",
-                        "status": "Failure",
-                        "timestamp": "1233",
-                        "remarks": "Unable to post data"
-                    }
-                ],
-                filteredJson: []
-            }
-        },
-        keyPressFunction: function(event) {},
-        render: function() {
-            return (
-                <div className="divtable"><div className="filterJson">
-                    <input onChange={this.onFilterChange} placeholder="Filter by Event"></input></div>
-                    <Table rowHeight={50} width={1500} height={500} rowsCount={this.state.myJson.length} headerHeight={50}>
-                        <Column header={<Cell> S.No </Cell>} cell={<TextCell data = {
-                            this.state.myJson
-                        }
-                        col = "S.No" />} width={300}></Column>
-                      <Column header={<Cell> Event < /Cell>} cell={<DataCell data = {
-                            this.state.myJson
-                        }
-                        col = "event" />} width={300}></Column>
-                      <Column header={<Cell> Status </Cell>} cell={<DataCell data = {
-                            this.state.myJson
-                        }
-                        col = "status" />} width={300}></Column>
-                      <Column header={<Cell> Timestamp </Cell>} cell={<DataCell data = {
-                            this.state.myJson
-                        }
-                        col = "timestamp" />} width={300}></Column>
-                        <Column header={<Cell> Remarks </Cell>} cell={<DataCell data = {
-                            this.state.myJson
-                        }
-                        col = "remarks" />} width={300}></Column>
-                        </Table></div>
-                      );
-                  }
-              });
-              return CreateLogTable;
-          });
+      getInitialState: function(){
+        return{showToolPanel: false, quickFilterText: null,height:50, icons: {
+                columnRemoveFromGroup: '<i class="fa fa-remove"/>',
+                filter: '<i class="fa fa-filter"/>',
+                sortAscending: '<i class="fa fa-long-arrow-down"/>',
+                sortDescending: '<i class="fa fa-long-arrow-up"/>',
+                groupExpanded: '<i class="fa fa-minus-square-o"/>',
+                groupContracted: '<i class="fa fa-plus-square-o"/>',
+                columnGroupOpened: '<i class="fa fa-minus-square-o"/>',
+                columnGroupClosed: '<i class="fa fa-plus-square-o"/>'
+            }, columnDefs:[
+              {headerName: '#', suppressSorting: true, width: 50, height:50, field: "number",
+                suppressMenu: true, pinned: true},
+                {headerName: 'Configuration', field: "configuration",width: 300, suppressSorting: true,
+                suppressMenu: true, pinned: true},
+                {headerName: 'Status', field: "type",width:300, suppressSorting: true,
+                suppressMenu: true, pinned: true},
+                {headerName: 'Element', field: "element",width: 300, suppressSorting: true,
+                suppressMenu: true, pinned: true},
+                {headerName: 'Message', field: "message", width: 300,suppressSorting: true,
+                suppressMenu: true, pinned: true},
+                {headerName: 'Time Stamp', field: "timestamp",width:300, suppressSorting: true,
+                suppressMenu: true, pinned: true}
+            ], rowData:[]}
+      },
+      componentDidMount:function(){
+        debugger;
+        var self = this;
+        $.ajax({
+          url: properties.getLog,
+          type: 'get',
+          data: "",
+          contentType: "application/json; charset=utf-8",
+          success: function(data){
+            console.log(data);
+            debugger;
+            self.setState({rowData: data})
+          },
+          error: function(data){
+            toastr.error("Could not get the logs!");
+          }
+        })
+      },
+      onShowGrid(show) {
+       this.setState({
+           showGrid: show
+       });
+     },
+     onQuickFilterText(event) {
+        this.setState({quickFilterText: event.target.value});
+    },
+      onGridReady: function(){
+
+      },
+      render: function(){
+        var gridTemplate;
+        var bottomHeaderTemplate;
+        var topHeaderTemplate;
+         gridTemplate =(
+          <div className="ag-fresh logGrid">
+        <AgGridReactGRID
+
+            showToolPanel={this.state.showToolPanel}
+            quickFilterText={this.state.quickFilterText}
+            icons={this.state.icons}
+            columnDefs={this.state.columnDefs}
+            rowData={this.state.rowData}
+
+            suppressRowClickSelection="true"
+            enableColResize="true"
+            enableSorting="true"
+            enableFilter="true"
+            groupHeaders="true"
+            rowHeight="35"
+            debug="true"
+        />
+    </div>
+  );
+    topHeaderTemplate = (
+      <div className="form-group">
+          <input type="text" className="form-control gridFilter" onChange={this.onQuickFilterText.bind(this)}
+                 placeholder="Type text to filter..."/>
+      </div>
+    );
+        return <div className="container-fluid" >
+            <div style={{padding: '15px'}}>
+                {topHeaderTemplate}
+                {bottomHeaderTemplate}
+                {gridTemplate}
+            </div>
+        </div>;
+    }
+  })
+  return CreateLogTable
+})

@@ -1,6 +1,6 @@
 define(
-    ['linkMode', 'configurationEvents', 'jquery', 'properties', 'socket', 'toastr', 'bootstrap'],
-    function(linkMode, configurationEvents, $, properties, io, toastr) {
+    ['linkMode', 'configurationEvents', 'jquery', 'properties', 'socket', 'toastr','services/linkService', 'bootstrap'],
+    function(linkMode, configurationEvents, $, properties, io, toastr,linkService) {
         (function(nx) {
             // node tooltip class
             // see nx.graphic.Topology.Node reference to learn what node's
@@ -21,6 +21,7 @@ define(
                                     var view = this.view('portData')
                                     var fbName = value.node().get("label");
                                     var iconType = value.node().get("iconType");
+                                    debugger;
                                     var isLinkMode = linkMode.getFlag();
                                     switch (iconType) {
                                         case "optical-switch":
@@ -28,7 +29,7 @@ define(
                                         case "host":
                                             this.view("configData").set("class", "linkhide");
                                             this.view("templateData").set("class", "linkhide");
-                                            this.view("cloneData").set("class", "linkhide");
+                                          //  this.view("cloneData").set("class", "linkhide");
                                             // Setting config and template data to hidden
                                             var finalResults = []
                                             var fetchComplete = function(data, view) {
@@ -58,6 +59,7 @@ define(
                                             if (isLinkMode) {
                                                 this.view("deleteComponent").set("class", "linkhide")
                                                 this.view("editData").set("class", "linkhide");
+                                                this.view("cloneData").set("class", "linkhide");
                                                 this.view("classNamePort").set("class", "popup-section")
                                                 var patchfetch = {
                                                     "name": fbName,
@@ -89,6 +91,8 @@ define(
                                                 this.view("editData").set("class", "popup-section");
                                                 this.view("classNamePort").set("class", "linkhide")
                                                 this.view("deleteComponent").set("class", "popup-section");
+                                                this.view("cloneData").set("class", "popup-section");
+
                                             }
                                             break;
 
@@ -171,6 +175,7 @@ define(
                                 content: [{
                                         tag: 'div',
                                         name: "cloneData",
+
 
                                         events: {
                                             'click': '{#cloneClickEvent}'
@@ -262,7 +267,6 @@ define(
                                     }, {
                                         tag: 'div',
                                         name: "deleteComponent",
-
                                         events: {
                                             'click': '{#deleteNode}'
                                         },
@@ -282,6 +286,7 @@ define(
 
                                         ]
                                     },
+
 
                                     {
                                         tag: 'div',
@@ -326,8 +331,7 @@ define(
                                 ],
                                 // applies to the whole tooltip box
                                 props: {
-                                    // css class; see
-                                    // ./css/custom.css
+
                                     'class': 'custom-tooltip'
                                 }
                             }
@@ -335,7 +339,7 @@ define(
                         methods: {
                             "cloneClickEvent": function() {
                                 var self = this.node();
-                                configurationEvents.cloneFb(self);
+                                configurationEvents.cloneNode(self);
 
                             },
 
@@ -349,9 +353,10 @@ define(
                                                 .modal(
                                                     'show')
 
-                                            configurationEvents.init(self);
-                                            configurationEvents.savingDetails(self);
-                                            configurationEvents.bridgeTable(self);
+                                            var a = configurationEvents.init(self);
+                                            debugger;
+                                            configurationEvents.savingDetails(self, a);
+                                            //configurationEvents.bridgeTable(self);
                                             configurationEvents.portTable(self);
                                             configurationEvents.controllerTable(self);
                                             //configurationEvents.getDetails(self);
@@ -403,9 +408,48 @@ define(
                                                         data: JSON.stringify(self.topology().getData()),
                                                         contentType: "application/json; charset=utf-8",
                                                         success: function(data) {
-                                                            toastr.success("Deleted " + name + " successfully");
+                                                          toastr.success("Deleted " + name + " successfully");
+                                                          var logData =
+                                                              {
+                                                                "configuration": "Delete Node",
+                                                                "type": "success",
+                                                                "message": "Deleted node successfully!",
+                                                                "element": name
+                                                              }
+                                                              $.ajax({
+                                                                url: properties.saveLog,
+                                                                type: 'post',
+                                                                data: JSON.stringify(logData),
+                                                                contentType: "application/json; charset=utf-8",
+                                                                success: function(dataReturn){
+                                                                  console.log("Log saved");
+                                                                },
+                                                                error: function(dataReturn){
+                                                                  console.log("Log not saved");
+                                                                }
+                                                              })
+
                                                         },
                                                         error: function(data) {
+                                                          var logData =
+                                                              {
+                                                                "configuration": "Delete Node",
+                                                                "type": "Failure",
+                                                                "message": "Could not delete node!",
+                                                                "element": name
+                                                              }
+                                                              $.ajax({
+                                                                url: properties.saveLog,
+                                                                type: 'post',
+                                                                data: JSON.stringify(logData),
+                                                                contentType: "application/json; charset=utf-8",
+                                                                success: function(dataReturn){
+                                                                  console.log("Log saved");
+                                                                },
+                                                                error: function(dataReturn){
+                                                                  console.log("Log not saved");
+                                                                }
+                                                              })
                                                             toastr.error("Could not delete  " + name);
                                                         }
                                                     })
@@ -413,9 +457,76 @@ define(
 
                                                 }
                                             });
+
                                             break;
 
                                     case "fb-icon":
+                                    $.ajax({
+                                        url: properties.deleteNode,
+                                        type: 'post',
+                                        data: JSON.stringify(data),
+                                        contentType: "application/json; charset=utf-8",
+                                        success: function(returnData) {
+
+                                            self.topology().removeNode(
+                                                self.node().id());
+                                            $.ajax({
+                                                url: properties.saveNativeTopologyData,
+                                                type: 'post',
+                                                data: JSON.stringify(self.topology().getData()),
+                                                contentType: "application/json; charset=utf-8",
+                                                success: function(data) {
+                                                  toastr.success("Deleted " + name + " successfully");
+                                                  var logData =
+                                                      {
+                                                        "configuration": "Delete Node",
+                                                        "type": "success",
+                                                        "message": "Deleted node successfully!",
+                                                        "element": name
+                                                      }
+                                                      $.ajax({
+                                                        url: properties.saveLog,
+                                                        type: 'post',
+                                                        data: JSON.stringify(logData),
+                                                        contentType: "application/json; charset=utf-8",
+                                                        success: function(dataReturn){
+                                                          console.log("Log saved");
+                                                        },
+                                                        error: function(dataReturn){
+                                                          console.log("Log not saved");
+                                                        }
+                                                      })
+
+                                                },
+                                                error: function(data) {
+                                                  var logData =
+                                                      {
+                                                        "configuration": "Delete Node",
+                                                        "type": "Failure",
+                                                        "message": "Could not delete node!",
+                                                        "element": name
+                                                      }
+                                                      $.ajax({
+                                                        url: properties.saveLog,
+                                                        type: 'post',
+                                                        data: JSON.stringify(logData),
+                                                        contentType: "application/json; charset=utf-8",
+                                                        success: function(dataReturn){
+                                                          console.log("Log saved");
+                                                        },
+                                                        error: function(dataReturn){
+                                                          console.log("Log not saved");
+                                                        }
+                                                      })
+                                                    toastr.error("Could not delete  " + name);
+                                                }
+                                            })
+
+
+                                        }
+                                    });
+
+                                    break;
                                     case "host":
 
                                             $.ajax({
@@ -439,9 +550,47 @@ define(
                                                                 contentType: "application/json; charset=utf-8",
                                                                 success: function(data) {
                                                                     toastr.success("Deleted " + name + " successfully");
+                                                                    var logData =
+                                                                        {
+                                                                          "configuration": "Delete Node",
+                                                                          "type": "success",
+                                                                          "message": "Deleted node successfully!",
+                                                                          "element": name
+                                                                        }
+                                                                        $.ajax({
+                                                                          url: properties.saveLog,
+                                                                          type: 'post',
+                                                                          data: JSON.stringify(logData),
+                                                                          contentType: "application/json; charset=utf-8",
+                                                                          success: function(dataReturn){
+                                                                            console.log("Log saved");
+                                                                          },
+                                                                          error: function(dataReturn){
+                                                                            console.log("Log not saved");
+                                                                          }
+                                                                        })
                                                                 },
                                                                 error: function(data) {
                                                                     toastr.error("Could not delete  " + name);
+                                                                    var logData =
+                                                                        {
+                                                                          "configuration": "Delete Node",
+                                                                          "type": "Failure",
+                                                                          "message": "Could not delete node!",
+                                                                          "element": name
+                                                                        }
+                                                                        $.ajax({
+                                                                          url: properties.saveLog,
+                                                                          type: 'post',
+                                                                          data: JSON.stringify(logData),
+                                                                          contentType: "application/json; charset=utf-8",
+                                                                          success: function(dataReturn){
+                                                                            console.log("Log saved");
+                                                                          },
+                                                                          error: function(dataReturn){
+                                                                            console.log("Log not saved");
+                                                                          }
+                                                                        })
                                                                 }
                                                             })
                                                         }
@@ -491,7 +640,11 @@ define(
                                         configurationEvents.initFStoOB(self);
                                         return;
                                     }
-
+                                    if(linkMode.getVirtualFlag()){
+                                      var isVirtual=true;
+                                      linkService.openVirtualLinkPopUp(configurationEvents,self);
+                                      return;
+                                    }
                                     $("#pageModal")
                                         .load(
                                             templatedToLoad,

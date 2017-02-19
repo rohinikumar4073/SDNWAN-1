@@ -11,11 +11,15 @@ define(['socket','config'], function(io,config) {
     var getAllIp = orchestratorIp + "/ipAvailability";
     var getDynamicIp = orchestratorIp + "/save/dynamicBandwidth";
     var getAllL2 = orchestratorIp + "/getAllL2Policy";
-    var getAllVpn = orchestratorIp + "/getAllVpnPolicy";
+    var getAllVpn = orchestratorIp + "/getAllL2VpnPolicy";
     var getAllBgpRouting= orchestratorIp + "/getAllBgpRouting";
     var getAllVpnBgp = orchestratorIp + "/getAllVpnBgp";
     var getAllVpnBgpSession = orchestratorIp + "/getAllVpnBgpSession";
-    var emsConfigIp="http://localhost:50512/rms/fbname/emsConfiguration";
+    var saveLog = rmsIp+"saveLog";
+    var getLog = rmsIp+"getLog";
+    var emsConfigIp=rmsIp+"emsConfiguration/";
+    var publisherConfiguration=orchestratorIp+"/publisherConfiguration";
+    var periodicConfiguration=orchestratorIp+"/periodicConfiguration";
 
     var vpnBgpIp = orchestratorIp + "/vpnBgp";
     var bgpRoutingIp = orchestratorIp + "/bgpRouting";
@@ -35,11 +39,16 @@ define(['socket','config'], function(io,config) {
 
         ]
     };
+    var topology = null;
 
     var socket = io.connect(nodeIp);
     return {
-        saveTopologyData: function(data) {
+        saveTopologyData: function(data, topologyModel) {
             topologyData = data;
+            topology = topologyModel;
+        },
+        getTopology: function(){
+          return topology;
         },
         getTopologyData: function() {
             return topologyData;
@@ -63,6 +72,8 @@ define(['socket','config'], function(io,config) {
         webSocketIp:webSocketIp,
         createHost: orchestratorIp + "/createHost",
         nodeIp: nodeIp,
+        saveLog: saveLog,
+        getLog: getLog,
         templateIp: templateIp + '/',
         whiteListIp: whiteListIp,
         getAllosIp: getAllosIp,
@@ -83,6 +94,8 @@ define(['socket','config'], function(io,config) {
         rmsIp: rmsIp,
         envIp: envIp,
         emsConfigIp: emsConfigIp,
+        periodicConfiguration: periodicConfiguration,
+        publisherConfiguration: publisherConfiguration,
         pushTopology: orchestratorIp + "/generateTopology",
         createLink: orchestratorIp + "/createLink",
         saveComponent:saveComponent,
@@ -105,7 +118,7 @@ define(['socket','config'], function(io,config) {
             return socket;
         },
 
-        getMaxNode:function(dataObj,callback,key,self){
+        getMaxNode:function(dataObj,callback,key,self,isCloining){
           $.ajax({
 
               url: nodeIp+"/getKey?key="+key ,
@@ -114,7 +127,7 @@ define(['socket','config'], function(io,config) {
               success: function(data) {
                 if(data){
                     var length=JSON.parse(data);
-                    callback(dataObj,length,self)
+                    callback(dataObj,length,self,isCloining)
                 }
                 console.log("Pushed the details.")
 

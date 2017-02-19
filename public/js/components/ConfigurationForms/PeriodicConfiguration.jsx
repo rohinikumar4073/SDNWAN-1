@@ -7,7 +7,10 @@ define([
         "type": "object",
         "properties": {
             "bootstrapServers": {
-                "type": "string",
+              "type":"array",
+              "items":{
+                "type":"string"
+              },
                 "title": "Bootstrap Servers"
             },
             "producerId": {
@@ -22,14 +25,10 @@ define([
         }
     };
     const formData = {};
-
     var CreatePeriodicConfiguration = React.createClass({
         onSubmit: function(e) {
-
             this.handleConfirm(e.formData)
-
         },
-
         handleConfirm: function(data) {
             var self = this;
             $.ajax({
@@ -44,7 +43,6 @@ define([
                     toastr.error("Error! Periodic Configuration is not created")
                 }
             });
-            this.props.close();
         },
         getInitialState: function() {
             return {}
@@ -57,7 +55,7 @@ define([
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
-                                <button type="submit" className="btn  btn-primary btn-sm">Save</button>
+                                <button type="submit" className="btn  btn-primary btn-sm" data="Save">Save</button>
                             </div>
                         </PeriodicConfiguration>
                     </div>

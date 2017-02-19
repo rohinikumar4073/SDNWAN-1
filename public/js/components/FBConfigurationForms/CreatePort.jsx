@@ -97,8 +97,8 @@ return errors;
               data: JSON.stringify(jsonData),
               contentType: "application/json; charset=utf-8",
               success: function(data){
-                var val = self.props.configurationEvents.handleSuccess(data);
-                if(val){
+                // var val = self.props.configurationEvents.handleSuccess(data);
+                // if(val){
                   var tr = self.props.tr;
                   tr.find("td:nth-child(1)").text(jsonData.name);
                   tr.find("td:nth-child(2)").text("");
@@ -108,7 +108,7 @@ return errors;
                   tr.find("td:nth-child(6)").text(jsonData.speed);
                   tr.find("td:nth-child(7)").text(jsonData.is_dac);
                   tr.find("td:nth-child(8)").text(jsonData.vlan_mode);
-                }
+                //}
               },
               error: function(data){
                 toastr.error("Could not update data!");
@@ -146,8 +146,8 @@ return errors;
                       tr.append($('<td>').append(jsonData.speed));
                       tr.append($('<td>').append(jsonData.is_dac));
                       tr.append($('<td>').append(jsonData.vlan_mode));
-                      tr.append($('<td>').append("<div class = 'popup-section'><i class= 'fa fa-pencil editPort' aria-hidden='true'></i><div class='label-data'>Edit</div></div>"))
-                      tr.append($('<td>').append("<div class = 'popup-section'><i class='fa fa-trash deletePort' aria-hidden='true'></i><div class='label-data'>Delete</div></div>"))
+                      tr.append($('<td>').append("<div class = 'popup-section'><i class= 'fa fa-pencil editPort' aria-hidden='true'><div class='label-data'>Edit</div></i></div>"))
+                      tr.append($('<td>').append("<div class = 'popup-section'><i class='fa fa-trash deletePort' aria-hidden='true'><div class='label-data'>Delete</div></i></div>"))
                       $("#viewPort").find('tbody')
                           .append(tr)
                     }

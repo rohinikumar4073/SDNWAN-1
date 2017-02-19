@@ -17,6 +17,7 @@ define([
         renderer,
         controls,
         stats;
+        var objects = [];
     var clock = new THREE.Clock();
 
     // custom global variables
@@ -164,6 +165,7 @@ define([
             // EVENTS
             // CONTROLS
             controls = new THREE.OrbitControls(camera, renderer.domElement);
+
             // STATS
             //	stats = new Stats();
             // stats.domElement.style.position = 'absolute';
@@ -182,6 +184,7 @@ define([
             var skyBoxMaterial = new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.BackSide});
             var skyBox = new THREE.Mesh(skyBoxGeometry, skyBoxMaterial);
             scene.add(skyBox);
+            objects.push(skyBox);
             canvas1 = document.createElement('canvas');
             context1 = canvas1.getContext('2d');
             context1.font = "Bold 20px Arial";
@@ -190,6 +193,9 @@ define([
             // canvas contents will be used for a texture
             texture1 = new THREE.Texture(canvas1)
             texture1.needsUpdate = true;
+    renderer.sortObjects = true;
+    
+
 
             ////////////////////////////////////////
 
@@ -247,10 +253,15 @@ define([
             this.initScene();
             this.animate();
             threeDservices.loadNodes(nodeData, this, scene, targetList, threeDservices);
-            var liServices = data["multilayer-topology-message"]["multilayer-topology"]["l1-services"]["l1-service"];
-            threeDservices.loadOpticalNodes(liServices, this, scene, targetList, threeDservices);
-            var linkData = data["multilayer-topology-message"]["multilayer-topology"]["topology"][0].link;
-            threeDservices.loadLinks(linkData, this, scene, targetList, threeDservices);
+            if(data["multilayer-topology-message"]["multilayer-topology"]["network-topology"]["l1-services"]){
+              var liServices = data["multilayer-topology-message"]["multilayer-topology"]["network-topology"]["l1-services"]["l1-service"];
+              threeDservices.loadOpticalNodes(liServices, this, scene, targetList, threeDservices);
+            }
+            if( data["multilayer-topology-message"]["multilayer-topology"]["network-topology"]["topology"]){
+              var linkData = data["multilayer-topology-message"]["multilayer-topology"]["network-topology"]["topology"][0].link;
+              threeDservices.loadLinks(linkData, this, scene, targetList, threeDservices);
+            }
+
             document.addEventListener('mousemove', this.onDocumentMouseMove, false);
 
         },

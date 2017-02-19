@@ -20,16 +20,7 @@
         "CLB":"CLB",
         "materialId":"Material Id" ,
         "airFlow":"Airflow"
-      }, {
-        "name": "link",
-        "className": "link-icon",
-        "manufacturer":"Manufacturer1",
-        "orderablePartNumber":"Orderable Part Number",
-        "description":"Description" ,
-        "CLB":"CLB",
-        "materialId":"Material Id" ,
-        "airFlow":"Airflow"
-      }, {
+      },  {
         "name": "Host",
         "className": "host",
         "manufacturer":"Manufacturer1",
@@ -38,8 +29,20 @@
         "CLB":"CLB",
         "materialId":"Material Id" ,
         "airFlow":"Airflow"
+      }, {
+        "name": "link",
+        "className": "link-icon fa-link",
+        "manufacturer":"Manufacturer1",
+        "orderablePartNumber":"Orderable Part Number",
+        "description":"Description" ,
+        "CLB":"CLB",
+        "materialId":"Material Id" ,
+        "airFlow":"Airflow"
+      },{
+        "name": "Virtual link",
+        "className": "fa-link virtual_link"
       }
-      
+
     ]
   }
 ]

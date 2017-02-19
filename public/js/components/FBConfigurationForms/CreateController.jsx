@@ -61,15 +61,15 @@ return errors;
               data: JSON.stringify(jsonData),
               contentType: "application/json; charset=utf-8",
               success: function(data){
-                var val = self.props.configurationEvents.handleSuccess(data);
-                if(val){
+                // var val = self.props.configurationEvents.handleSuccess(data);
+                // if(val){
                   var tr = self.props.tr;
                   tr.find("td:nth-child(1)").text(jsonData.name);
                   tr.find("td:nth-child(2)").text(jsonData.controller_ip);
                   tr.find("td:nth-child(3)").text(jsonData.of_port);
                   tr.find("td:nth-child(4)").text(jsonData.connect_protocol);
                   tr.find("td:nth-child(5)").text(jsonData.fb_ip);
-                }
+                //}
               },
               error: function(data){
                 toastr.error("Could not update data!");

@@ -1,6 +1,10 @@
 require.config({
   baseUrl: "js/",
 shim : {
+        'd3': {
+            exports: 'd3'
+        },
+
         "bootstrap" : { "deps" :['jquery'] },
         "tooltip":{ "deps" :['nx','bootstrap','properties']} ,
         "MainView" : { "deps" :['nx'] },
@@ -9,7 +13,13 @@ shim : {
         "MainView" : { "deps" :['nx'] },
         "ActionPanel":{ "deps" :['nx'] },
         "configurationEvents":{ "deps" :['jquery.spin','properties'] },
-        "OrbitControls":{"deps":["three"]}
+        "OrbitControls":{"deps":["three"]},
+        "agGrid":{"deps":["reactFrameworkFactory"]},
+        "reactCellRendererFactory":{"deps":["ag-grid","agReactComponent"]},
+        "reactFrameworkFactory":{"deps":["ag-grid","reactCellRendererFactory","reactCellEditorFactory"]},
+        "reactFilterFactory":{"deps":["agReactComponent"]},
+        "agReactComponent":{"deps":["ag-grid"]},
+        "reactCellEditorFactory":{"deps":["agReactComponent"]},
     },
   paths: {
     "react": "react.min",
@@ -27,10 +37,18 @@ shim : {
     "OrbitControls":"threejs/controls/OrbitControls",
     "Detector":"threejs/Detector",
     "fixedTable":"../fixed-data-table-master/dist/fixed-data-table",
+    "agGrid":"../js/thirdParty/ag-grid-react-master/lib/agGridReact",
+    "reactCellRendererFactory":"../js/thirdParty/ag-grid-react-master/lib/reactCellRendererFactory",
+    "reactFilterFactory":"../js/thirdParty/ag-grid-react-master/lib/reactFilterFactory",
     "sockjs":"websocket/sockjs",
     "stomp":"websocket/stomp",
-    'config':'properties/config'
-
+    'config':'properties/config',
+    "ag-grid":"../js/thirdParty/ag-grid-react-master/lib/ag-grid",
+    "reactFrameworkFactory":"../js/thirdParty/ag-grid-react-master/lib/reactFrameworkFactory",
+    "reactCellEditorFactory":"../js/thirdParty/ag-grid-react-master/lib/reactCellEditorFactory",
+    "agReactComponent":"../js/thirdParty/ag-grid-react-master/lib/agReactComponent",
+    'd3':'thirdParty/d3/d3.v3.min',
+    'axios':"thirdParty/axios/axios.min"
   },
 
   jsx: {

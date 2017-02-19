@@ -226,8 +226,13 @@ define([
                 data: JSON.stringify(formattedData),
                 contentType: "application/json; charset=utf-8",
                 success: function(data) {
-                    toastr.success("Success! Whitelist Policy is created");
-                    this.props.setHidden("whiteList");
+                  if(data && data.type=="failure"){
+                    toastr.error(data.message);
+
+                  }else{
+                    toastr.success("Success! Dynamic Bandwidth Policy is created");
+                    this.props.setHidden("bandwidthPolicy");
+                  }
 
                 },
                 error: function(data) {
@@ -259,8 +264,9 @@ this.props.formData={};
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
-                                <button type="submit" className="btn btn-sm btn-primary" data="Save">{this.props.submitMode}</button>
-                                <button onClick={this.handleCancel} type="button" className="btn btn-sm btn-default" data="Cancel">Cancel</button>
+                                <button type="submit" className={"btn btn-sm btn-primary"+this.props.buttonClassName} data="Save">{this.props.submitMode}</button>
+                                <button onClick={this.handleCancel} type="button" className={"btn btn-sm btn-default"+this.props.buttonClassName}
+                                data="Cancel">Cancel</button>
                             </div>
                         </WhiteListForm>
                     </div>

@@ -58,7 +58,7 @@ define([
         },
         getInitialState: function() {
 
-            return {username: '', lastGistUrl: '', childVisible: false, selectedLinkClass: ""};
+            return {username: '', lastGistUrl: '', childVisible: false, selectedLinkClass: "", virtualLinkClass: "",};
         },
 
         contexMenu: function(e) {
@@ -89,8 +89,23 @@ define([
                 }
                 this.props.topologyModel(link, this.props.collection.className);
                 return;
+            }else  if (this.props.collection.name == "Virtual link") {
+              debugger;
+                    var link = "";
+                    if (this.state.selectedLinkClass) {
+                        this.setState({selectedLinkClass: ""});
+                        link = "virtual_linkReset";
+                        	$("#forLinkMode").hide();
 
-            }
+                    } else {
+                        this.setState({selectedLinkClass: "selected-link-class"});
+                        link = "virtual_linkSet";
+                          $("#forLinkMode").show();
+                    }
+                    this.props.topologyModel(link, this.props.collection.className);
+                    return;
+
+                }
             this.props.topologyModel(this.props.collection.name, this.props.collection.className);
         },
         render: function() {

@@ -83,10 +83,13 @@ define([
                                   <div className="verticalLine">&nbsp;</div>
                                   <ul className="nav navbar-nav">
                                     <li className=""><a href="#" className={this.props.isActive("Container")} onClick={this.props.setLink.bind(this,"Container")}>Home</a></li>
+                                      <li className=""><a href="#" className={this.props.isActive("Inventory")} onClick={this.props.setLink.bind(this,"Inventory")}>Inventory</a></li>
+
                                     <li className=""><a href="#" className={this.props.isActive("Policy")} onClick={this.props.setLink.bind(this,"Policy")}>Policy</a></li>
                                     <li className=""><a href="#" className={this.props.isActive("Bgp")} onClick={this.props.setLink.bind(this,"Bgp")}>BGP</a></li>
 				                            <li className=""><a href="#" className={this.props.isActive("Configuration")} onClick={this.props.setLink.bind(this,"Configuration")}>Configuration</a></li>
                                     <li className=""><a href="#" className={this.props.isActive("Logs")} onClick={this.props.setLink.bind(this,"Logs")}>Logs</a></li>
+
                                   </ul>
 
 
