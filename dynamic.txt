@@ -1,0 +1,100 @@
+{
+   "label":"Dynamic Bandwidth Policy",
+   "productId":"587e7b86-b409-4a89-95e1-26e85c78d8cf",
+   "properties":{
+      "of-controller-domain-id":"{{OFCNTRLR_DOMAIN_ID}}",
+      "vwan-domain-id":"{{VWAN_DOMAIN_ID}}",
+      "dynamic-bandwidth-version":"c6f4fc4b-dc9c-4ff7-ab20-14fdf40be10c",
+      "dynamic-bandwidth-policies":{
+         "dynamic-bandwidth":{
+            "switches":{
+               "switch":[
+                  {
+                     "switch-id":"ALPHA",
+                     "ports":[
+
+                     ]
+                  },
+                  {
+                     "switch-id":"BETA",
+                     "ports":[
+
+                     ]
+                  },
+                  {
+                     "switch-id":"DELTA",
+                     "ports":[
+
+                     ]
+                  },
+                  {
+                     "switch-id":"GAMMA",
+                     "ports":[
+
+                     ]
+                  },
+                  {
+                     "switch-id":"EPSILON",
+                     "ports":[
+
+                     ]
+                  }
+               ]
+            },
+            "resource-allocation":{
+               "threshold-settings":{
+                  "allocation-priority":"greedy",
+                  "threshold":[
+                     {
+                        "links-count":"1",
+                        "add-thresh":60,
+                        "drop-thresh":0
+                     },
+                     {
+                        "links-count":"2-3",
+                        "add-thresh":70,
+                        "drop-thresh":30
+                     },
+                     {
+                        "links-count":"4-100",
+                        "add-thresh":80,
+                        "drop-thresh":45
+                     }
+                  ]
+               }
+            },
+            "packet-optical-policies":{
+               "packet-optical-policy":[
+                  {
+                     "policy-id":"dyn-conn-group1",
+                     "a-endpoints":[
+                        {
+                           "node-id":"DC2-FB1"
+                        }
+                     ],
+                     "z-endpoints":[
+                        {
+                           "node-id":"DC3-FB1"
+                        }
+                     ],
+                     "min-bandwidth":{
+                        "unit":"Mbps",
+                        "value":10000
+                     },
+                     "max-bandwidth":{
+                        "unit":"Mbps",
+                        "value":50000
+                     },
+                     "link-group-a-z":"DC2-FB1-DC3-FB1-G1",
+                     "link-group-z-a":"DC3-FB1-DC2-FB1-G1",
+                     "validate":"true",
+                     "optical-path-options":"path_metric_least_cost"
+                  }
+               ]
+            }
+         }
+      }
+   },
+   "autoClean":true,
+   "description":"Create Dynamic Bandwidth Policy"
+}

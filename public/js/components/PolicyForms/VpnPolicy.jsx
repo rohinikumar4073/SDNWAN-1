@@ -95,7 +95,7 @@ define([
                 }
 
             });
-            this.props.close();
+            this.handleCancel();
         },
         getInitialState: function() {
             return {}

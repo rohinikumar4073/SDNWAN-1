@@ -18,6 +18,9 @@ router.post('/getPortStatus', function(req, res, next) {
         type = "_opticalPorts"
     } else if (dat.type == "host") {
         type = "_hostPorts"
+    }else if (dat.type == "bgp") {
+        type = "_bgpPorts";
+        //portdetails = '[{"name":"ALPHA-FB1:Shelf: 1   Slot: 1   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 2   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 3   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 4   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 5   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 6   Subslot: 1   Port: 1","status":"false"}]';
     }
 
     router.comp.fetchComponent(router.client, dat.name + type, function(data) {
@@ -26,7 +29,36 @@ router.post('/getPortStatus', function(req, res, next) {
 
     });
 });
+/* GET home page. */
+router.post('/saveList', function(req, res, next) {
 
+    var data = req.body;
+
+    router.comp.storeasDbList(router.client, data.key, data.value, function(data) {
+        res.send("success");
+
+    });
+});
+
+router.get('/getList', function(req, res, next) {
+
+      if (!req.query.key) {
+          res.type('text/plain');
+          res.status(404);
+          res.send('404 Not Found');
+          return;
+      }
+    router.comp.getList(router.client, req.query.key,  function(data) {
+      if (data){
+          var dataToBeSend = data.map(function(x) {
+             return JSON.parse(x)
+          });
+          res.send(dataToBeSend);
+      }else {
+          res.send([])
+      }
+    });
+});
 router.post('/saveComponent', function(req, res, next) {
 
     var dat = req.body;
@@ -48,10 +80,11 @@ router.post('/saveComponent', function(req, res, next) {
         type = "_opticalPorts";
         //portdetails = '[{"name":"ALPHA-FB1:Shelf: 1   Slot: 1   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 2   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 3   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 4   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 5   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 6   Subslot: 1   Port: 1","status":"false"}]';
         portdetails = JSON.stringify(dat.ports);
+    } else if (dat.type == "bgp") {
+        type = "_bgpPorts";
+        //portdetails = '[{"name":"ALPHA-FB1:Shelf: 1   Slot: 1   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 2   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 3   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 4   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 5   Subslot: 1   Port: 1","status":"false"},{"name":"ALPHA-FB1:Shelf: 1   Slot: 6   Subslot: 1   Port: 1","status":"false"}]';
+        portdetails = JSON.stringify(dat.ports);
     }
-    console.log("data" + dat.name);
-    console.log("portdetails" + portdetails);
-
     router.comp.storeComponent(router.client, dat.name + type, portdetails, function(data) {
         res.send("success");
 
@@ -66,8 +99,10 @@ router.post('/deleteNode', function(req, res, next){
   else if (body.type == 'fb-icon') {
     key = body.name + "_forwardingData";
   }
-  else {
-    key = body.name + "_hostData";
+  else if (body.type == 'host')  {
+    key = body.name + "_host";
+  }else if (body.type == 'host')  {
+    key = body.name + "_bgp";
   }
 
   router.comp.deleteComponent(router.client, key, function(data){
@@ -95,6 +130,7 @@ router.post('/saveKey', function(req, res, next) {
 });
 router.get('/getTopology', function(req, res, next) {
     router.comp.fetchComponent(router.client, "topologyData", function(data) {
+      debugger;
         //console.log("data"+data)
         if(data)
         res.send(data);
@@ -110,6 +146,7 @@ router.get('/getKey', function(req, res, next) {
         res.type('text/plain');
         res.status(404);
         res.send('404 Not Found');
+        return;
     }
     router.comp.fetchComponent(router.client, req.query.key, function(data) {
         //console.log("data"+data)

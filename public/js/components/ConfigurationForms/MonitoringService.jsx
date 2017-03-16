@@ -30,7 +30,7 @@ define([
         handleConfirm: function(data) {
             var self = this;
             $.ajax({
-                url: properties.emsConfigIp,
+                url: properties.fbMonitor+ this.state.url,
                 type: 'post',
                 data: JSON.stringify(data),
                 contentType: "application/json; charset=utf-8",
@@ -42,22 +42,40 @@ define([
                 }
 
             });
-            this.props.close();
+            self.state.status = false;
+            self.state.url = "save";
+
+        },
+        handleCancel:function(){
+          this.props.setHidden("Monitor");
+        },
+        onDeploy: function() {
+            var self = this;
+            self.state.status = true;
+            self.state.url = "deploy";
+            $('#emsConfigSave').trigger('click');
         },
         getInitialState: function() {
-            return {}
+              return {formData: {}, status: false, url: "save"}
         },
         render: function() {
             return (
                 <div className={this.props.className}>
+                  <div className="modal-header">
+                      <h3>{this.props.header}<button type="button" className="close" onClick={this.handleCancel}>
+                          &times;
+                      </button></h3>
+
+                  </div>
 
                     <div className="configuration">
                         <MonitoringForm schema={schema} uiSchema={uiSchema} validate={this.validate} formData={formData} onSubmit={this.onSubmit} onError={errors => {
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
-                                <button type="submit" className="btn btn-sm btn-primary" data="Save">Start</button>
-                                <button type="submit" className="btn btn-sm btn-primary" data="Save">Stop</button>
+                              <button type="submit" id="emsConfigSave" className="btn btn-sm btn-primary" data="Save">Save</button>
+                              <button type="button" onClick={this.onDeploy} className="btn btn-sm btn-primary" data="Deploy">Deploy</button>
+                              <button onClick={this.handleCancel} type="button" className={"btn btn-sm btn-default"+this.props.buttonClassName} data="Cancel">Cancel</button>
                             </div>
                         </MonitoringForm>
                     </div>

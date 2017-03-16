@@ -30,6 +30,9 @@ define([
         onSubmit: function(e) {
             this.handleConfirm(e.formData)
         },
+        handleCancel:function(){
+          this.props.setHidden("Publisher");
+        },
         handleConfirm: function(data) {
             var self = this;
             $.ajax({
@@ -52,12 +55,20 @@ define([
         render: function() {
             return (
                 <div className={this.props.className}>
+                  <div className="modal-header">
+                      <h3>{this.props.header}<button type="button" className="close" onClick={this.handleCancel}>
+                          &times;
+                      </button></h3>
+
+                  </div>
                     <div className="configuration">
                         <PublisherConfiguration schema={schema} uiSchema={uiSchema} formData={formData} onError={errors => {
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
                                 <button type="submit" id="publisher" className="btn  btn-primary btn-sm" data="Save">Save</button>
+                                  <button onClick={this.handleCancel} type="button" className={"btn btn-sm btn-default"+this.props.buttonClassName}
+                                  data="Cancel">Cancel</button>
                             </div>
                         </PublisherConfiguration>
                     </div>

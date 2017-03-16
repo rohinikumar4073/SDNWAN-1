@@ -1,4 +1,4 @@
-define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!components/ComponentForms/CreateHost','jsx!components/ComponentForms/CreatePatchPanel','jsx!components/ComponentForms/CreateOpticalSwitch'], function(React,CreateForwardingBox,CreateHost,CreatePatchPanel,CreateOpticalSwitch) {
+define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!components/ComponentForms/CreateHost','jsx!components/ComponentForms/CreatePatchPanel','jsx!components/ComponentForms/CreateOpticalSwitch','jsx!components/ComponentForms/CreateBGPServer'], function(React,CreateForwardingBox,CreateHost,CreatePatchPanel,CreateOpticalSwitch,CreateBGPServer) {
     var BootstrapButton = React.createClass({
         render: function() {
             return (
@@ -30,6 +30,9 @@ define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!compone
               case "host":
                 this.refs.host.updateData()
                 break;
+              case "bgp":
+                this.refs.bgp.updateData()
+                break;
               default:
 
             }
@@ -48,8 +51,14 @@ define(['react','jsx!components/ComponentForms/CreateForwardingBox','jsx!compone
               ? <CreateHost ref="host" close={this.close} title={this.props.title} iconType={this.props.iconType} submitMode={this.props.submitMode} formData={this.props.formData} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
               : (this.props.iconType=='optical-switch'
           ? <CreateOpticalSwitch ref="os" close={this.close} title={this.props.title}  submitMode={this.props.submitMode} formData={this.props.formData} iconType={this.props.iconType} coordinates={this.props.coordinates} topologyModel={this.props.topologyModel} />
+        :( this.props.iconType=='bgp' ?
+
+        <CreateBGPServer ref="bgp" close={this.close}
+          title={this.props.title}  submitMode={this.props.submitMode}
+          formData={this.props.formData} iconType={this.props.iconType} coordinates={this.props.coordinates}
+          topologyModel={this.props.topologyModel} />
           : ""
-      )))}
+      ))))}
 
 
 

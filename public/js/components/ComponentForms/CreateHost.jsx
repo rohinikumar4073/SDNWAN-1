@@ -4,7 +4,6 @@ define([
     var FormHost = Form.default;
 
     const schema = {
-      "title": "Host Instance",
       "type": "object",
       "properties": {
         "host_name": {
@@ -31,49 +30,26 @@ define([
           "minLength": 3,
           "maxLength": 50
         },
+        "ipv4": {
+          "type": "string",
+          "title": "IPv4"
+        },
+        "ipv6": {
+          "type": "string",
+          "title": "IPv6"
+        },
         "interfaces": {
           "title": "Interfaces",
-          "type": "array",
-          "items": {
+
             "type": "object",
             "properties": {
               "host_port_name": {
                 "type": "string",
                 "title": "Host Port Name"
-              },
-              "interface_address": {
-                "title": "Interface Address",
-                "type": "object",
-                "properties": {
-                  "ipv4_address": {
-                    "type": "string",
-                    "title": "IPv4 Address",
-                    "format": "ipv4"
-                  },
-                  "ipv6_address": {
-                    "type": "string",
-                    "title": "IPv6 Address",
-                    "format": "ipv6"
-                  }
-                },
-                "required": ["ipv4_address"]
-              },
-              "static_subnets":{
-                "title": "Static Subnets",
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "ipv4_ipv6_prefix":{
-                      "title": "IPv4/IPv6 Prefix",
-                      "type": "string"
-                    }
-                  }
-                }
               }
             },
-            "required": ["host_port_name", "interface_address"]
-          }
+            "required": ["host_port_name"]
+
         }
       },
       "required": ["host_name", "network_domain", "site_id", "interfaces"]
@@ -113,21 +89,7 @@ define([
         }
       },
       validate: function(formData, error){
-        var flag = 0;
-        for(var i = 0; i < formData["interfaces"].length; i++){
-          for(var j = i+1; j < formData["interfaces"].length; j++){
-            if(formData["interfaces"][i]["host_port_name"] == formData["interfaces"][j]["host_port_name"]){
-              flag = 1;
-              break;
-            }
-          }
-          if(flag){
-            break;
-          }
-        }
-        if(flag){
-          error["interfaces"].addError("Ports cannot have the same name");
-        }
+
         return error;
       },
       updateData:function(){
@@ -160,7 +122,7 @@ define([
           var self = this;
           var check = true;
           var hostname = data["host_name"];
-          
+
           $.ajax({
             url: properties.getNativeTopologyData,
             type: 'get',
@@ -172,9 +134,8 @@ define([
               }
                   if(check){
                     var portData={name: data["host_name"], ports: [], type: "host"};
-                  data["interfaces"].forEach(function(v,i){
-                      portData.ports.push({name: v["host_port_name"], status: "false"})
-                  })
+                      portData.ports.push({name: data["interfaces"]["host_port_name"], status: "false"})
+                      debugger;
                     $.ajax({
                         url: properties.saveComponent,
                         type: 'post',
@@ -186,9 +147,11 @@ define([
                               toastr.success("Host updated successfully");
                               return;
                             }
+                            debugger;
                               self.props.topologyModel.createNode(data["host_name"], self.props.iconType, self.props.coordinates);
                               self.props.close();
                               properties.addNode(data["host_name"], self.props.iconType)
+                              debugger;
                               toastr.success("Host " + data["host_name"] + " added successfully");
                               var logData =
                                   {

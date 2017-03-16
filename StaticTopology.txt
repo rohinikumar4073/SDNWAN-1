@@ -1,0 +1,2300 @@
+{
+	"label": "AUTOMATED_ProvTopology_{{TIME_STAMP}}",
+	"productId": "{{PROV_TOPO_PID}}",
+	"properties": {
+		"of-controller-domain-id": "{{VZOFCNTRLR_DOMAIN_ID}}",
+		"vwan-domain-id": "{{VWAN_DOMAIN_ID}}",
+		"network": {
+			"network-topology": {
+				"provisioned-version": "{{GENERATED_UID}}",
+				"topology": [{
+					"topology-id": "of-l3-dci",
+					"topology-version": "{{GENERATED_UID}}",
+					"topology-types": {
+						"ofl3-topology:of-l3": {
+							"provisioned": {}
+						}
+					},
+					"link": [{
+						"destination": {
+							"dest-node": "DC1-FB2",
+							"dest-tp": "qe-1/1/49"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC1-FB1-DC1-FB2-G1"],
+						"link-id": "DC1-FB1-P49-DC1-FB2-P49",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC1-FB1",
+							"source-tp": "qe-1/1/49"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC1-FB1",
+							"dest-tp": "qe-1/1/49"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC1-FB2-DC1-FB1-G1"],
+						"link-id": "DC1-FB2-P49-DC1-FB1-P49",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC1-FB2",
+							"source-tp": "qe-1/1/49"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC1-FB2",
+							"dest-tp": "qe-1/1/52"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC1-FB1-DC1-FB2-G1"],
+						"link-id": "DC1-FB1-P52-DC1-FB2-P52",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC1-FB1",
+							"source-tp": "qe-1/1/52"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC1-FB1",
+							"dest-tp": "qe-1/1/52"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC1-FB2-DC1-FB1-G1"],
+						"link-id": "DC1-FB2-P52-DC1-FB1-P52",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC1-FB2",
+							"source-tp": "qe-1/1/52"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC2-FB2",
+							"dest-tp": "qe-1/1/49"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC2-FB1-DC2-FB2-G1"],
+						"link-id": "DC2-FB1-P49-DC2-FB2-P49",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC2-FB1",
+							"source-tp": "qe-1/1/49"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC2-FB1",
+							"dest-tp": "qe-1/1/49"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC2-FB2-DC2-FB1-G1"],
+						"link-id": "DC2-FB2-P49-DC2-FB1-P49",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC2-FB2",
+							"source-tp": "qe-1/1/49"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC2-FB2",
+							"dest-tp": "qe-1/1/52"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC2-FB1-DC2-FB2-G1"],
+						"link-id": "DC2-FB1-P52-DC2-FB2-P52",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC2-FB1",
+							"source-tp": "qe-1/1/52"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC2-FB1",
+							"dest-tp": "qe-1/1/52"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC2-FB2-DC2-FB1-G1"],
+						"link-id": "DC2-FB2-P52-DC2-FB1-P52",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC2-FB2",
+							"source-tp": "qe-1/1/52"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC3-FB2",
+							"dest-tp": "qe-1/1/49"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC3-FB1-DC3-FB2-G1"],
+						"link-id": "DC3-FB1-P49-DC3-FB2-P49",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC3-FB1",
+							"source-tp": "qe-1/1/49"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC3-FB1",
+							"dest-tp": "qe-1/1/49"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC3-FB2-DC3-FB1-G1"],
+						"link-id": "DC3-FB2-P49-DC3-FB1-P49",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC3-FB2",
+							"source-tp": "qe-1/1/49"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC3-FB2",
+							"dest-tp": "qe-1/1/52"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC3-FB1-DC3-FB2-G1"],
+						"link-id": "DC3-FB1-P52-DC3-FB2-P52",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC3-FB1",
+							"source-tp": "qe-1/1/52"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC3-FB1",
+							"dest-tp": "qe-1/1/52"
+						},
+						"link-cost": 1,
+						"link-group-id": ["DC3-FB2-DC3-FB1-G1"],
+						"link-id": "DC3-FB2-P52-DC3-FB1-P52",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 40
+						},
+						"source": {
+							"source-node": "DC3-FB2",
+							"source-tp": "qe-1/1/52"
+						}
+					},
+					{
+					  "destination": {
+						"dest-node": "POD-A1-R1-100",
+						"dest-tp": "enp130s0.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB1-P1-V100-POD-A1-R1-100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC1-FB1",
+						"source-tp": "te-1/1/1.100"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB1",
+						"dest-tp": "te-1/1/1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-A1-R1-100-DC1-FB1-P1-V100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "POD-A1-R1-100",
+						"source-tp": "enp130s0.100"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "VRR1-POD-B-200",
+						"dest-tp": "em1.200"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB1-P47-V200-VRR1-POD-B-200",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC1-FB1",
+						"source-tp": "te-1/1/47.200"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB1",
+						"dest-tp": "te-1/1/47.200"
+					  },
+					  "link-cost": 1,
+					  "link-id": "VRR1-POD-B-200-DC1-FB1-P47-V200",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "VRR1-POD-B-200",
+						"source-tp": "em1.200"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "VRR1-POD-B-201",
+						"dest-tp": "em1.201"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB1-P47-V201-VRR1-POD-B-201",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC1-FB1",
+						"source-tp": "te-1/1/47.201"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB1",
+						"dest-tp": "te-1/1/47.201"
+					  },
+					  "link-cost": 1,
+					  "link-id": "VRR1-POD-B-201-DC1-FB1-P47-V201",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "VRR1-POD-B-201",
+						"source-tp": "em1.201"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "VRR1-POD-C-300",
+						"dest-tp": "em1.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB1-P47-V300-VRR1-POD-C-300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC1-FB1",
+						"source-tp": "te-1/1/47.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB1",
+						"dest-tp": "te-1/1/47.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "VRR1-POD-C-300-DC1-FB1-P47-V300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "VRR1-POD-C-300",
+						"source-tp": "em1.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "POD-B1-R1-200",
+						"dest-tp": "FortyGigE1/0/25.200"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB1-P50-V200-POD-B1-R1-200",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC1-FB1",
+						"source-tp": "qe-1/1/50.200"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB1",
+						"dest-tp": "qe-1/1/50.200"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-B1-R1-200-DC1-FB1-P50-V200",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-B1-R1-200",
+						"source-tp": "FortyGigE1/0/25.200"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "POD-C1-R1-300",
+						"dest-tp": "swp49.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB1-P53-V300-POD-C1-R1-300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC1-FB1",
+						"source-tp": "qe-1/1/53.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB1",
+						"dest-tp": "qe-1/1/53.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-C1-R1-300-DC1-FB1-P53-V300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-C1-R1-300",
+						"source-tp": "swp49.300"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "POD-A1-R2-100",
+						"dest-tp": "enp130s0d1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB2-P1-V100-POD-A1-R2-100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC1-FB2",
+						"source-tp": "te-1/1/1.100"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB2",
+						"dest-tp": "te-1/1/1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-A1-R2-100-DC1-FB2-P1-V100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "POD-A1-R2-100",
+						"source-tp": "enp130s0d1.100"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "VRR2-POD-B-200",
+						"dest-tp": "em1.200"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB2-P47-V200-VRR2-POD-B-200",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC1-FB2",
+						"source-tp": "te-1/1/47.200"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB2",
+						"dest-tp": "te-1/1/47.200"
+					  },
+					  "link-cost": 1,
+					  "link-id": "VRR2-POD-B-200-DC1-FB2-P47-V200",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "VRR2-POD-B-200",
+						"source-tp": "em1.200"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "VRR2-POD-B-201",
+						"dest-tp": "em1.201"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB2-P47-V201-VRR2-POD-B-201",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC1-FB2",
+						"source-tp": "te-1/1/47.201"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB2",
+						"dest-tp": "te-1/1/47.201"
+					  },
+					  "link-cost": 1,
+					  "link-id": "VRR2-POD-B-201-DC1-FB2-P47-V201",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "VRR2-POD-B-201",
+						"source-tp": "em1.201"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "VRR2-POD-C-300",
+						"dest-tp": "em1.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB2-P47-V300-VRR2-POD-C-300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC1-FB2",
+						"source-tp": "te-1/1/47.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB2",
+						"dest-tp": "te-1/1/47.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "VRR2-POD-C-300-DC1-FB2-P47-V300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "VRR2-POD-C-300",
+						"source-tp": "em1.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "POD-B1-R2-201",
+						"dest-tp": "FortyGigE1/0/26.201"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB2-P50-V201-POD-B1-R2-201",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC1-FB2",
+						"source-tp": "qe-1/1/50.201"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB2",
+						"dest-tp": "qe-1/1/50.201"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-B1-R2-201-DC1-FB2-P50-V201",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-B1-R2-201",
+						"source-tp": "FortyGigE1/0/26.201"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "POD-C1-R2-300",
+						"dest-tp": "swp49.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC1-FB2-P53-V300-POD-C1-R2-300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC1-FB2",
+						"source-tp": "qe-1/1/53.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC1-FB2",
+						"dest-tp": "qe-1/1/53.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-C1-R2-300-DC1-FB2-P53-V300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-C1-R2-300",
+						"source-tp": "swp49.300"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "POD-A2-R1-100",
+						"dest-tp": "enp130s0.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC2-FB1-P1-V100-POD-A2-R1-100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC2-FB1",
+						"source-tp": "te-1/1/1.100"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC2-FB1",
+						"dest-tp": "te-1/1/1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-A2-R1-100-DC2-FB1-P1-V100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "POD-A2-R1-100",
+						"source-tp": "enp130s0.100"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "POD-B2-R1-203",
+						"dest-tp": "FortyGigE1/0/27.203"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC2-FB1-P50-V203-POD-B2-R1-203",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC2-FB1",
+						"source-tp": "qe-1/1/50.203"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC2-FB1",
+						"dest-tp": "qe-1/1/50.203"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-B2-R1-203-DC2-FB1-P50-V203",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-B2-R1-203",
+						"source-tp": "FortyGigE1/0/27.203"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "POD-C2-R1-300",
+						"dest-tp": "swp49.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC2-FB1-P53-V300-POD-C2-R1-300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC2-FB1",
+						"source-tp": "qe-1/1/53.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC2-FB1",
+						"dest-tp": "qe-1/1/53.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-C2-R1-300-DC2-FB1-P53-V300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-C2-R1-300",
+						"source-tp": "swp49.300"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "POD-A2-R2-100",
+						"dest-tp": "enp130s0d1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC2-FB2-P1-V100-POD-A2-R2-100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC2-FB2",
+						"source-tp": "te-1/1/1.100"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC2-FB2",
+						"dest-tp": "te-1/1/1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-A2-R2-100-DC2-FB2-P1-V100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "POD-A2-R2-100",
+						"source-tp": "enp130s0d1.100"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "POD-B2-R2-204",
+						"dest-tp": "FortyGigE1/0/28.204"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC2-FB2-P50-V204-POD-B2-R2-204",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC2-FB2",
+						"source-tp": "qe-1/1/50.204"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC2-FB2",
+						"dest-tp": "qe-1/1/50.204"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-B2-R2-204-DC2-FB2-P50-V204",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-B2-R2-204",
+						"source-tp": "FortyGigE1/0/28.204"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "POD-C2-R2-300",
+						"dest-tp": "swp49.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC2-FB2-P53-V300-POD-C2-R2-300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC2-FB2",
+						"source-tp": "qe-1/1/53.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC2-FB2",
+						"dest-tp": "qe-1/1/53.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-C2-R2-300-DC2-FB2-P53-V300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-C2-R2-300",
+						"source-tp": "swp49.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "POD-A3-R1-100",
+						"dest-tp": "enp130s0.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC3-FB1-P1-V100-POD-A3-R1-100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC3-FB1",
+						"source-tp": "te-1/1/1.100"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC3-FB1",
+						"dest-tp": "te-1/1/1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-A3-R1-100-DC3-FB1-P1-V100",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "POD-A3-R1-100",
+						"source-tp": "enp130s0.100"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "POD-C3-R1-300",
+						"dest-tp": "swp49.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC3-FB1-P53-V300-POD-C3-R1-300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC3-FB1",
+						"source-tp": "qe-1/1/53.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC3-FB1",
+						"dest-tp": "qe-1/1/53.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-C3-R1-300-DC3-FB1-P53-V300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-C3-R1-300",
+						"source-tp": "swp49.300"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "POD-A3-R2-100",
+						"dest-tp": "enp130s0d1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC3-FB2-P1-V100-POD-A3-R2-100",
+					  "link-validate": "do-not-validate",					  
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "DC3-FB2",
+						"source-tp": "te-1/1/1.100"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC3-FB2",
+						"dest-tp": "te-1/1/1.100"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-A3-R2-100-DC3-FB2-P1-V100",
+					  "link-validate": "do-not-validate",					  
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 10
+					  },
+					  "source": {
+						"source-node": "POD-A3-R2-100",
+						"source-tp": "enp130s0d1.100"
+					  }
+					},					
+					{
+					  "destination": {
+						"dest-node": "POD-C3-R2-300",
+						"dest-tp": "swp49.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "DC3-FB2-P53-V300-POD-C3-R2-300",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "DC3-FB2",
+						"source-tp": "qe-1/1/53.300"
+					  }
+					},
+					{
+					  "destination": {
+						"dest-node": "DC3-FB2",
+						"dest-tp": "qe-1/1/53.300"
+					  },
+					  "link-cost": 1,
+					  "link-id": "POD-C3-R2-300-DC3-FB2-P53-V300",
+					  "link-validate": "do-not-validate",
+					  "max-bandwidth": {
+						"unit": "Gbps",
+						"value": 40
+					  },
+					  "source": {
+						"source-node": "POD-C3-R2-300",
+						"source-tp": "swp49.300"
+					  }
+					},
+					{
+						"destination": {
+							"dest-node": "DC2-FB1",
+							"dest-tp": "te-1/1/2"
+						},
+						"link-cost": 10,
+						"link-group-id": ["DC1-FB1-DC2-FB1-G1"],
+						"link-id": "DC1-FB1-P2-DC2-FB1-P2",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 10
+						},
+						"source": {
+							"source-node": "DC1-FB1",
+							"source-tp": "te-1/1/2"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC1-FB1",
+							"dest-tp": "te-1/1/2"
+						},
+						"link-cost": 10,
+						"link-group-id": ["DC2-FB1-DC1-FB1-G1"],
+						"link-id": "DC2-FB1-P2-DC1-FB1-P2",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 10
+						},
+						"source": {
+							"source-node": "DC2-FB1",
+							"source-tp": "te-1/1/2"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC3-FB1",
+							"dest-tp": "te-1/1/2"
+						},
+						"link-cost": 10,
+						"link-group-id": ["DC1-FB1-DC3-FB1-G1"],
+						"link-id": "DC1-FB1-P4-DC3-FB1-P2",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 10
+						},
+						"source": {
+							"source-node": "DC1-FB1",
+							"source-tp": "te-1/1/4"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC1-FB1",
+							"dest-tp": "te-1/1/4"
+						},
+						"link-cost": 10,
+						"link-group-id": ["DC3-FB1-DC1-FB1-G1"],
+						"link-id": "DC3-FB1-P2-DC1-FB1-P4",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 10
+						},
+						"source": {
+							"source-node": "DC3-FB1",
+							"source-tp": "te-1/1/2"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC3-FB1",
+							"dest-tp": "te-1/1/4"
+						},
+						"link-cost": 10,
+						"link-group-id": ["DC2-FB1-DC3-FB1-G1"],
+						"link-id": "DC2-FB1-P4-DC3-FB1-P4",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 10
+						},
+						"source": {
+							"source-node": "DC2-FB1",
+							"source-tp": "te-1/1/4"
+						}
+					},
+					{
+						"destination": {
+							"dest-node": "DC2-FB1",
+							"dest-tp": "te-1/1/4"
+						},
+						"link-cost": 10,
+						"link-group-id": ["DC3-FB1-DC2-FB1-G1"],
+						"link-id": "DC3-FB1-P4-DC2-FB1-P4",
+						"link-validate": "do-not-validate",
+						"max-bandwidth": {
+							"unit": "Gbps",
+							"value": 10
+						},
+						"source": {
+							"source-node": "DC3-FB1",
+							"source-tp": "te-1/1/4"
+						}
+					}],
+					"node": [{
+						  "datapath-id": "0xfb11480fcfafd515",
+						  "datapath-type": "pica8",
+						  "forwarding-box-name": "DC1-FB1",
+						  "node-id": "DC1-FB1",
+						  "termination-point": [
+							{
+							  "fb-port-name": "te-1/1/1",
+							  "vlan-id": "100",
+							  "ip-address-and-subnet": [
+								"169.254.1.30/27",
+								"fdf8::1:fe/120"
+							  ],
+							  "tp-id": "te-1/1/1.100"
+							},
+							{
+							  "fb-port-name": "te-1/1/2",
+							  "tp-id": "te-1/1/2"
+							},
+							{
+							  "fb-port-name": "te-1/1/4",
+							  "tp-id": "te-1/1/4"
+							},
+							{
+							  "fb-port-name": "te-1/1/6",
+							  "tp-id": "te-1/1/6"
+							},
+							{
+							  "fb-port-name": "te-1/1/8",
+							  "tp-id": "te-1/1/8"
+							},
+							{
+							  "fb-port-name": "te-1/1/10",
+							  "tp-id": "te-1/1/10"
+							},
+							{
+							  "fb-port-name": "te-1/1/47",
+							  "vlan-id": "200",
+							  "ip-address-and-subnet": [
+								"169.254.2.14/28",
+								"fdf8::2:7e/121"
+							  ],
+							  "tp-id": "te-1/1/47.200"
+							},
+							{
+							  "fb-port-name": "te-1/1/47",
+							  "vlan-id": "201",
+							  "ip-address-and-subnet": [
+								"169.254.2.30/28",
+								"fdf8::2:fe/121"
+							  ],
+							  "tp-id": "te-1/1/47.201"
+							},
+							{
+							  "fb-port-name": "te-1/1/47",
+							  "vlan-id": "300",
+							  "ip-address-and-subnet": [
+								"169.254.3.30/27",
+								"fdf8::3:fe/120"
+							  ],
+							  "tp-id": "te-1/1/47.300"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/49",
+							  "tp-id": "qe-1/1/49"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/50",
+							  "vlan-id": "200",
+							  "ip-address-and-subnet": [
+								"169.254.2.14/28",
+								"fdf8::2:7e/121"
+							  ],
+							  "tp-id": "qe-1/1/50.200"
+							},
+							{
+							  "fb-port-name": "qe-1/1/52",
+							  "tp-id": "qe-1/1/52"
+							},
+							{
+							  "fb-port-name": "qe-1/1/53",
+							  "vlan-id": "300",
+							  "ip-address-and-subnet": [
+								"169.254.3.30/27",
+								"fdf8::3:fe/120"
+							  ],
+							  "tp-id": "qe-1/1/53.300"
+							}							
+						  ],
+						  "type": "forwarding-box"
+						},
+						{
+						  "datapath-id": "0xfb12480fcfafc5cb",
+						  "datapath-type": "pica8",
+						  "forwarding-box-name": "DC1-FB2",
+						  "node-id": "DC1-FB2",
+						  "termination-point": [
+							{
+							  "fb-port-name": "te-1/1/1",
+							  "vlan-id": "100",
+							  "ip-address-and-subnet": [
+								"169.254.1.30/27",
+								"fdf8::1:fe/120"
+							  ],
+							  "tp-id": "te-1/1/1.100"
+							},
+							{
+							  "fb-port-name": "te-1/1/2",
+							  "tp-id": "te-1/1/2"
+							},
+							{
+							  "fb-port-name": "te-1/1/4",
+							  "tp-id": "te-1/1/4"
+							},
+							{
+							  "fb-port-name": "te-1/1/6",
+							  "tp-id": "te-1/1/6"
+							},
+							{
+							  "fb-port-name": "te-1/1/8",
+							  "tp-id": "te-1/1/8"
+							},
+							{
+							  "fb-port-name": "te-1/1/10",
+							  "tp-id": "te-1/1/10"
+							},							
+							{
+							  "fb-port-name": "te-1/1/47",
+							  "vlan-id": "200",
+							  "ip-address-and-subnet": [
+								"169.254.2.14/28",
+								"fdf8::2:7e/121"
+							  ],
+							  "tp-id": "te-1/1/47.200"
+							},
+							{
+							  "fb-port-name": "te-1/1/47",
+							  "vlan-id": "201",
+							  "ip-address-and-subnet": [
+								"169.254.2.30/28",
+								"fdf8::2:fe/121"
+							  ],
+							  "tp-id": "te-1/1/47.201"
+							},
+							{
+							  "fb-port-name": "te-1/1/47",
+							  "vlan-id": "300",
+							  "ip-address-and-subnet": [
+								"169.254.3.30/27",
+								"fdf8::3:fe/120"
+							  ],
+							  "tp-id": "te-1/1/47.300"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/49",
+							  "tp-id": "qe-1/1/49"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/50",
+							  "vlan-id": "201",
+							  "ip-address-and-subnet": [
+								"169.254.2.30/28",
+								"fdf8::2:fe/121"
+							  ],
+							  "tp-id": "qe-1/1/50.201"
+							},
+							{
+							  "fb-port-name": "qe-1/1/52",
+							  "tp-id": "qe-1/1/52"
+							},
+							{
+							  "fb-port-name": "qe-1/1/53",
+							  "vlan-id": "300",
+							  "ip-address-and-subnet": [
+								"169.254.3.30/27",
+								"fdf8::3:fe/120"
+							  ],
+							  "tp-id": "qe-1/1/53.300"
+							}							
+						  ],
+						  "type": "forwarding-box"
+						},						
+						{
+						  "datapath-id": "0xfb13480fcfafd55f",
+						  "datapath-type": "pica8",
+						  "forwarding-box-name": "DC2-FB1",
+						  "node-id": "DC2-FB1",
+						  "termination-point": [
+							{
+							  "fb-port-name": "te-1/1/1",
+							  "vlan-id": "100",
+							  "ip-address-and-subnet": [
+								"169.254.1.30/27",
+								"fdf8::1:fe/120"
+							  ],
+							  "tp-id": "te-1/1/1.100"
+							},
+							{
+							  "fb-port-name": "te-1/1/2",
+							  "tp-id": "te-1/1/2"
+							},
+							{
+							  "fb-port-name": "te-1/1/4",
+							  "tp-id": "te-1/1/4"
+							},
+							{
+							  "fb-port-name": "te-1/1/6",
+							  "tp-id": "te-1/1/6"
+							},
+							{
+							  "fb-port-name": "te-1/1/8",
+							  "tp-id": "te-1/1/8"
+							},
+							{
+							  "fb-port-name": "te-1/1/10",
+							  "tp-id": "te-1/1/10"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/49",
+							  "tp-id": "qe-1/1/49"
+							},
+							{
+							  "fb-port-name": "qe-1/1/50",
+							  "vlan-id": "203",
+							  "ip-address-and-subnet": [
+								"169.254.2.14/28",
+								"fdf8::2:7e/121"
+							  ],
+							  "tp-id": "qe-1/1/50.203"
+							},
+							{
+							  "fb-port-name": "qe-1/1/52",
+							  "tp-id": "qe-1/1/52"
+							},
+							{
+							  "fb-port-name": "qe-1/1/53",
+							  "vlan-id": "300",
+							  "ip-address-and-subnet": [
+								"169.254.3.30/27",
+								"fdf8::3:fe/120"
+							  ],
+							  "tp-id": "qe-1/1/53.300"
+							}							
+						  ],
+						  "type": "forwarding-box"
+						},
+						{
+						  "datapath-id": "0xfb14480fcfafe5d1",
+						  "datapath-type": "pica8",
+						  "forwarding-box-name": "DC2-FB2",
+						  "node-id": "DC2-FB2",
+						  "termination-point": [
+							{
+							  "fb-port-name": "te-1/1/1",
+							  "vlan-id": "100",
+							  "ip-address-and-subnet": [
+								"169.254.1.30/27",
+								"fdf8::1:fe/120"
+							  ],
+							  "tp-id": "te-1/1/1.100"
+							},
+							{
+							  "fb-port-name": "te-1/1/2",
+							  "tp-id": "te-1/1/2"
+							},
+							{
+							  "fb-port-name": "te-1/1/4",
+							  "tp-id": "te-1/1/4"
+							},
+							{
+							  "fb-port-name": "te-1/1/6",
+							  "tp-id": "te-1/1/6"
+							},
+							{
+							  "fb-port-name": "te-1/1/8",
+							  "tp-id": "te-1/1/8"
+							},
+							{
+							  "fb-port-name": "te-1/1/10",
+							  "tp-id": "te-1/1/10"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/49",
+							  "tp-id": "qe-1/1/49"
+							},
+							{
+							  "fb-port-name": "qe-1/1/50",
+							  "vlan-id": "204",
+							  "ip-address-and-subnet": [
+								"169.254.2.30/28",
+								"fdf8::2:fe/121"
+							  ],
+							  "tp-id": "qe-1/1/50.204"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/52",
+							  "tp-id": "qe-1/1/52"
+							},
+							{
+							  "fb-port-name": "qe-1/1/53",
+							  "vlan-id": "300",
+							  "ip-address-and-subnet": [
+								"169.254.3.30/27",
+								"fdf8::3:fe/120"
+							  ],
+							  "tp-id": "qe-1/1/53.300"
+							}							
+						  ],
+						  "type": "forwarding-box"
+						},
+						{
+						  "datapath-id": "0xfb15480fcfaf166b",
+						  "datapath-type": "pica8",
+						  "forwarding-box-name": "DC3-FB1",
+						  "node-id": "DC3-FB1",
+						  "termination-point": [
+							{
+							  "fb-port-name": "te-1/1/1",
+							  "vlan-id": "100",
+							  "ip-address-and-subnet": [
+								"169.254.1.30/27",
+								"fdf8::1:fe/120"
+							  ],
+							  "tp-id": "te-1/1/1.100"
+							},
+							{
+							  "fb-port-name": "te-1/1/2",
+							  "tp-id": "te-1/1/2"
+							},
+							{
+							  "fb-port-name": "te-1/1/4",
+							  "tp-id": "te-1/1/4"
+							},
+							{
+							  "fb-port-name": "te-1/1/6",
+							  "tp-id": "te-1/1/6"
+							},
+							{
+							  "fb-port-name": "te-1/1/8",
+							  "tp-id": "te-1/1/8"
+							},
+							{
+							  "fb-port-name": "te-1/1/10",
+							  "tp-id": "te-1/1/10"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/49",
+							  "tp-id": "qe-1/1/49"
+							},
+							{
+							  "fb-port-name": "qe-1/1/52",
+							  "tp-id": "qe-1/1/52"
+							},
+							{
+							  "fb-port-name": "qe-1/1/53",
+							  "vlan-id": "300",
+							  "ip-address-and-subnet": [
+								"169.254.3.30/27",
+								"fdf8::3:fe/120"
+							  ],
+							  "tp-id": "qe-1/1/53.300"
+							}							
+						  ],
+						  "type": "forwarding-box"
+						},					
+						{
+						  "datapath-id": "0xfb16480fcfaff51b",
+						  "datapath-type": "pica8",
+						  "forwarding-box-name": "DC3-FB2",
+						  "node-id": "DC3-FB2",
+						  "termination-point": [
+							{
+							  "fb-port-name": "te-1/1/1",
+							  "vlan-id": "100",
+							  "ip-address-and-subnet": [
+								"169.254.1.30/27",
+								"fdf8::1:fe/120"
+							  ],
+							  "tp-id": "te-1/1/1.100"
+							},
+							{
+							  "fb-port-name": "te-1/1/2",
+							  "tp-id": "te-1/1/2"
+							},
+							{
+							  "fb-port-name": "te-1/1/4",
+							  "tp-id": "te-1/1/4"
+							},
+							{
+							  "fb-port-name": "te-1/1/6",
+							  "tp-id": "te-1/1/6"
+							},
+							{
+							  "fb-port-name": "te-1/1/8",
+							  "tp-id": "te-1/1/8"
+							},
+							{
+							  "fb-port-name": "te-1/1/10",
+							  "tp-id": "te-1/1/10"
+							},							
+							{
+							  "fb-port-name": "qe-1/1/49",
+							  "tp-id": "qe-1/1/49"
+							},
+							{
+							  "fb-port-name": "qe-1/1/52",
+							  "tp-id": "qe-1/1/52"
+							},
+							{
+							  "fb-port-name": "qe-1/1/53",
+							  "vlan-id": "300",
+							  "ip-address-and-subnet": [
+								"169.254.3.30/27",
+								"fdf8::3:fe/120"
+							  ],
+							  "tp-id": "qe-1/1/53.300"
+							}							
+						  ],
+						  "type": "forwarding-box"
+						},
+						{
+						  "node-id": "POD-A1-R1-100",
+						  "subnets": {
+							"static-subnet": [
+							  {
+								"subnet-id": "100.20.16.0/20"
+							  },
+							  {
+								"subnet-id": "10.16.0.0/16"
+							  },
+							  {
+								"subnet-id": "200.20.16.0/20"
+							  },
+							  {
+								"subnet-id": "2001:4888:0:100::/56"
+							  },
+							  {
+								"subnet-id": "fdf8:72c6:95f8:100::/56"
+							  },
+							  {
+								"subnet-id": "2600:1000:0:100::/56"
+							  }
+							]
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "enp130s0.100",
+							  "ip-address": [
+								"169.254.1.1",
+								"fdf8::1:1"
+							  ],
+							  "tp-id": "enp130s0.100"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-A1-R2-100",
+						  "subnets": {
+							"static-subnet": [
+							  {
+								"subnet-id": "100.20.16.0/20"
+							  },
+							  {
+								"subnet-id": "10.16.0.0/16"
+							  },
+							  {
+								"subnet-id": "200.20.16.0/20"
+							  },
+							  {
+								"subnet-id": "2001:4888:0:100::/56"
+							  },
+							  {
+								"subnet-id": "fdf8:72c6:95f8:100::/56"
+							  },
+							  {
+								"subnet-id": "2600:1000:0:100::/56"
+							  }
+							]
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "enp130s0d1.100",
+							  "ip-address": [
+								"169.254.1.2",
+								"fdf8::1:2"
+							  ],
+							  "tp-id": "enp130s0d1.100"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-A2-R1-100",
+						  "subnets": {
+							"static-subnet": [
+							  {
+								"subnet-id": "100.20.32.0/20"
+							  },
+							  {
+								"subnet-id": "10.17.0.0/16"
+							  },
+							  {
+								"subnet-id": "200.20.32.0/20"
+							  },
+							  {
+								"subnet-id": "2001:4888:0:200::/56"
+							  },
+							  {
+								"subnet-id": "fdf8:72c6:95f8:200::/56"
+							  },
+							  {
+								"subnet-id": "2600:1000:0:200::/56"
+							  }
+							]
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "enp130s0.100",
+							  "ip-address": [
+								"169.254.1.3",
+								"fdf8::1:3"
+							  ],
+							  "tp-id": "enp130s0.100"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-A2-R2-100",
+						  "subnets": {
+							"static-subnet": [
+							  {
+								"subnet-id": "100.20.32.0/20"
+							  },
+							  {
+								"subnet-id": "10.17.0.0/16"
+							  },
+							  {
+								"subnet-id": "200.20.32.0/20"
+							  },
+							  {
+								"subnet-id": "2001:4888:0:200::/56"
+							  },
+							  {
+								"subnet-id": "fdf8:72c6:95f8:200::/56"
+							  },
+							  {
+								"subnet-id": "2600:1000:0:200::/56"
+							  }
+							]
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "enp130s0d1.100",
+							  "ip-address": [
+								"169.254.1.4",
+								"fdf8::1:4"
+							  ],
+							  "tp-id": "enp130s0d1.100"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-A3-R1-100",
+						  "subnets": {
+							"static-subnet": [
+							  {
+								"subnet-id": "100.20.48.0/20"
+							  },
+							  {
+								"subnet-id": "10.18.0.0/16"
+							  },
+							  {
+								"subnet-id": "200.20.48.0/20"
+							  },
+							  {
+								"subnet-id": "2001:4888:0:300::/56"
+							  },
+							  {
+								"subnet-id": "fdf8:72c6:95f8:300::/56"
+							  },
+							  {
+								"subnet-id": "2600:1000:0:300::/56"
+							  }
+							]
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "enp130s0.100",
+							  "ip-address": [
+								"169.254.1.5",
+								"fdf8::1:5"
+							  ],
+							  "tp-id": "enp130s0.100"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-A3-R2-100",
+						  "subnets": {
+							"static-subnet": [
+							  {
+								"subnet-id": "100.20.48.0/20"
+							  },
+							  {
+								"subnet-id": "10.18.0.0/16"
+							  },
+							  {
+								"subnet-id": "200.20.48.0/20"
+							  },
+							  {
+								"subnet-id": "2001:4888:0:300::/56"
+							  },
+							  {
+								"subnet-id": "fdf8:72c6:95f8:300::/56"
+							  },
+							  {
+								"subnet-id": "2600:1000:0:300::/56"
+							  }
+							]
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "enp130s0d1.100",
+							  "ip-address": [
+								"169.254.1.6",
+								"fdf8::1:6"
+							  ],
+							  "tp-id": "enp130s0d1.100"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-B1-R1-200",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "FortyGigE1/0/25.200",
+							  "ip-address": [
+								"169.254.2.1",
+								"fdf8::2:1"
+							  ],
+							  "tp-id": "FortyGigE1/0/25.200"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-B1-R2-201",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "FortyGigE1/0/26.201",
+							  "ip-address": [
+								"169.254.2.17",
+								"fdf8::2:81"
+							  ],
+							  "tp-id": "FortyGigE1/0/26.201"
+							}
+						  ],
+						  "type": "host"
+						},						
+						{
+						  "node-id": "POD-B2-R1-203",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "FortyGigE1/0/27.203",
+							  "ip-address": [
+								"169.254.2.2",
+								"fdf8::2:2"
+							  ],
+							  "tp-id": "FortyGigE1/0/27.203"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-B2-R2-204",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "FortyGigE1/0/28.204",
+							  "ip-address": [
+								"169.254.2.18",
+								"fdf8::2:82"
+							  ],
+							  "tp-id": "FortyGigE1/0/28.204"
+							}
+						  ],
+						  "type": "host"
+						},						
+						{
+						  "node-id": "POD-C1-R1-300",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "swp49.300",
+							  "ip-address": [
+								"169.254.3.1",
+								"fdf8::3:1"
+							  ],
+							  "tp-id": "swp49.300"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-C1-R2-300",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "swp49.300",
+							  "ip-address": [
+								"169.254.3.2",
+								"fdf8::3:2"
+							  ],
+							  "tp-id": "swp49.300"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-C2-R1-300",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "swp49.300",
+							  "ip-address": [
+								"169.254.3.3",
+								"fdf8::3:3"
+							  ],
+							  "tp-id": "swp49.300"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-C2-R2-300",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "swp49.300",
+							  "ip-address": [
+								"169.254.3.4",
+								"fdf8::3:4"
+							  ],
+							  "tp-id": "swp49.300"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-C3-R1-300",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "swp49.300",
+							  "ip-address": [
+								"169.254.3.5",
+								"fdf8::3:5"
+							  ],
+							  "tp-id": "swp49.300"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "POD-C3-R2-300",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "swp49.300",
+							  "ip-address": [
+								"169.254.3.6",
+								"fdf8::3:6"
+							  ],
+							  "tp-id": "swp49.300"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "VRR1-POD-B-200",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "em1.200",
+							  "ip-address": [
+								"169.254.2.12",
+								"fdf8::2:7c"
+							  ],
+							  "tp-id": "em1.200"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "VRR1-POD-B-201",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "em1.201",
+							  "ip-address": [
+								"169.254.2.28",
+								"fdf8::2:fc"
+							  ],
+							  "tp-id": "em1.201"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "VRR1-POD-C-300",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "em1.300",
+							  "ip-address": [
+								"169.254.3.28",
+								"fdf8::3:fc"
+							  ],
+							  "tp-id": "em1.300"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "VRR2-POD-B-200",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "em1.200",
+							  "ip-address": [
+								"169.254.2.13",
+								"fdf8::2:7d"
+							  ],
+							  "tp-id": "em1.200"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "VRR2-POD-B-201",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "em1.201",
+							  "ip-address": [
+								"169.254.2.29",
+								"fdf8::2:fd"
+							  ],
+							  "tp-id": "em1.201"
+							}
+						  ],
+						  "type": "host"
+						},
+						{
+						  "node-id": "VRR2-POD-C-300",
+						  "subnets": {
+							"static-subnet": []
+						  },
+						  "termination-point": [
+							{
+							  "host-port-name": "em1.300",
+							  "ip-address": [
+								"169.254.3.29",
+								"fdf8::3:fd"
+							  ],
+							  "tp-id": "em1.300"
+							}
+						  ],
+						  "type": "host"
+						}
+					]
+				}],
+				"port-mappings": {
+					"port-mapping": [
+					{
+						"fb-node": "DC1-FB1",
+						"node-port-mapping": [{
+							"fb-port": "te-1/1/2",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-1",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}, 
+						{
+							"fb-port": "te-1/1/4",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-2",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}, 
+						{
+							"fb-port": "te-1/1/6",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-3",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/8",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-4",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/10",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-5",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}]
+					}, 
+					{
+						"fb-node": "DC1-FB2",
+						"node-port-mapping": [{
+							"fb-port": "te-1/1/2",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-6",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/4",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-7",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/6",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-8",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/8",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-9",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/10",
+							"l1-switch-node": "DC1-OS1",
+							"l1-switch-port": "210-1-10",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}]
+					}, 
+					{
+						"fb-node": "DC2-FB1",
+						"node-port-mapping": [{
+							"fb-port": "te-1/1/2",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-1",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}, 
+						{
+							"fb-port": "te-1/1/4",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-2",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}, 
+						{
+							"fb-port": "te-1/1/6",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-3",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/8",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-4",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/10",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-5",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}]
+					}, 
+					{
+						"fb-node": "DC2-FB2",
+						"node-port-mapping": [{
+							"fb-port": "te-1/1/2",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-6",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/4",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-7",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/6",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-8",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/8",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-9",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/10",
+							"l1-switch-node": "DC2-OS1",
+							"l1-switch-port": "211-1-10",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}]
+					},
+					{
+						"fb-node": "DC3-FB1",
+						"node-port-mapping": [{
+							"fb-port": "te-1/1/2",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-1",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}, 
+						{
+							"fb-port": "te-1/1/4",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-2",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}, 
+						{
+							"fb-port": "te-1/1/6",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-3",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/8",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-4",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/10",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-5",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}]
+					}, 
+					{
+						"fb-node": "DC3-FB2",
+						"node-port-mapping": [{
+							"fb-port": "te-1/1/2",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-6",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/4",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-7",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/6",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-8",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/8",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-9",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						},
+						{
+							"fb-port": "te-1/1/10",
+							"l1-switch-node": "DC3-OS1",
+							"l1-switch-port": "212-1-10",
+							"max-bandwidth": {
+								"unit": "Gbps",
+								"value": 10
+							}
+						}]
+					}]
+				}
+			}
+		}
+	},
+	"providerResourceId": "",
+	"discovered": false,
+	"orchState": "unknown",
+	"reason": "",
+	"autoClean": true,
+	"description": "Provisioned Topology"
+}

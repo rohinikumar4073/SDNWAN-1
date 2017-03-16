@@ -17,7 +17,7 @@ define([
                 "items": {
                     "type": "object",
                     "required": [
-                        "shelf", "slot", "subSlot", "port"
+                        "shelf", "slot", "subSlot"
                     ],
                     "properties": {
                         "shelf": {
@@ -31,10 +31,6 @@ define([
                         "subSlot": {
                             "type": "integer",
                             "title": "SubSlot"
-                        },
-                        "port": {
-                            "type": "integer",
-                            "title": "Port"
                         }
                     }
                 }
@@ -51,9 +47,6 @@ define([
                     classNames: "row col-sm-3 osMargin"
                 },
                 "subSlot": {
-                    classNames: "row col-sm-3 osMargin"
-                },
-                "port": {
                     classNames: "row col-sm-3 osMargin"
                 }
             }
@@ -101,11 +94,11 @@ define([
             if(dat.nodes.length == 0){
               return true;
             }
-            for(var i=0;i<dat.nodes.length;i++){
+            for(var i = 0; i < dat.nodes.length ; i++){
               if(dat.nodes[i].label == osname){
                 return false;
               }
-              else if(i==dat.nodes.length-1){
+              else if(i == dat.nodes.length-1){
                 return true;
               }
               else {
@@ -162,8 +155,7 @@ define([
                     }
                     if (data.listOfPorts) {
                         data.listOfPorts.forEach(function(v, i) {
-                          var portData=data.name + ":" + "Shelf: " + v.shelf + " Slot: " + v.slot + " Subslot: " + v.subSlot + " Port: " + v.port;
-
+                          var portData=v.shelf + "-" + v.slot + "-"+ v.subSlot;
                           if( data.ports.indexOf(portData)==-1){
                             portDetails.push({
                                 name: portData,

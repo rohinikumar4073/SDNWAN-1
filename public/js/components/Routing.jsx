@@ -1,6 +1,8 @@
 define([
-    'react', 'jsx!components/Container',  'jsx!components/Policy', 'jsx!components/Header', 'jsx!components/Bgp', 'jsx!components/Configuration','jsx!components/Logs','jsx!components/Inventory'
-], function(React, Container,Policy,Header,Bgp,Configuration,Logs,Inventory) {
+    'react', 'jsx!components/Container',  'jsx!components/Policy', 'jsx!components/Header', 'jsx!components/Bgp', 'jsx!components/Configuration','jsx!components/Logs',
+    'jsx!components/Inventory',
+    'jsx!components/Vlan'
+], function(React, Container,Policy,Header,Bgp,Configuration,Logs,Inventory,Vlan) {
 
     var RoutingFile = React.createClass({
       getInitialState:function(){
@@ -10,6 +12,7 @@ define([
       },
       setLink:function(value){
         this.setState({displayPage:value})
+        	$(".n-topology-tooltip").hide()
         $(".navbar-header .navbar-toggle").click()
         console.log(value);
 
@@ -39,12 +42,14 @@ define([
                       ? <Policy/>
                     : ( this.state.displayPage == 'Bgp'
                       ? <Bgp/>
+                    : ( this.state.displayPage == 'Vlan'
+                        ? <Vlan/>
                     : ( this.state.displayPage == 'Configuration'
                       ? <Configuration/>
                     : ( this.state.displayPage == 'Logs'
                         ? <Logs/>
                     : ""
-                  )))))
+                  ))))))
               }</div>
             );
         }

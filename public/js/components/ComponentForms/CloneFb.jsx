@@ -118,13 +118,15 @@ define([
                             axios.get(properties.nodeIp + "/getKey?key=" + self.props.node.get("label") + "_opticalData").then(function(response) {
                                 var formData = response.data;
                                 formData.name = fbname;
-                                var portsArray = NodeService.convertOpticalPorttoStrings(formData.listOfPorts, fbname);
+                                //var portsArray = NodeService.convertOpticalPorttoStrings(formData.listOfPorts, fbname);
+                                formData.listOfPorts = "";
+                                formData.ports = "";
                                 axios.all([
                                     self.saveNodeData({
                                         value: formData,
                                         key: fbname + "_opticalData"
                                     }),
-                                    self.savePortData(formData, portsArray)
+                                    //self.savePortData(formData, portsArray)
                                 ]).then(axios.spread(function(response1, response2) {
                                     // Both requests are now complete
                                     var coordinates = {

@@ -1,6 +1,7 @@
 define([
-  'react', 'jquery', 'properties', 'react-jsonschema-form','toastr','agGrid','reactCellRendererFactory','reactFilterFactory'
-], function(React, $, properties, Form, toastr,agGridReact,reactCellRendererFactory,reactFilterFactory){
+  'react', 'jquery', 'properties', 'react-jsonschema-form','toastr','agGrid','reactCellRendererFactory','reactFilterFactory','services/renderService'
+], function(React, $, properties, Form, toastr,agGridReact,reactCellRendererFactory,reactFilterFactory,renderService){
+  var editMode;
   var FormConfigurational = Form.default;
   var AgGridReactGRID=agGridReact.AgGridReact;
 
@@ -15,10 +16,6 @@ define([
                 "type": "string",
                 "title": "FB IP"
               },
-              "datapath_id": {
-                "type": "string",
-                "title": "Datapath ID"
-              },
               "controller_ip": {
                 "type": "array",
                 "title": "Controller IP",
@@ -28,54 +25,116 @@ define([
               }
             }
           },
-          uiSchema: {},
+          uiSchema: {
+            "fb_ip":{
+              classNames: "row col-md-12 osMargin"
+            },
+            "controller_ip":{
+              classNames: "row col-md-12 osMargin"
+            }
+          },
           formData: {}
 
         }
       },
 
       onSubmit: function(e){
+        var a =[];
+        var toggleStatus;
         var val = this.props.mode;
-        if(val == "deploy"){
-          e.formData["datapath_id"] = "";
+        var portData = renderService.getRadioStatus();
+        portData.forEach(function(v,i){
+          var individualPorts = {
+            "port": {
+              "is_dac": v.status,
+              "name": v.name,
+              "speed": ""
+            },
+            "activationStatus": v.toggle
+          }
+          a.push(individualPorts);
+        })
+
+        if(editMode == "edit" && val == "save"){
+          val = "";
           var jsonData = e.formData;
           var fbname = this.props.fbName;
-          var postURL = properties.rmsIp + fbname + "/composite/deploy";
-          console.log(e.formData);
+          var postURL = properties.rmsIp + fbname + "/Composite";
+          var dataToBeSent = {
+            "controller_ip": e.formData.controller_ip,
+            "fb_ip": e.formData.fb_ip,
+            "listPort": a,
+          };
+          debugger;
           $.ajax({
             url: postURL,
             method: 'POST',
-            data: JSON.stringify(jsonData),
+            data: JSON.stringify(dataToBeSent),
+            contentType: "application/json; charset=utf-8",
+            success: function(data){
+              toastr.success("Data successfully edited");
+              a = [];
+            },
+            error: function(data){
+              toastr.error("Could not edit the data successfully");
+            }
+          })
+        }
+
+        if(val == "deploy"){
+          var jsonData = e.formData;
+          var fbname = this.props.fbName;
+          var postURL = properties.rmsIp + fbname + "/deployComposite";
+          console.log(e.formData);
+          var dataToBeSent = {
+            "controller_ip": e.formData.controller_ip,
+            "fb_ip": e.formData.fb_ip,
+            "listPort": a,
+          };
+          debugger;
+          $.ajax({
+            url: postURL,
+            method: 'POST',
+            data: JSON.stringify(dataToBeSent),
             contentType: "application/json; charset=utf-8",
             success: function(data){
               toastr.success("Data successfully deployed");
+              a = [];
             },
             error: function(data){
               toastr.error("Could not deploy the data successfully");
             }
           })
         }
+
         else if (val == "save") {
-          e.formData["datapath_id"] = "";
           var jsonData = e.formData;
           var fbname = this.props.fbName;
-          var postURL = properties.rmsIp + fbname + "/composite/save";
-          console.log(e.formData);
+          debugger;
+          var postURL = properties.rmsIp + fbname + "/Composite";
+          var dataToBeSent = {
+            "controller_ip": e.formData.controller_ip,
+            "fb_ip": e.formData.fb_ip,
+            "listPort": a,
+          };
+          debugger;
           $.ajax({
             url: postURL,
             method: 'POST',
-            data: JSON.stringify(jsonData),
+            data: JSON.stringify(dataToBeSent),
             contentType: "application/json; charset=utf-8",
             success: function(data){
               toastr.success("Data successfully saved");
+              a = [];
             },
             error: function(data){
-              toastr.error("Could not deploy the data successfully");
+              toastr.error("Data could not be saved");
             }
           })
         }
       },
       componentDidMount: function(){
+        var controllerArray = [];
         var fbname = this.props.fbName;
         var getURL = properties.rmsIp + fbname + "/getConfigData";
         var self = this;
@@ -85,7 +144,18 @@ define([
           data: "",
           contentType: "application/json; charset=utf-8",
           success: function(result){
-            self.setState({formData: result})
+            debugger;
+            if(result){
+              result.controllers.forEach(function(v,i){
+                controllerArray.push(v.controller_ip);
+              })
+              result.controller_ip = controllerArray;
+              debugger;
+              self.setState({formData: result});
+              editMode = "edit";
+              debugger;
+            }
+
           },
           error: function(data){
             toastr.error("Could not get the data!");

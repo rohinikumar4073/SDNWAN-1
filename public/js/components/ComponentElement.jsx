@@ -106,6 +106,21 @@ define([
                     return;
 
                 }
+                else if(this.props.collection.name == "Dynamic Bandwidth Link"){
+                  var link = "";
+                  if (this.state.selectedLinkClass) {
+                      this.setState({selectedLinkClass: ""});
+                      link = "dynamicBandwidth_linkReset";
+                        $("#forLinkMode").hide();
+
+                  } else {
+                      this.setState({selectedLinkClass: "selected-link-class"});
+                      link = "dynamicBandwidth_linkSet";
+                        $("#forLinkMode").show();
+                  }
+                  this.props.topologyModel(link, this.props.collection.className);
+                  return;
+                }
             this.props.topologyModel(this.props.collection.name, this.props.collection.className);
         },
         render: function() {

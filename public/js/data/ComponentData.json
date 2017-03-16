@@ -21,7 +21,7 @@
         "materialId":"Material Id" ,
         "airFlow":"Airflow"
       },  {
-        "name": "Host",
+        "name": "Edge Node",
         "className": "host",
         "manufacturer":"Manufacturer1",
         "orderablePartNumber":"Orderable Part Number",
@@ -29,6 +29,9 @@
         "CLB":"CLB",
         "materialId":"Material Id" ,
         "airFlow":"Airflow"
+      }, {
+        "name": "BGP Server",
+        "className": "bgp"
       }, {
         "name": "link",
         "className": "link-icon fa-link",
@@ -39,8 +42,14 @@
         "materialId":"Material Id" ,
         "airFlow":"Airflow"
       },{
-        "name": "Virtual link",
-        "className": "fa-link virtual_link"
+        "name": "Dynamic Bandwidth Link",
+        "className": "dynamicBandwidth",
+        "manufacturer":"Manufacturer1",
+        "orderablePartNumber":"Orderable Part Number",
+        "description":"Description" ,
+        "CLB":"CLB",
+        "materialId":"Material Id" ,
+        "airFlow":"Airflow"
       }
 
     ]

@@ -107,6 +107,7 @@ define([
 
         },
         handleLinkClick: function(linkType) {
+          debugger;
             switch (linkType) {
                 case "whiteList":
                     this.setState({
@@ -116,7 +117,8 @@ define([
                             formData: {},
                             buttonClassName: ""
                         }
-                    });break;
+                    });
+                    break;
                 case "schedulePolicy":
                     this.setState({"schedulePolicyClassName": "modal-content policyCreate"});break;
                 case "vpnPolicy":

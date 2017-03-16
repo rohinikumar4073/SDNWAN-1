@@ -82,7 +82,6 @@ $( document ).on( "click", ".pathbundleCreate > fieldset > legend", function(e) 
     $(this).toggleClass('menu-open');
 
 });
-
 RoutingFile = React.createFactory(RoutingFile);
 var Dom=ReactDom.render(
       RoutingFile({"displayPage":"Container"}),

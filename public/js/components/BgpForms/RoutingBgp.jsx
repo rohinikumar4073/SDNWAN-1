@@ -32,7 +32,11 @@ define([
         }
     };
 
-    const uiSchema = {};
+    const uiSchema = {
+      "hostName":{
+        classNames: "routing"
+      }
+    };
     const formData = {};
     var RoutingBgpData= React.createClass({
         /*  onClick : function(e){

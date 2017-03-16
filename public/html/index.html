@@ -1,0 +1,125 @@
+
+<head>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="lib/next.css">
+    <link rel="stylesheet" href="link.css">
+
+    <script type="text/javascript" src="lib/next.js"></script>
+    <script type="text/javascript" src="oper.js"></script>
+</head>
+
+<body>
+
+
+<script type="text/javascript">
+
+
+
+
+var topo = new nx.graphic.Topology({
+width: 800,
+height: 800,
+showIcon: true,
+adaptive: true,
+dataProcessor: "auto",
+layout: "auto",
+nodeConfig: {
+label: 'model.id',
+x:'model.X',
+y:'model.Y',
+status:'model.status',
+name:'model.name',
+iconType:'model.icon'
+},
+
+
+linkConfig: {
+//linkType: 'parallel'
+},
+identityKey: 'id'
+
+
+});
+
+//set data
+topo.on('ready', function() {
+topo.data(topologyData);
+
+});
+
+topo.on('topologyGenerated', function(sender) {
+  //var topo = this.view('topo');
+               // get layer
+
+               var colorTable = ['#C3A5E4', '#75C6EF', '#CBDA5C', '#ACAEB1 ', '#2CC86F'];
+
+               topo.attachLayer("status", "NodeStatus");
+               var statusLayer = topo.getLayer("status");
+               // call layer API
+               //statusLayer.turnGreen()
+
+               topo.eachNode(function(node) {
+
+                if((node._model._data.flag == 'operational') && (node._model._data.status == 'operational') )
+                {
+                    node.dot.set("fill", "#0f0");
+                }
+                else if ((node._model._data.flag == 'configured') && (node._model._data.status == 'operational'))
+                {
+                 node.dot.set("fill", "#FFA500");
+
+                }
+                else
+                {
+                 node.dot.set("fill", "#FF0000");
+
+                }
+                })
+ });
+
+var colorTable = ['#C3A5E4', '#75C6EF', '#CBDA5C', '#ACAEB1 ', '#2CC86F'];
+   //DEFINE A LAYER
+   nx.define("NodeStatus", nx.graphic.Topology.Layer, {
+       methods: {
+           draw: function() {
+               var topos = topo;
+               topos.eachNode(function(node) {
+                   var dot = new nx.graphic.Circle({
+                       r: 6,
+                       cx: -20,
+                       cy: -20
+                   });
+                   var color = "#f00";
+                   if (node.model().get("id") > 2) {
+                       color = "#0f0";
+                   }
+                   dot.set("fill", color);
+                   dot.attach(node);
+                   node.dot = dot;
+               }, this);
+           },
+           turnGreen: function() {
+               var topo = this.topology();
+               topo.eachNode(function(node) {
+                   node.dot.set("fill", "#0f0");
+               })
+           },
+           random: function(name) {
+               var topo = this.topology();
+
+                   topo.getNode(name).dot.set("fill", colorTable[Math.floor(Math.random() * 5)]);
+
+           }
+       }
+   });
+
+
+//create app
+var app = new nx.ui.Application();
+//attach topo to app;
+topo.attach(app);
+
+
+
+</script>

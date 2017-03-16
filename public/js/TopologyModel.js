@@ -1,4 +1,4 @@
-define(['linkMode', 'properties', 'jquery', 'd3','bootstrap'], function(linkMode, properties, $,d3) {
+define(['linkMode', 'properties', 'jquery', 'd3','axios','bootstrap'], function(linkMode, properties, $,d3, axios) {
     nx.define('com.cisco.TopologyModel', nx.data.ObservableObject, {
         properties: {
             nodeId: 1,
@@ -108,15 +108,20 @@ define(['linkMode', 'properties', 'jquery', 'd3','bootstrap'], function(linkMode
             },
             setLinkMod: function(isVirtual) {
                 linkMode.setFlag(true);
-                if(isVirtual){
+                if(isVirtual == "virtual"){
                   linkMode.setVirtualFlag(true);
                 }
+                if(isVirtual == "dynamic"){
+                  linkMode.setDynamicFlag(true);
+                }
             },
-            resetLinkMod: function(isVirtual
-            ) {
+            resetLinkMod: function(isVirtual) {
                 linkMode.setFlag(false);
-                if(isVirtual){
+                if(isVirtual == "virtual"){
                   linkMode.setVirtualFlag(false);
+                }
+                if(isVirtual == "dynamic"){
+                  linkMode.setDynamicFlag(false);
                 }
             },
             createLinkPatchPanel: function(inLink) {

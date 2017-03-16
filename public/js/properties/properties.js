@@ -15,12 +15,13 @@ define(['socket','config'], function(io,config) {
     var getAllBgpRouting= orchestratorIp + "/getAllBgpRouting";
     var getAllVpnBgp = orchestratorIp + "/getAllVpnBgp";
     var getAllVpnBgpSession = orchestratorIp + "/getAllVpnBgpSession";
+    var getIp=orchestratorIp + "/getIp";
     var saveLog = rmsIp+"saveLog";
     var getLog = rmsIp+"getLog";
     var emsConfigIp=rmsIp+"emsConfiguration/";
     var publisherConfiguration=orchestratorIp+"/publisherConfiguration";
     var periodicConfiguration=orchestratorIp+"/periodicConfiguration";
-
+var fbMonitor = rmsIp+"emsStartAndStopConfiguration/";
     var vpnBgpIp = orchestratorIp + "/vpnBgp";
     var bgpRoutingIp = orchestratorIp + "/bgpRouting";
     var vpnBgpSessionIp = orchestratorIp + "/vpnBgpSession";
@@ -85,6 +86,7 @@ define(['socket','config'], function(io,config) {
         vpnPolicyIp: vpnPolicyIp,
         getAllVpn: getAllVpn,
         vpnBgpIp: vpnBgpIp,
+        fbMonitor:fbMonitor,
         bgpRoutingIp: bgpRoutingIp,
         vpnBgpSessionIp: vpnBgpSessionIp,
         schedulePolicyIp: schedulePolicyIp,
@@ -93,6 +95,8 @@ define(['socket','config'], function(io,config) {
         getAllVpnBgpSession: getAllVpnBgpSession,
         rmsIp: rmsIp,
         envIp: envIp,
+        getIp: getIp,
+
         emsConfigIp: emsConfigIp,
         periodicConfiguration: periodicConfiguration,
         publisherConfiguration: publisherConfiguration,
@@ -108,12 +112,12 @@ define(['socket','config'], function(io,config) {
         socket: function() {
             if (socket) {
                 if (socket.disconnected) {
-                    var socket = io.connect('http://localhost:9090');
+                    var socket = io.connect("http://"+window.location.hostname+":9090");
                     return socket;
                 }
                 return socket;
             } else {
-                var socket = io.connect('http://localhost:9090');
+                var socket = io.connect("http://"+window.location.hostname+":9090");
             }
             return socket;
         },

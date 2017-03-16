@@ -1,5 +1,5 @@
 define(['properties','nx'],function(propsMethods){
-   
+    var policyID;
     nx.define('com.cisco.TopologyView', nx.ui.Component, {
         view: {
             content: {
@@ -19,12 +19,18 @@ define(['properties','nx'],function(propsMethods){
                     linkConfig: {
                       color: function(link, model) {
                           debugger;
+                          virtualID = link._data.id;
+                          policyID = link._data.policyId;
                           if(link._data.virtual){
                              return '#CBDA5C';
                           }
+                          if(link._data.dynamic){
+                             return '#82CEAC';
+                          }
                            return '#75C6EF';
                        },
-                        linkType: 'curve'
+                        linkType: 'curve',
+                        policyID: 'policyID',
                     },  layoutType: 'USMap',
                     layoutConfig: {
                         longitude: 'model.longitude',

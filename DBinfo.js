@@ -1,32 +1,20 @@
 module.exports = {
     storeInDb: function(key, data) {
-
         var redis = require('redis');
         var client = redis.createClient();
-
-        console.log('key is ' + key);
-        console.log('data is ' + data);
         client.set(key, data, function(err, reply) {
-
             return "Done";
         });
-
-
-
     },
 
     fetchFromDb: function(cll, key, callback) {
 
         var redis = require('redis');
         var client = redis.createClient();
-
         var dat = "";
         client.get(key, function(err, object) {
-
-
             dat = "" + object;
             console.log("dat is " + dat);
-
             callback(object);
         });
 
@@ -52,6 +40,14 @@ var data = JSON.stringify(data);
 
     },
 
+    storeasDbList:function(key,data,callback){
+      var redis = require('redis'),
+      client = redis.createClient();
+    client.rpush(key,data, function(err, object) {
+        callback(object);
+    });
+
+    },
     fetchFromDbHash: function(cll, key, callback) {
 
         var redis = require('redis');

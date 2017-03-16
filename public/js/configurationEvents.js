@@ -7,9 +7,9 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
         'jsx!components/FBConfigurationForms/CreatePollingFrequencies', 'jsx!components/FBConfigurationForms/CreateSSL',
         'jsx!components/FBConfigurationForms/createOperational','jsx!components/FBConfigurationForms/createConfigurational',
         'jsx!components/FBConfigurationForms/operationalPorts','jsx!components/FBConfigurationForms/configurationalPorts',
-        'toastr', 'jsx!components/ComponentForms/CloneFb','linkMode','services/renderService'
+        'toastr', 'jsx!components/ComponentForms/CloneFb','linkMode','services/renderService', 'axios'
     ],
-    function(properties, toastr, React, ReactDom, CreateBridge, CreatePort, CreateController, CreateLLDP, CreateARP, CreatePollingFrequencies, CreateSSL, CreateOperational, CreateConfigurational, OperationalPorts, ConfigurationalPorts, toastr, CloneFb,linkMode,renderService) {
+    function(properties, toastr, React, ReactDom, CreateBridge, CreatePort, CreateController, CreateLLDP, CreateARP, CreatePollingFrequencies, CreateSSL, CreateOperational, CreateConfigurational, OperationalPorts, ConfigurationalPorts, toastr, CloneFb,linkMode,renderService,axios) {
         var dom = null;
         var mode;
         var ref;
@@ -111,26 +111,36 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                     var rows = [];
                     for (i = 0; i < result.OS.length; i++) {
                         var tr = $('<tr>')
-                        tr.append("<td> <input type='radio' name='os' value=" + result.OS[i].name + "></input> </td>");
+                        tr.append("<td> <input type='radio' name='os' value='"+ result.OS[i].name +"'></input> </td>");
                         tr.append($('<td>').append(result.OS[i].name));
                         $("#viewOsTemplate").find('tbody')
                             .append(tr);
                     }
                     for (i = 0; i < result.TS.length; i++) {
                         var tr = $('<tr>')
-                        tr.append("<td> <input type='radio' name='ts' value=" + result.TS[i].name + "></input> </td>");
+                        tr.append("<td> <input type='radio' name='ts' value='"+ result.TS[i].name +"'></input> </td>");
                         tr.append($('<td>').append(result.TS[i].name));
                         $("#viewTransceiverHardwareTemplate").find('tbody')
                             .append(tr);
                     }
                     for (i = 0; i < result.HW.length; i++) {
                         var tr = $('<tr>')
-                        tr.append("<td> <input type='radio' name='hw' value=" + result.HW[i].name + "></input> </td>");
+                        tr.append("<td> <input type='radio' name='hw' value='"+ result.HW[i].name +"'></input> </td>");
                         tr.append($('<td>').append(result.HW[i].name));
                         $("#viewHardwareTemplate").find('tbody')
                             .append(tr);
                     }
-
+                })
+                var fb_device_name = node.get("label");
+                var URLForAssignedTemplates = properties.templateIp + "/"+ fb_device_name + "/getAssignTemplates";
+                axios.get(URLForAssignedTemplates).then(function(response){
+                  if(response){
+                    var data = response.data;
+                    debugger;
+                    $('input[name="os"][value="'+data.fbOS+'"]').prop('checked', true);
+                    $('input[name="ts"][value="'+data.fbTS+'"]').prop('checked', true);
+                    $('input[name="hw"][value="'+data.fbHW+'"]').prop('checked', true);
+                  }
                 })
 
                 $("#assigningTemplates").click(function() {
@@ -241,9 +251,9 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                 var collection;
                 $.get(getURL, function(result) {
                     collection = result;
-                    var portTable = $("#viewPort");
+                    var result = $("#viewPort");
                     var rows = [];
-                    result.forEach(function(v, i) {
+                    collection.forEach(function(v, i) {
                         var tr = $('<tr>')
                         tr.append($('<td class=portName>').append(v.name));
                         tr.append($('<td>').append(""));
@@ -304,7 +314,6 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                             document.getElementById('createPortForm'));
                     })
                 })
-
 
             },
 
@@ -396,14 +405,14 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                       .attr(
                           'id');
                   switch (formID) {
-                      case 'fbOperational':
-                          self[0].props.mode = "deploy";
-                          console.log('fbOperational');
-                          debugger;
-                          $(".FormOperational button").click();
-                          var row = self[2].refs.grid.gridOptions.rowData;
-                          debugger;
-                          break;
+                      // case 'fbOperational':
+                      //     self[0].props.mode = "deploy";
+                      //     console.log('fbOperational');
+                      //     debugger;
+                      //     $(".FormOperational button").click();
+                      //     var row = self[2].refs.grid.gridOptions.rowData;
+                      //     debugger;
+                      //     break;
 
                       case 'fbConfigurational':
                           self[1].props.mode = "deploy";
@@ -419,14 +428,14 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                             .attr(
                                 'id');
                         switch (formID) {
-                            case 'fbOperational':
-                                self[0].props.mode = "save";
-                                console.log('fbOperational');
-                                debugger;
-                                $(".FormOperational button").click();
-                                renderService.pushData(fbName);
-                                debugger;
-                                break;
+                            // case 'fbOperational':
+                            //     self[0].props.mode = "save";
+                            //     console.log('fbOperational');
+                            //     debugger;
+                            //     $(".FormOperational button").click();
+                            //     renderService.pushData(fbName);
+                            //     debugger;
+                            //     break;
 
                             case 'fbConfigurational':
                                 self[1].props.mode = "save";
@@ -544,7 +553,7 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                   operational({
                     "configurationEvents": this,
                     fbName: node.get("label"),
-                    saveMode: mode
+                    mode: mode
                   }),
                   document.getElementById('operationalForm'));
                   debugger;
@@ -553,7 +562,7 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                   configurational({
                     "configurationEvents": this,
                     fbName: node.get("label"),
-                    saveMode: mode
+                    mode: mode
                   }),
                   document.getElementById('configurationalForm'));
                   a.push(op);
@@ -738,16 +747,18 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
 
                 }, "linkCounter");
 
-
+                var port1=this.getSourceNodeDetails().data.replace(/\//g, "@")
+                var port2=$("input[name='portselcted']:checked").next().text().replace(/\//g, "@")
 
                 var postURL1 = urlToSend +
-                    this.getSourceNodeDetails().node + "/" + this.getSourceNodeDetails().data +
+                    this.getSourceNodeDetails().node + "/" + port1 +
                     "/false";
                 var postURL2 = urlToSend +
                     self
                     .node()
-                    .get("label") + "/" + $("input[name='portselcted']:checked").next().text() +
+                    .get("label") + "/" + port2 +
                     "/false";
+                    console.log(port1 +" -------- "+port2)
                 if (this.getSourceNodeDetails().iconType == "patch-panel" || this.getSourceNodeDetails().iconType == "optical-switch" || this.getSourceNodeDetails().iconType == "host") {
                     var socket = properties.socket();
 
@@ -813,17 +824,18 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
             },
 
             initFStoOB: function(self) {
-
                 this.setSourceSelected(false)
-
                 var saveLink = properties.createLink;
+                var port1=this.getSourceNodeDetails().data.replace(/\//g, "@")
+var port2=$("input[name='portselcted']:checked").next().text().replace(/\//g, "@")
+console.log(port1 +" -------- "+port2)
                 var postURL1 = urlToSend +
-                    this.getSourceNodeDetails().node + "/" + this.getSourceNodeDetails().data +
+                    this.getSourceNodeDetails().node + "/" +port1 +
                     "/false";
                 var postURL2 = urlToSend +
                     self
                     .node()
-                    .get("label") + "/" + $("input[name='portselcted']:checked").next().text() +
+                    .get("label") + "/" + port2 +
                     "/false";
 
                 var socket = properties.socket();
@@ -847,20 +859,31 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                 srcData = {};
                 if (this.getSourceNodeDetails().iconType == "fb-icon") {
                     srcData.name = this.getSourceNodeDetails().node;
-
                     srcData.link = {
-                        "l1-switch-port": $("input[name='portselcted']:checked").next().text(),
-                        "fb-port": this.getSourceNodeDetails().data
+                    							"fbPort": this.getSourceNodeDetails().data,
+                    							"l1SwitchNode": self.node().get("label"),
+                    							"l1SwitchPort": $("input[name='portselcted']:checked").next().text(),
+                    							"maxBandwidth": {
+                    								"unit": "Gbps",
+                    								"value": 10
+                    							}
+                      //  "l1-switch-port": $("input[name='portselcted']:checked").next().text(),
+                      //  "fb-port": this.getSourceNodeDetails().data
                     }
                 } else if (self
                     .node()
                     .iconType() == "fb-icon") {
-                    srcData.name = self
-                        .node()
-                        .get("label");
+                    srcData.name = self.node().get("label");
                     srcData.link = {
-                        "l1-switch-port": this.getSourceNodeDetails().data,
-                        "fb-port": $("input[name='portselcted']:checked").next().text()
+                                  "fbPort": $("input[name='portselcted']:checked").next().text(),
+                                  "l1SwitchNode": this.getSourceNodeDetails().node,
+                                  "l1SwitchPort":  this.getSourceNodeDetails().data,
+                                  "maxBandwidth": {
+                                    "unit": "Gbps",
+                                    "value": 10
+                                  }
+                      //  "l1-switch-port": this.getSourceNodeDetails().data,
+                      //  "fb-port": $("input[name='portselcted']:checked").next().text()
                     }
                 }
                 socket.emit('fbtooptical', srcData);
@@ -935,6 +958,7 @@ define(["properties", "toastr", 'react', 'react-dom', 'jsx!components/FBConfigur
                 rightMenu.state.sourceData.sourceType = data.iconType;
                 rightMenu.state.sourceData.portData = data.data;
                 rightMenu.setState(rightMenu.state);
+
 
                 srcSelected = true;
                 srcDataNode = data;

@@ -45,7 +45,13 @@ define([
                 } else if (title == "virtual_linkReset") {
                     this.topologyModel.resetLinkMod("virtual");
                     return;
-                }
+                } else  if (title == "dynamicBandwidth_linkSet") {
+                        this.topologyModel.setLinkMod("dynamic");
+                        return;
+                    } else if (title == "dynamicBandwidth_linkReset") {
+                        this.topologyModel.resetLinkMod("dynamic");
+                        return;
+                    }
             this.setState({
                 bootstrapTitle: "Add " + title,
                 iconType: iconDetails,

@@ -61,14 +61,27 @@ define([
               "title":"Port"
             }
           }
+        },
+        "puppet":{
+          "type":"object",
+          "title":"Puppet",
+          "properties":{
+            "ipAddress":{
+              "type":"string",
+              "title":"IP Address"
+            },
+            "port":{
+              "type":"integer",
+              "title":"Port"
+            }
+          }
         }
       }
   };
   const uiSchema = {
 
   };
-  const formData = {
-  };
+
 
   var Environment= React.createClass({
     /*  onClick : function(e){
@@ -97,6 +110,11 @@ define([
                errors["kafka"]["ipAddress"].addError("Invalid Ip Address");
              }
         }
+        if(formData["puppet"]["ipAddress"]){
+          if (!formData["puppet"]["ipAddress"].match(ipv4)) {
+               errors["puppet"]["ipAddress"].addError("Invalid Ip Address");
+             }
+        }
 
 
 return errors;
@@ -104,7 +122,24 @@ return errors;
     onSubmit: function(e) {
         this.handleConfirm(e.formData)
     },
+    componentDidMount: function(){
+      var self = this;
+      debugger;
+      $.ajax({
+          url: properties.getIp,
+          type: 'get',
+          contentType: "application/json; charset=utf-8",
+          success: function(data) {
+          var envData = JSON.stringify(data);
+              self.setState({formData: envData});
+              console.log("Pushed the details.")
+          },
+          error: function(data) {
+              console.log("Error in saving details.")
+          }
 
+      });
+    },
     handleConfirm: function(data) {
         var self = this;
         $.ajax({
@@ -123,30 +158,11 @@ return errors;
         this.props.close();
     },
     getInitialState: function() {
-
         return {
-          formData:{}
+            formData:{}
         }
     },
-    componentDidMount: function(){
 
-      var self = this;
-      $.ajax({
-          url: properties.orchestratorIp+"/getIp",
-          type: 'get',
-          contentType: "application/json; charset=utf-8",
-          success: function(data) {
-            var formData = JSON.parse(data);
-              self.setState({formData: formData});
-              console.log("Pushed the details.")
-          },
-          error: function(data) {
-              console.log("Error in saving details.")
-          }
-
-      });
-
-    },
     render: function() {
         return (
             <div className={"modal-content " + this.props.className}>

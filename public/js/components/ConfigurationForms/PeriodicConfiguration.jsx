@@ -47,15 +47,26 @@ define([
         getInitialState: function() {
             return {}
         },
+        handleCancel:function(){
+          this.props.setHidden("Periodic");
+        },
         render: function() {
             return (
                 <div className={this.props.className}>
+                  <div className="modal-header">
+                      <h3>{this.props.header}<button type="button" className="close" onClick={this.handleCancel}>
+                          &times;
+                      </button></h3>
+
+                  </div>
                     <div className="configuration">
                         <PeriodicConfiguration schema={schema} uiSchema={uiSchema} formData={formData} onError={errors => {
                             console.log("i am errors" + errors);
                         }} onSubmit={this.onSubmit}>
                             <div>
                                 <button type="submit" className="btn  btn-primary btn-sm" data="Save">Save</button>
+                                  <button onClick={this.handleCancel} type="button" className={"btn btn-sm btn-default"+this.props.buttonClassName}
+                                  data="Cancel">Cancel</button>
                             </div>
                         </PeriodicConfiguration>
                     </div>
